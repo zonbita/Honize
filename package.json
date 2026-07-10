@@ -1,0 +1,35 @@
+{
+  "name": "honize",
+  "version": "1.0.0",
+  "description": "Professional web design landing — NestJS + Tailwind",
+  "scripts": {
+    "build": "npm run build:css && nest build",
+    "build:css": "npx tailwindcss -i ./public/css/input.css -o ./public/css/styles.css --minify",
+    "watch:css": "npx tailwindcss -i ./public/css/input.css -o ./public/css/styles.css --watch",
+    "dev": "npm run start:dev",
+    "prestart": "npm run build:css",
+    "start": "nest start",
+    "prestart:dev": "npm run build:css",
+    "start:dev": "concurrently \"npm run watch:css\" \"nest start --watch\"",
+    "start:prod": "node dist/main"
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.0.0",
+    "@nestjs/core": "^11.0.0",
+    "@nestjs/platform-express": "^11.0.0",
+    "express-handlebars": "^8.0.1",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.1"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^11.0.0",
+    "@nestjs/schematics": "^11.0.0",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.0.0",
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^9.1.0",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.0"
+  }
+}

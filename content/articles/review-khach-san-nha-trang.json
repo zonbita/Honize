@@ -1,0 +1,25 @@
+{
+  "id": 4,
+  "slug": "review-khach-san-nha-trang",
+  "title": "Review khách sạn 5 sao tại Nha Trang",
+  "excerpt": "Đánh giá chi tiết các khách sạn 5 sao tại Nha Trang — giá, tiện ích và trải nghiệm thực tế.",
+  "thumbnail": "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=80&h=56&fit=crop",
+  "author": "Phạm Thị D",
+  "authorAvatar": "PD",
+  "category": "Du lịch",
+  "status": "scheduled",
+  "publishedAt": null,
+  "scheduledAt": "2026-07-12T08:00:00.000Z",
+  "views": 0,
+  "seo": {
+    "metaTitle": "Review khách sạn 5 sao Nha Trang",
+    "metaDescription": "Top khách sạn 5 sao Nha Trang đáng booking",
+    "seoUrl": "/review-khach-san-nha-trang",
+    "originalUrl": "/blog/4",
+    "redirect": null,
+    "score": 55,
+    "indexStatus": "warning"
+  },
+  "createdAt": "2026-07-07T09:00:00.000Z",
+  "updatedAt": "2026-07-07T09:00:00.000Z"
+}

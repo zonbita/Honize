@@ -1,0 +1,314 @@
+{{!-- Top Header --}}
+<header class="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200 bg-white px-6">
+  <h1 class="text-xl font-bold text-slate-800">{{pageTitle}}</h1>
+
+  <div class="flex items-center gap-4">
+    <div class="relative hidden md:block">
+      <svg class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+      <input type="text" placeholder="Tìm kiếm bài viết..." class="dash-input w-64 pl-10" />
+      <span class="absolute right-3 top-1/2 -translate-y-1/2 rounded border border-slate-200 px-1.5 py-0.5 text-[10px] text-slate-400">⌘K</span>
+    </div>
+
+    <button class="dash-btn-secondary hidden sm:flex">
+      <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+      Bộ lọc
+    </button>
+
+    <button class="relative rounded-lg p-2 text-slate-500 hover:bg-slate-100">
+      <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+      <span class="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">{{user.notifications}}</span>
+    </button>
+
+    <div class="flex items-center gap-3 border-l border-slate-200 pl-4">
+      <div class="flex h-9 w-9 items-center justify-center rounded-full bg-blue-500 text-xs font-bold text-white">{{user.avatar}}</div>
+      <div class="hidden sm:block">
+        <p class="text-sm font-semibold text-slate-800">{{user.name}}</p>
+        <p class="text-xs text-slate-400">{{user.role}}</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="flex-1 overflow-y-auto p-6">
+  {{!-- Stats Cards --}}
+  <div class="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+    {{#each stats}}
+    <div class="dash-stat-card">
+      <div class="flex items-start justify-between">
+        <div>
+          <p class="text-sm text-slate-500">{{this.label}}</p>
+          <p class="mt-1 text-2xl font-bold text-slate-800">{{this.value}}</p>
+          <p class="mt-1 text-xs font-medium {{#if this.trendUp}}text-green-600{{else}}text-red-500{{/if}}">
+            {{this.trend}} so với tháng trước
+          </p>
+        </div>
+        <div class="flex h-11 w-11 items-center justify-center rounded-xl {{this.iconBg}} {{this.iconColor}}">
+          {{#if (eq this.icon "document")}}
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          {{else if (eq this.icon "check")}}
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          {{else if (eq this.icon "edit")}}
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+          {{else}}
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+
+  {{!-- Main Grid: Articles + SEO Check --}}
+  <div class="mb-6 grid grid-cols-1 gap-6 xl:grid-cols-3">
+    {{!-- Article Table --}}
+    <div class="dash-card xl:col-span-2">
+      <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 px-5 py-4">
+        <div class="flex flex-wrap gap-1">
+          {{#each articleTabs}}
+          <button class="dash-tab {{#if this.active}}dash-tab-active{{/if}}">{{this.label}}</button>
+          {{/each}}
+        </div>
+        <div class="flex gap-2">
+          <button class="dash-btn-secondary text-xs">Xuất dữ liệu</button>
+          <a href="/dashboard/articles/new" class="dash-btn-primary text-xs">
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            Tạo bài viết
+          </a>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm">
+          <thead>
+            <tr class="border-b border-slate-100 bg-slate-50/80 text-xs font-semibold uppercase text-slate-500">
+              <th class="px-5 py-3"><input type="checkbox" class="rounded border-slate-300" /></th>
+              <th class="px-3 py-3">Bài viết</th>
+              <th class="px-3 py-3">Tác giả</th>
+              <th class="px-3 py-3">Danh mục</th>
+              <th class="px-3 py-3">Ngày xuất bản</th>
+              <th class="px-3 py-3">Trạng thái</th>
+              <th class="px-3 py-3">Lượt xem</th>
+              <th class="px-3 py-3">Thao tác</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each articles}}
+            <tr class="border-b border-slate-50 hover:bg-slate-50/50">
+              <td class="px-5 py-3"><input type="checkbox" class="rounded border-slate-300" /></td>
+              <td class="px-3 py-3">
+                <div class="flex items-center gap-3">
+                  <img src="{{this.thumbnail}}" alt="" class="h-10 w-14 rounded-lg object-cover" />
+                  <span class="max-w-[200px] truncate font-medium text-slate-800">{{this.title}}</span>
+                </div>
+              </td>
+              <td class="px-3 py-3">
+                <div class="flex items-center gap-2">
+                  <span class="flex h-7 w-7 items-center justify-center rounded-full bg-slate-200 text-[10px] font-bold text-slate-600">{{this.authorAvatar}}</span>
+                  <span class="whitespace-nowrap text-slate-600">{{this.author}}</span>
+                </div>
+              </td>
+              <td class="px-3 py-3"><span class="dash-badge {{this.categoryColor}}">{{this.category}}</span></td>
+              <td class="px-3 py-3 whitespace-nowrap text-slate-500">{{this.publishedAt}}</td>
+              <td class="px-3 py-3"><span class="dash-badge {{this.statusColor}}">{{this.status}}</span></td>
+              <td class="px-3 py-3 text-slate-600">{{this.views}}</td>
+              <td class="px-3 py-3">
+                <div class="flex gap-1">
+                  <a href="/dashboard/articles/{{this.slug}}/edit" class="rounded p-1.5 text-slate-400 hover:bg-blue-50 hover:text-blue-600"><svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></a>
+                  <a href="/blog/{{this.slug}}" target="_blank" class="rounded p-1.5 text-slate-400 hover:bg-green-50 hover:text-green-600" title="Xem bài"><svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg></a>
+                </div>
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="flex items-center justify-between border-t border-slate-100 px-5 py-3">
+        <p class="text-xs text-slate-500">Hiển thị {{articles.length}} bài viết (lưu tại content/articles/)</p>
+        <div class="flex items-center gap-1">
+          <button class="dash-page-btn">&laquo;</button>
+          {{#each pagination}}
+          {{#if (eq this.page 0)}}
+          <span class="px-2 text-slate-400">...</span>
+          {{else}}
+          <button class="dash-page-btn {{#if this.active}}dash-page-active{{/if}}">{{this.page}}</button>
+          {{/if}}
+          {{/each}}
+          <button class="dash-page-btn">&raquo;</button>
+        </div>
+      </div>
+    </div>
+
+    {{!-- SEO Check --}}
+    <div class="dash-card flex flex-col">
+      <div class="border-b border-slate-100 px-5 py-4">
+        <h2 class="font-bold text-slate-800">Kiểm tra SEO</h2>
+      </div>
+      <div class="flex-1 p-5">
+        <ul class="space-y-3">
+          {{#each seoChecks}}
+          <li class="flex items-center justify-between text-sm">
+            <span class="text-slate-600">{{this.label}}</span>
+            <span class="flex items-center gap-1.5 text-xs font-medium {{#if this.ok}}text-green-600{{else}}text-orange-600{{/if}}">
+              {{#if this.ok}}
+              <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              {{else}}
+              <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+              {{/if}}
+              {{this.status}}
+            </span>
+          </li>
+          {{/each}}
+        </ul>
+
+        <div class="mt-6 flex flex-col items-center">
+          <div class="relative h-32 w-32">
+            <svg class="h-32 w-32 -rotate-90" viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="52" fill="none" stroke="#e2e8f0" stroke-width="10"/>
+              <circle cx="60" cy="60" r="52" fill="none" stroke="#22c55e" stroke-width="10" stroke-linecap="round"
+                stroke-dasharray="326.7" stroke-dashoffset="{{seoGaugeOffset seoScore}}"/>
+            </svg>
+            <div class="absolute inset-0 flex flex-col items-center justify-center">
+              <span class="text-3xl font-bold text-slate-800">{{seoScore}}</span>
+            </div>
+          </div>
+          <p class="mt-2 text-sm font-semibold text-slate-700">Điểm SEO tổng thể</p>
+          <p class="text-xs text-green-600">Rất tốt</p>
+          <button class="dash-btn-secondary mt-4 w-full text-xs">Xem chi tiết phân tích</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{!-- SEO Link Table --}}
+  <div class="dash-card mb-6">
+    <div class="flex items-center justify-between border-b border-slate-100 px-5 py-4">
+      <h2 class="font-bold text-slate-800">SEO Link</h2>
+      <button class="dash-btn-primary text-xs">
+        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+        Thêm SEO Link
+      </button>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-sm">
+        <thead>
+          <tr class="border-b border-slate-100 bg-slate-50/80 text-xs font-semibold uppercase text-slate-500">
+            <th class="px-5 py-3">Slug</th>
+            <th class="px-3 py-3">URL gốc</th>
+            <th class="px-3 py-3">URL SEO</th>
+            <th class="px-3 py-3">Index</th>
+            <th class="px-3 py-3">Redirect</th>
+            <th class="px-3 py-3">Meta title</th>
+            <th class="px-3 py-3">Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each seoLinks}}
+          <tr class="border-b border-slate-50 hover:bg-slate-50/50">
+            <td class="px-5 py-3 font-medium text-slate-800">{{this.slug}}</td>
+            <td class="px-3 py-3 text-slate-500">{{this.originalUrl}}</td>
+            <td class="px-3 py-3 text-blue-600">{{this.seoUrl}}</td>
+            <td class="px-3 py-3"><span class="dash-badge {{this.indexColor}}">{{this.indexStatus}}</span></td>
+            <td class="px-3 py-3 text-slate-600">{{this.redirect}}</td>
+            <td class="px-3 py-3 text-slate-600">{{this.metaTitle}}</td>
+            <td class="px-3 py-3">
+              <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 text-xs font-bold {{this.scoreColor}}">{{this.score}}</span>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    <div class="border-t border-slate-100 px-5 py-3 text-right">
+      <a href="#" class="text-xs font-semibold text-blue-600 hover:text-blue-700">Xem tất cả SEO Link →</a>
+    </div>
+  </div>
+
+  {{!-- Bottom Analytics Row --}}
+  <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+    {{!-- Traffic Chart --}}
+    <div class="dash-card lg:col-span-2">
+      <div class="flex items-center justify-between border-b border-slate-100 px-5 py-4">
+        <div>
+          <h2 class="font-bold text-slate-800">Lưu lượng truy cập bài viết</h2>
+          <div class="mt-1 flex items-center gap-2">
+            <span class="text-2xl font-bold text-slate-800">{{trafficTotal}}</span>
+            <span class="text-xs font-medium text-green-600">{{trafficTrend}}</span>
+          </div>
+        </div>
+        <select class="dash-input text-xs">
+          <option>7 ngày qua</option>
+          <option>30 ngày qua</option>
+          <option>90 ngày qua</option>
+        </select>
+      </div>
+      <div class="p-5">
+        <svg viewBox="0 0 600 180" class="w-full" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path d="M0,140 L60,120 L120,100 L180,110 L240,80 L300,60 L360,70 L420,40 L480,50 L540,30 L600,20 L600,180 L0,180 Z" fill="url(#chartGrad)"/>
+          <path d="M0,140 L60,120 L120,100 L180,110 L240,80 L300,60 L360,70 L420,40 L480,50 L540,30 L600,20" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          {{#each chartLabels}}
+          <text x="{{this.x}}" y="175" fill="#94a3b8" font-size="11" text-anchor="middle">{{this.label}}</text>
+          {{/each}}
+        </svg>
+      </div>
+    </div>
+
+    {{!-- Quick Stats --}}
+    <div class="dash-card">
+      <div class="border-b border-slate-100 px-5 py-4">
+        <h2 class="font-bold text-slate-800">Thống kê nhanh</h2>
+      </div>
+      <div class="space-y-4 p-5">
+        {{#each quickStats}}
+        <div class="flex items-center justify-between">
+          <span class="text-sm text-slate-600">{{this.label}}</span>
+          <span class="text-lg font-bold {{this.color}}">{{this.value}}</span>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+
+  {{!-- Top Articles + Top SEO --}}
+  <div class="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
+    <div class="dash-card">
+      <div class="border-b border-slate-100 px-5 py-4">
+        <h2 class="font-bold text-slate-800">Top bài viết nhiều lượt xem</h2>
+      </div>
+      <div class="space-y-4 p-5">
+        {{#each topArticles}}
+        <div>
+          <div class="mb-1 flex items-center justify-between text-sm">
+            <span class="mr-4 truncate text-slate-700">{{this.title}}</span>
+            <span class="whitespace-nowrap font-semibold text-slate-800">{{this.views}}</span>
+          </div>
+          <div class="h-2 overflow-hidden rounded-full bg-slate-100">
+            <div class="h-full rounded-full bg-blue-500" style="width: {{this.percent}}%"></div>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+
+    <div class="dash-card">
+      <div class="border-b border-slate-100 px-5 py-4">
+        <h2 class="font-bold text-slate-800">Top trang SEO (theo điểm)</h2>
+      </div>
+      <div class="space-y-3 p-5">
+        {{#each topSeoPages}}
+        <div class="flex items-center gap-3">
+          <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-xs font-bold text-slate-600">{{this.rank}}</span>
+          <span class="flex-1 truncate text-sm text-slate-700">{{this.url}}</span>
+          <span class="flex h-7 min-w-[2rem] items-center justify-center rounded-full {{this.scoreColor}} px-2 text-xs font-bold text-white">{{this.score}}</span>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</div>

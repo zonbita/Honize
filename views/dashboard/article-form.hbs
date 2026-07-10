@@ -1,0 +1,131 @@
+<header class="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200 bg-white px-6">
+  <div class="flex items-center gap-4">
+    <a href="/dashboard" class="text-slate-400 hover:text-slate-600">← Quay lại</a>
+    <h1 class="text-xl font-bold text-slate-800">{{pageTitle}}</h1>
+  </div>
+</header>
+
+<div class="flex-1 overflow-y-auto p-6">
+  <form id="article-form" method="POST" action="{{#if isEdit}}/dashboard/articles/{{article.slug}}{{else}}/dashboard/articles{{/if}}" class="mx-auto max-w-5xl space-y-6">
+    <div class="dash-card p-6 space-y-4">
+      <h2 class="font-bold text-slate-800">Thông tin bài viết</h2>
+
+      <div>
+        <label class="mb-1 block text-sm font-medium text-slate-700">Tiêu đề *</label>
+        <input name="title" value="{{article.title}}" required class="dash-input w-full" placeholder="Nhập tiêu đề bài viết" />
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label class="mb-1 block text-sm font-medium text-slate-700">Slug (URL)</label>
+          <input name="slug" value="{{article.slug}}" class="dash-input w-full" placeholder="tu-dong-tao-tu-tieu-de" />
+        </div>
+        <div>
+          <label class="mb-1 block text-sm font-medium text-slate-700">Danh mục</label>
+          <select name="category" class="dash-input w-full">
+            <option {{#if (eq article.category 'Du lịch')}}selected{{/if}}>Du lịch</option>
+            <option {{#if (eq article.category 'Công nghệ')}}selected{{/if}}>Công nghệ</option>
+            <option {{#if (eq article.category 'Marketing')}}selected{{/if}}>Marketing</option>
+            <option {{#if (eq article.category 'Tin tức')}}selected{{/if}}>Tin tức</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label class="mb-1 block text-sm font-medium text-slate-700">Mô tả ngắn</label>
+        <textarea name="excerpt" rows="2" class="dash-input w-full" placeholder="Tóm tắt bài viết">{{article.excerpt}}</textarea>
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label class="mb-1 block text-sm font-medium text-slate-700">Tác giả</label>
+          <input name="author" value="{{article.author}}" class="dash-input w-full" />
+        </div>
+        <div>
+          <label class="mb-1 block text-sm font-medium text-slate-700">Trạng thái</label>
+          <select name="status" class="dash-input w-full">
+            <option value="draft" {{#if (eq article.status 'draft')}}selected{{/if}}>Bản nháp</option>
+            <option value="published" {{#if (eq article.status 'published')}}selected{{/if}}>Đã xuất bản</option>
+            <option value="scheduled" {{#if (eq article.status 'scheduled')}}selected{{/if}}>Đã lên lịch</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label class="mb-1 block text-sm font-medium text-slate-700">Ảnh thumbnail (URL)</label>
+        <input name="thumbnail" value="{{article.thumbnail}}" class="dash-input w-full" placeholder="https://..." />
+      </div>
+    </div>
+
+    <div class="dash-card overflow-hidden p-6 space-y-3">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="font-bold text-slate-800">Nội dung bài viết</h2>
+          <p class="text-xs text-slate-500">Trình soạn thảo TinyMCE — lưu HTML vào <code class="rounded bg-slate-100 px-1">{{#if article.slug}}{{article.slug}}{{else}}slug{{/if}}.md</code></p>
+        </div>
+      </div>
+      <textarea id="article-content" name="content" class="w-full">{{article.content}}</textarea>
+    </div>
+
+    <div class="dash-card p-6 space-y-4">
+      <h2 class="font-bold text-slate-800">SEO</h2>
+      <div>
+        <label class="mb-1 block text-sm font-medium text-slate-700">Meta title</label>
+        <input name="metaTitle" value="{{article.metaTitle}}" class="dash-input w-full" />
+      </div>
+      <div>
+        <label class="mb-1 block text-sm font-medium text-slate-700">Meta description</label>
+        <textarea name="metaDescription" rows="2" class="dash-input w-full">{{article.metaDescription}}</textarea>
+      </div>
+      <div>
+        <label class="mb-1 block text-sm font-medium text-slate-700">SEO URL</label>
+        <input name="seoUrl" value="{{article.seoUrl}}" class="dash-input w-full" placeholder="/slug-bai-viet" />
+      </div>
+    </div>
+
+    <div class="flex gap-3">
+      <button type="submit" class="dash-btn-primary">{{#if isEdit}}Cập nhật{{else}}Tạo bài viết{{/if}}</button>
+      <a href="/dashboard" class="dash-btn-secondary">Hủy</a>
+    </div>
+  </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/tinymce@7.6.1/tinymce.min.js"></script>
+<script>
+  tinymce.init({
+    selector: '#article-content',
+    height: 520,
+    menubar: false,
+    license_key: 'gpl',
+    base_url: 'https://cdn.jsdelivr.net/npm/tinymce@7.6.1',
+    suffix: '.min',
+    promotion: false,
+    branding: false,
+    language: 'vi',
+    language_url: 'https://cdn.jsdelivr.net/npm/tinymce-i18n@24.12.9/langs7/vi.js',
+    plugins: [
+      'lists', 'link', 'code', 'autoresize', 'fullscreen', 'wordcount',
+      'searchreplace', 'table', 'image', 'media', 'charmap', 'anchor',
+    ],
+    toolbar: [
+      'blocks | alignleft aligncenter alignright alignjustify',
+      'bold italic link strikethrough removeformat',
+      'code forecolor backcolor superscript subscript underline',
+      'bullist numlist outdent indent | blockquote table image media charmap anchor',
+      'searchreplace fullscreen',
+    ].join(' | '),
+    block_formats: 'Đoạn văn=p; Tiêu đề 2=h2; Tiêu đề 3=h3; Tiêu đề 4=h4',
+    content_style: 'body { font-family: "Be Vietnam Pro", sans-serif; font-size: 15px; line-height: 1.7; color: #334155; }',
+    paste_as_text: false,
+    link_default_target: '_blank',
+    image_caption: true,
+    table_toolbar: 'tableprops tabledelete | tableinsertrowbefore tableinsertrowafter tabledeleterow | tableinsertcolbefore tableinsertcolafter tabledeletecol',
+    setup(editor) {
+      editor.on('change', () => editor.save());
+    },
+  });
+
+  document.getElementById('article-form').addEventListener('submit', () => {
+    tinymce.triggerSave();
+  });
+</script>

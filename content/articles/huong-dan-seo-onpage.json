@@ -1,0 +1,25 @@
+{
+  "id": 3,
+  "slug": "huong-dan-seo-onpage",
+  "title": "Hướng dẫn SEO on-page cho người mới bắt đầu",
+  "excerpt": "Hướng dẫn từng bước tối ưu SEO on-page: meta tags, heading, internal links và Core Web Vitals.",
+  "thumbnail": "https://images.unsplash.com/photo-1432888622747-4eb9a8f2c293?w=80&h=56&fit=crop",
+  "author": "Lê Văn C",
+  "authorAvatar": "LC",
+  "category": "Marketing",
+  "status": "draft",
+  "publishedAt": null,
+  "scheduledAt": null,
+  "views": 0,
+  "seo": {
+    "metaTitle": "Hướng dẫn SEO on-page",
+    "metaDescription": "SEO on-page cơ bản cho người mới bắt đầu",
+    "seoUrl": "/huong-dan-seo-onpage",
+    "originalUrl": "/blog/789",
+    "redirect": "302",
+    "score": 62,
+    "indexStatus": "warning"
+  },
+  "createdAt": "2026-07-08T11:00:00.000Z",
+  "updatedAt": "2026-07-08T11:00:00.000Z"
+}

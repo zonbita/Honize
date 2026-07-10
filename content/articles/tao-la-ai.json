@@ -1,0 +1,25 @@
+{
+  "id": 6,
+  "slug": "tao-la-ai",
+  "title": "Tao là ai",
+  "excerpt": "",
+  "thumbnail": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=80&h=56&fit=crop",
+  "author": "Admin",
+  "authorAvatar": "A",
+  "category": "Tin tức",
+  "status": "draft",
+  "publishedAt": null,
+  "scheduledAt": null,
+  "views": 0,
+  "seo": {
+    "metaTitle": "",
+    "metaDescription": "",
+    "seoUrl": "",
+    "originalUrl": "/blog/tao-la-ai",
+    "redirect": null,
+    "score": 0,
+    "indexStatus": "warning"
+  },
+  "createdAt": "2026-07-10T05:53:09.956Z",
+  "updatedAt": "2026-07-10T05:53:09.956Z"
+}
