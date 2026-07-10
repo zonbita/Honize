@@ -9,7 +9,11 @@ import { getDevRevision } from './shared/dev-reload';
 import { startDevWatcher } from './shared/dev-watcher';
 
 function resolveRoot(): string {
-  const candidates = [join(__dirname, '..'), join(__dirname, '..', '..')];
+  const candidates = [
+    process.cwd(),
+    join(__dirname, '..'),
+    join(__dirname, '..', '..'),
+  ];
   return candidates.find((dir) => existsSync(join(dir, 'views'))) ?? candidates[0];
 }
 

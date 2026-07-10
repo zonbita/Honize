@@ -1,0 +1,9 @@
+{
+  "buildCommand": "npm run build:css",
+  "functions": {
+    "src/main.ts": {
+      "includeFiles": "{views,public,content}/**",
+      "maxDuration": 30
+    }
+  }
+}
