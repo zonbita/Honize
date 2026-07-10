@@ -14,7 +14,7 @@ import {
 } from './articles.types';
 
 const CATEGORY_COLORS: Record<string, string> = {
-  'Du lịch': 'bg-blue-100 text-blue-700',
+  'Du lịch': 'bg-brand-100 text-brand-700',
   'Công nghệ': 'bg-purple-100 text-purple-700',
   Marketing: 'bg-pink-100 text-pink-700',
   'Giải pháp': 'bg-indigo-100 text-indigo-700',
@@ -438,8 +438,8 @@ export class ArticlesService {
         trend: '+12,5%',
         trendUp: true,
         icon: 'document',
-        iconBg: 'bg-blue-50',
-        iconColor: 'text-blue-500',
+        iconBg: 'bg-brand-50',
+        iconColor: 'text-brand-500',
       },
       {
         label: 'Đã xuất bản',

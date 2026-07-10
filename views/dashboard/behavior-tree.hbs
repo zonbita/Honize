@@ -4,7 +4,7 @@
     <p class="text-xs text-slate-500">Quản lý bài viết, SEO Link và luồng xử lý</p>
   </div>
   <div class="flex items-center gap-3">
-    <div class="flex h-9 w-9 items-center justify-center rounded-full bg-blue-500 text-xs font-bold text-white">{{user.avatar}}</div>
+    <div class="flex h-9 w-9 items-center justify-center rounded-full bg-brand-gold text-brand-950">{{user.avatar}}</div>
     <div class="hidden sm:block">
       <p class="text-sm font-semibold text-slate-800">{{user.name}}</p>
       <p class="text-xs text-slate-400">{{user.role}}</p>
@@ -28,9 +28,9 @@
   <div class="grid grid-cols-1 gap-6 xl:grid-cols-4">
     {{!-- Tree Structure --}}
     <div class="dash-card xl:col-span-3">
-      <div class="border-b border-slate-100 bg-gradient-to-r from-blue-600 to-blue-500 px-5 py-4">
+      <div class="border-b border-slate-100 bg-brand-gold px-5 py-4">
         <h2 class="text-lg font-bold text-white">Cấu trúc Behavior Tree</h2>
-        <p class="text-xs text-blue-100">Dashboard CMS Root → Selector → Sequence nodes</p>
+        <p class="text-xs text-brand-950/80">Dashboard CMS Root → Selector → Sequence nodes</p>
       </div>
       <div class="space-y-1 p-4">
         {{#each flatNodes}}
@@ -38,7 +38,7 @@
           <span class="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-xs font-bold
             {{#if (eq this.type 'root')}}bg-slate-800 text-white{{/if}}
             {{#if (eq this.type 'selector')}}bg-teal-100 text-teal-700{{/if}}
-            {{#if (eq this.type 'sequence')}}bg-blue-100 text-blue-700{{/if}}
+            {{#if (eq this.type 'sequence')}}bg-brand-100 text-brand-700{{/if}}
             {{#if (eq this.type 'condition')}}bg-green-100 text-green-700{{/if}}
             {{#if (eq this.type 'action')}}bg-orange-100 text-orange-700{{/if}}
           ">
@@ -69,7 +69,7 @@
         <ul class="space-y-3">
           {{#each legend}}
           <li class="flex gap-2 text-xs">
-            <span class="font-bold text-blue-600">{{this.label}}</span>
+            <span class="font-bold text-brand-600">{{this.label}}</span>
             <span class="text-slate-500">{{this.desc}}</span>
           </li>
           {{/each}}
@@ -93,10 +93,10 @@
   {{!-- Info boxes --}}
   <div class="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
     <div class="dash-card p-5">
-      <h3 class="mb-2 text-sm font-bold text-blue-700">Ứng dụng vào dashboard</h3>
+      <h3 class="mb-2 text-sm font-bold text-brand-700">Ứng dụng vào dashboard</h3>
       <ul class="space-y-1.5">
         {{#each applications}}
-        <li class="flex gap-2 text-xs text-slate-600"><span class="text-blue-500">•</span>{{this}}</li>
+        <li class="flex gap-2 text-xs text-slate-600"><span class="text-brand-500">•</span>{{this}}</li>
         {{/each}}
       </ul>
     </div>
@@ -124,7 +124,7 @@
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {{#each useCases}}
       <div class="dash-card p-5">
-        <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+        <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
           {{#if (eq this.icon 'document')}}
           <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
           {{else if (eq this.icon 'search')}}

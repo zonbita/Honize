@@ -96,7 +96,7 @@ export const dashboardData: DashboardData = {
   quickStats: [
     { label: 'Tỷ lệ index', value: '94,2%', color: 'text-green-600' },
     { label: 'Lỗi 404', value: '3', color: 'text-red-600' },
-    { label: 'Redirect 301', value: '12', color: 'text-blue-600' },
+    { label: 'Redirect 301', value: '12', color: 'text-brand-600' },
     { label: 'Redirect 302', value: '2', color: 'text-orange-600' },
   ],
   pagination: [
