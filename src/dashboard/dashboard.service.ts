@@ -1,6 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { ArticlesService } from '../articles/articles.service';
+import { ArticleStatus } from '../articles/articles.types';
 import { dashboardData } from '../data/dashboard.data';
+
+const ARTICLE_TABS: { label: string; status?: ArticleStatus }[] = [
+  { label: 'Tất cả' },
+  { label: 'Đã xuất bản', status: 'published' },
+  { label: 'Bản nháp', status: 'draft' },
+  { label: 'Đã lên lịch', status: 'scheduled' },
+  { label: 'Thùng rác', status: 'trash' },
+];
 
 @Injectable()
 export class DashboardService {
@@ -12,11 +21,12 @@ export class DashboardService {
       navItems: [
         { id: 'overview', label: 'Tổng quan', icon: 'grid', href: '/dashboard/behavior-tree' },
         { id: 'articles', label: 'Quản lý bài viết', icon: 'document', href: '/dashboard' },
-        { id: 'categories', label: 'Danh mục', icon: 'folder', href: '/dashboard' },
-        { id: 'media', label: 'Media', icon: 'image', href: '/dashboard' },
-        { id: 'seo', label: 'SEO Link', icon: 'link', href: '/dashboard' },
-        { id: 'users', label: 'Người dùng', icon: 'users', href: '/dashboard' },
-        { id: 'settings', label: 'Cài đặt', icon: 'settings', href: '/dashboard' },
+        { id: 'categories', label: 'Danh mục', icon: 'folder', href: '/dashboard/categories' },
+        { id: 'projects', label: 'Dự án mẫu', icon: 'layout', href: '/dashboard/projects' },
+        { id: 'media', label: 'Media', icon: 'image', href: '/dashboard/media' },
+        { id: 'seo', label: 'SEO Link', icon: 'link', href: '/dashboard/seo' },
+        { id: 'users', label: 'Người dùng', icon: 'users', href: '/dashboard/users' },
+        { id: 'settings', label: 'Cài đặt', icon: 'settings', href: '/dashboard/settings' },
       ],
       user: {
         name: 'Admin',
@@ -27,21 +37,40 @@ export class DashboardService {
     };
   }
 
-  getDashboardPage() {
-    const rawArticles = this.articlesService.findAll();
-    const articles = rawArticles.map((a) => this.articlesService.toDashboardRow(a));
-    const total = rawArticles.length;
+  getDashboardPage(statusFilter?: string) {
+    const validStatuses: ArticleStatus[] = ['published', 'draft', 'scheduled', 'trash'];
+    const activeStatus = validStatuses.includes(statusFilter as ArticleStatus)
+      ? (statusFilter as ArticleStatus)
+      : undefined;
+
+    const allArticles = this.articlesService.findAll(true);
+    const filtered = activeStatus
+      ? allArticles.filter((a) => a.status === activeStatus)
+      : allArticles.filter((a) => a.status !== 'trash');
+
+    const articles = filtered.map((a) => this.articlesService.toDashboardRow(a));
+    const articleTabs = ARTICLE_TABS.map((tab) => ({
+      label: tab.label,
+      href: tab.status ? `/dashboard?status=${tab.status}` : '/dashboard',
+      active: tab.status === activeStatus || (!tab.status && !activeStatus),
+    }));
 
     return {
       layout: 'dashboard',
       ...dashboardData,
-      stats: this.articlesService.computeStats(rawArticles),
+      articleTabs,
+      stats: this.articlesService.computeStats(allArticles.filter((a) => a.status !== 'trash')),
       articles,
-      seoLinks: rawArticles.map((a) => this.articlesService.toSeoLink(a)),
-      topArticles: this.articlesService.computeTopArticles(rawArticles),
-      topSeoPages: this.articlesService.computeTopSeoPages(rawArticles),
+      seoLinks: filtered.map((a) => this.articlesService.toSeoLink(a)),
+      topArticles: this.articlesService.computeTopArticles(
+        allArticles.filter((a) => a.status !== 'trash'),
+      ),
+      topSeoPages: this.articlesService.computeTopSeoPages(
+        allArticles.filter((a) => a.status !== 'trash'),
+      ),
       ...this.getSharedLayoutData('articles'),
-      articleCount: total,
+      articleCount: filtered.length,
+      activeStatus,
       chartLabels: [
         { x: 0, label: '04/07' },
         { x: 100, label: '05/07' },

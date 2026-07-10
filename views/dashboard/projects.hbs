@@ -1,0 +1,57 @@
+{{> dashboard/page-header }}
+
+<div class="flex-1 overflow-y-auto p-6">
+  <div class="mx-auto max-w-6xl space-y-6">
+    {{#if saved}}
+    <div class="rounded-lg bg-green-50 px-4 py-3 text-sm text-green-700">Đã lưu dự án. Trang chủ sẽ tự tải lại.</div>
+    {{/if}}
+
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <div>
+        <h2 class="text-lg font-bold text-slate-800">Dự Án Tiêu Biểu</h2>
+        <p class="text-xs text-slate-500">Quản lý thẻ dự án trên trang chủ · lưu tại <code class="rounded bg-slate-100 px-1">content/projects.json</code></p>
+      </div>
+      <a href="/dashboard/projects/new" class="dash-btn-primary">+ Thêm dự án</a>
+    </div>
+
+    <div class="dash-card p-6 space-y-4">
+      <h3 class="font-semibold text-slate-800">Danh mục lọc</h3>
+      <div class="flex flex-wrap gap-2">
+        {{#each projectCategories}}
+        <span class="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-700">{{this.name}}</span>
+        {{/each}}
+      </div>
+      <form method="POST" action="/dashboard/projects/categories" class="flex flex-wrap gap-2">
+        <input name="name" required placeholder="Tên danh mục mới (vd: Kiến trúc)" class="dash-input min-w-[220px] flex-1" />
+        <button type="submit" class="dash-btn-secondary">Thêm danh mục</button>
+      </form>
+    </div>
+
+    <div class="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+      {{#each projects}}
+      <div class="dash-card overflow-hidden">
+        <div class="aspect-[4/5] overflow-hidden bg-slate-100">
+          <img src="{{this.image}}" alt="{{this.title}}" class="h-full w-full object-cover object-top" />
+        </div>
+        <div class="space-y-3 p-4">
+          <div>
+            <p class="font-semibold text-slate-800">{{this.title}}</p>
+            <p class="text-sm text-brand-600">{{this.categoryName}}</p>
+            <p class="mt-1 truncate text-xs text-slate-400">{{this.url}}</p>
+          </div>
+          <div class="flex gap-2">
+            <a href="/dashboard/projects/{{this.slug}}/edit" class="dash-btn-secondary flex-1 justify-center">Sửa</a>
+            <form method="POST" action="/dashboard/projects/{{this.slug}}/delete" onsubmit="return confirm('Xóa dự án này?');">
+              <button type="submit" class="rounded-lg border border-red-200 px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50">Xóa</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      {{else}}
+      <div class="dash-card col-span-full p-10 text-center text-slate-500">
+        Chưa có dự án nào. <a href="/dashboard/projects/new" class="text-blue-600 hover:underline">Thêm dự án đầu tiên</a>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</div>

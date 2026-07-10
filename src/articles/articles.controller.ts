@@ -3,12 +3,21 @@ import {
   Controller,
   Delete,
   Get,
+  Header,
+  NotFoundException,
   Param,
   Post,
   Put,
   Redirect,
   Render,
+  Req,
+  Res,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Request, Response } from 'express';
+import { loadPublicSiteData } from '../shared/site-settings';
 import { ArticlesService } from './articles.service';
 import { CreateArticleDto, UpdateArticleDto } from './articles.types';
 
@@ -43,32 +52,70 @@ export class ArticlesController {
     return { ok: true };
   }
 
+  @Post('api/upload')
+  @UseInterceptors(
+    FileInterceptor('file', {
+      limits: { fileSize: 5 * 1024 * 1024 },
+    }),
+  )
+  uploadImage(@UploadedFile() file: Express.Multer.File) {
+    return this.articlesService.uploadImage(file);
+  }
+
   @Get('blog')
   @Render('pages/blog-list')
   blogList() {
+    const site = loadPublicSiteData();
     const articles = this.articlesService.getLatestForBlog(50);
-    return {
-      pageTitle: 'Bản tin chuyên ngành',
+    return this.withLayout('Bản tin chuyên ngành', {
       blogPosts: articles.map((a) => this.articlesService.toBlogPost(a)),
-      year: new Date().getFullYear(),
-    };
+      seo: this.articlesService.buildStaticPageSeo(
+        'Bản tin chuyên ngành',
+        'Tin tức, hướng dẫn và xu hướng mới nhất từ Honize',
+        '/blog',
+        site.brand,
+      ),
+    });
   }
 
   @Get('blog/:slug')
   @Render('pages/blog-detail')
-  blogDetail(@Param('slug') slug: string) {
-    const article = this.articlesService.findBySlug(slug);
-    const content = this.articlesService.getContent(slug);
-    const contentIsHtml = this.articlesService.isHtmlContent(content);
-    return {
-      pageTitle: article.title,
+  blogDetail(
+    @Param('slug') slug: string,
+    @Req() req: Request,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const { article, counted } = this.articlesService.recordView(slug, req.headers.cookie);
+    if (counted) {
+      res.setHeader(
+        'Set-Cookie',
+        `hv_${slug}=1; Max-Age=86400; Path=/; HttpOnly; SameSite=Lax`,
+      );
+    }
+
+    const contentHtml = this.articlesService.renderContent(slug);
+    const dateSource = article.publishedAt ?? article.scheduledAt ?? article.createdAt;
+
+    return this.withLayout(article.title, {
       article,
-      content,
-      contentIsHtml,
-      formattedDate: article.publishedAt
-        ? new Date(article.publishedAt).toLocaleDateString('vi-VN')
-        : '',
-    };
+      contentHtml,
+      dateLabel: this.articlesService.formatArticleDate(dateSource),
+      dateIso: dateSource,
+      viewsLabel: article.views > 0 ? this.articlesService.formatViewCount(article.views) : null,
+      seo: this.articlesService.buildArticlePageSeo(article, loadPublicSiteData().brand),
+    });
+  }
+
+  @Get('sitemap.xml')
+  @Header('Content-Type', 'application/xml; charset=utf-8')
+  sitemap() {
+    return this.articlesService.buildSitemapXml();
+  }
+
+  @Get('robots.txt')
+  @Header('Content-Type', 'text/plain; charset=utf-8')
+  robots() {
+    return this.articlesService.buildRobotsTxt();
   }
 
   @Get('dashboard/articles/new')
@@ -135,11 +182,14 @@ export class ArticlesController {
   @Post('dashboard/articles/:slug')
   @Redirect('/dashboard')
   updateForm(@Param('slug') slug: string, @Body() body: Record<string, string>) {
-    this.articlesService.update(slug, this.parseForm(body));
+    this.articlesService.update(slug, this.parseForm(body, slug));
     return {};
   }
 
-  private parseForm(body: Record<string, string>): CreateArticleDto {
+  private parseForm(body: Record<string, string>, slug?: string): CreateArticleDto {
+    const resolvedSlug = body.slug || slug || '';
+    const blogPath = resolvedSlug ? `/blog/${resolvedSlug}` : '';
+
     return {
       title: body.title,
       slug: body.slug || undefined,
@@ -152,7 +202,7 @@ export class ArticlesController {
       seo: {
         metaTitle: body.metaTitle,
         metaDescription: body.metaDescription,
-        seoUrl: body.seoUrl,
+        seoUrl: body.seoUrl || blogPath,
       },
     };
   }
@@ -161,15 +211,31 @@ export class ArticlesController {
     return [
       { id: 'overview', label: 'Tổng quan', icon: 'grid', href: '/dashboard/behavior-tree' },
       { id: 'articles', label: 'Quản lý bài viết', icon: 'document', href: '/dashboard' },
-      { id: 'categories', label: 'Danh mục', icon: 'folder', href: '/dashboard' },
-      { id: 'media', label: 'Media', icon: 'image', href: '/dashboard' },
-      { id: 'seo', label: 'SEO Link', icon: 'link', href: '/dashboard' },
-      { id: 'users', label: 'Người dùng', icon: 'users', href: '/dashboard' },
-      { id: 'settings', label: 'Cài đặt', icon: 'settings', href: '/dashboard' },
+      { id: 'categories', label: 'Danh mục', icon: 'folder', href: '/dashboard/categories' },
+      { id: 'projects', label: 'Dự án mẫu', icon: 'layout', href: '/dashboard/projects' },
+      { id: 'media', label: 'Media', icon: 'image', href: '/dashboard/media' },
+      { id: 'seo', label: 'SEO Link', icon: 'link', href: '/dashboard/seo' },
+      { id: 'users', label: 'Người dùng', icon: 'users', href: '/dashboard/users' },
+      { id: 'settings', label: 'Cài đặt', icon: 'settings', href: '/dashboard/settings' },
     ];
   }
 
   private getUser() {
     return { name: 'Admin', role: 'Quản trị viên', avatar: 'AD', notifications: 12 };
+  }
+
+  private withLayout(pageTitle: string, data: Record<string, unknown>) {
+    const site = loadPublicSiteData();
+    const blogPosts = this.articlesService
+      .getLatestForBlog(5)
+      .map((a) => this.articlesService.toBlogPost(a));
+
+    return {
+      ...site,
+      blogPosts,
+      pageTitle,
+      year: new Date().getFullYear(),
+      ...data,
+    };
   }
 }

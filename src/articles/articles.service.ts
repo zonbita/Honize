@@ -1,11 +1,15 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { existsSync, mkdirSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from 'fs';
-import { join } from 'path';
+import { extname, join } from 'path';
+import { getUploadsDir } from '../shared/content-path';
 import { getArticlesDir } from '../shared/content-path';
+import { bumpDevRevision } from '../shared/dev-reload';
+import { getSiteUrl, toAbsoluteUrl } from '../shared/site-url';
 import {
   Article,
   ArticleStatus,
   CreateArticleDto,
+  PageSeo,
   UpdateArticleDto,
 } from './articles.types';
 
@@ -25,9 +29,9 @@ const STATUS_LABELS: Record<ArticleStatus, string> = {
 };
 
 const STATUS_COLORS: Record<ArticleStatus, string> = {
-  draft: 'bg-orange-100 text-orange-700',
   published: 'bg-green-100 text-green-700',
-  scheduled: 'bg-sky-100 text-sky-700',
+  draft: 'bg-orange-100 text-orange-700',
+  scheduled: 'bg-purple-100 text-purple-700',
   trash: 'bg-red-100 text-red-700',
 };
 
@@ -67,6 +71,39 @@ export class ArticlesService {
     return n.toLocaleString('vi-VN');
   }
 
+  formatViewCount(views: number): string {
+    return this.formatNumber(views);
+  }
+
+  private parseCookies(header?: string): Record<string, string> {
+    if (!header) return {};
+    return Object.fromEntries(
+      header.split(';').map((part) => {
+        const [key, ...rest] = part.trim().split('=');
+        return [key, decodeURIComponent(rest.join('=') || '')];
+      }),
+    );
+  }
+
+  recordView(slug: string, cookieHeader?: string): { article: Article; counted: boolean } {
+    const article = this.findBySlug(slug);
+    if (article.status !== 'published' && article.status !== 'scheduled') {
+      throw new NotFoundException();
+    }
+
+    const viewKey = `hv_${slug}`;
+    if (this.parseCookies(cookieHeader)[viewKey]) {
+      return { article, counted: false };
+    }
+
+    const updated: Article = {
+      ...article,
+      views: article.views + 1,
+    };
+    this.writeJson(updated);
+    return { article: updated, counted: true };
+  }
+
   private formatDate(iso: string | null): string {
     if (!iso) return '—';
     const d = new Date(iso);
@@ -79,6 +116,26 @@ export class ArticlesService {
     });
   }
 
+  private formatBlogDate(iso: string | null): string {
+    if (!iso) return '';
+    const d = new Date(iso);
+    const months = [
+      'THÁNG 1', 'THÁNG 2', 'THÁNG 3', 'THÁNG 4', 'THÁNG 5', 'THÁNG 6',
+      'THÁNG 7', 'THÁNG 8', 'THÁNG 9', 'THÁNG 10', 'THÁNG 11', 'THÁNG 12',
+    ];
+    return `${d.getDate()} ${months[d.getMonth()]}, ${d.getFullYear()}`;
+  }
+
+  formatArticleDate(iso: string | null): string {
+    if (!iso) return '';
+    const d = new Date(iso);
+    const months = [
+      'Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
+      'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12',
+    ];
+    return `${d.getDate()} ${months[d.getMonth()]}, ${d.getFullYear()}`;
+  }
+
   private readJson(slug: string): Article {
     const path = this.jsonPath(slug);
     if (!existsSync(path)) throw new NotFoundException(`Article "${slug}" not found`);
@@ -87,6 +144,12 @@ export class ArticlesService {
 
   private writeJson(article: Article) {
     writeFileSync(this.jsonPath(article.slug), JSON.stringify(article, null, 2), 'utf-8');
+    bumpDevRevision();
+  }
+
+  private saveContent(slug: string, content: string) {
+    writeFileSync(this.mdPath(slug), content, 'utf-8');
+    bumpDevRevision();
   }
 
   findAll(includeTrash = false): Article[] {
@@ -113,6 +176,78 @@ export class ArticlesService {
     return /^\s*</.test(content.trim());
   }
 
+  renderContent(slug: string): string {
+    const raw = this.getContent(slug).trim();
+    if (!raw) return '';
+    if (this.isHtmlContent(raw)) return raw;
+    return this.markdownToHtml(raw);
+  }
+
+  private escapeHtml(text: string): string {
+    return text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  private inlineMarkdown(text: string): string {
+    return this.escapeHtml(text).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  }
+
+  private markdownToHtml(md: string): string {
+    const lines = md.split('\n');
+    let html = '';
+    let inList = false;
+
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed) {
+        if (inList) {
+          html += '</ul>';
+          inList = false;
+        }
+        continue;
+      }
+
+      if (trimmed.startsWith('## ')) {
+        if (inList) {
+          html += '</ul>';
+          inList = false;
+        }
+        html += `<h2>${this.inlineMarkdown(trimmed.slice(3))}</h2>`;
+        continue;
+      }
+
+      if (trimmed.startsWith('# ')) {
+        if (inList) {
+          html += '</ul>';
+          inList = false;
+        }
+        html += `<h2>${this.inlineMarkdown(trimmed.slice(2))}</h2>`;
+        continue;
+      }
+
+      if (trimmed.startsWith('- ')) {
+        if (!inList) {
+          html += '<ul>';
+          inList = true;
+        }
+        html += `<li>${this.inlineMarkdown(trimmed.slice(2))}</li>`;
+        continue;
+      }
+
+      if (inList) {
+        html += '</ul>';
+        inList = false;
+      }
+      html += `<p>${this.inlineMarkdown(trimmed)}</p>`;
+    }
+
+    if (inList) html += '</ul>';
+    return html;
+  }
+
   private stripHtml(html: string): string {
     return html
       .replace(/<[^>]+>/g, ' ')
@@ -127,10 +262,6 @@ export class ArticlesService {
       ? this.stripHtml(content)
       : content.replace(/^#+\s*.+$/m, '').replace(/\*\*/g, '').trim();
     return plain.length > 160 ? `${plain.slice(0, 160).trim()}...` : plain;
-  }
-
-  private saveContent(slug: string, content: string) {
-    writeFileSync(this.mdPath(slug), content, 'utf-8');
   }
 
   private nextId(): number {
@@ -168,7 +299,7 @@ export class ArticlesService {
       seo: {
         metaTitle: dto.seo?.metaTitle ?? dto.title,
         metaDescription: dto.seo?.metaDescription ?? dto.excerpt ?? '',
-        seoUrl: dto.seo?.seoUrl ?? `/${slug}`,
+        seoUrl: dto.seo?.seoUrl ?? `/blog/${slug}`,
         originalUrl: dto.seo?.originalUrl ?? `/blog/${slug}`,
         redirect: dto.seo?.redirect ?? null,
         score: dto.seo?.score ?? 0,
@@ -252,6 +383,7 @@ export class ArticlesService {
       category: article.category,
       categoryColor: CATEGORY_COLORS[article.category] ?? 'bg-slate-100 text-slate-700',
       publishedAt: this.formatDate(article.publishedAt ?? article.scheduledAt),
+      statusKey: article.status,
       status: STATUS_LABELS[article.status],
       statusColor: STATUS_COLORS[article.status],
       views: article.views > 0 ? this.formatNumber(article.views) : '—',
@@ -260,13 +392,15 @@ export class ArticlesService {
 
   toBlogPost(article: Article) {
     const excerpt = this.getPlainExcerpt(article.slug, article.excerpt);
+    const dateSource = article.publishedAt ?? article.scheduledAt ?? article.createdAt;
 
     return {
       title: article.title,
       slug: article.slug,
       excerpt: excerpt || 'Xem chi tiết bài viết...',
       category: article.category,
-      publishedAt: this.formatDate(article.publishedAt ?? article.scheduledAt),
+      thumbnail: article.thumbnail,
+      dateLabel: this.formatBlogDate(dateSource),
     };
   }
 
@@ -375,5 +509,122 @@ export class ArticlesService {
           new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
       )
       .slice(0, limit);
+  }
+
+  getBlogPath(slug: string): string {
+    return `/blog/${slug}`;
+  }
+
+  buildStaticPageSeo(
+    title: string,
+    description: string,
+    path: string,
+    brand = 'Honize',
+    appendBrand = true,
+  ): PageSeo {
+    const siteUrl = getSiteUrl();
+    return {
+      title: appendBrand ? `${title} — ${brand}` : title,
+      description,
+      canonical: `${siteUrl}${path}`,
+      ogType: 'website',
+      ogImage: `${siteUrl}/images/bg-tech.png`,
+      jsonLd: null,
+    };
+  }
+
+  buildArticlePageSeo(article: Article, brand = 'Honize'): PageSeo {
+    const siteUrl = getSiteUrl();
+    const path = this.getBlogPath(article.slug);
+    const canonical = `${siteUrl}${path}`;
+    const metaTitle = article.seo.metaTitle?.trim() || article.title;
+    const description =
+      article.seo.metaDescription?.trim() || article.excerpt?.trim() || article.title;
+    const ogImage = toAbsoluteUrl(article.thumbnail, siteUrl);
+    const datePublished = article.publishedAt ?? article.scheduledAt ?? article.createdAt;
+
+    const jsonLd = {
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: metaTitle,
+      description,
+      image: [ogImage],
+      datePublished,
+      dateModified: article.updatedAt,
+      author: {
+        '@type': 'Person',
+        name: article.author,
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: brand,
+      },
+      mainEntityOfPage: {
+        '@type': 'WebPage',
+        '@id': canonical,
+      },
+    };
+
+    return {
+      title: `${metaTitle} — ${brand}`,
+      description,
+      canonical,
+      ogType: 'article',
+      ogImage,
+      jsonLd: JSON.stringify(jsonLd),
+    };
+  }
+
+  buildSitemapXml(): string {
+    const siteUrl = getSiteUrl();
+    const staticPaths = ['/', '/blog'];
+    const articles = this.getPublished();
+
+    const urls = [
+      ...staticPaths.map((path) => ({ loc: `${siteUrl}${path}`, lastmod: null as string | null })),
+      ...articles.map((a) => ({
+        loc: `${siteUrl}${this.getBlogPath(a.slug)}`,
+        lastmod: a.updatedAt,
+      })),
+    ];
+
+    const body = urls
+      .map((u) => {
+        const lastmod = u.lastmod
+          ? `\n    <lastmod>${u.lastmod.slice(0, 10)}</lastmod>`
+          : '';
+        return `  <url>\n    <loc>${this.escapeXml(u.loc)}</loc>${lastmod}\n  </url>`;
+      })
+      .join('\n');
+
+    return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${body}\n</urlset>`;
+  }
+
+  buildRobotsTxt(): string {
+    const siteUrl = getSiteUrl();
+    return `User-agent: *\nAllow: /\nDisallow: /dashboard\nDisallow: /api\n\nSitemap: ${siteUrl}/sitemap.xml\n`;
+  }
+
+  private escapeXml(value: string): string {
+    return value
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&apos;');
+  }
+
+  uploadImage(file: Express.Multer.File) {
+    if (!file) throw new BadRequestException('Không có file được gửi lên');
+    if (!file.mimetype.startsWith('image/')) {
+      throw new BadRequestException('Chỉ chấp nhận file hình ảnh');
+    }
+
+    const dir = getUploadsDir();
+    const ext = extname(file.originalname) || '.jpg';
+    const filename = `${Date.now()}-${Math.round(Math.random() * 1e9)}${ext}`;
+    writeFileSync(join(dir, filename), file.buffer);
+
+    return { url: `/uploads/${filename}`, name: filename };
   }
 }

@@ -1,0 +1,10 @@
+{
+  "siteName": "Honize Test",
+  "tagline": "tag",
+  "email": "a@b.com",
+  "phone": "123",
+  "address": "addr",
+  "postsPerPage": 6,
+  "enableComments": false,
+  "maintenanceMode": false
+}

@@ -1,0 +1,24 @@
+{{#if devMode}}
+<script>
+  (function () {
+    var lastToken = null;
+
+    function poll() {
+      fetch('/dev/reload-check', { cache: 'no-store' })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          var token = data.bootId + ':' + data.revision;
+          if (lastToken !== null && lastToken !== token) {
+            window.location.reload();
+            return;
+          }
+          lastToken = token;
+        })
+        .catch(function () {});
+    }
+
+    poll();
+    setInterval(poll, 1000);
+  })();
+</script>
+{{/if}}

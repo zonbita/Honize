@@ -1,0 +1,110 @@
+{
+  "projectCategories": [
+    {
+      "name": "Bán hàng",
+      "slug": "ban-hang"
+    },
+    {
+      "name": "Bất động sản",
+      "slug": "bat-dong-san"
+    },
+    {
+      "name": "Du lịch",
+      "slug": "du-lich"
+    },
+    {
+      "name": "Dịch vụ",
+      "slug": "dich-vu"
+    },
+    {
+      "name": "Giới thiệu công ty",
+      "slug": "gioi-thieu-cong-ty"
+    },
+    {
+      "name": "Tin tức",
+      "slug": "tin-tuc"
+    },
+    {
+      "name": "Thiết kế",
+      "slug": "thiet-ke"
+    },
+    {
+      "name": "Ăn uống",
+      "slug": "an-uong"
+    }
+  ],
+  "projects": [
+    {
+      "title": "Website thủ môn",
+      "slug": "nha-hang-sai-gon",
+      "categorySlug": "an-uong",
+      "categoryName": "Ăn uống",
+      "image": "/uploads/1783673927810-90620973.png",
+      "url": "#contact"
+    },
+    {
+      "title": "Shop thời trang online",
+      "slug": "shop-thoi-trang",
+      "categorySlug": "ban-hang",
+      "categoryName": "Bán hàng",
+      "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop",
+      "url": "#contact"
+    },
+    {
+      "title": "Dự án căn hộ cao cấp",
+      "slug": "can-ho-cao-cap",
+      "categorySlug": "bat-dong-san",
+      "categoryName": "Bất động sản",
+      "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop",
+      "url": "#contact"
+    },
+    {
+      "title": "Tour du lịch Đà Nẵng",
+      "slug": "tour-da-nang",
+      "categorySlug": "du-lich",
+      "categoryName": "Du lịch",
+      "image": "/uploads/1783673979297-768599647.png",
+      "url": "/blog/du-lich-da-nang-2026"
+    },
+    {
+      "title": "Spa & Wellness",
+      "slug": "spa-wellness",
+      "categorySlug": "dich-vu",
+      "categoryName": "Dịch vụ",
+      "image": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&h=600&fit=crop",
+      "url": "#contact"
+    },
+    {
+      "title": "Corporate landing page",
+      "slug": "corporate-landing",
+      "categorySlug": "gioi-thieu-cong-ty",
+      "categoryName": "Giới thiệu công ty",
+      "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop",
+      "url": "#contact"
+    },
+    {
+      "title": "Tin tức công nghệ",
+      "slug": "tin-cong-nghe",
+      "categorySlug": "tin-tuc",
+      "categoryName": "Tin tức",
+      "image": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&h=600&fit=crop",
+      "url": "/blog"
+    },
+    {
+      "title": "Portfolio thiết kế",
+      "slug": "portfolio-thiet-ke",
+      "categorySlug": "thiet-ke",
+      "categoryName": "Thiết kế",
+      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
+      "url": "#contact"
+    },
+    {
+      "title": "Quán cà phê specialty",
+      "slug": "cafe-specialty",
+      "categorySlug": "an-uong",
+      "categoryName": "Ăn uống",
+      "image": "https://images.unsplash.com/photo-1501339847302-ac724a563a6a?w=800&h=600&fit=crop",
+      "url": "#contact"
+    }
+  ]
+}

@@ -1,20 +1,29 @@
 import { Injectable } from '@nestjs/common';
 import { ArticlesService } from './articles/articles.service';
-import { siteData } from './data/site.data';
+import { loadPublicSiteData, loadSiteSettings } from './shared/site-settings';
 
 @Injectable()
 export class AppService {
   constructor(private readonly articlesService: ArticlesService) {}
 
   getHomePageData() {
-    const latest = this.articlesService.getLatestForBlog(6);
+    const site = loadPublicSiteData();
+    const settings = loadSiteSettings();
+    const latest = this.articlesService.getLatestForBlog(settings.postsPerPage);
     const blogPosts = latest.map((a) => this.articlesService.toBlogPost(a));
 
     return {
-      ...siteData,
+      ...site,
       blogPosts,
       year: new Date().getFullYear(),
-      pageTitle: `${siteData.brand} — ${siteData.tagline}`,
+      pageTitle: `${site.brand} — ${site.tagline}`,
+      seo: this.articlesService.buildStaticPageSeo(
+        `${site.brand} — ${site.tagline}`,
+        site.tagline,
+        '/',
+        site.brand,
+        false,
+      ),
     };
   }
 }

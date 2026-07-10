@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "name": "Admin",
+    "email": "admin@honize.vn",
+    "role": "Quản trị viên",
+    "avatar": "AD",
+    "status": "active",
+    "lastLogin": "2026-07-10T13:00:00.000Z"
+  },
+  {
+    "id": 2,
+    "name": "Nguyễn Văn A",
+    "email": "nguyenvana@honize.vn",
+    "role": "Biên tập viên",
+    "avatar": "NA",
+    "status": "active",
+    "lastLogin": "2026-07-09T10:30:00.000Z"
+  },
+  {
+    "id": 3,
+    "name": "Trần Thị B",
+    "email": "tranthib@honize.vn",
+    "role": "SEO Specialist",
+    "avatar": "TB",
+    "status": "active",
+    "lastLogin": "2026-07-08T15:45:00.000Z"
+  }
+]

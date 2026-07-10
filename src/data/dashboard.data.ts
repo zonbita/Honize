@@ -62,7 +62,7 @@ export interface QuickStat {
 export interface DashboardData {
   pageTitle: string;
   activeNav: string;
-  articleTabs: { label: string; active: boolean }[];
+  articleTabs: { label: string; href: string; active: boolean }[];
   seoChecks: SeoCheckItem[];
   seoScore: number;
   trafficTotal: string;
@@ -75,11 +75,11 @@ export const dashboardData: DashboardData = {
   pageTitle: 'Quản lý bài viết',
   activeNav: 'articles',
   articleTabs: [
-    { label: 'Tất cả', active: true },
-    { label: 'Đã xuất bản', active: false },
-    { label: 'Bản nháp', active: false },
-    { label: 'Đã lên lịch', active: false },
-    { label: 'Thùng rác', active: false },
+    { label: 'Tất cả', href: '/dashboard', active: true },
+    { label: 'Đã xuất bản', href: '/dashboard?status=published', active: false },
+    { label: 'Bản nháp', href: '/dashboard?status=draft', active: false },
+    { label: 'Đã lên lịch', href: '/dashboard?status=scheduled', active: false },
+    { label: 'Thùng rác', href: '/dashboard?status=trash', active: false },
   ],
   seoChecks: [
     { label: 'Meta title', status: 'Tốt', ok: true },

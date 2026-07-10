@@ -17,6 +17,18 @@
     @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
   }
 
+  .header-inner {
+    @apply flex w-full items-center gap-6 px-4 py-3 sm:px-6 lg:gap-8 lg:px-10 lg:py-3.5 xl:px-14 2xl:px-20;
+  }
+
+  .header-nav {
+    @apply flex w-full items-center justify-between;
+  }
+
+  .header-nav > li {
+    @apply flex flex-1 justify-center;
+  }
+
   .section-padding {
     @apply py-16 md:py-24;
   }
@@ -51,15 +63,192 @@
   }
 
   .nav-link {
-    @apply text-sm font-medium text-slate-600 transition-colors hover:text-brand-600;
+    @apply inline-block whitespace-nowrap px-1 py-2 text-[15px] font-medium text-brand-950 transition-colors hover:text-brand-600;
   }
 
   .project-pill {
-    @apply inline-flex items-center rounded-full bg-white px-5 py-2.5 text-sm font-medium text-slate-700 shadow-sm ring-1 ring-slate-200 transition-all duration-200 hover:bg-brand-50 hover:text-brand-700 hover:ring-brand-200;
+    @apply inline-flex cursor-pointer items-center rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-medium text-slate-700 transition-all duration-200 hover:border-brand-200 hover:bg-brand-50 hover:text-brand-300;
+  }
+
+  .project-pill-active {
+    @apply border-brand-600 bg-brand-600 text-white hover:border-brand-600 hover:bg-brand-600 hover:text-white;
+  }
+
+  .responsive-section {
+    @apply relative overflow-hidden bg-brand-950;
+  }
+
+  .responsive-section-bg {
+    @apply pointer-events-none absolute left-0 right-0 top-0;
+    height: 500px;
+    background-image: url('/images/47a4ed81-7f34-462a-a437-821109ace89e.png');
+    background-size: cover;
+    background-position: left center;
+    background-repeat: no-repeat;
+    clip-path: polygon(0 0, 58% 0, 38% 100%, 0 100%);
+  }
+
+  .responsive-section-bg::after {
+    content: '';
+    @apply absolute inset-0;
+    background: linear-gradient(
+      to right,
+      rgba(20, 35, 87, 0.25) 0%,
+      rgba(20, 35, 87, 0.65) 55%,
+      #142357 100%
+    );
+  }
+
+  .project-showcase {
+    @apply overflow-hidden bg-[#eceff3];
+  }
+
+  .project-swiper {
+    @apply w-full overflow-visible pb-2 pt-4;
+  }
+
+  .project-swiper .swiper-slide {
+    @apply w-[250px] sm:w-[290px] lg:w-[310px];
+  }
+
+  .project-swiper .swiper-slide-hidden {
+    display: none !important;
+  }
+
+  .project-slide-link {
+    @apply block select-none outline-none;
+  }
+
+  .project-slide-frame {
+    @apply overflow-hidden rounded-md bg-white shadow-[0_28px_70px_rgba(15,23,42,0.22)];
+  }
+
+  .project-slide-frame img {
+    @apply block h-[360px] w-full object-cover object-top sm:h-[400px] lg:h-[440px];
+  }
+
+  .project-slide-title {
+    @apply mt-4 px-1 text-center text-[11px] font-extrabold uppercase leading-snug tracking-wide text-slate-900 sm:text-xs;
+  }
+
+  .project-swiper-pagination {
+    @apply !relative !bottom-0 mt-6;
+  }
+
+  .project-swiper-pagination .swiper-pagination-bullet {
+    @apply h-2.5 w-2.5 bg-slate-300 opacity-100;
+  }
+
+  .project-swiper-pagination .swiper-pagination-bullet-active {
+    @apply bg-orange-500;
+  }
+
+  .pricing-card {
+    @apply flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-[0_10px_40px_rgba(15,23,42,0.08)];
+  }
+
+  .pricing-card-head {
+    @apply px-6 pb-4 pt-8 text-center sm:px-8;
+  }
+
+  .pricing-card-head-featured {
+    @apply bg-[#c62828] pb-6;
+  }
+
+  .pricing-card-name {
+    @apply text-sm font-bold uppercase tracking-widest text-slate-800;
+  }
+
+  .pricing-card-name-light {
+    @apply text-white;
+  }
+
+  .pricing-card-desc {
+    @apply mt-3 text-sm leading-relaxed text-slate-600;
+  }
+
+  .pricing-card-desc-light {
+    @apply text-white/95;
+  }
+
+  .pricing-card-divider {
+    @apply border-t border-slate-200;
+  }
+
+  .pricing-price-block {
+    @apply px-6 py-5 text-center sm:px-8;
+  }
+
+  .pricing-price-old {
+    @apply block text-base text-slate-400 line-through;
+  }
+
+  .pricing-price-new {
+    @apply mt-1 block text-[2rem] font-extrabold leading-none text-[#e85d2d] sm:text-[2.15rem];
+  }
+
+  .pricing-features {
+    @apply flex-1 space-y-2.5 px-6 pb-6 sm:px-8;
+  }
+
+  .pricing-feature {
+    @apply flex gap-2.5 text-[13px] leading-relaxed text-slate-700;
+  }
+
+  .pricing-check {
+    @apply mt-0.5 flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-amber-400 to-yellow-500 text-white;
+  }
+
+  .pricing-check svg {
+    @apply h-2.5 w-2.5;
+  }
+
+  .pricing-btn {
+    @apply mx-6 mb-6 block rounded-full bg-gradient-to-r from-[#f97316] to-[#fbbf24] py-3.5 text-center text-xs font-bold uppercase tracking-wide text-white shadow-[0_8px_24px_rgba(249,115,22,0.35)] transition hover:brightness-105 sm:mx-8 sm:mb-8 sm:text-sm;
+  }
+
+  .pricing-card-featured {
+    @apply ring-2 ring-[#c62828]/20;
   }
 
   .blog-card {
-    @apply flex flex-col overflow-hidden rounded-2xl bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover;
+    @apply flex flex-col overflow-hidden rounded-lg bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover;
+  }
+
+  .blog-card-image {
+    @apply h-52 w-full object-cover transition-transform duration-500;
+  }
+
+  .blog-card:hover .blog-card-image {
+    @apply scale-105;
+  }
+
+  .blog-card-image-placeholder {
+    @apply flex items-center justify-center bg-gradient-to-br from-brand-600 to-brand-400;
+  }
+
+  .blog-card-body {
+    @apply flex flex-1 flex-col p-6;
+  }
+
+  .blog-card-title {
+    @apply text-lg font-bold leading-snug line-clamp-2;
+  }
+
+  .blog-card-title a {
+    @apply text-brand-300 transition-colors hover:text-brand-200;
+  }
+
+  .blog-card-date {
+    @apply mt-2 block text-xs font-medium uppercase tracking-wide text-slate-400;
+  }
+
+  .blog-card-excerpt {
+    @apply mt-3 flex-1 text-sm leading-relaxed text-slate-500 line-clamp-3;
+  }
+
+  .blog-card-link {
+    @apply mt-4 text-sm text-slate-400 transition-colors hover:text-brand-300;
   }
 
   /* Dashboard CMS */
@@ -103,6 +292,18 @@
     @apply inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium;
   }
 
+  .dash-status-select {
+    @apply cursor-pointer appearance-none rounded-full border-0 py-1 pl-2.5 pr-7 text-xs font-medium outline-none transition-colors focus:ring-2 focus:ring-blue-300;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+    background-position: right 0.4rem center;
+    background-repeat: no-repeat;
+    background-size: 0.85rem;
+  }
+
+  .dash-status-select:disabled {
+    @apply cursor-wait opacity-60;
+  }
+
   .dash-page-btn {
     @apply flex h-8 min-w-[2rem] items-center justify-center rounded-lg border border-slate-200 text-xs font-medium text-slate-600 transition-colors hover:bg-slate-50;
   }
@@ -136,7 +337,15 @@
   .article-body h2,
   .article-body h3,
   .article-body h4 {
-    @apply mb-3 mt-6 text-xl font-bold text-slate-900;
+    @apply mb-4 mt-8 border-l-4 border-brand-500 pl-3 text-xl font-bold text-slate-900;
+  }
+
+  .article-body h3 {
+    @apply mt-6 border-l-0 pl-0 text-lg;
+  }
+
+  .article-body h4 {
+    @apply mt-4 border-l-0 pl-0 text-base;
   }
 
   .article-body p {
@@ -153,7 +362,7 @@
   }
 
   .article-body a {
-    @apply text-brand-600 underline hover:text-brand-700;
+    @apply text-brand-300 underline hover:text-brand-200;
   }
 
   .article-body img {
@@ -175,5 +384,25 @@
 
   .tox-tinymce {
     @apply rounded-lg border-slate-200;
+  }
+
+  .thumb-preview {
+    @apply flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-xl border-2 border-slate-200 bg-slate-50 shadow-sm;
+  }
+
+  .thumb-preview-empty {
+    @apply border-dashed;
+  }
+
+  .thumb-dropzone {
+    @apply cursor-pointer rounded-xl border-2 border-dashed border-slate-200 bg-slate-50/80 p-6 text-center transition-colors;
+  }
+
+  .thumb-dropzone-active {
+    @apply border-blue-400 bg-blue-50;
+  }
+
+  .thumb-dropzone-loading {
+    @apply pointer-events-none opacity-60;
   }
 }

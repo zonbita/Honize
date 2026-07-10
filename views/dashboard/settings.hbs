@@ -1,0 +1,55 @@
+{{> dashboard/page-header }}
+
+<div class="flex-1 overflow-y-auto p-6">
+  <form method="POST" action="/dashboard/settings" class="mx-auto max-w-2xl space-y-6">
+    <div class="dash-card p-6 space-y-4">
+      <h2 class="font-bold text-slate-800">Thông tin website</h2>
+      <p class="text-xs text-slate-500">Lưu tại <code class="rounded bg-slate-100 px-1">content/settings.json</code></p>
+
+      <div>
+        <label class="mb-1 block text-sm font-medium text-slate-700">Tên website</label>
+        <input name="siteName" value="{{settings.siteName}}" class="dash-input w-full" />
+      </div>
+      <div>
+        <label class="mb-1 block text-sm font-medium text-slate-700">Tagline</label>
+        <input name="tagline" value="{{settings.tagline}}" class="dash-input w-full" />
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label class="mb-1 block text-sm font-medium text-slate-700">Email</label>
+          <input name="email" value="{{settings.email}}" class="dash-input w-full" />
+        </div>
+        <div>
+          <label class="mb-1 block text-sm font-medium text-slate-700">Điện thoại</label>
+          <input name="phone" value="{{settings.phone}}" class="dash-input w-full" />
+        </div>
+      </div>
+      <div>
+        <label class="mb-1 block text-sm font-medium text-slate-700">Địa chỉ</label>
+        <input name="address" value="{{settings.address}}" class="dash-input w-full" />
+      </div>
+    </div>
+
+    <div class="dash-card p-6 space-y-4">
+      <h2 class="font-bold text-slate-800">Tùy chọn hệ thống</h2>
+      <div>
+        <label class="mb-1 block text-sm font-medium text-slate-700">Số bài/trang blog</label>
+        <input name="postsPerPage" type="number" value="{{settings.postsPerPage}}" class="dash-input w-32" />
+      </div>
+      <label class="flex items-center gap-2 text-sm text-slate-700">
+        <input type="checkbox" name="enableComments" value="1" {{#if settings.enableComments}}checked{{/if}} class="rounded" />
+        Bật bình luận
+      </label>
+      <label class="flex items-center gap-2 text-sm text-slate-700">
+        <input type="checkbox" name="maintenanceMode" value="1" {{#if settings.maintenanceMode}}checked{{/if}} class="rounded" />
+        Chế độ bảo trì
+      </label>
+    </div>
+
+  {{#if saved}}
+  <div class="rounded-lg bg-green-50 px-4 py-3 text-sm text-green-700">Đã lưu cài đặt thành công. Các tab trang web sẽ tự tải lại.</div>
+  {{/if}}
+
+    <button type="submit" class="dash-btn-primary">Lưu cài đặt</button>
+  </form>
+</div>

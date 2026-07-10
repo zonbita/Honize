@@ -43,3 +43,12 @@ export interface CreateArticleDto {
 export interface UpdateArticleDto extends Partial<CreateArticleDto> {
   views?: number;
 }
+
+export interface PageSeo {
+  title: string;
+  description: string;
+  canonical: string;
+  ogType: 'website' | 'article';
+  ogImage: string;
+  jsonLd: string | null;
+}

@@ -65,7 +65,7 @@
       <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 px-5 py-4">
         <div class="flex flex-wrap gap-1">
           {{#each articleTabs}}
-          <button class="dash-tab {{#if this.active}}dash-tab-active{{/if}}">{{this.label}}</button>
+          <a href="{{href}}" class="dash-tab {{#if active}}dash-tab-active{{/if}}">{{label}}</a>
           {{/each}}
         </div>
         <div class="flex gap-2">
@@ -83,7 +83,6 @@
             <tr class="border-b border-slate-100 bg-slate-50/80 text-xs font-semibold uppercase text-slate-500">
               <th class="px-5 py-3"><input type="checkbox" class="rounded border-slate-300" /></th>
               <th class="px-3 py-3">Bài viết</th>
-              <th class="px-3 py-3">Tác giả</th>
               <th class="px-3 py-3">Danh mục</th>
               <th class="px-3 py-3">Ngày xuất bản</th>
               <th class="px-3 py-3">Trạng thái</th>
@@ -101,15 +100,21 @@
                   <span class="max-w-[200px] truncate font-medium text-slate-800">{{this.title}}</span>
                 </div>
               </td>
-              <td class="px-3 py-3">
-                <div class="flex items-center gap-2">
-                  <span class="flex h-7 w-7 items-center justify-center rounded-full bg-slate-200 text-[10px] font-bold text-slate-600">{{this.authorAvatar}}</span>
-                  <span class="whitespace-nowrap text-slate-600">{{this.author}}</span>
-                </div>
-              </td>
               <td class="px-3 py-3"><span class="dash-badge {{this.categoryColor}}">{{this.category}}</span></td>
               <td class="px-3 py-3 whitespace-nowrap text-slate-500">{{this.publishedAt}}</td>
-              <td class="px-3 py-3"><span class="dash-badge {{this.statusColor}}">{{this.status}}</span></td>
+              <td class="px-3 py-3">
+                <select
+                  class="dash-status-select {{this.statusColor}}"
+                  data-slug="{{this.slug}}"
+                  data-prev="{{this.statusKey}}"
+                  aria-label="Trạng thái bài viết"
+                >
+                  <option value="published" {{#if (eq this.statusKey 'published')}}selected{{/if}}>Đã xuất bản</option>
+                  <option value="draft" {{#if (eq this.statusKey 'draft')}}selected{{/if}}>Bản nháp</option>
+                  <option value="scheduled" {{#if (eq this.statusKey 'scheduled')}}selected{{/if}}>Đã lên lịch</option>
+                  <option value="trash" {{#if (eq this.statusKey 'trash')}}selected{{/if}}>Thùng rác</option>
+                </select>
+              </td>
               <td class="px-3 py-3 text-slate-600">{{this.views}}</td>
               <td class="px-3 py-3">
                 <div class="flex gap-1">
@@ -312,3 +317,35 @@
     </div>
   </div>
 </div>
+
+<script>
+  (function () {
+    document.querySelectorAll('.dash-status-select').forEach(function (select) {
+      select.addEventListener('change', async function () {
+        const slug = select.dataset.slug;
+        const status = select.value;
+        const prev = select.dataset.prev;
+        if (status === prev) return;
+
+        select.disabled = true;
+        try {
+          const res = await fetch('/api/articles/' + encodeURIComponent(slug), {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ status: status }),
+          });
+          if (!res.ok) throw new Error('update failed');
+          window.location.reload();
+        } catch (err) {
+          select.value = prev;
+          select.disabled = false;
+          alert('Không thể cập nhật trạng thái. Vui lòng thử lại.');
+        }
+      });
+
+      select.addEventListener('focus', function () {
+        select.dataset.prev = select.value;
+      });
+    });
+  })();
+</script>

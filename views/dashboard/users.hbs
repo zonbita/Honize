@@ -1,0 +1,35 @@
+{{> dashboard/page-header }}
+
+<div class="flex-1 overflow-y-auto p-6">
+  <p class="mb-6 text-sm text-slate-500">Quản lý người dùng — lưu tại <code class="rounded bg-slate-100 px-1">content/users.json</code></p>
+
+  <div class="dash-card overflow-hidden">
+    <table class="w-full text-left text-sm">
+      <thead>
+        <tr class="border-b border-slate-100 bg-slate-50/80 text-xs font-semibold uppercase text-slate-500">
+          <th class="px-5 py-3">Người dùng</th>
+          <th class="px-3 py-3">Email</th>
+          <th class="px-3 py-3">Vai trò</th>
+          <th class="px-3 py-3">Trạng thái</th>
+          <th class="px-3 py-3">Đăng nhập cuối</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each users}}
+        <tr class="border-b border-slate-50 hover:bg-slate-50/50">
+          <td class="px-5 py-3">
+            <div class="flex items-center gap-3">
+              <span class="flex h-9 w-9 items-center justify-center rounded-full bg-blue-500 text-xs font-bold text-white">{{this.avatar}}</span>
+              <span class="font-medium text-slate-800">{{this.name}}</span>
+            </div>
+          </td>
+          <td class="px-3 py-3 text-slate-600">{{this.email}}</td>
+          <td class="px-3 py-3"><span class="dash-badge bg-blue-100 text-blue-700">{{this.role}}</span></td>
+          <td class="px-3 py-3"><span class="dash-badge bg-green-100 text-green-700">{{this.status}}</span></td>
+          <td class="px-3 py-3 text-slate-500">{{this.lastLoginFormatted}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>

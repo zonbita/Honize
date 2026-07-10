@@ -1,9 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { engine } from 'express-handlebars';
+import { NextFunction, Request, Response } from 'express';
 import { existsSync } from 'fs';
 import { join } from 'path';
 import { AppModule } from './app.module';
+import { getDevRevision } from './shared/dev-reload';
+import { startDevWatcher } from './shared/dev-watcher';
 
 function resolveRoot(): string {
   const candidates = [join(__dirname, '..'), join(__dirname, '..', '..')];
@@ -41,8 +44,25 @@ async function bootstrap() {
   app.setBaseViewsDir(join(root, 'views'));
   app.setViewEngine('hbs');
 
+  const devMode = process.env.NODE_ENV !== 'production';
+  app.use((_req: Request, res: Response, next: NextFunction) => {
+    res.locals.devMode = devMode;
+    if (devMode) {
+      res.locals.devRevision = getDevRevision();
+      res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+    }
+    next();
+  });
+
+  app.enableShutdownHooks();
+
   const port = process.env.PORT ?? 3000;
   await app.listen(port);
+
+  if (devMode) {
+    startDevWatcher(root);
+  }
+
   console.log(`Honize running at http://localhost:${port}`);
 }
 

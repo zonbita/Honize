@@ -1,0 +1,37 @@
+{{> dashboard/page-header }}
+
+<div class="flex-1 overflow-y-auto p-6">
+  <div class="mb-6 flex flex-wrap items-center justify-between gap-4">
+    <p class="text-sm text-slate-500">Quản lý danh mục bài viết — lưu tại <code class="rounded bg-slate-100 px-1">content/categories.json</code></p>
+    <button onclick="document.getElementById('add-category').classList.toggle('hidden')" class="dash-btn-primary text-xs">+ Thêm danh mục</button>
+  </div>
+
+  <div id="add-category" class="dash-card mb-6 hidden p-5">
+    <form method="POST" action="/dashboard/categories" class="grid gap-4 sm:grid-cols-2">
+      <div>
+        <label class="mb-1 block text-sm font-medium text-slate-700">Tên danh mục</label>
+        <input name="name" required class="dash-input w-full" placeholder="VD: Giải pháp" />
+      </div>
+      <div>
+        <label class="mb-1 block text-sm font-medium text-slate-700">Mô tả</label>
+        <input name="description" class="dash-input w-full" placeholder="Mô tả ngắn..." />
+      </div>
+      <div class="sm:col-span-2">
+        <button type="submit" class="dash-btn-primary text-xs">Lưu danh mục</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    {{#each categories}}
+    <div class="dash-card p-5">
+      <div class="mb-3 flex items-center justify-between">
+        <span class="dash-badge {{this.color}}">{{this.name}}</span>
+        <span class="text-xs text-slate-400">{{this.articleCount}} bài</span>
+      </div>
+      <p class="text-sm text-slate-600">{{this.description}}</p>
+      <p class="mt-2 text-xs text-slate-400">/{{this.slug}}</p>
+    </div>
+    {{/each}}
+  </div>
+</div>

@@ -1,0 +1,44 @@
+{{> dashboard/page-header }}
+
+<div class="flex-1 overflow-y-auto p-6">
+  <div class="dash-card overflow-hidden">
+    <div class="flex items-center justify-between border-b border-slate-100 px-5 py-4">
+      <h2 class="font-bold text-slate-800">Danh sách SEO Link</h2>
+      <span class="text-xs text-slate-500">{{seoLinks.length}} URL</span>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-sm">
+        <thead>
+          <tr class="border-b border-slate-100 bg-slate-50/80 text-xs font-semibold uppercase text-slate-500">
+            <th class="px-5 py-3">Slug</th>
+            <th class="px-3 py-3">URL gốc</th>
+            <th class="px-3 py-3">URL SEO</th>
+            <th class="px-3 py-3">Index</th>
+            <th class="px-3 py-3">Redirect</th>
+            <th class="px-3 py-3">Meta title</th>
+            <th class="px-3 py-3">Score</th>
+            <th class="px-3 py-3">Thao tác</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each seoLinks}}
+          <tr class="border-b border-slate-50 hover:bg-slate-50/50">
+            <td class="px-5 py-3 font-medium text-slate-800">{{this.slug}}</td>
+            <td class="px-3 py-3 text-slate-500">{{this.originalUrl}}</td>
+            <td class="px-3 py-3 text-blue-600">{{this.seoUrl}}</td>
+            <td class="px-3 py-3"><span class="dash-badge {{this.indexColor}}">{{this.indexStatus}}</span></td>
+            <td class="px-3 py-3 text-slate-600">{{this.redirect}}</td>
+            <td class="px-3 py-3 text-slate-600">{{this.metaTitle}}</td>
+            <td class="px-3 py-3">
+              <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 text-xs font-bold {{this.scoreColor}}">{{this.score}}</span>
+            </td>
+            <td class="px-3 py-3">
+              <a href="/dashboard/articles/{{this.slug}}/edit" class="text-xs font-medium text-blue-600 hover:text-blue-700">Sửa</a>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
