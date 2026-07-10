@@ -10,7 +10,13 @@ export function readJsonFile<T>(filename: string, fallback: T): T {
 
 export function writeJsonFile<T>(filename: string, data: T): void {
   const dir = join(resolveProjectRoot(), 'content');
-  if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
+  if (!existsSync(dir)) {
+    try {
+      mkdirSync(dir, { recursive: true });
+    } catch {
+      throw new Error(`Cannot write ${filename}: content directory is not writable`);
+    }
+  }
   writeFileSync(join(dir, filename), JSON.stringify(data, null, 2), 'utf-8');
 }
 

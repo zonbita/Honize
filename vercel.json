@@ -1,8 +1,11 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
   "buildCommand": "npm run build:css",
+  "rewrites": [{ "source": "/(.*)", "destination": "/api" }],
   "functions": {
-    "src/main.ts": {
-      "includeFiles": "{views,public,content}/**",
+    "api/index.ts": {
+      "includeFiles": "{content,views,public}/**/*",
       "maxDuration": 30
     }
   }

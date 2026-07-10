@@ -4,8 +4,8 @@ import { join } from 'path';
 export function resolveProjectRoot(): string {
   const candidates = [
     process.cwd(),
-    join(__dirname, '..', '..', '..'),
     join(__dirname, '..', '..'),
+    join(__dirname, '..', '..', '..'),
     join(__dirname, '..'),
   ];
   return candidates.find((dir) => existsSync(join(dir, 'content'))) ?? process.cwd();

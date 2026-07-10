@@ -45,7 +45,13 @@ const INDEX_STATUS_MAP = {
 export class ArticlesService {
   private ensureDir() {
     const dir = getArticlesDir();
-    if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
+    if (!existsSync(dir)) {
+      try {
+        mkdirSync(dir, { recursive: true });
+      } catch {
+        // Read-only filesystem (Vercel) — read paths still work if files are bundled
+      }
+    }
     return dir;
   }
 
@@ -153,10 +159,11 @@ export class ArticlesService {
   }
 
   findAll(includeTrash = false): Article[] {
-    this.ensureDir();
-    const files = readdirSync(getArticlesDir()).filter((f) => f.endsWith('.json'));
+    const dir = getArticlesDir();
+    if (!existsSync(dir)) return [];
+    const files = readdirSync(dir).filter((f) => f.endsWith('.json'));
     const articles = files.map((f) =>
-      JSON.parse(readFileSync(join(getArticlesDir(), f), 'utf-8')) as Article,
+      JSON.parse(readFileSync(join(dir, f), 'utf-8')) as Article,
     );
     return articles
       .filter((a) => includeTrash || a.status !== 'trash')
