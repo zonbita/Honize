@@ -1,38 +1,65 @@
 {{!-- Hero Section --}}
-<section class="relative overflow-hidden text-white">
-  <div class="absolute inset-0 bg-[url('/images/bg-tech.png')] bg-cover bg-center bg-no-repeat"></div>
-  <div class="absolute inset-0 bg-brand-950/30"></div>
+<section class="hero-section relative overflow-hidden">
+  <div class="hero-section-bg" aria-hidden="true"></div>
 
-  <div class="container-main relative section-padding">
-    <div class="mx-auto max-w-4xl text-center">
-      <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-brand-200">Dịch vụ</p>
-      <h1 class="text-4xl font-extrabold leading-tight md:text-5xl lg:text-6xl">
-        <span class="block">Thiết kế website</span>
-        <span class="mt-2 block bg-gradient-to-r from-white to-brand-200 bg-clip-text text-transparent">chuyên nghiệp</span>
-      </h1>
-      <p class="mt-4 text-xl font-medium text-brand-100">mở rộng cơ hội kinh doanh</p>
-      <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-brand-100/90">
-        {{brand}} sẽ sát cánh cùng quý khách xây dựng website nhằm nâng cao chất lượng dịch vụ và tăng cơ hội quảng bá, bán hàng. Hãy liên hệ để trải nghiệm sự am hiểu, nhiệt tình, sáng tạo và chuyên nghiệp của chúng tôi.
-      </p>
-      <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
-        <a href="#banggia" class="btn-primary bg-white !text-brand-700 shadow-white/20 hover:!bg-brand-50">Báo Giá</a>
-        <a href="#contact" class="btn-outline">Liên Hệ Ngay</a>
+  <div class="container-main relative z-10">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <p class="hero-kicker">Dịch vụ —</p>
+        <h1 class="hero-title">
+          Thiết kế website
+          <span class="text-gold block">chuyên nghiệp</span>
+        </h1>
+        <p class="hero-tagline">→ mở rộng cơ hội kinh doanh</p>
+        <p class="hero-desc">
+          {{brand}} sẽ sát cánh cùng quý khách xây dựng website nhằm nâng cao chất lượng dịch vụ và tăng cơ hội quảng bá, bán hàng. Hãy liên hệ để trải nghiệm sự am hiểu, nhiệt tình, sáng tạo và chuyên nghiệp của chúng tôi.
+        </p>
+        <div class="mt-8 flex flex-wrap items-center gap-4">
+          <a href="#banggia" class="btn-primary">
+            Báo Giá
+            <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+          <a href="#contact" class="btn-outline-gold">
+            Liên Hệ Ngay
+            <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-mockup">
+        <img
+          src="/images/hero-mockup.png"
+          alt="Giao diện website trên laptop và điện thoại"
+          class="hero-mockup-img"
+          width="1536"
+          height="1024"
+          loading="eager"
+        />
       </div>
     </div>
-  </div>
 
-  <div class="absolute bottom-0 left-0 right-0">
-    <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
-      <path d="M0 60L60 50C120 40 240 20 360 15C480 10 600 20 720 25C840 30 960 30 1080 25C1200 20 1320 10 1380 5L1440 0V60H0Z" fill="#f8fafc"/>
-    </svg>
+    <div class="hero-features">
+      <div class="hero-feature-item">
+        <img src="/images/icon1.png" alt="" class="hero-feature-icon" width="40" height="40" />
+        <span>Giá rẻ</span>
+      </div>
+      <div class="hero-feature-item">
+        <img src="/images/icon2.png" alt="" class="hero-feature-icon" width="40" height="40" />
+        <span>Chất lượng</span>
+      </div>
+      <div class="hero-feature-item">
+        <img src="/images/icon3.png" alt="" class="hero-feature-icon" width="40" height="40" />
+        <span>Tăng lượng khách hàng</span>
+      </div>
+    </div>
   </div>
 </section>
 
 {{!-- Services Section --}}
-<section id="services" class="section-padding bg-surface-muted">
+<section id="services" class="section-padding bg-white">
   <div class="container-main">
     <div class="text-center">
-      <h2 class="section-title">Dịch Vụ <span class="text-brand-300">{{brand}}</span></h2>
+      <h2 class="section-title">Dịch Vụ <span class="text-gold">{{brand}}</span></h2>
       <p class="section-subtitle mx-auto">
         Chúng tôi là những chuyên gia đầu ngành trên 15 năm kinh nghiệm thiết kế web. Website của quý khách được hoàn thiện bởi 3 thế mạnh của công ty: thiết kế đồ họa, lập trình và hosting.
       </p>
@@ -41,17 +68,12 @@
     <div class="mt-14 grid gap-8 md:grid-cols-3">
       {{#each services}}
       <div class="card-service">
-        <div class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-50 text-brand-300">
-          {{#if (eq this.icon "design")}}
-          <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
-          {{else if (eq this.icon "maintenance")}}
-          <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-          {{else}}
-          <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/></svg>
-          {{/if}}
-        </div>
+        <img src="{{this.image}}" alt="" class="card-service-icon" width="72" height="72" />
         <h3 class="text-xl font-bold text-slate-900">{{this.title}}</h3>
-        <p class="mt-3 text-sm leading-relaxed text-slate-600">{{this.description}}</p>
+        <p class="mt-3 flex-1 text-sm leading-relaxed text-slate-600">{{this.description}}</p>
+        <span class="card-service-arrow" aria-hidden="true">
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </span>
       </div>
       {{/each}}
     </div>
@@ -63,9 +85,9 @@
   <div class="container-main">
     <div class="grid items-center gap-12 lg:grid-cols-2">
       <div>
-        <p class="text-sm font-semibold uppercase tracking-widest text-brand-300">Hiệu suất</p>
+        <p class="text-gold text-sm font-semibold uppercase tracking-widest">Hiệu suất</p>
         <h2 class="section-title mt-2">
-          Dịch vụ <span class="text-brand-300">Tối Ưu &amp; Tăng Tốc</span> Website
+          Dịch vụ <span class="text-gold">Tối Ưu &amp; Tăng Tốc</span> Website
         </h2>
       </div>
       <div class="space-y-6">
@@ -105,9 +127,9 @@
   <div class="responsive-section-bg" aria-hidden="true"></div>
   <div class="container-main relative z-10">
     <div class="text-center">
-      <p class="text-sm font-semibold uppercase tracking-widest text-brand-300">Trải nghiệm</p>
+      <p class="text-gold-on-dark text-sm font-semibold uppercase tracking-widest">Trải nghiệm</p>
       <h2 class="mt-2 text-3xl font-bold md:text-4xl">
-        Lợi ích từ <span class="text-brand-300">Design &amp; Responsive</span> trên mọi thiết bị
+        Lợi ích từ <span class="text-gold-on-dark">Design &amp; Responsive</span> trên mọi thiết bị
       </h2>
     </div>
 
@@ -219,8 +241,7 @@
   </div>
 </section>
 
-{{!-- Projects — WonderPlugin-style 3D carousel (Swiper Coverflow) --}}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+{{!-- Projects — grid showcase --}}
 <section id="projects" class="project-showcase section-padding scroll-mt-24">
   <div class="container-main text-center">
     <h2 class="section-title">1000+ Dự án tiêu biểu từ {{brand}}</h2>
@@ -229,37 +250,27 @@
     </p>
   </div>
 
-  <div class="swiper project-swiper mx-auto mt-10 max-w-[1500px] px-4">
-    <div class="swiper-wrapper">
+  <div class="container-main mt-12">
+    <div class="project-grid" id="project-grid">
       {{#each projects}}
-      <div class="swiper-slide" data-category="{{this.categorySlug}}">
-        <a href="{{this.url}}" class="project-slide-link">
-          <div class="project-slide-frame">
-            <img src="{{this.image}}" alt="{{this.title}}" loading="lazy" draggable="false" />
+      <article class="project-card" data-category="{{this.categorySlug}}">
+        <a href="{{this.url}}" class="project-card-link">
+          <div class="project-card-frame">
+            <img src="{{this.image}}" alt="{{this.title}}" width="400" height="500" loading="lazy" draggable="false" />
           </div>
-          <p class="project-slide-title">{{this.title}}</p>
+          <p class="project-card-label">{{this.categoryName}}</p>
         </a>
-      </div>
+      </article>
       {{/each}}
     </div>
-    <div class="swiper-pagination project-swiper-pagination"></div>
-  </div>
 
-  <div class="container-main">
-    <div class="mt-8 flex flex-wrap justify-center gap-3" id="project-filters">
-      <button type="button" class="project-pill project-pill-active" data-filter="all">Tất cả</button>
-      {{#each projectCategories}}
-      <button type="button" class="project-pill" data-filter="{{this.slug}}">{{this.name}}</button>
-      {{/each}}
-    </div>
-    <div class="mt-8 text-center">
-      <a href="#contact" class="btn-primary">Xem thêm mẫu demo</a>
+    <div class="mt-12 text-center">
+      <button type="button" id="project-load-more" class="btn-primary">Xem thêm mẫu demo</button>
     </div>
   </div>
 </section>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="/js/project-carousel.js"></script>
+<script src="/js/project-grid.js"></script>
 
 {{!-- Legacy anchor --}}
 <section id="pricing" class="sr-only" aria-hidden="true"></section>
@@ -272,7 +283,7 @@
         <h2 class="section-title">Bản tin chuyên ngành</h2>
         <p class="section-subtitle">Cập nhật kiến thức mới nhất về thiết kế web, SEO và công nghệ.</p>
       </div>
-      <a href="/blog" class="text-sm font-semibold text-brand-300 hover:text-brand-200">Xem tất cả →</a>
+      <a href="/blog" class="text-gold text-sm font-semibold transition-opacity hover:opacity-80">Xem tất cả →</a>
     </div>
 
     <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">

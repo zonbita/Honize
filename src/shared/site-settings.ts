@@ -14,7 +14,7 @@ export interface SiteSettings {
 }
 
 const DEFAULT_SETTINGS: SiteSettings = {
-  siteName: 'Honize™',
+  siteName: 'Honize Test',
   tagline: 'Thiết kế web chuyên nghiệp - Sang trọng - Chuẩn SEO',
   email: 'info@honize.vn',
   phone: '(+84) 2873 040 030',

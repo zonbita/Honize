@@ -41,16 +41,111 @@
     @apply mt-4 max-w-3xl text-lg text-slate-600;
   }
 
+  .text-gold {
+    background: linear-gradient(
+      to bottom,
+      #d4af37 0%,
+      #c5a059 32%,
+      #b8943f 55%,
+      #a88232 78%,
+      #8b6b3e 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .text-gold-on-dark {
+    background: linear-gradient(
+      to bottom,
+      #e5c07b 0%,
+      #d4af37 38%,
+      #c5a059 68%,
+      #b8943f 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
   .btn-primary {
-    @apply inline-flex items-center justify-center rounded-full bg-brand-600 px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-brand-600/25 transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-700 hover:shadow-xl hover:shadow-brand-600/30;
+    @apply inline-flex items-center justify-center rounded-full bg-brand-gold px-8 py-3 text-sm font-semibold text-brand-950 shadow-lg shadow-brand-600/25 transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-gold-hover hover:shadow-xl hover:shadow-brand-600/30;
   }
 
   .btn-outline {
     @apply inline-flex items-center justify-center rounded-full border-2 border-white/80 px-8 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-white hover:text-brand-700;
   }
 
+  .btn-outline-gold {
+    @apply inline-flex items-center justify-center rounded-full border-2 border-brand-500 bg-transparent px-8 py-3 text-sm font-semibold text-brand-800 transition-all duration-300 hover:border-brand-600 hover:bg-brand-50/80;
+  }
+
+  .hero-section {
+    @apply bg-white pb-8 pt-10 md:pb-12 md:pt-14;
+  }
+
+  .hero-section-bg {
+    @apply pointer-events-none absolute inset-0 bg-cover bg-no-repeat;
+    background-image: url('/images/bg-tech.png');
+    background-position: right center;
+  }
+
+  .hero-grid {
+    @apply grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-6 xl:gap-10;
+  }
+
+  .hero-content {
+    @apply relative z-10 max-w-xl;
+  }
+
+  .hero-kicker {
+    @apply text-gold mb-4 text-sm font-semibold uppercase tracking-[0.2em];
+  }
+
+  .hero-title {
+    @apply text-4xl font-extrabold leading-[1.1] text-slate-900 md:text-5xl lg:text-[3.35rem];
+  }
+
+  .hero-tagline {
+    @apply text-gold mt-4 text-lg font-semibold md:text-xl;
+  }
+
+  .hero-desc {
+    @apply mt-6 max-w-lg text-base leading-relaxed text-slate-600 md:text-[17px];
+  }
+
+  .hero-mockup {
+    @apply relative z-10 flex justify-center lg:justify-end;
+  }
+
+  .hero-mockup-img {
+    @apply w-full max-w-[700px] object-contain lg:max-w-[760px];
+  }
+
+  .hero-features {
+    @apply relative z-10 mx-auto mt-10 grid max-w-4xl grid-cols-1 gap-4 rounded-2xl border border-slate-200/80 bg-white px-6 py-5 shadow-[0_12px_40px_rgba(15,23,42,0.08)] sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-slate-200;
+  }
+
+  .hero-feature-item {
+    @apply flex items-center justify-center gap-3 text-sm font-semibold text-slate-800 sm:px-4;
+  }
+
+  .hero-feature-icon {
+    @apply h-10 w-10 shrink-0 object-contain;
+  }
+
   .card-service {
-    @apply relative overflow-hidden rounded-2xl bg-white p-8 shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover;
+    @apply relative flex min-h-[240px] flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-8 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-card-hover;
+  }
+
+  .card-service-icon {
+    @apply mb-6 h-[72px] w-[72px] object-contain;
+  }
+
+  .card-service-arrow {
+    @apply absolute bottom-6 right-6 flex h-9 w-9 items-center justify-center rounded-full text-brand-300;
   }
 
   .card-service::before {
@@ -81,7 +176,7 @@
   .responsive-section-bg {
     @apply pointer-events-none absolute left-0 right-0 top-0;
     height: 500px;
-    background-image: url('/images/47a4ed81-7f34-462a-a437-821109ace89e.png');
+    background-image: url('/images/bg-tech.png');
     background-size: cover;
     background-position: left center;
     background-repeat: no-repeat;
@@ -93,54 +188,53 @@
     @apply absolute inset-0;
     background: linear-gradient(
       to right,
-      rgba(20, 35, 87, 0.25) 0%,
-      rgba(20, 35, 87, 0.65) 55%,
-      #142357 100%
+      rgba(34, 38, 42, 0.15) 0%,
+      rgba(34, 38, 42, 0.55) 55%,
+      #22262a 100%
     );
   }
 
   .project-showcase {
-    @apply overflow-hidden bg-[#eceff3];
+    @apply overflow-hidden bg-[#f3f4f6];
   }
 
-  .project-swiper {
-    @apply w-full overflow-visible pb-2 pt-4;
+  .project-grid {
+    @apply grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-12;
   }
 
-  .project-swiper .swiper-slide {
-    @apply w-[250px] sm:w-[290px] lg:w-[310px];
-  }
-
-  .project-swiper .swiper-slide-hidden {
+  .project-card-hidden {
     display: none !important;
   }
 
-  .project-slide-link {
-    @apply block select-none outline-none;
+  .project-card-link {
+    @apply mx-auto block w-[400px] rounded-sm bg-white outline-none;
+    box-shadow:
+      0 2px 4px rgba(15, 23, 42, 0.04),
+      0 12px 28px rgba(15, 23, 42, 0.08),
+      0 24px 48px rgba(15, 23, 42, 0.06);
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
   }
 
-  .project-slide-frame {
-    @apply overflow-hidden rounded-md bg-white shadow-[0_28px_70px_rgba(15,23,42,0.22)];
+  .project-card-link:hover {
+    transform: translateY(-6px);
+    box-shadow:
+      0 4px 8px rgba(15, 23, 42, 0.06),
+      0 20px 40px rgba(15, 23, 42, 0.12),
+      0 32px 64px rgba(15, 23, 42, 0.08);
   }
 
-  .project-slide-frame img {
-    @apply block h-[360px] w-full object-cover object-top sm:h-[400px] lg:h-[440px];
+  .project-card-frame {
+    @apply box-border h-[500px] w-[400px] overflow-hidden bg-white p-2.5;
   }
 
-  .project-slide-title {
-    @apply mt-4 px-1 text-center text-[11px] font-extrabold uppercase leading-snug tracking-wide text-slate-900 sm:text-xs;
+  .project-card-frame img {
+    @apply block h-[480px] w-full object-cover object-top;
   }
 
-  .project-swiper-pagination {
-    @apply !relative !bottom-0 mt-6;
-  }
-
-  .project-swiper-pagination .swiper-pagination-bullet {
-    @apply h-2.5 w-2.5 bg-slate-300 opacity-100;
-  }
-
-  .project-swiper-pagination .swiper-pagination-bullet-active {
-    @apply bg-orange-500;
+  .project-card-label {
+    @apply mt-3 w-[400px] pb-1 text-center text-sm font-bold text-slate-900;
   }
 
   .pricing-card {
@@ -152,7 +246,7 @@
   }
 
   .pricing-card-head-featured {
-    @apply bg-[#c62828] pb-6;
+    @apply bg-brand-gold pb-6;
   }
 
   .pricing-card-name {
@@ -160,7 +254,7 @@
   }
 
   .pricing-card-name-light {
-    @apply text-white;
+    @apply text-brand-950;
   }
 
   .pricing-card-desc {
@@ -168,7 +262,7 @@
   }
 
   .pricing-card-desc-light {
-    @apply text-white/95;
+    @apply text-brand-950/90;
   }
 
   .pricing-card-divider {
@@ -184,7 +278,7 @@
   }
 
   .pricing-price-new {
-    @apply mt-1 block text-[2rem] font-extrabold leading-none text-[#e85d2d] sm:text-[2.15rem];
+    @apply text-gold mt-1 block text-[2rem] font-extrabold leading-none sm:text-[2.15rem];
   }
 
   .pricing-features {
@@ -196,7 +290,7 @@
   }
 
   .pricing-check {
-    @apply mt-0.5 flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-amber-400 to-yellow-500 text-white;
+    @apply mt-0.5 flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full bg-brand-gold text-brand-950;
   }
 
   .pricing-check svg {
@@ -204,11 +298,24 @@
   }
 
   .pricing-btn {
-    @apply mx-6 mb-6 block rounded-full bg-gradient-to-r from-[#f97316] to-[#fbbf24] py-3.5 text-center text-xs font-bold uppercase tracking-wide text-white shadow-[0_8px_24px_rgba(249,115,22,0.35)] transition hover:brightness-105 sm:mx-8 sm:mb-8 sm:text-sm;
+    @apply btn-primary mx-6 mb-6 block py-3.5 text-center text-xs font-bold uppercase tracking-wide sm:mx-8 sm:mb-8 sm:text-sm;
   }
 
   .pricing-card-featured {
-    @apply ring-2 ring-[#c62828]/20;
+    @apply ring-2 ring-brand-300/40;
+  }
+
+  .site-footer {
+    @apply relative overflow-hidden text-slate-300;
+    background-color: #0a0a0b;
+    background-image: url('/images/bge32.png');
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+  }
+
+  .site-footer .container-main {
+    @apply relative z-10;
   }
 
   .blog-card {

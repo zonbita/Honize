@@ -71,7 +71,7 @@ export class ArticlesController {
       blogPosts: articles.map((a) => this.articlesService.toBlogPost(a)),
       seo: this.articlesService.buildStaticPageSeo(
         'Bản tin chuyên ngành',
-        'Tin tức, hướng dẫn và xu hướng mới nhất từ Honize',
+        `Tin tức, hướng dẫn và xu hướng mới nhất từ ${site.brand}`,
         '/blog',
         site.brand,
       ),

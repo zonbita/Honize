@@ -526,7 +526,7 @@ export class ArticlesService {
     title: string,
     description: string,
     path: string,
-    brand = 'Honize',
+    brand = 'Honize Test',
     appendBrand = true,
   ): PageSeo {
     const siteUrl = getSiteUrl();
@@ -540,7 +540,7 @@ export class ArticlesService {
     };
   }
 
-  buildArticlePageSeo(article: Article, brand = 'Honize'): PageSeo {
+  buildArticlePageSeo(article: Article, brand = 'Honize Test'): PageSeo {
     const siteUrl = getSiteUrl();
     const path = this.getBlogPath(article.slug);
     const canonical = `${siteUrl}${path}`;

@@ -1,45 +1,25 @@
 {
   "projectCategories": [
-    {
-      "name": "Bán hàng",
-      "slug": "ban-hang"
-    },
-    {
-      "name": "Bất động sản",
-      "slug": "bat-dong-san"
-    },
-    {
-      "name": "Du lịch",
-      "slug": "du-lich"
-    },
-    {
-      "name": "Dịch vụ",
-      "slug": "dich-vu"
-    },
-    {
-      "name": "Giới thiệu công ty",
-      "slug": "gioi-thieu-cong-ty"
-    },
-    {
-      "name": "Tin tức",
-      "slug": "tin-tuc"
-    },
-    {
-      "name": "Thiết kế",
-      "slug": "thiet-ke"
-    },
-    {
-      "name": "Ăn uống",
-      "slug": "an-uong"
-    }
+    { "name": "Ăn uống", "slug": "an-uong" },
+    { "name": "Bán hàng", "slug": "ban-hang" },
+    { "name": "Bất động sản", "slug": "bat-dong-san" },
+    { "name": "Đào tạo", "slug": "dao-tao" },
+    { "name": "Dịch vụ", "slug": "dich-vu" },
+    { "name": "Du học", "slug": "du-hoc" },
+    { "name": "Du lịch", "slug": "du-lich" },
+    { "name": "Giải pháp", "slug": "giai-phap" },
+    { "name": "Giới thiệu công ty", "slug": "gioi-thieu-cong-ty" },
+    { "name": "Kiến trúc", "slug": "kien-truc" },
+    { "name": "Ngoại thất", "slug": "ngoai-that" },
+    { "name": "Nội thất", "slug": "noi-that" }
   ],
   "projects": [
     {
-      "title": "Website thủ môn",
+      "title": "Website nhà hàng",
       "slug": "nha-hang-sai-gon",
       "categorySlug": "an-uong",
       "categoryName": "Ăn uống",
-      "image": "/uploads/1783673927810-90620973.png",
+      "image": "/images/01.jpg",
       "url": "#contact"
     },
     {
@@ -47,7 +27,7 @@
       "slug": "shop-thoi-trang",
       "categorySlug": "ban-hang",
       "categoryName": "Bán hàng",
-      "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop",
+      "image": "/images/02.jpg",
       "url": "#contact"
     },
     {
@@ -55,7 +35,31 @@
       "slug": "can-ho-cao-cap",
       "categorySlug": "bat-dong-san",
       "categoryName": "Bất động sản",
-      "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop",
+      "image": "/images/04.jpg",
+      "url": "#contact"
+    },
+    {
+      "title": "Trung tâm đào tạo",
+      "slug": "trung-tam-dao-tao",
+      "categorySlug": "dao-tao",
+      "categoryName": "Đào tạo",
+      "image": "/images/05.jpg",
+      "url": "#contact"
+    },
+    {
+      "title": "Spa & Wellness",
+      "slug": "spa-wellness",
+      "categorySlug": "dich-vu",
+      "categoryName": "Dịch vụ",
+      "image": "/images/06.jpg",
+      "url": "#contact"
+    },
+    {
+      "title": "Tư vấn du học",
+      "slug": "tu-van-du-hoc",
+      "categorySlug": "du-hoc",
+      "categoryName": "Du học",
+      "image": "/images/07.jpg",
       "url": "#contact"
     },
     {
@@ -63,15 +67,15 @@
       "slug": "tour-da-nang",
       "categorySlug": "du-lich",
       "categoryName": "Du lịch",
-      "image": "/uploads/1783673979297-768599647.png",
-      "url": "/blog/du-lich-da-nang-2026"
+      "image": "/images/08-1.jpg",
+      "url": "#contact"
     },
     {
-      "title": "Spa & Wellness",
-      "slug": "spa-wellness",
-      "categorySlug": "dich-vu",
-      "categoryName": "Dịch vụ",
-      "image": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&h=600&fit=crop",
+      "title": "Giải pháp số doanh nghiệp",
+      "slug": "giai-phap-so",
+      "categorySlug": "giai-phap",
+      "categoryName": "Giải pháp",
+      "image": "/images/achi.jpg",
       "url": "#contact"
     },
     {
@@ -79,23 +83,31 @@
       "slug": "corporate-landing",
       "categorySlug": "gioi-thieu-cong-ty",
       "categoryName": "Giới thiệu công ty",
-      "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop",
+      "image": "/images/exterior.jpg",
       "url": "#contact"
     },
     {
-      "title": "Tin tức công nghệ",
-      "slug": "tin-cong-nghe",
-      "categorySlug": "tin-tuc",
-      "categoryName": "Tin tức",
-      "image": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&h=600&fit=crop",
-      "url": "/blog"
+      "title": "Công ty kiến trúc",
+      "slug": "cong-ty-kien-truc",
+      "categorySlug": "kien-truc",
+      "categoryName": "Kiến trúc",
+      "image": "/images/01.jpg",
+      "url": "#contact"
     },
     {
-      "title": "Portfolio thiết kế",
-      "slug": "portfolio-thiet-ke",
-      "categorySlug": "thiet-ke",
-      "categoryName": "Thiết kế",
-      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
+      "title": "Thiết kế ngoại thất",
+      "slug": "thiet-ke-ngoai-that",
+      "categorySlug": "ngoai-that",
+      "categoryName": "Ngoại thất",
+      "image": "/images/02.jpg",
+      "url": "#contact"
+    },
+    {
+      "title": "Showroom nội thất",
+      "slug": "showroom-noi-that",
+      "categorySlug": "noi-that",
+      "categoryName": "Nội thất",
+      "image": "/images/04.jpg",
       "url": "#contact"
     },
     {
@@ -103,7 +115,23 @@
       "slug": "cafe-specialty",
       "categorySlug": "an-uong",
       "categoryName": "Ăn uống",
-      "image": "https://images.unsplash.com/photo-1501339847302-ac724a563a6a?w=800&h=600&fit=crop",
+      "image": "/images/05.jpg",
+      "url": "#contact"
+    },
+    {
+      "title": "Cửa hàng điện tử",
+      "slug": "cua-hang-dien-tu",
+      "categorySlug": "ban-hang",
+      "categoryName": "Bán hàng",
+      "image": "/images/06.jpg",
+      "url": "#contact"
+    },
+    {
+      "title": "Dự án đất nền",
+      "slug": "du-an-dat-nen",
+      "categorySlug": "bat-dong-san",
+      "categoryName": "Bất động sản",
+      "image": "/images/07.jpg",
       "url": "#contact"
     }
   ]

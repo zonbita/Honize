@@ -6,6 +6,7 @@ export interface NavItem {
 
 export interface Service {
   icon: string;
+  image: string;
   title: string;
   description: string;
 }
@@ -49,14 +50,18 @@ export interface SiteData extends SiteLayoutData {
 /** Dữ liệu mặc định khi chưa có content/projects.json */
 export const defaultProjectsData: Pick<SiteLayoutData, 'projectCategories' | 'projects'> = {
   projectCategories: [
+    { name: 'Ăn uống', slug: 'an-uong' },
     { name: 'Bán hàng', slug: 'ban-hang' },
     { name: 'Bất động sản', slug: 'bat-dong-san' },
-    { name: 'Du lịch', slug: 'du-lich' },
+    { name: 'Đào tạo', slug: 'dao-tao' },
     { name: 'Dịch vụ', slug: 'dich-vu' },
+    { name: 'Du học', slug: 'du-hoc' },
+    { name: 'Du lịch', slug: 'du-lich' },
+    { name: 'Giải pháp', slug: 'giai-phap' },
     { name: 'Giới thiệu công ty', slug: 'gioi-thieu-cong-ty' },
-    { name: 'Tin tức', slug: 'tin-tuc' },
-    { name: 'Thiết kế', slug: 'thiet-ke' },
-    { name: 'Ăn uống', slug: 'an-uong' },
+    { name: 'Kiến trúc', slug: 'kien-truc' },
+    { name: 'Ngoại thất', slug: 'ngoai-that' },
+    { name: 'Nội thất', slug: 'noi-that' },
   ],
   projects: [
     {
@@ -156,22 +161,22 @@ export const siteLayout: SiteLayoutData = {
   ],
   services: [
     {
-      icon: 'design',
-      title: 'Thiết Kế Website',
-      description:
-        'Tư vấn và thiết kế website chuyên nghiệp, sang trọng, hiệu quả và ổn định.',
+      icon: 'web',
+      image: '/images/icon4.png',
+      title: 'Thiết kế web',
+      description: 'Giao diện đẹp, chuẩn SEO, tương thích mọi thiết bị.',
     },
     {
-      icon: 'maintenance',
-      title: 'Bảo Trì Website',
-      description:
-        'Hỗ trợ xử lý lỗi virus, SEO và hệ thống web nhanh chóng, kịp thời.',
+      icon: 'app',
+      image: '/images/icon5.png',
+      title: 'Ứng dụng',
+      description: 'App mobile & desktop hiệu năng cao, trải nghiệm tốt.',
     },
     {
-      icon: 'hosting',
-      title: 'Host Cao Cấp',
-      description:
-        'Hạ tầng ổn định, an toàn giúp website vận hành hiệu quả.',
+      icon: 'ai',
+      image: '/images/icon6.png',
+      title: 'Tích hợp AI',
+      description: 'Tự động hóa, phân tích dữ liệu, cá nhân hóa trải nghiệm khách hàng.',
     },
   ],
   projectCategories: defaultProjectsData.projectCategories,

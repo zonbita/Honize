@@ -4,14 +4,14 @@ import { startDevWatcher } from './shared/dev-watcher';
 async function bootstrap() {
   const app = await createNestApp();
   const root = resolveRoot();
-  const port = process.env.PORT ?? 3000;
+  const port = process.env.PORT ?? 4000;
   await app.listen(port);
 
   if (process.env.NODE_ENV !== 'production') {
     startDevWatcher(root);
   }
 
-  console.log(`Honize running at http://localhost:${port}`);
+  console.log(`Honize Test running at http://localhost:${port}`);
 }
 
 bootstrap();
