@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ArticlesService } from '../articles/articles.service';
 import { ArticleStatus } from '../articles/articles.types';
+import { getCurrentAuthUser } from '../auth/auth-context';
 import { dashboardData } from '../data/dashboard.data';
 
 const ARTICLE_TABS: { label: string; status?: ArticleStatus }[] = [
@@ -16,6 +17,7 @@ export class DashboardService {
   constructor(private readonly articlesService: ArticlesService) {}
 
   getSharedLayoutData(activeNav = 'articles') {
+    const authUser = getCurrentAuthUser();
     return {
       activeNav,
       navItems: [
@@ -25,15 +27,23 @@ export class DashboardService {
         { id: 'projects', label: 'Dự án mẫu', icon: 'layout', href: '/dashboard/projects' },
         { id: 'media', label: 'Media', icon: 'image', href: '/dashboard/media' },
         { id: 'seo', label: 'SEO Link', icon: 'link', href: '/dashboard/seo' },
+        { id: 'stats', label: 'Thống kê', icon: 'chart', href: '/dashboard/stats' },
         { id: 'users', label: 'Người dùng', icon: 'users', href: '/dashboard/users' },
         { id: 'settings', label: 'Cài đặt', icon: 'settings', href: '/dashboard/settings' },
       ],
-      user: {
-        name: 'Admin',
-        role: 'Quản trị viên',
-        avatar: 'AD',
-        notifications: 12,
-      },
+      user: authUser
+        ? {
+            name: authUser.name,
+            role: authUser.role,
+            avatar: authUser.avatar,
+            notifications: 0,
+          }
+        : {
+            name: 'Admin',
+            role: 'Quản trị viên',
+            avatar: 'AD',
+            notifications: 0,
+          },
     };
   }
 

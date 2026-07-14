@@ -5,8 +5,10 @@ import express, { Express, NextFunction, Request, Response } from 'express';
 import { existsSync } from 'fs';
 import { join } from 'path';
 import { AppModule } from './app.module';
+import { authGate } from './auth/auth.middleware';
 import { getDevRevision } from './shared/dev-reload';
 import { projectAssetRoot } from './shared/trace-static-files';
+import { recordVisit } from './shared/visit-tracker';
 
 export function resolveRoot(): string {
   const fromAssets = projectAssetRoot();
@@ -49,14 +51,22 @@ function configureViewEngine(app: NestExpressApplication, root: string): void {
   app.setViewEngine('hbs');
 
   const devMode = process.env.NODE_ENV !== 'production';
-  app.use((_req: Request, res: Response, next: NextFunction) => {
+  app.use((req: Request, res: Response, next: NextFunction) => {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+    res.setHeader('X-XSS-Protection', '0');
+
     res.locals.devMode = devMode;
     if (devMode) {
       res.locals.devRevision = getDevRevision();
       res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
     }
+    recordVisit(req);
     next();
   });
+
+  app.use(authGate);
 }
 
 /** Local / long-running server entry. */

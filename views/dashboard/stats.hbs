@@ -1,0 +1,56 @@
+{{> dashboard/page-header }}
+
+<div class="flex-1 overflow-y-auto p-6">
+  <div class="mb-6 flex flex-wrap items-end justify-between gap-3">
+    <div>
+      <p class="text-sm text-slate-500">
+        Lịch sử truy cập trang công khai — IP, quốc gia và thời gian.
+        Lưu tại <code class="rounded bg-slate-100 px-1">content/visits.json</code>
+      </p>
+    </div>
+    <div class="flex items-center gap-3">
+      <p class="text-sm font-medium text-slate-600">
+        Tổng: <span class="text-brand-600">{{visitCount}}</span> lượt
+      </p>
+      <form method="post" action="/dashboard/stats/clear" onsubmit="return confirm('Xóa toàn bộ lịch sử truy cập?');">
+        <button type="submit" class="rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-sm font-medium text-red-600 hover:bg-red-100">
+          Clear
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="dash-card overflow-hidden">
+    <table class="w-full text-left text-sm">
+      <thead>
+        <tr class="border-b border-slate-100 bg-slate-50/80 text-xs font-semibold uppercase text-slate-500">
+          <th class="px-5 py-3">IP</th>
+          <th class="px-3 py-3">Quốc tịch / Quốc gia</th>
+          <th class="px-3 py-3">Trang</th>
+          <th class="px-3 py-3">Ngày giờ</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each visits}}
+        <tr class="border-b border-slate-50 hover:bg-slate-50/50">
+          <td class="px-5 py-3 font-mono text-xs text-slate-800">{{this.ip}}</td>
+          <td class="px-3 py-3">
+            <span class="font-medium text-slate-800">{{this.country}}</span>
+            {{#if this.countryCode}}
+            <span class="ml-1 text-xs text-slate-400">({{this.countryCode}})</span>
+            {{/if}}
+          </td>
+          <td class="px-3 py-3 text-slate-600">{{this.path}}</td>
+          <td class="px-3 py-3 text-slate-500">{{this.visitedAtFormatted}}</td>
+        </tr>
+        {{else}}
+        <tr>
+          <td colspan="4" class="px-5 py-10 text-center text-slate-400">
+            Chưa có dữ liệu truy cập. Hãy mở trang chủ hoặc blog để bắt đầu ghi nhận.
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>

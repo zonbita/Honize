@@ -94,7 +94,7 @@ export const defaultProjectsData: Pick<SiteLayoutData, 'projectCategories' | 'pr
       categorySlug: 'du-lich',
       categoryName: 'Du lịch',
       image: 'https://images.unsplash.com/photo-1559592413-7cec4b0ef90f?w=800&h=600&fit=crop',
-      url: '/blog/du-lich-da-nang-2026',
+      url: '/blog/xu-huong-thiet-ke-web-2026',
     },
     {
       title: 'Spa & Wellness',

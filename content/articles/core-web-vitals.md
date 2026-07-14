@@ -1,12 +1,22 @@
-# Cách tối ưu Core Web Vitals cho website
+# Tối ưu tốc độ website với Core Web Vitals
 
-Core Web Vitals là bộ chỉ số Google dùng để đánh giá trải nghiệm người dùng.
+Một giao diện premium sẽ kém hiệu quả nếu tải chậm. Core Web Vitals đo trải nghiệm thực tế của người dùng.
 
-## LCP (Largest Contentful Paint)
-Mục tiêu: dưới 2.5 giây. Tối ưu ảnh, font, server response.
+## LCP — nội dung lớn nhất
 
-## INP / FID
-Giảm JavaScript blocking, lazy load components.
+Tối ưu ảnh hero, font và server. Mục tiêu dưới **2.5s**.
 
-## CLS (Cumulative Layout Shift)
-Đặt kích thước cố định cho ảnh và embed.
+## INP — phản hồi tương tác
+
+Giảm JavaScript nặng, trì hoãn script không cần thiết, tránh block main thread.
+
+## CLS — ổn định bố cục
+
+Luôn reserv kích thước ảnh/video/embed để trang không “nhảy” khi tải.
+
+## Checklist nhanh
+
+- WebP/AVIF + lazy load
+- Critical CSS gọn
+- CDN / caching
+- Đo bằng PageSpeed Insights trên mobile

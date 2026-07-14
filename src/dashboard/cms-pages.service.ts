@@ -1,11 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { readdirSync } from 'fs';
-import { join } from 'path';
+import { existsSync, readdirSync, unlinkSync } from 'fs';
+import { basename, join } from 'path';
 import { ArticlesService } from '../articles/articles.service';
 import { Project } from '../data/site.data';
 import { bumpDevRevision } from '../shared/dev-reload';
 import { loadSiteProjects, saveSiteProjects, SiteProjectsData } from '../shared/site-projects';
 import { loadSiteSettings, SiteSettings } from '../shared/site-settings';
+import { clearVisits as clearVisitRecords, getVisits, VisitRecord } from '../shared/visit-tracker';
 import { getUploadsDir, readJsonFile, writeJsonFile } from './cms.storage';
 
 export interface Category {
@@ -73,12 +74,40 @@ export class CmsPagesService {
       }));
   }
 
+  deleteMediaFile(filename: string): void {
+    const safeName = basename(filename || '');
+    if (!safeName || safeName !== filename || safeName.includes('..')) {
+      throw new NotFoundException('File không hợp lệ');
+    }
+
+    const imageExt = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg'];
+    if (!imageExt.some((ext) => safeName.toLowerCase().endsWith(ext))) {
+      throw new NotFoundException('Chỉ được xóa file ảnh');
+    }
+
+    const filePath = join(getUploadsDir(), safeName);
+    if (!existsSync(filePath)) {
+      throw new NotFoundException(`Không tìm thấy file "${safeName}"`);
+    }
+
+    unlinkSync(filePath);
+    bumpDevRevision();
+  }
+
   getSeoLinks() {
     return this.articlesService.findAll().map((a) => this.articlesService.toSeoLink(a));
   }
 
   getUsers(): CmsUser[] {
     return readJsonFile<CmsUser[]>('users.json', []);
+  }
+
+  getVisits(): VisitRecord[] {
+    return getVisits();
+  }
+
+  clearVisits(): void {
+    clearVisitRecords();
   }
 
   getSettings(): SiteSettings {

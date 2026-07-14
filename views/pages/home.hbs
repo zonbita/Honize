@@ -5,22 +5,22 @@
   <div class="container-main relative z-10">
     <div class="hero-grid">
       <div class="hero-content">
-        <p class="hero-kicker">Dịch vụ —</p>
+        <p class="hero-kicker">{{hero.kicker}}</p>
         <h1 class="hero-title">
-          Thiết kế website
-          <span class="text-gold block">chuyên nghiệp</span>
+          {{hero.title}}
+          <span class="text-gold block">{{hero.titleHighlight}}</span>
         </h1>
-        <p class="hero-tagline">→ mở rộng cơ hội kinh doanh</p>
+        <p class="hero-tagline">{{hero.tagline}}</p>
         <p class="hero-desc">
-          {{brand}} sẽ sát cánh cùng quý khách xây dựng website nhằm nâng cao chất lượng dịch vụ và tăng cơ hội quảng bá, bán hàng. Hãy liên hệ để trải nghiệm sự am hiểu, nhiệt tình, sáng tạo và chuyên nghiệp của chúng tôi.
+          {{hero.description}}
         </p>
         <div class="mt-8 flex flex-wrap items-center gap-4">
           <a href="#banggia" class="btn-primary">
-            Báo Giá
+            {{hero.ctaPrimary}}
             <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
           </a>
           <a href="#contact" class="btn-outline-gold">
-            Liên Hệ Ngay
+            {{hero.ctaSecondary}}
             <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
           </a>
         </div>
@@ -55,104 +55,170 @@
   </div>
 </section>
 
-{{!-- Services Section --}}
-<section id="services" class="section-padding bg-white">
-  <div class="container-main">
-    <div class="text-center">
-      <h2 class="section-title">Dịch Vụ <span class="text-gold">{{brand}}</span></h2>
-      <p class="section-subtitle mx-auto">
+{{!-- Services Section — minimal premium gold --}}
+<section id="services" class="services-section section-padding">
+  <div class="services-decor" aria-hidden="true">
+    <svg class="services-curve services-curve-1" viewBox="0 0 400 400" fill="none">
+      <path d="M360 40 C 220 60, 100 160, 40 340" stroke="currentColor" stroke-width="1.25" />
+      <path d="M400 80 C 260 90, 140 180, 70 360" stroke="currentColor" stroke-width="0.75" opacity="0.45" />
+    </svg>
+    <svg class="services-curve services-curve-2" viewBox="0 0 400 400" fill="none">
+      <path d="M40 60 C 140 140, 240 280, 320 390" stroke="currentColor" stroke-width="1.25" />
+      <path d="M80 30 C 170 120, 270 250, 370 390" stroke="currentColor" stroke-width="0.75" opacity="0.4" />
+    </svg>
+  </div>
+
+  <div class="container-main relative z-10">
+    <div class="services-header text-center">
+      <h2 class="services-title">Dịch Vụ <span class="text-gold">{{brand}}</span></h2>
+      <p class="services-subtitle mx-auto">
         Chúng tôi là những chuyên gia đầu ngành trên 15 năm kinh nghiệm thiết kế web. Website của quý khách được hoàn thiện bởi 3 thế mạnh của công ty: thiết kế đồ họa, lập trình và hosting.
       </p>
     </div>
 
-    <div class="mt-14 grid gap-8 md:grid-cols-3">
+    <div class="services-grid">
       {{#each services}}
-      <div class="card-service">
-        <img src="{{this.image}}" alt="" class="card-service-icon" width="72" height="72" />
-        <h3 class="text-xl font-bold text-slate-900">{{this.title}}</h3>
-        <p class="mt-3 flex-1 text-sm leading-relaxed text-slate-600">{{this.description}}</p>
-        <span class="card-service-arrow" aria-hidden="true">
-          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      <article class="services-card">
+        <div class="services-card-icon" aria-hidden="true">
+          {{#ifeq this.icon "web"}}
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+          {{/ifeq}}
+          {{#ifeq this.icon "app"}}
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+          </svg>
+          {{/ifeq}}
+          {{#ifeq this.icon "ai"}}
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+          </svg>
+          {{/ifeq}}
+        </div>
+        <h3 class="services-card-title">{{this.title}}</h3>
+        <p class="services-card-text">{{this.description}}</p>
+        <span class="services-card-arrow" aria-hidden="true">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
         </span>
-      </div>
+      </article>
       {{/each}}
     </div>
   </div>
 </section>
 
-{{!-- Speed Optimization Section --}}
-<section id="optimize" class="section-padding bg-section-gradient">
-  <div class="container-main">
-    <div class="grid items-center gap-12 lg:grid-cols-2">
-      <div>
-        <p class="text-gold text-sm font-semibold uppercase tracking-widest">Hiệu suất</p>
-        <h2 class="section-title mt-2">
+{{!-- Speed Optimization Section — minimal premium gold --}}
+<section id="optimize" class="optimize-section section-padding">
+  <div class="optimize-decor" aria-hidden="true">
+    <svg class="optimize-curve optimize-curve-1" viewBox="0 0 400 400" fill="none">
+      <path d="M40 320 C 80 180, 200 80, 380 60" stroke="currentColor" stroke-width="1.25" />
+      <path d="M20 360 C 100 220, 240 120, 400 100" stroke="currentColor" stroke-width="0.75" opacity="0.45" />
+    </svg>
+    <svg class="optimize-curve optimize-curve-2" viewBox="0 0 400 400" fill="none">
+      <path d="M20 40 C 120 120, 220 260, 300 380" stroke="currentColor" stroke-width="1.25" />
+      <path d="M60 20 C 160 100, 260 240, 360 380" stroke="currentColor" stroke-width="0.75" opacity="0.4" />
+    </svg>
+  </div>
+
+  <div class="container-main relative z-10">
+    <div class="optimize-grid">
+      <div class="optimize-copy">
+        <p class="optimize-label">Hiệu suất</p>
+        <h2 class="optimize-title">
           Dịch vụ <span class="text-gold">Tối Ưu &amp; Tăng Tốc</span> Website
         </h2>
+        <p class="optimize-desc">
+          Tăng tốc độ tải trang, giảm tỷ lệ thoát và nâng điểm PageSpeed — giúp website mượt mà hơn trên mọi thiết bị và thân thiện hơn với SEO.
+        </p>
       </div>
-      <div class="space-y-6">
-        <div class="rounded-2xl bg-white p-6 shadow-card">
-          <div class="flex items-start gap-4">
-            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-green-100 text-green-600">
-              <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-            </div>
-            <div>
-              <h3 class="font-bold text-slate-900">Mobile Speed</h3>
-              <p class="mt-2 text-sm leading-relaxed text-slate-600">
-                Cải thiện tốc độ trang web và tăng điểm PageSpeed Insights từ 80 điểm trở lên, giúp giảm tỷ lệ thoát trên trang đáng kể. 99% khách hàng cho biết họ sẽ không quay lại trang web có hiệu suất kém.
-              </p>
-            </div>
+
+      <div class="optimize-cards">
+        <article class="optimize-card">
+          <div class="optimize-card-icon" aria-hidden="true">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+            </svg>
           </div>
-        </div>
-        <div class="rounded-2xl bg-white p-6 shadow-card">
-          <div class="flex items-start gap-4">
-            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-100 text-blue-600">
-              <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-            </div>
-            <div>
-              <h3 class="font-bold text-slate-900">Desktop Speed</h3>
-              <p class="mt-2 text-sm leading-relaxed text-slate-600">
-                Tăng điểm PageSpeed Insights từ 90 điểm trở lên. Google thích các trang web load nhanh — trang web của bạn càng nhanh, thứ hạng SEO càng tốt.
-              </p>
-            </div>
+          <div>
+            <h3 class="optimize-card-title">Mobile Speed</h3>
+            <p class="optimize-card-text">
+              Cải thiện tốc độ trang web và tăng điểm PageSpeed Insights từ 80 điểm trở lên, giúp giảm tỷ lệ thoát trên trang đáng kể. 99% khách hàng cho biết họ sẽ không quay lại trang web có hiệu suất kém.
+            </p>
           </div>
-        </div>
+        </article>
+
+        <article class="optimize-card">
+          <div class="optimize-card-icon" aria-hidden="true">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="optimize-card-title">Desktop Speed</h3>
+            <p class="optimize-card-text">
+              Tăng điểm PageSpeed Insights từ 90 điểm trở lên. Google thích các trang web load nhanh — trang web của bạn càng nhanh, thứ hạng SEO càng tốt.
+            </p>
+          </div>
+        </article>
       </div>
     </div>
   </div>
 </section>
 
-{{!-- Responsive Section --}}
-<section id="about" class="responsive-section section-padding text-white">
-  <div class="responsive-section-bg" aria-hidden="true"></div>
+{{!-- Experience / Responsive — premium champagne gold --}}
+<section id="about" class="experience-section section-padding">
+  <div class="experience-bg" aria-hidden="true"></div>
   <div class="container-main relative z-10">
-    <div class="text-center">
-      <p class="text-gold-on-dark text-sm font-semibold uppercase tracking-widest">Trải nghiệm</p>
-      <h2 class="mt-2 text-3xl font-bold md:text-4xl">
-        Lợi ích từ <span class="text-gold-on-dark">Design &amp; Responsive</span> trên mọi thiết bị
+    <div class="experience-header text-center">
+      <p class="experience-label">Trải nghiệm</p>
+      <h2 class="experience-title">
+        Lợi ích từ <span class="text-gold">Design &amp; Responsive</span> trên mọi thiết bị
       </h2>
     </div>
 
-    <div class="mt-14 grid gap-8 md:grid-cols-2">
-      <div class="rounded-2xl border border-brand-800 bg-brand-900/50 p-8">
-        <h3 class="text-lg font-bold text-brand-200">Đối với người dùng</h3>
-        <p class="mt-4 text-sm leading-relaxed text-brand-100/80">
+    <div class="experience-grid">
+      <article class="experience-card">
+        <div class="experience-card-icon" aria-hidden="true">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+        </div>
+        <h3 class="experience-card-title">Đối với người dùng</h3>
+        <p class="experience-card-text">
           Họ có được những trải nghiệm thú vị hơn khi truy cập website trên các thiết bị khác nhau. Thao tác nhanh hơn, thuận tiện hơn nhờ vào bố cục hợp lý.
         </p>
-      </div>
-      <div class="rounded-2xl border border-brand-800 bg-brand-900/50 p-8">
-        <h3 class="text-lg font-bold text-brand-200">Đối với chủ sở hữu website</h3>
-        <p class="mt-4 text-sm leading-relaxed text-brand-100/80">
+      </article>
+
+      <article class="experience-card">
+        <div class="experience-card-icon" aria-hidden="true">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+        </div>
+        <h3 class="experience-card-title">Đối với chủ sở hữu website</h3>
+        <p class="experience-card-text">
           Là cách tiếp cận tốt nhất để tăng khách hàng mua sắm sản phẩm của mình. Công nghệ Responsive ngày càng được chú ý đến và phổ biến hơn.
         </p>
-      </div>
+      </article>
     </div>
   </div>
 </section>
 
 {{!-- Pricing — Bảng giá (#banggia) --}}
-<section id="banggia" class="section-padding scroll-mt-24 bg-[#f3f4f6]">
-  <div class="container-main text-center">
+<section id="banggia" class="premium-ivory section-padding scroll-mt-24">
+  <div class="premium-ivory-decor" aria-hidden="true">
+    <svg class="premium-ivory-curve premium-ivory-curve-tl" viewBox="0 0 400 400" fill="none">
+      <path d="M40 320 C 80 180, 200 80, 380 60" stroke="currentColor" stroke-width="1.25" />
+      <path d="M20 360 C 100 220, 240 120, 400 100" stroke="currentColor" stroke-width="0.75" opacity="0.45" />
+    </svg>
+    <svg class="premium-ivory-curve premium-ivory-curve-br" viewBox="0 0 400 400" fill="none">
+      <path d="M20 40 C 120 120, 220 260, 300 380" stroke="currentColor" stroke-width="1.25" />
+      <path d="M60 20 C 160 100, 260 240, 360 380" stroke="currentColor" stroke-width="0.75" opacity="0.4" />
+    </svg>
+  </div>
+  <div class="container-main relative z-10 text-center">
     <h2 class="section-title">Bảng giá thiết kế website trọn gói</h2>
     <p class="section-subtitle mx-auto">
       Được hơn <strong>3.686+ khách hàng</strong> tin tưởng với chất lượng và chi phí tốt nhất thị trường.
@@ -162,10 +228,11 @@
       {{!-- Gói Basic --}}
       <article class="pricing-card">
         <div class="pricing-card-head">
+          <img src="/images/diamond.png" alt="" class="pricing-card-badge" width="56" height="56" />
           <p class="pricing-card-name">Gói Basic</p>
           <p class="pricing-card-desc">Bùng nổ đơn hàng với giao diện thiết kế website chuẩn SEO với chi phí tối ưu.</p>
         </div>
-        <div class="pricing-card-divider"></div>
+        <img src="/images/line.png" alt="" class="pricing-line" width="280" height="24" />
         <div class="pricing-price-block">
           <span class="pricing-price-old">3.990.000 VNĐ</span>
           <span class="pricing-price-new">2.200.000 VNĐ</span>
@@ -192,12 +259,21 @@
         <a href="#contact" class="pricing-btn">Nhận tư vấn ngay</a>
       </article>
 
-      {{!-- Gói Business --}}
+      {{!-- Gói Business — phổ biến --}}
       <article class="pricing-card pricing-card-featured">
-        <div class="pricing-card-head pricing-card-head-featured">
-          <p class="pricing-card-name pricing-card-name-light">Gói Business</p>
-          <p class="pricing-card-desc pricing-card-desc-light">Tối ưu với các công nghệ hàng đầu giúp website doanh nghiệp phát triển vượt bậc.</p>
+        <img
+          src="/images/business_card_background2.png"
+          alt="Phổ biến"
+          class="pricing-ribbon"
+          width="140"
+          height="140"
+        />
+        <div class="pricing-card-head">
+          <img src="/images/crown.png" alt="" class="pricing-card-badge pricing-card-badge-lg" width="72" height="56" />
+          <p class="pricing-card-name">Gói Business</p>
+          <p class="pricing-card-desc">Tối ưu với các công nghệ hàng đầu giúp website doanh nghiệp phát triển vượt bậc.</p>
         </div>
+        <img src="/images/line.png" alt="" class="pricing-line" width="280" height="24" />
         <div class="pricing-price-block">
           <span class="pricing-price-old">11.990.000 VNĐ</span>
           <span class="pricing-price-new">10.999.000 VNĐ</span>
@@ -219,10 +295,11 @@
       {{!-- Gói VIP --}}
       <article class="pricing-card">
         <div class="pricing-card-head">
+          <img src="/images/crown.png" alt="" class="pricing-card-badge pricing-card-badge-lg" width="72" height="56" />
           <p class="pricing-card-name">Gói VIP</p>
           <p class="pricing-card-desc">Hướng đến một hệ thống hoàn thiện để chăm sóc và bán hàng cho khách hàng.</p>
         </div>
-        <div class="pricing-card-divider"></div>
+        <img src="/images/line.png" alt="" class="pricing-line" width="280" height="24" />
         <div class="pricing-price-block">
           <span class="pricing-price-new">20.999.000 VNĐ</span>
         </div>
@@ -242,15 +319,25 @@
 </section>
 
 {{!-- Projects — grid showcase --}}
-<section id="projects" class="project-showcase section-padding scroll-mt-24">
-  <div class="container-main text-center">
+<section id="projects" class="project-showcase premium-ivory section-padding scroll-mt-24">
+  <div class="premium-ivory-decor" aria-hidden="true">
+    <svg class="premium-ivory-curve premium-ivory-curve-tl" viewBox="0 0 400 400" fill="none">
+      <path d="M40 320 C 80 180, 200 80, 380 60" stroke="currentColor" stroke-width="1.25" />
+      <path d="M20 360 C 100 220, 240 120, 400 100" stroke="currentColor" stroke-width="0.75" opacity="0.45" />
+    </svg>
+    <svg class="premium-ivory-curve premium-ivory-curve-br" viewBox="0 0 400 400" fill="none">
+      <path d="M20 40 C 120 120, 220 260, 300 380" stroke="currentColor" stroke-width="1.25" />
+      <path d="M60 20 C 160 100, 260 240, 360 380" stroke="currentColor" stroke-width="0.75" opacity="0.4" />
+    </svg>
+  </div>
+  <div class="container-main relative z-10 text-center">
     <h2 class="section-title">1000+ Dự án tiêu biểu từ {{brand}}</h2>
     <p class="section-subtitle mx-auto">
       Dưới đây là những dự án thiết kế website trọn gói từ quy mô nhỏ đến lớn, giúp khách hàng nâng tầm thương hiệu và tiếp cận khách hàng tiềm năng trên thị trường trực tuyến.
     </p>
   </div>
 
-  <div class="container-main mt-12">
+  <div class="container-main relative z-10 mt-12">
     <div class="project-grid" id="project-grid">
       {{#each projects}}
       <article class="project-card" data-category="{{this.categorySlug}}">
@@ -276,19 +363,24 @@
 <section id="pricing" class="sr-only" aria-hidden="true"></section>
 
 {{!-- Blog Section --}}
-<section id="blog" class="section-padding bg-surface-muted">
+<section id="blog" class="section-padding">
   <div class="container-main">
-    <div class="flex flex-wrap items-end justify-between gap-4">
-      <div>
-        <h2 class="section-title">Bản tin chuyên ngành</h2>
-        <p class="section-subtitle">Cập nhật kiến thức mới nhất về thiết kế web, SEO và công nghệ.</p>
+    <div class="blog-section-head">
+      <div class="blog-section-copy">
+        <h2 class="blog-section-title">Bản tin chuyên ngành</h2>
+        <span class="blog-section-accent" aria-hidden="true"></span>
+        <p class="blog-section-desc">Cập nhật kiến thức mới nhất về thiết kế web, SEO và công nghệ.</p>
       </div>
-      <a href="/blog" class="text-gold text-sm font-semibold transition-opacity hover:opacity-80">Xem tất cả →</a>
+      <a href="/blog" class="blog-section-all">Xem tất cả →</a>
     </div>
 
-    <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="blog-section-grid">
       {{#each blogPosts}}
+      {{#if @first}}
+      {{> blog-card featured=true }}
+      {{else}}
       {{> blog-card }}
+      {{/if}}
       {{/each}}
     </div>
   </div>

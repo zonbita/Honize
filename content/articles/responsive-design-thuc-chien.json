@@ -1,0 +1,25 @@
+{
+  "id": 3,
+  "slug": "responsive-design-thuc-chien",
+  "title": "Responsive design thực chiến: từ mobile đến desktop",
+  "excerpt": "Cách làm responsive đúng nghĩa: breakpoint, typography fluid, ảnh thích ứng và kiểm thử trên thiết bị thật.",
+  "thumbnail": "/uploads/thumb-responsive.jpg",
+  "author": "Admin",
+  "authorAvatar": "AD",
+  "category": "Thiết kế web",
+  "status": "published",
+  "publishedAt": "2026-07-10T10:00:00.000Z",
+  "scheduledAt": null,
+  "views": 84,
+  "seo": {
+    "metaTitle": "Responsive design thực chiến",
+    "metaDescription": "Hướng dẫn responsive website từ mobile đến desktop: layout, font, ảnh và kiểm thử.",
+    "seoUrl": "/blog/responsive-design-thuc-chien",
+    "originalUrl": "/blog/responsive-design-thuc-chien",
+    "redirect": null,
+    "score": 86,
+    "indexStatus": "good"
+  },
+  "createdAt": "2026-07-08T10:00:00.000Z",
+  "updatedAt": "2026-07-10T10:00:00.000Z"
+}

@@ -25,6 +25,11 @@
         <p class="text-sm font-semibold text-slate-800">{{user.name}}</p>
         <p class="text-xs text-slate-400">{{user.role}}</p>
       </div>
+      <form method="POST" action="/dashboard/logout">
+        <button type="submit" class="rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-50">
+          Đăng xuất
+        </button>
+      </form>
     </div>
   </div>
 </header>

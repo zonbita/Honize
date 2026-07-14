@@ -1,7 +1,7 @@
 {{> dashboard/page-header }}
 
 <div class="flex-1 overflow-y-auto p-6">
-  <form method="POST" action="/dashboard/settings" class="mx-auto max-w-2xl space-y-6">
+  <form method="POST" action="/dashboard/settings" class="w-full space-y-6">
     <div class="dash-card p-6 space-y-4">
       <h2 class="font-bold text-slate-800">Thông tin website</h2>
       <p class="text-xs text-slate-500">Lưu tại <code class="rounded bg-slate-100 px-1">content/settings.json</code></p>
@@ -11,7 +11,7 @@
         <input name="siteName" value="{{settings.siteName}}" class="dash-input w-full" />
       </div>
       <div>
-        <label class="mb-1 block text-sm font-medium text-slate-700">Tagline</label>
+        <label class="mb-1 block text-sm font-medium text-slate-700">Tagline (SEO / tiêu đề trang)</label>
         <input name="tagline" value="{{settings.tagline}}" class="dash-input w-full" />
       </div>
       <div class="grid gap-4 sm:grid-cols-2">
@@ -27,6 +27,53 @@
       <div>
         <label class="mb-1 block text-sm font-medium text-slate-700">Địa chỉ</label>
         <input name="address" value="{{settings.address}}" class="dash-input w-full" />
+      </div>
+    </div>
+
+    <div class="dash-card p-6 space-y-4">
+      <h2 class="font-bold text-slate-800">Hero — phần đầu trang</h2>
+      <p class="text-xs text-slate-500">Chỉnh chữ “Dịch vụ —”, tiêu đề, dòng vàng và mô tả bên trái hero.</p>
+
+      <div>
+        <label class="mb-1 block text-sm font-medium text-slate-700">Nhãn nhỏ (kicker)</label>
+        <input name="heroKicker" value="{{settings.heroKicker}}" class="dash-input w-full" placeholder="Dịch vụ —" />
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label class="mb-1 block text-sm font-medium text-slate-700">Tiêu đề dòng 1</label>
+          <input name="heroTitle" value="{{settings.heroTitle}}" class="dash-input w-full" placeholder="Thiết kế website" />
+        </div>
+        <div>
+          <label class="mb-1 block text-sm font-medium text-slate-700">Tiêu đề dòng 2 (màu vàng)</label>
+          <input name="heroTitleHighlight" value="{{settings.heroTitleHighlight}}" class="dash-input w-full" placeholder="chuyên nghiệp" />
+        </div>
+      </div>
+      <div>
+        <label class="mb-1 block text-sm font-medium text-slate-700">Dòng phụ (tagline)</label>
+        <input name="heroTagline" value="{{settings.heroTagline}}" class="dash-input w-full" placeholder="→ mở rộng cơ hội kinh doanh" />
+      </div>
+      <div>
+        <label class="mb-1 block text-sm font-medium text-slate-700">Mô tả</label>
+        <textarea name="heroDescription" rows="4" class="dash-input w-full">{{settings.heroDescription}}</textarea>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label class="mb-1 block text-sm font-medium text-slate-700">Nút chính</label>
+          <input name="heroCtaPrimary" value="{{settings.heroCtaPrimary}}" class="dash-input w-full" />
+        </div>
+        <div>
+          <label class="mb-1 block text-sm font-medium text-slate-700">Nút phụ</label>
+          <input name="heroCtaSecondary" value="{{settings.heroCtaSecondary}}" class="dash-input w-full" />
+        </div>
+      </div>
+    </div>
+
+    <div class="dash-card p-6 space-y-4">
+      <h2 class="font-bold text-slate-800">Footer — logo &amp; giới thiệu</h2>
+      <p class="text-xs text-slate-500">Đoạn chữ cạnh logo trong cột footer (nền tối).</p>
+      <div>
+        <label class="mb-1 block text-sm font-medium text-slate-700">Mô tả thương hiệu</label>
+        <textarea name="footerDescription" rows="4" class="dash-input w-full">{{settings.footerDescription}}</textarea>
       </div>
     </div>
 

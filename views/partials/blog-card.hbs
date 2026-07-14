@@ -1,5 +1,8 @@
-<article class="blog-card">
-  <a href="/blog/{{this.slug}}" class="block overflow-hidden">
+<article class="blog-card{{#if featured}} blog-card-featured{{/if}}">
+  {{#if featured}}
+  <span class="blog-card-ribbon" aria-label="Nổi bật">NỔI BẬT</span>
+  {{/if}}
+  <a href="/blog/{{this.slug}}" class="blog-card-media">
     {{#if this.thumbnail}}
     <img src="{{this.thumbnail}}" alt="{{this.title}}" class="blog-card-image" loading="lazy" />
     {{else}}
@@ -9,11 +12,16 @@
     {{/if}}
   </a>
   <div class="blog-card-body">
-    <h2 class="blog-card-title">
+    <h3 class="blog-card-title">
       <a href="/blog/{{this.slug}}">{{this.title}}</a>
-    </h2>
+    </h3>
     {{#if this.dateLabel}}
-    <time class="blog-card-date" datetime="{{this.dateLabel}}">{{this.dateLabel}}</time>
+    <time class="blog-card-date" datetime="{{this.dateLabel}}">
+      <svg class="blog-card-date-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+      </svg>
+      {{this.dateLabel}}
+    </time>
     {{/if}}
     <p class="blog-card-excerpt">{{this.excerpt}}</p>
     <a href="/blog/{{this.slug}}" class="blog-card-link">Xem chi tiết →</a>

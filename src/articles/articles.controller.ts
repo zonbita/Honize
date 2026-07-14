@@ -18,6 +18,7 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Request, Response } from 'express';
 import { loadPublicSiteData } from '../shared/site-settings';
+import { getCurrentAuthUser } from '../auth/auth-context';
 import { ArticlesService } from './articles.service';
 import { CreateArticleDto, UpdateArticleDto } from './articles.types';
 
@@ -56,6 +57,10 @@ export class ArticlesController {
   @UseInterceptors(
     FileInterceptor('file', {
       limits: { fileSize: 5 * 1024 * 1024 },
+      fileFilter: (_req, file, cb) => {
+        const ok = /^image\/(jpeg|png|gif|webp|svg\+xml)$/i.test(file.mimetype);
+        cb(ok ? null : new Error('Chỉ chấp nhận ảnh JPG, PNG, GIF, WebP, SVG'), ok);
+      },
     }),
   )
   uploadImage(@UploadedFile() file: Express.Multer.File) {
@@ -215,13 +220,23 @@ export class ArticlesController {
       { id: 'projects', label: 'Dự án mẫu', icon: 'layout', href: '/dashboard/projects' },
       { id: 'media', label: 'Media', icon: 'image', href: '/dashboard/media' },
       { id: 'seo', label: 'SEO Link', icon: 'link', href: '/dashboard/seo' },
+      { id: 'stats', label: 'Thống kê', icon: 'chart', href: '/dashboard/stats' },
       { id: 'users', label: 'Người dùng', icon: 'users', href: '/dashboard/users' },
       { id: 'settings', label: 'Cài đặt', icon: 'settings', href: '/dashboard/settings' },
     ];
   }
 
   private getUser() {
-    return { name: 'Admin', role: 'Quản trị viên', avatar: 'AD', notifications: 12 };
+    const authUser = getCurrentAuthUser();
+    if (authUser) {
+      return {
+        name: authUser.name,
+        role: authUser.role,
+        avatar: authUser.avatar,
+        notifications: 0,
+      };
+    }
+    return { name: 'Admin', role: 'Quản trị viên', avatar: 'AD', notifications: 0 };
   }
 
   private withLayout(pageTitle: string, data: Record<string, unknown>) {

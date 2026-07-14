@@ -38,13 +38,21 @@ export class DashboardController {
 
   @Get('media')
   @Render('dashboard/media')
-  media() {
+  media(@Query('deleted') deleted?: string) {
     return {
       layout: 'dashboard',
       pageTitle: 'Media',
       mediaFiles: this.cmsPagesService.getMediaFiles(),
+      deleted: deleted === '1',
       ...this.dashboardService.getSharedLayoutData('media'),
     };
+  }
+
+  @Post('media/:name/delete')
+  @Redirect('/dashboard/media?deleted=1')
+  deleteMedia(@Param('name') name: string) {
+    this.cmsPagesService.deleteMediaFile(decodeURIComponent(name));
+    return {};
   }
 
   @Get('seo')
@@ -56,6 +64,29 @@ export class DashboardController {
       seoLinks: this.cmsPagesService.getSeoLinks(),
       ...this.dashboardService.getSharedLayoutData('seo'),
     };
+  }
+
+  @Get('stats')
+  @Render('dashboard/stats')
+  stats() {
+    const visits = this.cmsPagesService.getVisits().map((v) => ({
+      ...v,
+      visitedAtFormatted: new Date(v.visitedAt).toLocaleString('vi-VN'),
+    }));
+    return {
+      layout: 'dashboard',
+      pageTitle: 'Thống kê',
+      visits,
+      visitCount: visits.length,
+      ...this.dashboardService.getSharedLayoutData('stats'),
+    };
+  }
+
+  @Post('stats/clear')
+  @Redirect('/dashboard/stats')
+  clearStats() {
+    this.cmsPagesService.clearVisits();
+    return {};
   }
 
   @Get('users')
@@ -97,6 +128,14 @@ export class DashboardController {
       postsPerPage: parseInt(body.postsPerPage, 10) || 6,
       enableComments: body.enableComments === '1',
       maintenanceMode: body.maintenanceMode === '1',
+      heroKicker: body.heroKicker,
+      heroTitle: body.heroTitle,
+      heroTitleHighlight: body.heroTitleHighlight,
+      heroTagline: body.heroTagline,
+      heroDescription: body.heroDescription,
+      heroCtaPrimary: body.heroCtaPrimary,
+      heroCtaSecondary: body.heroCtaSecondary,
+      footerDescription: body.footerDescription,
     });
     return {};
   }

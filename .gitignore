@@ -5,3 +5,5 @@ public/css/styles.css
 *.log
 .DS_Store
 .vercel
+content/.session-secret
+content/auth.json

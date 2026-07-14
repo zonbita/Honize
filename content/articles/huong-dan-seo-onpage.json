@@ -1,25 +1,25 @@
 {
-  "id": 3,
+  "id": 5,
   "slug": "huong-dan-seo-onpage",
-  "title": "Hướng dẫn SEO on-page cho người mới bắt đầu",
-  "excerpt": "Hướng dẫn từng bước tối ưu SEO on-page: meta tags, heading, internal links và Core Web Vitals.",
-  "thumbnail": "https://images.unsplash.com/photo-1432888622747-4eb9a8f2c293?w=80&h=56&fit=crop",
-  "author": "Lê Văn C",
-  "authorAvatar": "LC",
+  "title": "SEO on-page cho website thiết kế chuyên nghiệp",
+  "excerpt": "Tối ưu title, heading, ảnh và cấu trúc nội dung để website đẹp vẫn xếp hạng tốt trên Google.",
+  "thumbnail": "/uploads/thumb-seo-toc-do.jpg",
+  "author": "Admin",
+  "authorAvatar": "AD",
   "category": "Marketing",
-  "status": "draft",
-  "publishedAt": null,
+  "status": "published",
+  "publishedAt": "2026-07-08T12:00:00.000Z",
   "scheduledAt": null,
-  "views": 0,
+  "views": 111,
   "seo": {
-    "metaTitle": "Hướng dẫn SEO on-page",
-    "metaDescription": "SEO on-page cơ bản cho người mới bắt đầu",
-    "seoUrl": "/huong-dan-seo-onpage",
-    "originalUrl": "/blog/789",
-    "redirect": "302",
-    "score": 62,
-    "indexStatus": "warning"
+    "metaTitle": "SEO on-page cho website chuyên nghiệp",
+    "metaDescription": "Hướng dẫn SEO on-page: meta, heading, ảnh và internal link cho website doanh nghiệp.",
+    "seoUrl": "/blog/huong-dan-seo-onpage",
+    "originalUrl": "/blog/huong-dan-seo-onpage",
+    "redirect": null,
+    "score": 90,
+    "indexStatus": "good"
   },
-  "createdAt": "2026-07-08T11:00:00.000Z",
-  "updatedAt": "2026-07-08T11:00:00.000Z"
+  "createdAt": "2026-07-06T12:00:00.000Z",
+  "updatedAt": "2026-07-14T06:00:00.000Z"
 }
