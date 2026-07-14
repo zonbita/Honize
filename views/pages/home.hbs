@@ -4,7 +4,7 @@
 
   <div class="container-main relative z-10">
     <div class="hero-grid">
-      <div class="hero-content">
+      <div class="hero-content" data-aos="fade-right" data-aos-duration="900">
         <p class="hero-kicker">{{hero.kicker}}</p>
         <h1 class="hero-title">
           {{hero.title}}
@@ -26,7 +26,7 @@
         </div>
       </div>
 
-      <div class="hero-mockup">
+      <div class="hero-mockup" data-aos="fade-left" data-aos-duration="900" data-aos-delay="120">
         <img
           src="/images/hero-mockup.png"
           alt="Giao diện website trên laptop và điện thoại"
@@ -38,7 +38,7 @@
       </div>
     </div>
 
-    <div class="hero-features">
+    <div class="hero-features" data-aos="fade-up" data-aos-delay="200">
       <div class="hero-feature-item">
         <img src="/images/icon1.png" alt="" class="hero-feature-icon" width="40" height="40" />
         <span>Giá rẻ</span>
@@ -69,7 +69,7 @@
   </div>
 
   <div class="container-main relative z-10">
-    <div class="services-header text-center">
+    <div class="services-header text-center" data-aos="fade-up">
       <h2 class="services-title">Dịch Vụ <span class="text-gold">{{brand}}</span></h2>
       <p class="services-subtitle mx-auto">
         Chúng tôi là những chuyên gia đầu ngành trên 15 năm kinh nghiệm thiết kế web. Website của quý khách được hoàn thiện bởi 3 thế mạnh của công ty: thiết kế đồ họa, lập trình và hosting.
@@ -78,7 +78,7 @@
 
     <div class="services-grid">
       {{#each services}}
-      <article class="services-card">
+      <article class="services-card" data-aos="fade-up" data-aos-delay="{{multiply @index 100}}">
         <div class="services-card-icon" aria-hidden="true">
           {{#ifeq this.icon "web"}}
           <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -124,7 +124,7 @@
 
   <div class="container-main relative z-10">
     <div class="optimize-grid">
-      <div class="optimize-copy">
+      <div class="optimize-copy" data-aos="fade-right">
         <p class="optimize-label">Hiệu suất</p>
         <h2 class="optimize-title">
           Dịch vụ <span class="text-gold">Tối Ưu &amp; Tăng Tốc</span> Website
@@ -135,7 +135,7 @@
       </div>
 
       <div class="optimize-cards">
-        <article class="optimize-card">
+        <article class="optimize-card" data-aos="fade-up" data-aos-delay="80">
           <div class="optimize-card-icon" aria-hidden="true">
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
@@ -149,7 +149,7 @@
           </div>
         </article>
 
-        <article class="optimize-card">
+        <article class="optimize-card" data-aos="fade-up" data-aos-delay="180">
           <div class="optimize-card-icon" aria-hidden="true">
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
@@ -171,7 +171,7 @@
 <section id="about" class="experience-section section-padding">
   <div class="experience-bg" aria-hidden="true"></div>
   <div class="container-main relative z-10">
-    <div class="experience-header text-center">
+    <div class="experience-header text-center" data-aos="fade-up">
       <p class="experience-label">Trải nghiệm</p>
       <h2 class="experience-title">
         Lợi ích từ <span class="text-gold">Design &amp; Responsive</span> trên mọi thiết bị
@@ -179,7 +179,7 @@
     </div>
 
     <div class="experience-grid">
-      <article class="experience-card">
+      <article class="experience-card" data-aos="fade-up" data-aos-delay="80">
         <div class="experience-card-icon" aria-hidden="true">
           <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -191,7 +191,7 @@
         </p>
       </article>
 
-      <article class="experience-card">
+      <article class="experience-card" data-aos="fade-up" data-aos-delay="180">
         <div class="experience-card-icon" aria-hidden="true">
           <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
@@ -207,26 +207,45 @@
 </section>
 
 {{!-- Pricing — Bảng giá (#banggia) --}}
-<section id="banggia" class="premium-ivory section-padding scroll-mt-24">
-  <div class="premium-ivory-decor" aria-hidden="true">
-    <svg class="premium-ivory-curve premium-ivory-curve-tl" viewBox="0 0 400 400" fill="none">
-      <path d="M40 320 C 80 180, 200 80, 380 60" stroke="currentColor" stroke-width="1.25" />
-      <path d="M20 360 C 100 220, 240 120, 400 100" stroke="currentColor" stroke-width="0.75" opacity="0.45" />
+<section id="banggia" class="pricing-section section-padding scroll-mt-24">
+  <div class="pricing-section-bg" aria-hidden="true"></div>
+  <div class="pricing-section-glow pricing-section-glow-top" aria-hidden="true"></div>
+  <div class="pricing-section-glow pricing-section-glow-bottom" aria-hidden="true"></div>
+  <div class="pricing-section-decor" aria-hidden="true">
+    <svg class="pricing-circuit pricing-circuit-left" viewBox="0 0 320 420" fill="none">
+      <path d="M24 48 H120 L168 96 H280" stroke="currentColor" stroke-width="1" />
+      <path d="M24 120 H88 L136 168 H240" stroke="currentColor" stroke-width="0.75" opacity="0.55" />
+      <path d="M24 196 H96 L144 244 H260" stroke="currentColor" stroke-width="1" />
+      <path d="M24 272 H72 L120 320 H220" stroke="currentColor" stroke-width="0.75" opacity="0.5" />
+      <circle cx="24" cy="48" r="3" fill="currentColor" />
+      <circle cx="280" cy="96" r="3" fill="currentColor" />
+      <circle cx="240" cy="168" r="2.5" fill="currentColor" opacity="0.8" />
+      <circle cx="260" cy="244" r="3" fill="currentColor" />
+      <circle cx="220" cy="320" r="2.5" fill="currentColor" opacity="0.75" />
     </svg>
-    <svg class="premium-ivory-curve premium-ivory-curve-br" viewBox="0 0 400 400" fill="none">
-      <path d="M20 40 C 120 120, 220 260, 300 380" stroke="currentColor" stroke-width="1.25" />
-      <path d="M60 20 C 160 100, 260 240, 360 380" stroke="currentColor" stroke-width="0.75" opacity="0.4" />
+    <svg class="pricing-circuit pricing-circuit-right" viewBox="0 0 320 420" fill="none">
+      <path d="M296 372 H200 L152 324 H40" stroke="currentColor" stroke-width="1" />
+      <path d="M296 300 H232 L184 252 H80" stroke="currentColor" stroke-width="0.75" opacity="0.55" />
+      <path d="M296 224 H224 L176 176 H60" stroke="currentColor" stroke-width="1" />
+      <path d="M296 148 H248 L200 100 H100" stroke="currentColor" stroke-width="0.75" opacity="0.5" />
+      <circle cx="296" cy="372" r="3" fill="currentColor" />
+      <circle cx="40" cy="324" r="3" fill="currentColor" />
+      <circle cx="80" cy="252" r="2.5" fill="currentColor" opacity="0.8" />
+      <circle cx="60" cy="176" r="3" fill="currentColor" />
+      <circle cx="100" cy="100" r="2.5" fill="currentColor" opacity="0.75" />
     </svg>
   </div>
   <div class="container-main relative z-10 text-center">
-    <h2 class="section-title">Bảng giá thiết kế website trọn gói</h2>
-    <p class="section-subtitle mx-auto">
-      Được hơn <strong>3.686+ khách hàng</strong> tin tưởng với chất lượng và chi phí tốt nhất thị trường.
-    </p>
+    <div data-aos="fade-up">
+      <h2 class="pricing-section-title">Bảng giá thiết kế website trọn gói</h2>
+      <p class="pricing-section-subtitle mx-auto">
+        Được hơn <strong class="text-gold">3.686+ khách hàng</strong> tin tưởng với chất lượng và chi phí tốt nhất thị trường.
+      </p>
+    </div>
 
     <div class="mt-12 grid items-stretch gap-8 lg:grid-cols-3">
       {{!-- Gói Basic --}}
-      <article class="pricing-card">
+      <article class="pricing-card" data-aos="fade-up" data-aos-delay="0">
         <div class="pricing-card-head">
           <img src="/images/diamond.png" alt="" class="pricing-card-badge" width="56" height="56" />
           <p class="pricing-card-name">Gói Basic</p>
@@ -260,7 +279,7 @@
       </article>
 
       {{!-- Gói Business — phổ biến --}}
-      <article class="pricing-card pricing-card-featured">
+      <article class="pricing-card pricing-card-featured" data-aos="fade-up" data-aos-delay="120">
         <img
           src="/images/business_card_background2.png"
           alt="Phổ biến"
@@ -293,7 +312,7 @@
       </article>
 
       {{!-- Gói VIP --}}
-      <article class="pricing-card">
+      <article class="pricing-card" data-aos="fade-up" data-aos-delay="220">
         <div class="pricing-card-head">
           <img src="/images/crown.png" alt="" class="pricing-card-badge pricing-card-badge-lg" width="72" height="56" />
           <p class="pricing-card-name">Gói VIP</p>
@@ -330,7 +349,7 @@
       <path d="M60 20 C 160 100, 260 240, 360 380" stroke="currentColor" stroke-width="0.75" opacity="0.4" />
     </svg>
   </div>
-  <div class="container-main relative z-10 text-center">
+  <div class="container-main relative z-10 text-center" data-aos="fade-up">
     <h2 class="section-title">1000+ Dự án tiêu biểu từ {{brand}}</h2>
     <p class="section-subtitle mx-auto">
       Dưới đây là những dự án thiết kế website trọn gói từ quy mô nhỏ đến lớn, giúp khách hàng nâng tầm thương hiệu và tiếp cận khách hàng tiềm năng trên thị trường trực tuyến.
@@ -340,7 +359,7 @@
   <div class="container-main relative z-10 mt-12">
     <div class="project-grid" id="project-grid">
       {{#each projects}}
-      <article class="project-card" data-category="{{this.categorySlug}}">
+      <article class="project-card" data-category="{{this.categorySlug}}" data-aos="fade-up" data-aos-delay="{{multiply @index 60}}">
         <a href="{{this.url}}" class="project-card-link">
           <div class="project-card-frame">
             <img src="{{this.image}}" alt="{{this.title}}" width="400" height="500" loading="lazy" draggable="false" />
@@ -365,7 +384,7 @@
 {{!-- Blog Section --}}
 <section id="blog" class="section-padding">
   <div class="container-main">
-    <div class="blog-section-head">
+    <div class="blog-section-head" data-aos="fade-up">
       <div class="blog-section-copy">
         <h2 class="blog-section-title">Bản tin chuyên ngành</h2>
         <span class="blog-section-accent" aria-hidden="true"></span>

@@ -21,6 +21,7 @@
     loadMoreBtn.addEventListener('click', function () {
       visibleCount = Math.min(visibleCount + pageSize, cards.length);
       updateGrid();
+      if (typeof AOS !== 'undefined') AOS.refresh();
     });
   }
 
