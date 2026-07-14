@@ -1,7 +1,9 @@
 import { createNestApp, resolveRoot } from './app.factory';
 import { startDevWatcher } from './shared/dev-watcher';
+import { loadEnvFile } from './shared/load-env';
 
 async function bootstrap() {
+  loadEnvFile();
   const app = await createNestApp();
   const root = resolveRoot();
   const port = process.env.PORT ?? 4000;

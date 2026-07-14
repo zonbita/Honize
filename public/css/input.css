@@ -1992,6 +1992,11 @@
     color: #334155;
   }
 
+  .ai-msg-typing {
+    font-style: italic;
+    color: #94a3b8;
+  }
+
   .ai-chat-form {
     display: flex;
     align-items: center;

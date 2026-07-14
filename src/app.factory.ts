@@ -7,6 +7,7 @@ import { join } from 'path';
 import { AppModule } from './app.module';
 import { authGate } from './auth/auth.middleware';
 import { getDevRevision } from './shared/dev-reload';
+import { loadEnvFile } from './shared/load-env';
 import { projectAssetRoot } from './shared/trace-static-files';
 import { recordVisit } from './shared/visit-tracker';
 
@@ -78,6 +79,7 @@ function configureViewEngine(app: NestExpressApplication, root: string): void {
 
 /** Local / long-running server entry. */
 export async function createNestApp(): Promise<NestExpressApplication> {
+  loadEnvFile(resolveRoot());
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   configureViewEngine(app, resolveRoot());
   app.enableShutdownHooks();
@@ -90,6 +92,7 @@ let cachedServer: Express | undefined;
 export async function getExpressApp(): Promise<Express> {
   if (cachedServer) return cachedServer;
 
+  loadEnvFile(resolveRoot());
   const expressApp = express();
   const app = await NestFactory.create<NestExpressApplication>(
     AppModule,

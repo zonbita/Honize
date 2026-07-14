@@ -15,6 +15,8 @@
     var chatForm = document.getElementById('ai-chat-form');
     var chatInput = document.getElementById('ai-chat-input');
     var chatMessages = document.getElementById('ai-chat-messages');
+    var chatHistory = [];
+    var chatBusy = false;
 
     function getScrollTop() {
       var root = document.scrollingElement || document.documentElement;
@@ -127,44 +129,88 @@
     });
 
     function appendMessage(text, type) {
-      if (!chatMessages) return;
+      if (!chatMessages) return null;
       var el = document.createElement('div');
       el.className = 'ai-msg ai-msg-' + type;
       el.textContent = text;
       chatMessages.appendChild(el);
       chatMessages.scrollTop = chatMessages.scrollHeight;
+      return el;
     }
 
-    function botReply(userText) {
-      var q = (userText || '').toLowerCase();
-      if (/giá|báo giá|chi phí|bao nhiêu|gói/.test(q)) {
-        return 'Website trọn gói bắt đầu từ khoảng 2.200.000đ (Basic). Gói Business ~10.999.000đ phù hợp doanh nghiệp. Bạn có thể xem chi tiết tại mục Bảng giá hoặc để lại SĐT để tư vấn.';
-      }
-      if (/seo|google|tìm kiếm/.test(q)) {
-        return 'Chúng tôi thiết kế chuẩn SEO on-page, cấu trúc heading rõ ràng, tối ưu tốc độ và Core Web Vitals. Bạn muốn ưu tiên SEO hay UI trước?';
-      }
-      if (/tốc độ|nhanh|tối ưu|page ?speed|mobile/.test(q)) {
-        return 'Dịch vụ tối ưu giúp cải thiện Mobile & Desktop Speed, giảm tỷ lệ thoát và nâng điểm PageSpeed. Bạn đang gặp chậm trên mobile hay desktop?';
-      }
-      if (/liên hệ|phone|sđt|zalo|email/.test(q)) {
-        return 'Bạn có thể liên hệ qua số điện thoại hoặc form Liên hệ ở cuối trang. Hoặc mô tả nhu cầu website để tôi gợi ý gói phù hợp.';
-      }
-      if (/xin chào|hello|hi\b|chào/.test(q)) {
-        return 'Chào bạn! Mình có thể hỗ trợ về thiết kế website, báo giá, SEO và tối ưu tốc độ. Bạn đang cần gì trước?';
-      }
-      return 'Cảm ơn câu hỏi của bạn. Honize hỗ trợ thiết kế website chuyên nghiệp, responsive, SEO và tối ưu tốc độ. Bạn muốn xem bảng giá, mẫu dự án hay tư vấn UI/UX?';
+    function setTyping(show) {
+      if (!chatMessages) return;
+      var existing = chatMessages.querySelector('.ai-msg-typing');
+      if (existing) existing.remove();
+      if (!show) return;
+      var el = document.createElement('div');
+      el.className = 'ai-msg ai-msg-bot ai-msg-typing';
+      el.textContent = 'Đang soạn trả lời…';
+      chatMessages.appendChild(el);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function askChatApi(message) {
+      return fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: message,
+          history: chatHistory,
+        }),
+      }).then(function (res) {
+        return res.json().then(function (data) {
+          if (!res.ok) {
+            throw new Error(
+              (data && typeof data.error === 'string' && data.error) ||
+                (data && typeof data.message === 'string' && data.message) ||
+                'Chat tạm thời không khả dụng.',
+            );
+          }
+          if (!data || !data.reply) {
+            throw new Error('Trợ lý AI chưa trả lời được.');
+          }
+          return data.reply;
+        });
+      });
     }
 
     if (chatForm && chatInput) {
       chatForm.addEventListener('submit', function (e) {
         e.preventDefault();
+        if (chatBusy) return;
         var text = chatInput.value.trim();
         if (!text) return;
+
+        chatBusy = true;
+        chatInput.disabled = true;
         appendMessage(text, 'me');
         chatInput.value = '';
-        setTimeout(function () {
-          appendMessage(botReply(text), 'bot');
-        }, 450 + Math.random() * 350);
+        setTyping(true);
+
+        askChatApi(text)
+          .then(function (reply) {
+            setTyping(false);
+            appendMessage(reply, 'bot');
+            chatHistory.push({ role: 'user', content: text });
+            chatHistory.push({ role: 'assistant', content: reply });
+            if (chatHistory.length > 16) {
+              chatHistory = chatHistory.slice(-16);
+            }
+          })
+          .catch(function (err) {
+            setTyping(false);
+            appendMessage(
+              (err && err.message) ||
+                'Xin lỗi, trợ lý AI tạm thời gián đoạn. Bạn vui lòng thử lại hoặc gửi form tại /lien-he.',
+              'bot',
+            );
+          })
+          .finally(function () {
+            chatBusy = false;
+            chatInput.disabled = false;
+            if (isChatOpen()) chatInput.focus();
+          });
       });
     }
   });

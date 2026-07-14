@@ -26,6 +26,7 @@ function requiresAuth(req: Request): boolean {
 
   if (path.startsWith('/api/')) {
     if (method === 'GET') return false;
+    if (path === '/api/chat' && method === 'POST') return false;
     return true;
   }
 
