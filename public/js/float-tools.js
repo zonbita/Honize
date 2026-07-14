@@ -18,7 +18,16 @@
 
     function getScrollTop() {
       var root = document.scrollingElement || document.documentElement;
-      return window.pageYOffset || root.scrollTop || document.body.scrollTop || 0;
+      var top =
+        window.scrollY ||
+        window.pageYOffset ||
+        root.scrollTop ||
+        document.body.scrollTop ||
+        0;
+      if (window.visualViewport && window.visualViewport.pageTop) {
+        top = Math.max(top, window.visualViewport.pageTop);
+      }
+      return top;
     }
 
     function scrollToTop() {
@@ -31,12 +40,27 @@
       }
     }
 
+    function scrollThreshold() {
+      return window.matchMedia('(max-width: 639px)').matches ? 180 : 420;
+    }
+
     function showTopBtn() {
       if (!topBtn) return;
-      if (getScrollTop() > 420) {
+      if (getScrollTop() > scrollThreshold()) {
         topBtn.classList.add('is-visible');
       } else {
         topBtn.classList.remove('is-visible');
+      }
+    }
+
+    function bindScrollWatch() {
+      window.addEventListener('scroll', showTopBtn, { passive: true });
+      document.addEventListener('scroll', showTopBtn, { passive: true, capture: true });
+      window.addEventListener('resize', showTopBtn, { passive: true });
+      window.addEventListener('orientationchange', showTopBtn, { passive: true });
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener('scroll', showTopBtn, { passive: true });
+        window.visualViewport.addEventListener('resize', showTopBtn, { passive: true });
       }
     }
 
@@ -46,8 +70,9 @@
         e.stopPropagation();
         scrollToTop();
       });
-      window.addEventListener('scroll', showTopBtn, { passive: true });
+      bindScrollWatch();
       showTopBtn();
+      setTimeout(showTopBtn, 300);
     }
 
     function isChatOpen() {
