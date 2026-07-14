@@ -55,59 +55,7 @@
   </div>
 </section>
 
-{{!-- Services Section — minimal premium gold --}}
-<section id="services" class="services-section section-padding">
-  <div class="services-decor" aria-hidden="true">
-    <svg class="services-curve services-curve-1" viewBox="0 0 400 400" fill="none">
-      <path d="M360 40 C 220 60, 100 160, 40 340" stroke="currentColor" stroke-width="1.25" />
-      <path d="M400 80 C 260 90, 140 180, 70 360" stroke="currentColor" stroke-width="0.75" opacity="0.45" />
-    </svg>
-    <svg class="services-curve services-curve-2" viewBox="0 0 400 400" fill="none">
-      <path d="M40 60 C 140 140, 240 280, 320 390" stroke="currentColor" stroke-width="1.25" />
-      <path d="M80 30 C 170 120, 270 250, 370 390" stroke="currentColor" stroke-width="0.75" opacity="0.4" />
-    </svg>
-  </div>
-
-  <div class="container-main relative z-10">
-    <div class="services-header text-center" data-aos="fade-up">
-      <h2 class="services-title">Dịch Vụ <span class="text-gold">{{brand}}</span></h2>
-      <p class="services-subtitle mx-auto">
-        Chúng tôi là những chuyên gia đầu ngành trên 15 năm kinh nghiệm thiết kế web. Website của quý khách được hoàn thiện bởi 3 thế mạnh của công ty: thiết kế đồ họa, lập trình và hosting.
-      </p>
-    </div>
-
-    <div class="services-grid">
-      {{#each services}}
-      <article class="services-card" data-aos="fade-up" data-aos-delay="{{multiply @index 100}}">
-        <div class="services-card-icon" aria-hidden="true">
-          {{#ifeq this.icon "web"}}
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-          </svg>
-          {{/ifeq}}
-          {{#ifeq this.icon "app"}}
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
-          </svg>
-          {{/ifeq}}
-          {{#ifeq this.icon "ai"}}
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
-          </svg>
-          {{/ifeq}}
-        </div>
-        <h3 class="services-card-title">{{this.title}}</h3>
-        <p class="services-card-text">{{this.description}}</p>
-        <span class="services-card-arrow" aria-hidden="true">
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-          </svg>
-        </span>
-      </article>
-      {{/each}}
-    </div>
-  </div>
-</section>
+{{> services-section }}
 
 {{!-- Speed Optimization Section — minimal premium gold --}}
 <section id="optimize" class="optimize-section section-padding">
@@ -167,44 +115,7 @@
   </div>
 </section>
 
-{{!-- Experience / Responsive — premium champagne gold --}}
-<section id="about" class="experience-section section-padding">
-  <div class="experience-bg" aria-hidden="true"></div>
-  <div class="container-main relative z-10">
-    <div class="experience-header text-center" data-aos="fade-up">
-      <p class="experience-label">Trải nghiệm</p>
-      <h2 class="experience-title">
-        Lợi ích từ <span class="text-gold">Design &amp; Responsive</span> trên mọi thiết bị
-      </h2>
-    </div>
-
-    <div class="experience-grid">
-      <article class="experience-card" data-aos="fade-up" data-aos-delay="80">
-        <div class="experience-card-icon" aria-hidden="true">
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
-          </svg>
-        </div>
-        <h3 class="experience-card-title">Đối với người dùng</h3>
-        <p class="experience-card-text">
-          Họ có được những trải nghiệm thú vị hơn khi truy cập website trên các thiết bị khác nhau. Thao tác nhanh hơn, thuận tiện hơn nhờ vào bố cục hợp lý.
-        </p>
-      </article>
-
-      <article class="experience-card" data-aos="fade-up" data-aos-delay="180">
-        <div class="experience-card-icon" aria-hidden="true">
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-          </svg>
-        </div>
-        <h3 class="experience-card-title">Đối với chủ sở hữu website</h3>
-        <p class="experience-card-text">
-          Là cách tiếp cận tốt nhất để tăng khách hàng mua sắm sản phẩm của mình. Công nghệ Responsive ngày càng được chú ý đến và phổ biến hơn.
-        </p>
-      </article>
-    </div>
-  </div>
-</section>
+{{> experience-section }}
 
 {{!-- Pricing — Bảng giá (#banggia) --}}
 <section id="banggia" class="pricing-section section-padding scroll-mt-24">
@@ -390,7 +301,7 @@
         <span class="blog-section-accent" aria-hidden="true"></span>
         <p class="blog-section-desc">Cập nhật kiến thức mới nhất về thiết kế web, SEO và công nghệ.</p>
       </div>
-      <a href="/blog" class="blog-section-all">Xem tất cả →</a>
+      <a href="/kien-thuc" class="blog-section-all">Xem tất cả →</a>
     </div>
 
     <div class="blog-section-grid">

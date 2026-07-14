@@ -1,19 +1,26 @@
-<section class="section-padding bg-surface-muted">
+<section id="blog" class="section-padding bg-surface-muted">
   <div class="container-main">
-    <div class="mb-12">
-      <a href="/" class="mb-4 inline-flex items-center text-sm text-brand-gold hover:opacity-80">← Về trang chủ</a>
-      <h1 class="section-title">Bản tin chuyên ngành</h1>
-      <p class="section-subtitle">Cập nhật kiến thức mới nhất về thiết kế web, SEO và công nghệ.</p>
+    <div class="blog-section-head" data-aos="fade-up">
+      <div class="blog-section-copy">
+        <a href="/" class="mb-4 inline-flex items-center text-sm text-brand-600 hover:opacity-80">← Về trang chủ</a>
+        <h1 class="blog-section-title">Bản tin chuyên ngành</h1>
+        <span class="blog-section-accent" aria-hidden="true"></span>
+        <p class="blog-section-desc">Cập nhật kiến thức mới nhất về thiết kế web, SEO và công nghệ.</p>
+      </div>
     </div>
 
-    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="blog-section-grid">
       {{#each blogPosts}}
+      {{#if @first}}
+      {{> blog-card featured=true }}
+      {{else}}
       {{> blog-card }}
+      {{/if}}
       {{/each}}
     </div>
 
     {{#unless blogPosts.length}}
-    <p class="text-center text-slate-500">Chưa có bài viết nào được xuất bản.</p>
+    <p class="mt-12 text-center text-slate-500">Chưa có bài viết nào được xuất bản.</p>
     {{/unless}}
   </div>
 </section>

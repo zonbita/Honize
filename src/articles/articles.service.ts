@@ -199,60 +199,184 @@ export class ArticlesService {
   }
 
   private inlineMarkdown(text: string): string {
-    return this.escapeHtml(text).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    return this.escapeHtml(text)
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+  }
+
+  private closeList(html: string, inList: 'ul' | 'ol' | false): { html: string; inList: false } {
+    if (!inList) return { html, inList: false };
+    return { html: html + (inList === 'ul' ? '</ul>' : '</ol>'), inList: false };
   }
 
   private markdownToHtml(md: string): string {
     const lines = md.split('\n');
     let html = '';
-    let inList = false;
+    let inList: 'ul' | 'ol' | false = false;
+    let inCode = false;
+    let codeBuffer: string[] = [];
+    let inTable = false;
+    let tableRows: string[][] = [];
+
+    const flushTable = () => {
+      if (!inTable || tableRows.length === 0) return;
+      const [header, ...body] = tableRows;
+      let tableHtml = '<table><thead><tr>';
+      for (const cell of header) {
+        tableHtml += `<th>${this.inlineMarkdown(cell.trim())}</th>`;
+      }
+      tableHtml += '</tr></thead><tbody>';
+      for (const row of body) {
+        if (row.every((c) => /^-+$/.test(c.trim()))) continue;
+        tableHtml += '<tr>';
+        for (const cell of row) {
+          tableHtml += `<td>${this.inlineMarkdown(cell.trim())}</td>`;
+        }
+        tableHtml += '</tr>';
+      }
+      tableHtml += '</tbody></table>';
+      html += tableHtml;
+      inTable = false;
+      tableRows = [];
+    };
 
     for (const line of lines) {
       const trimmed = line.trim();
-      if (!trimmed) {
-        if (inList) {
-          html += '</ul>';
-          inList = false;
+
+      if (inCode) {
+        if (trimmed.startsWith('```')) {
+          html += `<pre><code>${this.escapeHtml(codeBuffer.join('\n'))}</code></pre>`;
+          codeBuffer = [];
+          inCode = false;
+        } else {
+          codeBuffer.push(line);
         }
         continue;
       }
 
+      if (trimmed.startsWith('```')) {
+        const closed = this.closeList(html, inList);
+        html = closed.html;
+        inList = closed.inList;
+        flushTable();
+        inCode = true;
+        continue;
+      }
+
+      if (trimmed.startsWith('|') && trimmed.endsWith('|')) {
+        const closed = this.closeList(html, inList);
+        html = closed.html;
+        inList = closed.inList;
+        inTable = true;
+        tableRows.push(
+          trimmed
+            .slice(1, -1)
+            .split('|')
+            .map((c) => c.trim()),
+        );
+        continue;
+      }
+
+      if (inTable && !trimmed) {
+        flushTable();
+        continue;
+      }
+
+      if (inTable) {
+        flushTable();
+      }
+
+      if (!trimmed) {
+        const closed = this.closeList(html, inList);
+        html = closed.html;
+        inList = closed.inList;
+        continue;
+      }
+
+      if (trimmed === '---') {
+        const closed = this.closeList(html, inList);
+        html = closed.html;
+        inList = closed.inList;
+        html += '<hr />';
+        continue;
+      }
+
+      if (trimmed.startsWith('#### ')) {
+        const closed = this.closeList(html, inList);
+        html = closed.html;
+        inList = closed.inList;
+        html += `<h4>${this.inlineMarkdown(trimmed.slice(5))}</h4>`;
+        continue;
+      }
+
+      if (trimmed.startsWith('### ')) {
+        const closed = this.closeList(html, inList);
+        html = closed.html;
+        inList = closed.inList;
+        html += `<h3>${this.inlineMarkdown(trimmed.slice(4))}</h3>`;
+        continue;
+      }
+
       if (trimmed.startsWith('## ')) {
-        if (inList) {
-          html += '</ul>';
-          inList = false;
-        }
+        const closed = this.closeList(html, inList);
+        html = closed.html;
+        inList = closed.inList;
         html += `<h2>${this.inlineMarkdown(trimmed.slice(3))}</h2>`;
         continue;
       }
 
       if (trimmed.startsWith('# ')) {
-        if (inList) {
-          html += '</ul>';
-          inList = false;
-        }
+        const closed = this.closeList(html, inList);
+        html = closed.html;
+        inList = closed.inList;
         html += `<h2>${this.inlineMarkdown(trimmed.slice(2))}</h2>`;
         continue;
       }
 
+      if (trimmed.startsWith('> ')) {
+        const closed = this.closeList(html, inList);
+        html = closed.html;
+        inList = closed.inList;
+        html += `<blockquote><p>${this.inlineMarkdown(trimmed.slice(2))}</p></blockquote>`;
+        continue;
+      }
+
+      const olMatch = trimmed.match(/^\d+\.\s+(.*)$/);
+      if (olMatch) {
+        if (inList !== 'ol') {
+          const closed = this.closeList(html, inList);
+          html = closed.html;
+          html += '<ol>';
+          inList = 'ol';
+        }
+        html += `<li>${this.inlineMarkdown(olMatch[1])}</li>`;
+        continue;
+      }
+
       if (trimmed.startsWith('- ')) {
-        if (!inList) {
+        if (inList !== 'ul') {
+          const closed = this.closeList(html, inList);
+          html = closed.html;
           html += '<ul>';
-          inList = true;
+          inList = 'ul';
         }
         html += `<li>${this.inlineMarkdown(trimmed.slice(2))}</li>`;
         continue;
       }
 
-      if (inList) {
-        html += '</ul>';
-        inList = false;
-      }
+      const closed = this.closeList(html, inList);
+      html = closed.html;
+      inList = closed.inList;
       html += `<p>${this.inlineMarkdown(trimmed)}</p>`;
     }
 
-    if (inList) html += '</ul>';
-    return html;
+    if (inCode && codeBuffer.length) {
+      html += `<pre><code>${this.escapeHtml(codeBuffer.join('\n'))}</code></pre>`;
+    }
+    flushTable();
+    const closed = this.closeList(html, inList);
+    return closed.html;
   }
 
   private stripHtml(html: string): string {
@@ -584,7 +708,7 @@ export class ArticlesService {
 
   buildSitemapXml(): string {
     const siteUrl = getSiteUrl();
-    const staticPaths = ['/', '/blog'];
+    const staticPaths = ['/', '/gioi-thieu', '/quy-trinh-thiet-ke-website', '/thiet-ke', '/du-an', '/kien-thuc', '/lien-he', '/blog'];
     const articles = this.getPublished();
 
     const urls = [

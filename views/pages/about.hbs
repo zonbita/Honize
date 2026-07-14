@@ -1,0 +1,113 @@
+<section class="about-hero premium-ivory">
+  <div class="premium-ivory-decor" aria-hidden="true">
+    <svg class="premium-ivory-curve premium-ivory-curve-tl" viewBox="0 0 400 400" fill="none">
+      <path d="M40 320 C 80 180, 200 80, 380 60" stroke="currentColor" stroke-width="1.25" />
+    </svg>
+    <svg class="premium-ivory-curve premium-ivory-curve-br" viewBox="0 0 400 400" fill="none">
+      <path d="M20 40 C 120 120, 220 260, 300 380" stroke="currentColor" stroke-width="1.25" />
+    </svg>
+  </div>
+  <div class="container-main relative z-10">
+    <div class="about-hero-grid" data-aos="fade-up">
+      <div class="about-hero-copy">
+        <h1 class="about-hero-title">
+          {{aboutPage.heroTitle}}<br />
+          <span class="text-gold">{{aboutPage.heroTitleHighlight}}</span>
+        </h1>
+        <p class="about-hero-text">{{aboutPage.heroIntro}}</p>
+        <a href="/#contact" class="btn-primary mt-8">Liên hệ tư vấn</a>
+      </div>
+      <div class="about-hero-visual" aria-hidden="true">
+        <img src="/images/hero-mockup.png" alt="" class="about-hero-image" width="640" height="427" loading="lazy" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about-company about-section">
+  <div class="container-main">
+    <div class="about-company-grid" data-aos="fade-up">
+      <div class="about-company-media">
+        <img src="/images/services.jpg" alt="Đội ngũ {{brand}}" class="about-company-image" width="640" height="480" loading="lazy" />
+      </div>
+      <div class="about-company-copy">
+        <h2 class="about-section-title">
+          {{aboutPage.companyTitle}} <span class="text-gold">{{brand}}</span>
+        </h2>
+        {{#each aboutPage.companyParagraphs}}
+        <p class="about-body-text">{{this}}</p>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about-highlights about-section bg-surface-muted">
+  <div class="container-main">
+    <div class="about-highlights-grid">
+      {{#each aboutPage.highlights}}
+      <article class="about-highlight-card" data-aos="fade-up" data-aos-delay="{{multiply @index 80}}">
+        <div class="about-highlight-icon" aria-hidden="true">
+          {{> about-highlight-icon icon=this.icon }}
+        </div>
+        <h3 class="about-highlight-title">{{this.title}}</h3>
+        <p class="about-highlight-text">{{this.description}}</p>
+      </article>
+      {{/each}}
+    </div>
+  </div>
+</section>
+
+<section class="about-team about-section">
+  <div class="container-main">
+    <div class="about-section-head text-center" data-aos="fade-up">
+      <h2 class="about-section-title">Đội ngũ <span class="text-gold">{{brand}}</span></h2>
+      <p class="about-section-desc mx-auto">{{aboutPage.teamIntro}}</p>
+    </div>
+    <div class="about-team-grid">
+      {{#each aboutPage.teamMembers}}
+      <article class="about-team-card" data-aos="fade-up" data-aos-delay="{{multiply @index 60}}">
+        <div class="about-team-avatar" aria-hidden="true">{{initials this.name}}</div>
+        <h3 class="about-team-name">{{this.name}}</h3>
+        <p class="about-team-role">{{this.role}}</p>
+        <p class="about-team-bio">{{this.bio}}</p>
+      </article>
+      {{/each}}
+    </div>
+  </div>
+</section>
+
+<section class="about-benefits about-section bg-surface-muted">
+  <div class="container-main">
+    <div class="about-section-head text-center" data-aos="fade-up">
+      <h2 class="about-section-title">
+        {{aboutPage.benefitsTitle}} tại <span class="text-gold">{{brand}}</span>
+      </h2>
+      <p class="about-section-desc mx-auto">{{aboutPage.benefitsIntro}}</p>
+    </div>
+    <div class="about-benefits-grid">
+      {{#each aboutPage.benefits}}
+      <article class="about-benefit-card" data-aos="fade-up" data-aos-delay="{{multiply @index 50}}">
+        <h3 class="about-benefit-title">{{this.title}}</h3>
+        <p class="about-benefit-text">{{this.description}}</p>
+      </article>
+      {{/each}}
+    </div>
+  </div>
+</section>
+
+<section class="about-partners about-section">
+  <div class="container-main">
+    <div class="about-section-head text-center" data-aos="fade-up">
+      <h2 class="about-section-title">{{aboutPage.partnersTitle}}</h2>
+    </div>
+    <div class="about-partners-grid" data-aos="fade-up" data-aos-delay="100">
+      {{#each aboutPage.partnerNames}}
+      <div class="about-partner-item">{{this}}</div>
+      {{/each}}
+    </div>
+    <p class="about-partners-note mx-auto mt-10 max-w-3xl text-center text-base leading-relaxed text-slate-600">
+      {{footerDescription}}
+    </p>
+  </div>
+</section>

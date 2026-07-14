@@ -2,7 +2,7 @@
   "id": 4,
   "slug": "chon-mau-website-thuong-hieu",
   "title": "Cách chọn bảng màu website theo thương hiệu",
-  "excerpt": "Hướng dẫn xây palette ivory – navy – gold: màu chính, màu nhấn và cách giữ contrast để dễ đọc, sang trọng.",
+  "excerpt": "Hướng dẫn chọn màu website theo thương hiệu: quy tắc 60-30-10, contrast WCAG, palette ivory-navy-gold và triển khai CSS variables.",
   "thumbnail": "/uploads/thumb-mau-sac.jpg",
   "author": "Admin",
   "authorAvatar": "AD",
@@ -21,5 +21,5 @@
     "indexStatus": "good"
   },
   "createdAt": "2026-07-07T11:00:00.000Z",
-  "updatedAt": "2026-07-09T11:00:00.000Z"
+  "updatedAt": "2026-07-14T09:30:00.000Z"
 }

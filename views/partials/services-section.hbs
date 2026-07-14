@@ -1,0 +1,38 @@
+<section id="services" class="services-section section-padding">
+  <div class="services-decor" aria-hidden="true">
+    <svg class="services-curve services-curve-1" viewBox="0 0 400 400" fill="none">
+      <path d="M360 40 C 220 60, 100 160, 40 340" stroke="currentColor" stroke-width="1.25" />
+      <path d="M400 80 C 260 90, 140 180, 70 360" stroke="currentColor" stroke-width="0.75" opacity="0.45" />
+    </svg>
+    <svg class="services-curve services-curve-2" viewBox="0 0 400 400" fill="none">
+      <path d="M40 60 C 140 140, 240 280, 320 390" stroke="currentColor" stroke-width="1.25" />
+      <path d="M80 30 C 170 120, 270 250, 370 390" stroke="currentColor" stroke-width="0.75" opacity="0.4" />
+    </svg>
+  </div>
+
+  <div class="container-main relative z-10">
+    <div class="services-header text-center" data-aos="fade-up">
+      <h2 class="services-title">Dịch Vụ <span class="text-gold">{{brand}}</span></h2>
+      <p class="services-subtitle mx-auto">
+        Chúng tôi là những chuyên gia đầu ngành trên 15 năm kinh nghiệm thiết kế web. Website của quý khách được hoàn thiện bởi 3 thế mạnh của công ty: thiết kế đồ họa, lập trình và hosting.
+      </p>
+    </div>
+
+    <div class="services-grid">
+      {{#each services}}
+      <article class="services-card" data-aos="fade-up" data-aos-delay="{{multiply @index 100}}">
+        <div class="services-card-icon" aria-hidden="true">
+          {{> service-icon icon=this.icon }}
+        </div>
+        <h3 class="services-card-title">{{this.title}}</h3>
+        <p class="services-card-text">{{this.description}}</p>
+        <span class="services-card-arrow" aria-hidden="true">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </span>
+      </article>
+      {{/each}}
+    </div>
+  </div>
+</section>

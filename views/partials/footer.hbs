@@ -33,18 +33,18 @@
         <ul class="space-y-2 text-sm">
           {{#each blogPosts}}
           <li>
-            <a href="#blog" class="text-slate-400 transition-colors hover:text-brand-400">{{this.title}}</a>
+            <a href="/blog/{{this.slug}}" class="text-slate-400 transition-colors hover:text-brand-400">{{this.title}}</a>
           </li>
           {{/each}}
         </ul>
 
         <h3 class="mb-4 mt-8 text-lg font-semibold text-white">Liên kết</h3>
         <ul class="space-y-2 text-sm">
-          <li><a href="#services" class="text-slate-400 hover:text-brand-400">Quy trình thiết kế website</a></li>
-          <li><a href="#services" class="text-slate-400 hover:text-brand-400">Bảo trì website</a></li>
-          <li><a href="#banggia" class="text-slate-400 hover:text-brand-400">Báo giá thiết kế web</a></li>
-          <li><a href="#projects" class="text-slate-400 hover:text-brand-400">Dự án mẫu</a></li>
-          <li><a href="#blog" class="text-slate-400 hover:text-brand-400">Kiến thức</a></li>
+          <li><a href="/quy-trinh-thiet-ke-website" class="text-slate-400 hover:text-brand-400">Quy trình thiết kế website</a></li>
+          <li><a href="/thiet-ke" class="text-slate-400 hover:text-brand-400">Bảo trì website</a></li>
+          <li><a href="/#banggia" class="text-slate-400 hover:text-brand-400">Báo giá thiết kế web</a></li>
+          <li><a href="/du-an" class="text-slate-400 hover:text-brand-400">Dự án mẫu</a></li>
+          <li><a href="/kien-thuc" class="text-slate-400 hover:text-brand-400">Kiến thức</a></li>
         </ul>
       </div>
     </div>

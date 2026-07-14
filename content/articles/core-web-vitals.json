@@ -2,7 +2,7 @@
   "id": 6,
   "slug": "core-web-vitals",
   "title": "Tối ưu tốc độ website với Core Web Vitals",
-  "excerpt": "Cải thiện LCP, INP và CLS để website thiết kế sang trọng vẫn tải nhanh trên mọi thiết bị.",
+  "excerpt": "Giải thích chi tiết LCP, INP, CLS — nguyên nhân, cách tối ưu ảnh hero, JS, CLS và checklist PageSpeed cho website WordPress & doanh nghiệp.",
   "thumbnail": "/uploads/thumb-seo-toc-do.jpg",
   "author": "Admin",
   "authorAvatar": "AD",
@@ -10,7 +10,7 @@
   "status": "published",
   "publishedAt": "2026-07-07T08:00:00.000Z",
   "scheduledAt": null,
-  "views": 64,
+  "views": 65,
   "seo": {
     "metaTitle": "Tối ưu Core Web Vitals cho website",
     "metaDescription": "Hướng dẫn cải thiện LCP, INP, CLS để tăng tốc độ và SEO website.",
@@ -21,5 +21,5 @@
     "indexStatus": "good"
   },
   "createdAt": "2026-07-05T08:00:00.000Z",
-  "updatedAt": "2026-07-14T06:00:00.000Z"
+  "updatedAt": "2026-07-14T09:30:00.000Z"
 }

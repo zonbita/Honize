@@ -72,12 +72,13 @@ export class ArticlesController {
   blogList() {
     const site = loadPublicSiteData();
     const articles = this.articlesService.getLatestForBlog(50);
-    return this.withLayout('Bản tin chuyên ngành', {
+    return this.withLayout('Kiến thức', {
+      heading: 'Kiến thức',
       blogPosts: articles.map((a) => this.articlesService.toBlogPost(a)),
       seo: this.articlesService.buildStaticPageSeo(
-        'Bản tin chuyên ngành',
+        'Kiến thức',
         `Tin tức, hướng dẫn và xu hướng mới nhất từ ${site.brand}`,
-        '/blog',
+        '/kien-thuc',
         site.brand,
       ),
     });

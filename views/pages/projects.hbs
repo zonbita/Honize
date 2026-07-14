@@ -1,0 +1,56 @@
+<section class="page-hero premium-ivory">
+  <div class="premium-ivory-decor" aria-hidden="true">
+    <svg class="premium-ivory-curve premium-ivory-curve-tl" viewBox="0 0 400 400" fill="none">
+      <path d="M40 320 C 80 180, 200 80, 380 60" stroke="currentColor" stroke-width="1.25" />
+    </svg>
+  </div>
+  <div class="container-main relative z-10 text-center">
+    <a href="/" class="mb-4 inline-flex items-center text-sm text-brand-600 hover:opacity-80">← Về trang chủ</a>
+    <h1 class="section-title">Dự Án Tiêu Biểu</h1>
+    <p class="section-subtitle mx-auto">
+      Quý khách tham khảo một số dự án thiết kế web {{brand}} đã thực hiện trong các lĩnh vực khác nhau để có cái nhìn khách quan hơn về năng lực của chúng tôi.
+    </p>
+  </div>
+</section>
+
+<section class="project-showcase premium-ivory section-padding pt-0">
+  <div class="container-main relative z-10">
+    <div class="project-category-grid" id="project-category-grid">
+      <a
+        href="/du-an"
+        class="project-category-card{{#unless activeCategory}} is-active{{/unless}}"
+        data-category=""
+      >
+        Tất cả
+      </a>
+      {{#each projectCategories}}
+      <a
+        href="/du-an?danh-muc={{this.slug}}"
+        class="project-category-card{{#ifeq ../activeCategory this.slug}} is-active{{/ifeq}}"
+        data-category="{{this.slug}}"
+      >
+        {{this.name}}
+      </a>
+      {{/each}}
+    </div>
+
+    <div class="project-grid mt-12" id="project-grid">
+      {{#each projects}}
+      <article class="project-card" data-category="{{this.categorySlug}}" data-aos="fade-up" data-aos-delay="{{multiply @index 60}}">
+        <a href="{{this.url}}" class="project-card-link">
+          <div class="project-card-frame">
+            <img src="{{this.image}}" alt="{{this.title}}" width="400" height="500" loading="lazy" draggable="false" />
+          </div>
+          <p class="project-card-label">{{this.categoryName}}</p>
+        </a>
+      </article>
+      {{/each}}
+    </div>
+
+    <div class="mt-12 text-center">
+      <button type="button" id="project-load-more" class="btn-primary">Xem thêm mẫu demo</button>
+    </div>
+  </div>
+</section>
+
+<script src="/js/project-grid.js"></script>

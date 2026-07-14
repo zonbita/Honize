@@ -1,4 +1,13 @@
-import { SiteData, siteLayout } from '../data/site.data';
+import {
+  AboutPageContent,
+  OptimizePageContent,
+  SiteData,
+  DesignProcessStep,
+  aboutPageContent,
+  designProcessSteps,
+  optimizePageContent,
+  siteLayout,
+} from '../data/site.data';
 import { readJsonFile } from '../dashboard/cms.storage';
 import { loadSiteProjects } from './site-projects';
 
@@ -60,6 +69,9 @@ export function loadPublicSiteData(): Omit<SiteData, 'blogPosts'> & {
     ctaSecondary: string;
   };
   footerDescription: string;
+  designProcessSteps: DesignProcessStep[];
+  aboutPage: AboutPageContent;
+  optimizePage: OptimizePageContent;
 } {
   const settings = loadSiteSettings();
   const projects = loadSiteProjects();
@@ -82,5 +94,8 @@ export function loadPublicSiteData(): Omit<SiteData, 'blogPosts'> & {
       ctaPrimary: settings.heroCtaPrimary,
       ctaSecondary: settings.heroCtaSecondary,
     },
+    designProcessSteps,
+    aboutPage: aboutPageContent,
+    optimizePage: optimizePageContent,
   };
 }

@@ -2,7 +2,7 @@
   "id": 2,
   "slug": "nguyen-tac-ui-ux-website",
   "title": "5 nguyên tắc UI/UX giúp website dễ chuyển đổi",
-  "excerpt": "Từ phân cấp thị giác đến CTA rõ ràng — những nguyên tắc UI/UX thực chiến giúp khách hàng hiểu và hành động nhanh hơn.",
+  "excerpt": "5 nguyên tắc UI/UX thực chiến: phân cấp thị giác, khoảng trắng, một mục tiêu/ màn hình, design system và phản hồi tức thì — giúp tăng chuyển đổi website.",
   "thumbnail": "/uploads/thumb-ui-ux.jpg",
   "author": "Admin",
   "authorAvatar": "AD",
@@ -21,5 +21,5 @@
     "indexStatus": "good"
   },
   "createdAt": "2026-07-09T09:00:00.000Z",
-  "updatedAt": "2026-07-11T09:00:00.000Z"
+  "updatedAt": "2026-07-14T09:30:00.000Z"
 }

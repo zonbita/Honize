@@ -2,7 +2,7 @@
   "id": 5,
   "slug": "huong-dan-seo-onpage",
   "title": "SEO on-page cho website thiết kế chuyên nghiệp",
-  "excerpt": "Tối ưu title, heading, ảnh và cấu trúc nội dung để website đẹp vẫn xếp hạng tốt trên Google.",
+  "excerpt": "Hướng dẫn SEO on-page đầy đủ: title, meta, heading, URL, ảnh, internal link, schema và checklist trước khi publish — cho website doanh nghiệp Việt Nam.",
   "thumbnail": "/uploads/thumb-seo-toc-do.jpg",
   "author": "Admin",
   "authorAvatar": "AD",
@@ -10,7 +10,7 @@
   "status": "published",
   "publishedAt": "2026-07-08T12:00:00.000Z",
   "scheduledAt": null,
-  "views": 111,
+  "views": 113,
   "seo": {
     "metaTitle": "SEO on-page cho website chuyên nghiệp",
     "metaDescription": "Hướng dẫn SEO on-page: meta, heading, ảnh và internal link cho website doanh nghiệp.",
@@ -21,5 +21,5 @@
     "indexStatus": "good"
   },
   "createdAt": "2026-07-06T12:00:00.000Z",
-  "updatedAt": "2026-07-14T06:00:00.000Z"
+  "updatedAt": "2026-07-14T09:30:00.000Z"
 }
