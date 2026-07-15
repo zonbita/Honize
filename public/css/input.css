@@ -363,9 +363,7 @@
   }
 
   .about-hero-image {
-    @apply w-full max-w-xl object-cover drop-shadow-xl;
-    border-radius: 0;
-    aspect-ratio: 4 / 3;
+    @apply w-full max-w-xl object-contain drop-shadow-xl;
   }
 
   .about-company-grid {
@@ -373,8 +371,7 @@
   }
 
   .about-company-image {
-    @apply w-full object-cover shadow-lg;
-    border-radius: 0;
+    @apply w-full rounded-2xl object-cover shadow-lg;
     border: 1px solid rgba(212, 175, 55, 0.22);
   }
 
@@ -829,9 +826,7 @@
   }
 
   .hero-mockup-img {
-    @apply w-full max-w-[700px] object-cover lg:max-w-[760px];
-    border-radius: 0;
-    aspect-ratio: 4 / 3;
+    @apply w-full max-w-[700px] object-contain lg:max-w-[760px];
   }
 
   .hero-features {
