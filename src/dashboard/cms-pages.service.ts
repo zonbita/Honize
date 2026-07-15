@@ -7,6 +7,13 @@ import { bumpDevRevision } from '../shared/dev-reload';
 import { loadSiteProjects, saveSiteProjects, SiteProjectsData } from '../shared/site-projects';
 import { loadSiteSettings, SiteSettings } from '../shared/site-settings';
 import { clearVisits as clearVisitRecords, getVisits, VisitRecord } from '../shared/visit-tracker';
+import {
+  clearContactSubmissions as clearContactRecords,
+  ContactSubmission,
+  deleteContactSubmission as deleteContactRecord,
+  getContactSubmissions as loadContactSubmissions,
+  markContactRead as markContactRecordRead,
+} from '../shared/contact-submissions';
 import { getUploadsDir, readJsonFile, writeJsonFile } from './cms.storage';
 
 export interface Category {
@@ -108,6 +115,22 @@ export class CmsPagesService {
 
   clearVisits(): void {
     clearVisitRecords();
+  }
+
+  getContactSubmissions(): ContactSubmission[] {
+    return loadContactSubmissions();
+  }
+
+  markContactRead(id: string): boolean {
+    return markContactRecordRead(id);
+  }
+
+  deleteContactSubmission(id: string): boolean {
+    return deleteContactRecord(id);
+  }
+
+  clearContactSubmissions(): void {
+    clearContactRecords();
   }
 
   getSettings(): SiteSettings {

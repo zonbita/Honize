@@ -1,0 +1,271 @@
+{
+  "version": 1,
+  "defaultAnswer": "Cảm ơn câu hỏi của bạn.\nMình hỗ trợ thiết kế website, báo giá, SEO và tối ưu tốc độ.\n\nBạn hỏi rõ hơn về giá / SEO / tốc độ / quy trình — hoặc gửi yêu cầu tại /lien-he để được tư vấn trực tiếp.",
+  "items": [
+    {
+      "id": "greeting",
+      "keywords": ["xin chào", "hello", "hi", "chào", "hey", "chào bạn"],
+      "question": "Xin chào",
+      "answer": "Chào bạn! Mình là trợ lý của {{siteName}}.\n\nMình hỗ trợ về thiết kế website, báo giá, SEO và tối ưu tốc độ.\nBạn đang cần gì?"
+    },
+    {
+      "id": "thanks",
+      "keywords": ["cảm ơn", "thanks", "thank you", "cám ơn"],
+      "question": "Cảm ơn",
+      "answer": "Không có gì ạ!\n\nNếu bạn cần tư vấn thêm về website, báo giá hay SEO, cứ nhắn tiếp nhé.\nHoặc liên hệ {{phone}} / /lien-he."
+    },
+    {
+      "id": "need-web",
+      "keywords": [
+        "thiết kế web",
+        "thiết kế website",
+        "cần website",
+        "cần web",
+        "muốn làm web",
+        "làm website",
+        "tạo website",
+        "dựng website",
+        "làm trang web",
+        "cần làm web",
+        "muốn có website",
+        "thuê làm web"
+      ],
+      "question": "Tôi cần thiết kế web",
+      "answer": "Tuyệt vời! {{siteName}} nhận thiết kế website chuyên nghiệp, chuẩn SEO.\n\nGói tham khảo:\n• Basic: khoảng 2.200.000đ\n• Business: khoảng 10.999.000đ\n• VIP: khoảng 20.999.000đ\n\nBạn cho mình biết: website giới thiệu công ty, bán hàng, hay landing page?\nHoặc gọi {{phone}} / gửi brief tại /lien-he."
+    },
+    {
+      "id": "goodbye",
+      "keywords": ["tạm biệt", "bye", "goodbye", "hẹn gặp"],
+      "question": "Tạm biệt",
+      "answer": "Tạm biệt bạn! Chúc bạn một ngày tốt lành.\n\nKhi cần hỗ trợ website, {{siteName}} luôn sẵn sàng tại /lien-he."
+    },
+    {
+      "id": "pricing",
+      "keywords": ["giá", "báo giá", "chi phí", "bao nhiêu", "bảng giá", "pricing", "giá cả", "hết bao nhiêu", "báo dá", "báo ga", "bá gia", "baogia"],
+      "question": "Giá thiết kế website bao nhiêu?",
+      "answer": "Website trọn gói:\n• Basic: khoảng 2.200.000đ\n• Business: khoảng 10.999.000đ\n• VIP: khoảng 20.999.000đ\n\nXem mục Bảng giá trên trang chủ hoặc gửi yêu cầu tại /lien-he để nhận tư vấn chi tiết."
+    },
+    {
+      "id": "pricing-basic",
+      "keywords": ["basic", "gói basic", "cơ bản", "rẻ nhất", "giá thấp"],
+      "question": "Gói Basic gồm những gì?",
+      "answer": "Gói Basic — khoảng 2.200.000đ:\n• Giao diện template chuẩn SEO\n• SSL, form thu lead\n• Tích hợp chat / Pixel / Ads\n• Nhập liệu & content hỗ trợ\n• Bảo hành trọn đời\n\nLiên hệ /lien-he để nhận tư vấn."
+    },
+    {
+      "id": "pricing-business",
+      "keywords": ["business", "gói business", "phổ biến", "gói khuyến nghị"],
+      "question": "Gói Business gồm những gì?",
+      "answer": "Gói Business — khoảng 10.999.000đ:\n• Giao diện độc quyền\n• Tặng domain / hosting năm đầu\n• Fanpage, video AI, email theo tên miền\n• WP Rocket\n• Thanh toán VietQR / VNPAY / MOMO\n• Vận chuyển GHTK / GHN\n• Bao gồm tính năng gói Basic\n\nXem /lien-he để tư vấn."
+    },
+    {
+      "id": "pricing-vip",
+      "keywords": ["vip", "gói vip", "cao cấp", "gói doanh nghiệp lớn"],
+      "question": "Gói VIP gồm những gì?",
+      "answer": "Gói VIP — khoảng 20.999.000đ:\n• Thiết kế theo brand guideline\n• CRM đa kênh\n• Tích hợp AI\n• Đa ngôn ngữ, SEO on-page\n• Tặng domain / hosting\n• Bao gồm tính năng gói Business\n\nLiên hệ /lien-he để nhận báo giá chi tiết."
+    },
+    {
+      "id": "pricing-diff",
+      "keywords": ["khác nhau", "so sánh gói", "nên chọn gói", "gói nào", "khác biệt gói"],
+      "question": "Các gói khác nhau thế nào? Nên chọn gói nào?",
+      "answer": "So sánh nhanh:\n• Basic: website giới thiệu / chi phí tối ưu (template)\n• Business: giao diện độc quyền + domain/hosting, thanh toán & vận chuyển\n• VIP: brand guideline, CRM, AI, đa ngôn ngữ\n\nGửi brief tại /lien-he để được tư vấn gói phù hợp."
+    },
+    {
+      "id": "seo",
+      "keywords": ["seo", "google", "tìm kiếm", "onpage", "on-page", "lên top", "xếp hạng"],
+      "question": "Website có chuẩn SEO không?",
+      "answer": "Có. Chúng tôi thiết kế chuẩn SEO on-page:\n• Cấu trúc heading\n• Tối ưu ảnh & tốc độ\n• Sẵn sàng lên Google\n\nBạn muốn ưu tiên SEO hay giao diện trước?\nĐể lại nhu cầu tại /lien-he."
+    },
+    {
+      "id": "speed",
+      "keywords": ["tốc độ", "page speed", "pagespeed", "core web", "vitals", "lighthouse", "website chậm", "tối ưu tốc độ"],
+      "question": "Có dịch vụ tối ưu tốc độ website không?",
+      "answer": "Có.\nDịch vụ tối ưu giúp cải thiện Mobile/Desktop Speed và Core Web Vitals.\n\nXem thêm tại /thiet-ke hoặc liên hệ /lien-he để được khảo sát website hiện tại."
+    },
+    {
+      "id": "process",
+      "keywords": ["quy trình", "làm web", "bao lâu", "thời gian", "tiến độ", "process", "mất bao lâu", "thời gian hoàn thành"],
+      "question": "Quy trình làm website thế nào / bao lâu?",
+      "answer": "Thời gian tham khảo:\n• Basic: nhanh theo template\n• Business: khoảng 6–10 ngày\n• VIP: thường trên 9 ngày (tùy độ phức tạp)\n\nQuy trình:\n1. Nhận brief\n2. Thiết kế\n3. Dựng & tối ưu\n4. Bàn giao\n\nChi tiết xem /quy-trinh hoặc /lien-he."
+    },
+    {
+      "id": "responsive",
+      "keywords": ["responsive", "mobile", "điện thoại", "máy tính bảng", "tablet", "smartphone"],
+      "question": "Website có hiển thị tốt trên mobile không?",
+      "answer": "Có.\nMọi gói đều thiết kế responsive — tốt trên điện thoại, máy tính bảng và desktop.\n\nBạn cần demo ngành nghề cụ thể thì để lại thông tin tại /lien-he."
+    },
+    {
+      "id": "contact",
+      "keywords": ["liên hệ", "phone", "sđt", "sdt", "zalo", "email", "địa chỉ", "hotline", "gọi điện", "số điện thoại"],
+      "question": "Làm sao để liên hệ?",
+      "answer": "Bạn có thể liên hệ qua:\n• Điện thoại: {{phone}}\n• Email: {{email}}\n• Địa chỉ: {{address}}\n• Form: /lien-he"
+    },
+    {
+      "id": "warranty",
+      "keywords": ["bảo hành", "bảo trì", "warranty", "maintenance", "sửa lỗi", "hỗ trợ kỹ thuật"],
+      "question": "Có bảo hành / hỗ trợ kỹ thuật không?",
+      "answer": "Có.\nCác gói đi kèm hỗ trợ kỹ thuật và bảo hành theo chính sách từng gói.\n(Basic nêu bảo hành trọn đời, hỗ trợ 24/7).\n\nXác nhận chi tiết theo dự án: /lien-he hoặc gọi {{phone}}."
+    },
+    {
+      "id": "services",
+      "keywords": ["dịch vụ", "làm gì", "chuyên về", "cung cấp", "honize là gì", "công ty làm gì"],
+      "question": "{{siteName}} cung cấp dịch vụ gì?",
+      "answer": "{{siteName}} chuyên:\n• Thiết kế website chuyên nghiệp\n• Chuẩn SEO\n• Tối ưu tốc độ\n• UI/UX\n\nXem dự án tiêu biểu trên trang chủ, hoặc hỏi thêm về báo giá / SEO / tốc độ."
+    },
+    {
+      "id": "domain-hosting",
+      "keywords": ["domain", "hosting", "tên miền", "máy chủ", "server", "tặng domain", "tặng hosting"],
+      "question": "Có tặng domain / hosting không?",
+      "answer": "Gói Business và VIP thường kèm tặng domain và hosting năm đầu (theo bảng giá).\nGói Basic cần xác nhận riêng.\n\nChi tiết: gọi {{phone}} hoặc /lien-he."
+    },
+    {
+      "id": "ssl",
+      "keywords": ["ssl", "https", "chứng chỉ", "bảo mật ssl", "ổ khóa"],
+      "question": "Website có SSL / HTTPS không?",
+      "answer": "Có.\nCác gói thiết kế website đều hỗ trợ bảo mật SSL (HTTPS).\n\nLiên hệ /lien-he nếu bạn cần kiểm tra website hiện tại."
+    },
+    {
+      "id": "payment",
+      "keywords": ["thanh toán", "vietqr", "vnpay", "momo", "cổng thanh toán", "qr"],
+      "question": "Có tích hợp thanh toán online không?",
+      "answer": "Gói Business trở lên hỗ trợ:\n• VietQR\n• VNPAY\n• MOMO\n\nCần cấu hình riêng → gửi yêu cầu tại /lien-he."
+    },
+    {
+      "id": "shipping",
+      "keywords": ["vận chuyển", "ghtk", "giao hàng nhanh", "ghn", "ship"],
+      "question": "Có tích hợp vận chuyển không?",
+      "answer": "Gói Business hỗ trợ tích hợp:\n• GHTK\n• Giao Hàng Nhanh\n\nLiên hệ /lien-he để tư vấn theo mô hình bán hàng của bạn."
+    },
+    {
+      "id": "ecommerce",
+      "keywords": ["bán hàng", "ecommerce", "e-commerce", "cửa hàng", "shop online", "sàn", "giỏ hàng"],
+      "question": "Làm được website bán hàng / shop online không?",
+      "answer": "Có.\nGói Business trở lên phù hợp website bán hàng:\n• Thanh toán\n• Vận chuyển\n• Quản lý sản phẩm\n\nGửi nhu cầu tại /lien-he để nhận báo giá phù hợp."
+    },
+    {
+      "id": "landing",
+      "keywords": ["landing", "landing page", "trang đích", "một trang", "one page"],
+      "question": "Có làm landing page không?",
+      "answer": "Có.\nLanding page / website giới thiệu thường phù hợp gói Basic hoặc tùy chỉnh theo brief.\n\nLiên hệ /lien-he để nhận tư vấn và báo giá."
+    },
+    {
+      "id": "company-web",
+      "keywords": ["website công ty", "giới thiệu công ty", "corporate", "profile"],
+      "question": "Làm website giới thiệu công ty được không?",
+      "answer": "Được.\n{{siteName}} làm website giới thiệu công ty, sản phẩm dịch vụ, chuẩn SEO.\n\nXem bảng giá Basic–VIP hoặc gửi yêu cầu tại /lien-he."
+    },
+    {
+      "id": "admin",
+      "keywords": ["admin", "quản trị", "cms", "tự sửa", "cập nhật bài", "dashboard"],
+      "question": "Có trang quản trị để tự cập nhật nội dung không?",
+      "answer": "Có.\nWebsite bàn giao kèm khả năng quản trị nội dung (tùy gói).\nChúng tôi cũng hỗ trợ nhập liệu & hướng dẫn sử dụng.\n\nChi tiết tại /lien-he."
+    },
+    {
+      "id": "wordpress",
+      "keywords": ["wordpress", "wp", "nền tảng", "công nghệ", "framework"],
+      "question": "Website dùng công nghệ / WordPress gì?",
+      "answer": "Tùy dự án và gói.\n(Có hỗ trợ plugin như WP Rocket ở gói Business).\n\nCông nghệ cụ thể sẽ đề xuất theo nhu cầu tốc độ, SEO và ngân sách.\nTrao đổi tại /lien-he."
+    },
+    {
+      "id": "redesign",
+      "keywords": ["sửa web", "làm lại", "nâng cấp web", "web cũ", "đổi giao diện", "redesign"],
+      "question": "Có nhận làm lại / nâng cấp website cũ không?",
+      "answer": "Có.\nChúng tôi nhận:\n• Redesign\n• Tối ưu tốc độ\n• Chuẩn SEO cho website hiện có\n\nGửi link website tại /lien-he hoặc gọi {{phone}} để khảo sát."
+    },
+    {
+      "id": "uiux",
+      "keywords": ["ui", "ux", "giao diện", "thiết kế đẹp", "ui/ux", "trải nghiệm"],
+      "question": "Thiết kế UI/UX thế nào?",
+      "answer": "• Basic: template hàng đầu\n• Business / VIP: giao diện độc quyền, sáng tạo theo thương hiệu\n\nXem dự án trên trang chủ hoặc /du-an và liên hệ /lien-he."
+    },
+    {
+      "id": "brand",
+      "keywords": ["brand", "thương hiệu", "guideline", "logo", "nhận diện"],
+      "question": "Có thiết kế theo brand guideline / logo không?",
+      "answer": "Gói VIP hỗ trợ thiết kế theo brand guideline.\n\nNếu bạn đã có logo / bộ nhận diện, gửi file khi brief tại /lien-he để đội ngũ triển khai đúng chuẩn."
+    },
+    {
+      "id": "multilang",
+      "keywords": ["đa ngôn ngữ", "tiếng anh", "english", "nhiều ngôn ngữ", "multilingual"],
+      "question": "Website có đa ngôn ngữ không?",
+      "answer": "Gói VIP hỗ trợ website đa ngôn ngữ.\n\nNhu cầu EN/VI hoặc ngôn ngữ khác vui lòng ghi rõ tại /lien-he để báo giá chính xác."
+    },
+    {
+      "id": "email-domain",
+      "keywords": ["email theo tên miền", "mail doanh nghiệp", "email company", "hộp thư"],
+      "question": "Có tặng email theo tên miền không?",
+      "answer": "Gói Business có tặng email theo tên miền (theo bảng giá).\n\nChi tiết số lượng và cấu hình: /lien-he hoặc {{phone}}."
+    },
+    {
+      "id": "fanpage",
+      "keywords": ["fanpage", "facebook", "follow", "page fb"],
+      "question": "Có tặng Fanpage không?",
+      "answer": "Gói Business có ưu đãi tặng Fanpage (theo mô tả bảng giá hiện tại).\n\nLiên hệ /lien-he để xác nhận điều kiện áp dụng."
+    },
+    {
+      "id": "ai-chat",
+      "keywords": ["chatgpt", "chatbot", "trí tuệ nhân tạo", "ai chat", "tích hợp ai"],
+      "question": "Có tích hợp ChatGPT / AI không?",
+      "answer": "• Gói VIP: tích hợp ChatGPT & AI\n• Gói thấp hơn: có thể nhúng live chat / Facebook / Zalo chat\n\nNhu cầu cụ thể gửi tại /lien-he."
+    },
+    {
+      "id": "analytics",
+      "keywords": ["analytics", "google ads", "pixel", "tracking", "ga4", "quảng cáo"],
+      "question": "Có hỗ trợ Google Analytics / Ads / Pixel không?",
+      "answer": "Có. Các gói hỗ trợ:\n• Pixel\n• Google Ads\n• Google Analytics\n• Lưu trữ lead\n\nCần gắn mã sẵn có thì gửi tại /lien-he khi triển khai."
+    },
+    {
+      "id": "content",
+      "keywords": ["content", "nội dung", "viết bài", "nhập liệu", "copy"],
+      "question": "Có hỗ trợ content / nhập liệu không?",
+      "answer": "Có hỗ trợ nhập liệu sản phẩm và content (theo chính sách từng gói).\nBasic đã nêu hỗ trợ nhập liệu & content.\n\nGửi tài liệu tại /lien-he để ước lượng khối lượng."
+    },
+    {
+      "id": "portfolio",
+      "keywords": ["dự án", "portfolio", "mẫu web", "demo", "tiêu biểu", "đã làm"],
+      "question": "Xem dự án / mẫu website ở đâu?",
+      "answer": "Bạn xem dự án tiêu biểu tại:\n• Trang chủ (mục dự án)\n• Trang /du-an\n\nMuốn demo ngành nghề cụ thể, hãy nhắn tại /lien-he."
+    },
+    {
+      "id": "blog",
+      "keywords": ["blog", "tin tức", "bài viết", "kiến thức"],
+      "question": "Có blog / bài viết kiến thức không?",
+      "answer": "Có.\nBạn xem các bài viết về SEO, UI/UX, tốc độ web tại mục blog / tin tức trên website.\n\nHoặc hỏi trực tiếp mình về chủ đề bạn quan tâm."
+    },
+    {
+      "id": "deposit",
+      "keywords": ["đặt cọc", "thanh toán trước", "trả góp", "hợp đồng", "thanh toán thế nào"],
+      "question": "Thanh toán / đặt cọc thế nào?",
+      "answer": "Thường ký thỏa thuận / hợp đồng và thanh toán theo tiến độ dự án.\n\nChi tiết tỷ lệ đặt cọc và bàn giao: trao đổi qua {{phone}} hoặc /lien-he."
+    },
+    {
+      "id": "free",
+      "keywords": ["miễn phí", "free", "không mất phí", "làm thử"],
+      "question": "Có làm website miễn phí không?",
+      "answer": "Hiện {{siteName}} cung cấp thiết kế website theo gói trả phí.\n(Basic từ khoảng 2.200.000đ).\n\nBạn có thể nhận tư vấn miễn phí tại /lien-he trước khi quyết định."
+    },
+    {
+      "id": "app",
+      "keywords": ["app", "ứng dụng", "mobile app", "ios", "android"],
+      "question": "Có làm app điện thoại không?",
+      "answer": "Thế mạnh chính của {{siteName}}:\n• Thiết kế website\n• SEO\n• Tối ưu tốc độ\n\nNhu cầu app/mobile hãy mô tả tại /lien-he để được tư vấn (web responsive hoặc giải pháp khác)."
+    },
+    {
+      "id": "address",
+      "keywords": ["ở đâu", "văn phòng", "địa điểm", "location", "bình thạnh"],
+      "question": "Công ty ở đâu?",
+      "answer": "Thông tin liên hệ:\n• Địa chỉ: {{address}}\n• Điện thoại: {{phone}}\n• Email: {{email}}\n• Form: /lien-he"
+    },
+    {
+      "id": "working-hours",
+      "keywords": ["giờ làm", "làm việc", "mấy giờ", "cuối tuần", "t2", "t7"],
+      "question": "Giờ làm việc thế nào?",
+      "answer": "Bạn có thể để lại tin nhắn / form mọi lúc tại /lien-he.\n\nHỗ trợ kỹ thuật theo chính sách gói (một số gói nêu hỗ trợ 24/7).\nGọi {{phone}} để được phản hồi nhanh."
+    },
+    {
+      "id": "about",
+      "keywords": ["giới thiệu", "về chúng tôi", "about", "honize", "là ai"],
+      "question": "{{siteName}} là ai?",
+      "answer": "{{siteName}} — {{tagline}}.\n\nChúng tôi đồng hành cùng doanh nghiệp xây dựng website chuyên nghiệp để tăng cơ hội kinh doanh.\n\nXem thêm tại /gioi-thieu hoặc liên hệ /lien-he."
+    }
+  ]
+}

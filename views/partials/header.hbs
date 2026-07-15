@@ -1,36 +1,52 @@
 <header class="sticky top-0 z-50 w-full border-b border-slate-200/60 bg-white/95 shadow-nav backdrop-blur-md">
   <div class="header-inner">
-    <a href="/" class="flex shrink-0 items-center gap-3">
+    <a href="/" class="header-logo">
       <img src="/images/logo.png" alt="{{brand}}" class="h-12 w-auto max-w-[180px] object-contain object-left" />
     </a>
 
-    <nav class="hidden min-w-0 flex-1 lg:block">
-      <ul class="header-nav">
-        {{#each nav}}
-        <li class="relative group">
-          <a href="{{this.href}}" class="nav-link">{{this.label}}</a>
-          {{#if this.children}}
-          <div class="invisible absolute left-1/2 top-full z-50 mt-1 min-w-[200px] -translate-x-1/2 rounded-xl bg-white py-2 opacity-0 shadow-card transition-all group-hover:visible group-hover:opacity-100">
-            {{#each this.children}}
-            <a href="{{this.href}}" class="block px-4 py-2 text-sm font-medium text-slate-600 hover:bg-brand-50 hover:text-brand-600">{{this.label}}</a>
-            {{/each}}
-          </div>
-          {{/if}}
-        </li>
-        {{/each}}
-      </ul>
-    </nav>
+    <div class="header-menus">
+      <nav class="header-nav-main" aria-label="Menu chính">
+        <ul class="header-nav">
+          {{#each nav}}
+          {{#unless (eq this.href "/lien-he")}}
+          <li class="relative group">
+            <a href="{{this.href}}" class="nav-link">{{this.label}}</a>
+            {{#if this.children}}
+            <div class="invisible absolute left-1/2 top-full z-50 mt-1 min-w-[200px] -translate-x-1/2 rounded-xl bg-white py-2 opacity-0 shadow-card transition-all group-hover:visible group-hover:opacity-100">
+              {{#each this.children}}
+              <a href="{{this.href}}" class="block px-4 py-2 text-sm font-medium text-slate-600 hover:bg-brand-50 hover:text-brand-600">{{this.label}}</a>
+              {{/each}}
+            </div>
+            {{/if}}
+          </li>
+          {{/unless}}
+          {{/each}}
+        </ul>
+      </nav>
 
-    <button id="menu-btn" class="ml-auto rounded-lg p-2 text-slate-600 hover:bg-white/80 lg:hidden" aria-label="Menu">
-      <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-    </button>
+      <div class="header-nav-side">
+        {{#each nav}}
+        {{#if (eq this.href "/lien-he")}}
+        <a href="{{this.href}}" class="nav-link">{{this.label}}</a>
+        {{/if}}
+        {{/each}}
+        <a href="/#banggia" class="header-cta">Báo giá</a>
+      </div>
+    </div>
+
+    <div class="header-trailing">
+      <button id="menu-btn" class="rounded-lg p-2 text-slate-600 hover:bg-white/80 lg:hidden" aria-label="Menu">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
   </div>
 
   <div id="mobile-menu" class="hidden border-t border-slate-200/60 bg-[#f4f7fb] lg:hidden">
-    <div class="header-inner flex-col items-stretch space-y-1 py-4">
+    <div class="header-mobile-inner">
       {{#each nav}}
       <a href="{{this.href}}" class="block rounded-lg px-3 py-2 text-sm font-medium text-brand-950 hover:bg-white hover:text-brand-600">{{this.label}}</a>
       {{/each}}
+      <a href="/#banggia" class="block rounded-lg px-3 py-2 text-sm font-semibold text-brand-700 hover:bg-white">Báo giá</a>
       <div class="space-y-2 border-t border-slate-200/60 pt-4">
         <a href="tel:{{phone}}" class="block text-sm text-slate-600">{{phone}}</a>
         <a href="mailto:{{email}}" class="block text-sm text-slate-600">{{email}}</a>

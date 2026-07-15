@@ -89,7 +89,18 @@ export class AppService {
     };
   }
 
-  getContactPageData(options?: { success?: boolean }) {
+  getContactPageData(options?: {
+    success?: boolean;
+    error?: boolean;
+    formValues?: {
+      name?: string;
+      email?: string;
+      phone?: string;
+      subject?: string;
+      message?: string;
+    };
+    fieldErrors?: Record<string, string>;
+  }) {
     const site = loadPublicSiteData();
     return {
       ...this.buildStaticPage(
@@ -99,6 +110,9 @@ export class AppService {
         '/lien-he',
       ),
       contactSuccess: Boolean(options?.success),
+      contactError: Boolean(options?.error),
+      formValues: options?.formValues ?? {},
+      fieldErrors: options?.fieldErrors ?? {},
       zalo: site.phone,
       skype: '',
     };

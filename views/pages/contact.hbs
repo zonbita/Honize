@@ -1,26 +1,10 @@
-<section class="page-hero page-hero-compact premium-ivory">
-  <div class="premium-ivory-decor" aria-hidden="true">
-    <svg class="premium-ivory-curve premium-ivory-curve-tl" viewBox="0 0 400 400" fill="none">
-      <path d="M40 320 C 80 180, 200 80, 380 60" stroke="currentColor" stroke-width="1.25" />
-    </svg>
-  </div>
-  <div class="container-main relative z-10 text-center">
-    <h1 class="section-title">Liên hệ {{brand}}</h1>
-    <nav class="page-breadcrumb" aria-label="Breadcrumb">
-      <a href="/">Trang chủ</a>
-      <span class="page-breadcrumb-sep" aria-hidden="true">/</span>
-      <span aria-current="page">Liên hệ</span>
-    </nav>
-  </div>
-</section>
-
-<section class="contact-page about-section pt-0">
+<section class="contact-page about-section">
   <div class="container-main">
     <div class="contact-page-grid">
       <div class="contact-form-panel" data-aos="fade-up">
         <h2 class="contact-panel-title">Gửi yêu cầu tư vấn</h2>
         <p class="contact-panel-desc">
-          Điền thông tin bên dưới — chúng tôi sẽ phản hồi trong vòng 24 giờ làm việc.
+          Điền đầy đủ thông tin bên dưới — chúng tôi sẽ phản hồi trong vòng 24 giờ làm việc.
         </p>
 
         {{#if contactSuccess}}
@@ -29,18 +13,30 @@
         </div>
         {{/if}}
 
-        <form class="contact-form" action="/lien-he" method="post" novalidate>
+        {{#if contactError}}
+        <div class="contact-alert contact-alert-error" role="alert">
+          Vui lòng điền đầy đủ và đúng các trường bắt buộc trước khi gửi.
+        </div>
+        {{/if}}
+
+        <form class="contact-form" action="/lien-he" method="post">
           <div class="contact-form-row">
             <label class="contact-label" for="contact-name">Họ và tên <span aria-hidden="true">*</span></label>
             <input
               id="contact-name"
               name="name"
               type="text"
-              class="contact-input"
+              class="contact-input{{#if fieldErrors.name}} contact-input-invalid{{/if}}"
               placeholder="Nguyễn Văn A"
+              value="{{formValues.name}}"
               required
+              minlength="2"
+              maxlength="120"
               autocomplete="name"
             />
+            {{#if fieldErrors.name}}
+            <p class="contact-field-error">{{fieldErrors.name}}</p>
+            {{/if}}
           </div>
 
           <div class="contact-form-grid2">
@@ -50,11 +46,16 @@
                 id="contact-email"
                 name="email"
                 type="email"
-                class="contact-input"
+                class="contact-input{{#if fieldErrors.email}} contact-input-invalid{{/if}}"
                 placeholder="email@congty.vn"
+                value="{{formValues.email}}"
                 required
+                maxlength="160"
                 autocomplete="email"
               />
+              {{#if fieldErrors.email}}
+              <p class="contact-field-error">{{fieldErrors.email}}</p>
+              {{/if}}
             </div>
             <div class="contact-form-row">
               <label class="contact-label" for="contact-phone">Điện thoại <span aria-hidden="true">*</span></label>
@@ -62,24 +63,36 @@
                 id="contact-phone"
                 name="phone"
                 type="tel"
-                class="contact-input"
+                class="contact-input{{#if fieldErrors.phone}} contact-input-invalid{{/if}}"
                 placeholder="0900 000 000"
+                value="{{formValues.phone}}"
                 required
+                minlength="8"
+                maxlength="40"
                 autocomplete="tel"
               />
+              {{#if fieldErrors.phone}}
+              <p class="contact-field-error">{{fieldErrors.phone}}</p>
+              {{/if}}
             </div>
           </div>
 
           <div class="contact-form-row">
-            <label class="contact-label" for="contact-subject">Chủ đề</label>
+            <label class="contact-label" for="contact-subject">Chủ đề <span aria-hidden="true">*</span></label>
             <input
               id="contact-subject"
               name="subject"
               type="text"
-              class="contact-input"
+              class="contact-input{{#if fieldErrors.subject}} contact-input-invalid{{/if}}"
               placeholder="Báo giá thiết kế website / Tối ưu tốc độ…"
+              value="{{formValues.subject}}"
+              required
+              maxlength="200"
               autocomplete="off"
             />
+            {{#if fieldErrors.subject}}
+            <p class="contact-field-error">{{fieldErrors.subject}}</p>
+            {{/if}}
           </div>
 
           <div class="contact-form-row">
@@ -87,11 +100,16 @@
             <textarea
               id="contact-message"
               name="message"
-              class="contact-input contact-textarea"
+              class="contact-input contact-textarea{{#if fieldErrors.message}} contact-input-invalid{{/if}}"
               rows="6"
               placeholder="Mô tả ngắn nhu cầu của quý khách…"
               required
-            ></textarea>
+              minlength="10"
+              maxlength="4000"
+            >{{formValues.message}}</textarea>
+            {{#if fieldErrors.message}}
+            <p class="contact-field-error">{{fieldErrors.message}}</p>
+            {{/if}}
           </div>
 
           <button type="submit" class="btn-primary contact-submit">Gửi liên hệ</button>

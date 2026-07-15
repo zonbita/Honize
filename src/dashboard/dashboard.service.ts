@@ -28,6 +28,7 @@ export class DashboardService {
         { id: 'media', label: 'Media', icon: 'image', href: '/dashboard/media' },
         { id: 'seo', label: 'SEO Link', icon: 'link', href: '/dashboard/seo' },
         { id: 'stats', label: 'Thống kê', icon: 'chart', href: '/dashboard/stats' },
+        { id: 'emails', label: 'Email', icon: 'mail', href: '/dashboard/emails' },
         { id: 'users', label: 'Người dùng', icon: 'users', href: '/dashboard/users' },
         { id: 'settings', label: 'Cài đặt', icon: 'settings', href: '/dashboard/settings' },
       ],

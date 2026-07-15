@@ -89,6 +89,44 @@ export class DashboardController {
     return {};
   }
 
+  @Get('emails')
+  @Render('dashboard/emails')
+  emails() {
+    const contacts = this.cmsPagesService.getContactSubmissions().map((c) => ({
+      ...c,
+      createdAtFormatted: new Date(c.createdAt).toLocaleString('vi-VN'),
+    }));
+    return {
+      layout: 'dashboard',
+      pageTitle: 'Email',
+      contacts,
+      contactCount: contacts.length,
+      unreadCount: contacts.filter((c) => !c.read).length,
+      ...this.dashboardService.getSharedLayoutData('emails'),
+    };
+  }
+
+  @Post('emails/:id/read')
+  @Redirect('/dashboard/emails')
+  markEmailRead(@Param('id') id: string) {
+    this.cmsPagesService.markContactRead(id);
+    return {};
+  }
+
+  @Post('emails/:id/delete')
+  @Redirect('/dashboard/emails')
+  deleteEmail(@Param('id') id: string) {
+    this.cmsPagesService.deleteContactSubmission(id);
+    return {};
+  }
+
+  @Post('emails/clear')
+  @Redirect('/dashboard/emails')
+  clearEmails() {
+    this.cmsPagesService.clearContactSubmissions();
+    return {};
+  }
+
   @Get('users')
   @Render('dashboard/users')
   users() {

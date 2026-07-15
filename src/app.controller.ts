@@ -1,5 +1,7 @@
-import { Body, Controller, Get, Post, Query, Redirect, Render } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, Redirect, Render, Res } from '@nestjs/common';
+import { Response } from 'express';
 import { AppService } from './app.service';
+import { saveContactSubmission } from './shared/contact-submissions';
 import { getDevRevision } from './shared/dev-reload';
 import { SERVER_BOOT_ID } from './shared/server-boot';
 
@@ -50,18 +52,35 @@ export class AppController {
   }
 
   @Post('lien-he')
-  @Redirect('/lien-he?sent=1', 303)
   postContact(
     @Body()
-    _body: {
+    body: {
       name?: string;
       email?: string;
       phone?: string;
       subject?: string;
       message?: string;
     },
+    @Res() res: Response,
   ) {
-    return;
+    const result = saveContactSubmission(body);
+    if (!result.ok) {
+      return res.status(400).render(
+        'pages/contact',
+        this.appService.getContactPageData({
+          error: true,
+          formValues: {
+            name: body?.name ?? '',
+            email: body?.email ?? '',
+            phone: body?.phone ?? '',
+            subject: body?.subject ?? '',
+            message: body?.message ?? '',
+          },
+          fieldErrors: result.errors,
+        }),
+      );
+    }
+    return res.redirect(303, '/lien-he?sent=1');
   }
 
   @Get('dev/reload-check')

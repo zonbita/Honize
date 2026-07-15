@@ -1,0 +1,66 @@
+{{> dashboard/page-header }}
+
+<div class="flex-1 overflow-y-auto p-6">
+  <div class="mb-6 flex flex-wrap items-end justify-between gap-3">
+    <div>
+      <p class="text-sm text-slate-500">
+        Hộp thư liên hệ từ form <code class="rounded bg-slate-100 px-1">/lien-he</code>
+        — lưu tại <code class="rounded bg-slate-100 px-1">content/contacts.json</code>
+      </p>
+    </div>
+    <div class="flex items-center gap-3">
+      <p class="text-sm font-medium text-slate-600">
+        Tổng: <span class="text-brand-600">{{contactCount}}</span>
+        {{#if unreadCount}}
+        · Chưa đọc: <span class="text-amber-600">{{unreadCount}}</span>
+        {{/if}}
+      </p>
+      <form method="post" action="/dashboard/emails/clear" onsubmit="return confirm('Xóa toàn bộ email liên hệ?');">
+        <button type="submit" class="rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-sm font-medium text-red-600 hover:bg-red-100">
+          Xóa tất cả
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="space-y-4">
+    {{#each contacts}}
+    <article class="dash-card overflow-hidden {{#unless this.read}}ring-1 ring-brand-300/40{{/unless}}">
+      <div class="flex flex-wrap items-start justify-between gap-3 border-b border-slate-100 bg-slate-50/70 px-5 py-3">
+        <div>
+          <div class="flex flex-wrap items-center gap-2">
+            <h3 class="font-semibold text-slate-800">{{this.name}}</h3>
+            {{#unless this.read}}
+            <span class="rounded-full bg-brand-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-brand-800">Mới</span>
+            {{/unless}}
+          </div>
+          <p class="mt-0.5 text-sm text-slate-600">
+            <a href="mailto:{{this.email}}" class="text-brand-700 hover:underline">{{this.email}}</a>
+            · <a href="tel:{{this.phone}}" class="hover:underline">{{this.phone}}</a>
+          </p>
+        </div>
+        <p class="text-xs text-slate-400">{{this.createdAtFormatted}}</p>
+      </div>
+      <div class="space-y-3 px-5 py-4">
+        <p class="text-sm font-medium text-slate-800">Chủ đề: <span class="font-normal text-slate-700">{{this.subject}}</span></p>
+        <p class="whitespace-pre-wrap text-sm leading-relaxed text-slate-600">{{this.message}}</p>
+        <div class="flex flex-wrap gap-2 pt-1">
+          {{#unless this.read}}
+          <form method="post" action="/dashboard/emails/{{this.id}}/read">
+            <button type="submit" class="dash-btn-secondary">Đánh dấu đã đọc</button>
+          </form>
+          {{/unless}}
+          <a href="mailto:{{this.email}}?subject=Re:%20{{this.subject}}" class="dash-btn-secondary">Trả lời email</a>
+          <form method="post" action="/dashboard/emails/{{this.id}}/delete" onsubmit="return confirm('Xóa liên hệ này?');">
+            <button type="submit" class="rounded-lg border border-red-200 px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50">Xóa</button>
+          </form>
+        </div>
+      </div>
+    </article>
+    {{else}}
+    <div class="dash-card p-10 text-center text-slate-400">
+      Chưa có yêu cầu liên hệ nào. Khi khách gửi form tại /lien-he, thông tin sẽ hiện ở đây.
+    </div>
+    {{/each}}
+  </div>
+</div>
