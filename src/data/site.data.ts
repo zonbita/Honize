@@ -413,6 +413,14 @@ export const defaultProjectsData: Pick<SiteLayoutData, 'projectCategories' | 'pr
       url: '/du-an/demo/spa-wellness',
     },
     {
+      title: 'Aesthetic Clinic — Thẩm mỹ viện',
+      slug: 'tham-my-vien',
+      categorySlug: 'dich-vu',
+      categoryName: 'Dịch vụ',
+      image: '/images/ThamMyVien/thammyvien%20(4).png',
+      url: '/du-an/demo/tham-my-vien',
+    },
+    {
       title: 'Corporate landing page',
       slug: 'corporate-landing',
       categorySlug: 'gioi-thieu-cong-ty',
