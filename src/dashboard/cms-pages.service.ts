@@ -1,9 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { existsSync, readdirSync, unlinkSync } from 'fs';
-import { basename, join } from 'path';
+import { existsSync, readdirSync, statSync, unlinkSync } from 'fs';
+import { basename, extname, join } from 'path';
 import { ArticlesService } from '../articles/articles.service';
 import { Project } from '../data/site.data';
 import { bumpDevRevision } from '../shared/dev-reload';
+import { resolveProjectRoot } from '../shared/content-path';
 import { loadSiteProjects, saveSiteProjects, SiteProjectsData } from '../shared/site-projects';
 import { loadSiteSettings, SiteSettings } from '../shared/site-settings';
 import { clearVisits as clearVisitRecords, getVisits, VisitRecord } from '../shared/visit-tracker';
@@ -15,6 +16,16 @@ import {
   markContactRead as markContactRecordRead,
 } from '../shared/contact-submissions';
 import { getUploadsDir, readJsonFile, writeJsonFile } from './cms.storage';
+
+const IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg'];
+
+export interface LibraryImage {
+  name: string;
+  folder: string;
+  relativePath: string;
+  url: string;
+  size: number;
+}
 
 export interface Category {
   slug: string;
@@ -71,14 +82,67 @@ export class CmsPagesService {
 
   getMediaFiles() {
     const dir = getUploadsDir();
-    const imageExt = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg'];
     return readdirSync(dir)
-      .filter((f) => imageExt.some((ext) => f.toLowerCase().endsWith(ext)))
+      .filter((f) => IMAGE_EXTENSIONS.some((ext) => f.toLowerCase().endsWith(ext)))
       .map((f) => ({
         name: f,
         url: `/uploads/${f}`,
         path: join(dir, f),
       }));
+  }
+
+  /** Recursively list images under public/images for the dashboard picker. */
+  getPublicImages(): LibraryImage[] {
+    const root = join(resolveProjectRoot(), 'public', 'images');
+    if (!existsSync(root)) return [];
+
+    const results: LibraryImage[] = [];
+
+    const walk = (dir: string, rel: string) => {
+      let entries;
+      try {
+        entries = readdirSync(dir, { withFileTypes: true });
+      } catch {
+        return;
+      }
+
+      for (const entry of entries) {
+        if (entry.name.startsWith('.')) continue;
+        const abs = join(dir, entry.name);
+        const nextRel = rel ? `${rel}/${entry.name}` : entry.name;
+
+        if (entry.isDirectory()) {
+          walk(abs, nextRel);
+          continue;
+        }
+
+        const ext = extname(entry.name).toLowerCase();
+        if (!IMAGE_EXTENSIONS.includes(ext)) continue;
+
+        let size = 0;
+        try {
+          size = statSync(abs).size;
+        } catch {
+          size = 0;
+        }
+
+        const encoded = nextRel
+          .split('/')
+          .map((segment) => encodeURIComponent(segment))
+          .join('/');
+
+        results.push({
+          name: entry.name,
+          folder: rel || '/',
+          relativePath: nextRel,
+          url: `/images/${encoded}`,
+          size,
+        });
+      }
+    };
+
+    walk(root, '');
+    return results.sort((a, b) => a.relativePath.localeCompare(b.relativePath, 'vi'));
   }
 
   deleteMediaFile(filename: string): void {
@@ -87,8 +151,7 @@ export class CmsPagesService {
       throw new NotFoundException('File không hợp lệ');
     }
 
-    const imageExt = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg'];
-    if (!imageExt.some((ext) => safeName.toLowerCase().endsWith(ext))) {
+    if (!IMAGE_EXTENSIONS.some((ext) => safeName.toLowerCase().endsWith(ext))) {
       throw new NotFoundException('Chỉ được xóa file ảnh');
     }
 

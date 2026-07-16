@@ -1,0 +1,181 @@
+<div id="thumb-library-panel" class="thumb-library-panel hidden" hidden>
+  <div class="mb-3 flex flex-wrap items-center justify-between gap-2">
+    <div>
+      <p class="text-sm font-semibold text-slate-800">Thư viện <code class="rounded bg-slate-100 px-1 text-xs">public/images</code></p>
+      <p id="thumb-library-count" class="text-xs text-slate-500">Đang tải danh sách ảnh…</p>
+    </div>
+    <input
+      id="thumb-library-search"
+      type="search"
+      class="dash-input w-full max-w-xs text-sm"
+      placeholder="Tìm theo tên hoặc thư mục…"
+      autocomplete="off"
+    />
+  </div>
+  <div class="thumb-library-table-wrap">
+    <table class="thumb-library-table">
+      <thead>
+        <tr>
+          <th class="w-16">Ảnh</th>
+          <th>Tên file</th>
+          <th>Thư mục</th>
+          <th class="w-20">Dung lượng</th>
+          <th class="w-24"></th>
+        </tr>
+      </thead>
+      <tbody id="thumb-library-body">
+        <tr>
+          <td colspan="5" class="py-8 text-center text-sm text-slate-400">Đang tải…</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  (function initImageLibraryPicker() {
+    const toggleBtn = document.getElementById('thumb-library-toggle');
+    const panel = document.getElementById('thumb-library-panel');
+    const body = document.getElementById('thumb-library-body');
+    const searchInput = document.getElementById('thumb-library-search');
+    const countEl = document.getElementById('thumb-library-count');
+    const urlInput = document.getElementById('thumbnail-input');
+    const preview = document.getElementById('thumb-preview');
+    const previewImg = document.getElementById('thumb-preview-img');
+    const previewPlaceholder = preview ? preview.querySelector('svg') : null;
+    const status = document.getElementById('thumb-upload-status');
+    if (!toggleBtn || !panel || !body) return;
+
+    let images = [];
+    let loaded = false;
+    let loading = false;
+
+    function formatSize(bytes) {
+      if (!bytes) return '—';
+      if (bytes < 1024) return bytes + ' B';
+      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+      return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+    }
+
+    function setPreview(url) {
+      if (previewImg) {
+        previewImg.src = url;
+        previewImg.alt = 'Ảnh đã chọn';
+        previewImg.classList.remove('hidden');
+      }
+      if (previewPlaceholder) previewPlaceholder.classList.add('hidden');
+      if (preview) preview.classList.remove('thumb-preview-empty');
+      if (urlInput) {
+        urlInput.value = url;
+        urlInput.setAttribute('value', url);
+        urlInput.dispatchEvent(new Event('input', { bubbles: true }));
+        urlInput.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+      if (status) {
+        status.textContent = 'Đã chọn: ' + decodeURIComponent(url.split('/').pop() || url);
+        status.className = 'mt-2 text-xs text-green-600';
+        status.classList.remove('hidden');
+      }
+    }
+
+    function renderRows(list) {
+      if (!list.length) {
+        body.innerHTML = '<tr><td colspan="5" class="py-8 text-center text-sm text-slate-400">Không tìm thấy ảnh phù hợp.</td></tr>';
+        return;
+      }
+
+      body.innerHTML = list
+        .map(function (item) {
+          return (
+            '<tr>' +
+            '<td><img src="' + item.url + '" alt="" class="thumb-library-thumb" loading="lazy" width="48" height="48" /></td>' +
+            '<td><span class="font-medium text-slate-700">' + escapeHtml(item.name) + '</span></td>' +
+            '<td><span class="text-slate-500">' + escapeHtml(item.folder) + '</span></td>' +
+            '<td class="text-slate-500">' + formatSize(item.size) + '</td>' +
+            '<td><button type="button" class="dash-btn-secondary !px-2 !py-1 text-xs" data-select-url="' +
+            escapeAttr(item.url) +
+            '">Chọn</button></td>' +
+            '</tr>'
+          );
+        })
+        .join('');
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function escapeAttr(str) {
+      return escapeHtml(str).replace(/'/g, '&#39;');
+    }
+
+    function applyFilter() {
+      const q = (searchInput && searchInput.value ? searchInput.value : '').trim().toLowerCase();
+      const filtered = !q
+        ? images
+        : images.filter(function (item) {
+            return (
+              item.name.toLowerCase().includes(q) ||
+              item.folder.toLowerCase().includes(q) ||
+              item.relativePath.toLowerCase().includes(q)
+            );
+          });
+      if (countEl) {
+        countEl.textContent = filtered.length + ' / ' + images.length + ' ảnh';
+      }
+      renderRows(filtered);
+    }
+
+    async function loadImages() {
+      if (loaded || loading) return;
+      loading = true;
+      try {
+        const res = await fetch('/dashboard/api/library-images');
+        if (!res.ok) throw new Error('Không tải được danh sách ảnh');
+        images = await res.json();
+        loaded = true;
+        applyFilter();
+      } catch (err) {
+        body.innerHTML =
+          '<tr><td colspan="5" class="py-8 text-center text-sm text-red-500">' +
+          escapeHtml(err.message || 'Lỗi tải thư viện') +
+          '</td></tr>';
+        if (countEl) countEl.textContent = 'Lỗi tải danh sách';
+      } finally {
+        loading = false;
+      }
+    }
+
+    function setOpen(open) {
+      panel.classList.toggle('hidden', !open);
+      panel.hidden = !open;
+      toggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggleBtn.classList.toggle('is-open', open);
+      if (open) loadImages();
+    }
+
+    toggleBtn.addEventListener('click', function () {
+      setOpen(panel.hidden);
+    });
+
+    if (searchInput) {
+      searchInput.addEventListener('input', applyFilter);
+    }
+
+    body.addEventListener('click', function (e) {
+      const target = e.target instanceof Element ? e.target : e.target.parentElement;
+      const btn = target ? target.closest('[data-select-url]') : null;
+      if (!btn) return;
+      e.preventDefault();
+      e.stopPropagation();
+      const url = btn.getAttribute('data-select-url');
+      if (!url) return;
+      setPreview(url);
+      setOpen(false);
+    });
+  })();
+</script>

@@ -1950,6 +1950,39 @@
     @apply pointer-events-none opacity-60;
   }
 
+  .thumb-library-panel {
+    @apply rounded-xl border border-slate-200 bg-white p-4 shadow-sm;
+  }
+
+  .thumb-library-table-wrap {
+    @apply max-h-80 overflow-auto rounded-lg border border-slate-100;
+  }
+
+  .thumb-library-table {
+    @apply w-full min-w-[520px] border-collapse text-left text-sm;
+  }
+
+  .thumb-library-table thead {
+    @apply sticky top-0 z-10 bg-slate-50 text-xs uppercase tracking-wide text-slate-500;
+  }
+
+  .thumb-library-table th,
+  .thumb-library-table td {
+    @apply border-b border-slate-100 px-3 py-2 align-middle;
+  }
+
+  .thumb-library-table tbody tr:hover {
+    @apply bg-slate-50;
+  }
+
+  .thumb-library-thumb {
+    @apply h-12 w-12 rounded-md border border-slate-200 object-cover;
+  }
+
+  #thumb-library-toggle.is-open {
+    @apply font-semibold text-brand-700;
+  }
+
   /* Floating TOP + AI chat */
   .float-tools {
     position: fixed;

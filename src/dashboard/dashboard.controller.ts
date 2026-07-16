@@ -48,6 +48,11 @@ export class DashboardController {
     };
   }
 
+  @Get('api/library-images')
+  listLibraryImages() {
+    return this.cmsPagesService.getPublicImages();
+  }
+
   @Post('media/:name/delete')
   @Redirect('/dashboard/media?deleted=1')
   deleteMedia(@Param('name') name: string) {

@@ -68,12 +68,19 @@
               <input type="file" id="thumb-file" accept="image/*" class="hidden" />
               <svg class="mx-auto mb-2 h-8 w-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
               <p class="text-sm font-medium text-slate-700">Kéo thả hình vào đây</p>
-              <p class="mt-1 text-xs text-slate-400">hoặc <button type="button" id="thumb-browse" class="text-brand-600 hover:underline">chọn từ máy</button> · JPG, PNG, WebP · tối đa 5MB</p>
+              <p class="mt-1 text-xs text-slate-400">
+                hoặc
+                <button type="button" id="thumb-browse" class="text-brand-600 hover:underline">chọn từ máy</button>
+                ·
+                <button type="button" id="thumb-library-toggle" class="text-brand-600 hover:underline" aria-expanded="false" aria-controls="thumb-library-panel">chọn từ thư viện ▾</button>
+                · JPG, PNG, WebP · tối đa 5MB
+              </p>
               <p id="thumb-upload-status" class="mt-2 hidden text-xs"></p>
             </div>
+            {{> dashboard/image-library-picker }}
             <div>
               <label class="mb-1 block text-xs text-slate-500">Hoặc dán URL ảnh</label>
-              <input id="thumbnail-input" name="thumbnail" value="{{article.thumbnail}}" class="dash-input w-full text-sm" placeholder="https://... hoặc /uploads/..." />
+              <input id="thumbnail-input" name="thumbnail" value="{{article.thumbnail}}" class="dash-input w-full text-sm" placeholder="https://... hoặc /images/... hoặc /uploads/..." />
             </div>
           </div>
         </div>
