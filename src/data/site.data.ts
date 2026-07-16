@@ -370,7 +370,7 @@ export const defaultProjectsData: Pick<SiteLayoutData, 'projectCategories' | 'pr
       categorySlug: 'an-uong',
       categoryName: 'Ăn uống',
       image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=600&fit=crop',
-      url: '#contact',
+      url: '/du-an/demo/nha-hang-sai-gon',
     },
     {
       title: 'Shop thời trang online',
@@ -378,7 +378,7 @@ export const defaultProjectsData: Pick<SiteLayoutData, 'projectCategories' | 'pr
       categorySlug: 'ban-hang',
       categoryName: 'Bán hàng',
       image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop',
-      url: '#contact',
+      url: '/du-an/demo/shop-thoi-trang',
     },
     {
       title: 'Dự án căn hộ cao cấp',
@@ -386,7 +386,7 @@ export const defaultProjectsData: Pick<SiteLayoutData, 'projectCategories' | 'pr
       categorySlug: 'bat-dong-san',
       categoryName: 'Bất động sản',
       image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop',
-      url: '#contact',
+      url: '/du-an/demo/can-ho-cao-cap',
     },
     {
       title: 'Tour du lịch Đà Nẵng',
@@ -394,7 +394,7 @@ export const defaultProjectsData: Pick<SiteLayoutData, 'projectCategories' | 'pr
       categorySlug: 'du-lich',
       categoryName: 'Du lịch',
       image: 'https://images.unsplash.com/photo-1559592413-7cec4b0ef90f?w=800&h=600&fit=crop',
-      url: '/blog/xu-huong-thiet-ke-web-2026',
+      url: '/du-an/demo/tour-da-nang',
     },
     {
       title: 'Spa & Wellness',
@@ -402,7 +402,7 @@ export const defaultProjectsData: Pick<SiteLayoutData, 'projectCategories' | 'pr
       categorySlug: 'dich-vu',
       categoryName: 'Dịch vụ',
       image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&h=600&fit=crop',
-      url: '#contact',
+      url: '/du-an/demo/spa-wellness',
     },
     {
       title: 'Corporate landing page',
@@ -410,7 +410,7 @@ export const defaultProjectsData: Pick<SiteLayoutData, 'projectCategories' | 'pr
       categorySlug: 'gioi-thieu-cong-ty',
       categoryName: 'Giới thiệu công ty',
       image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop',
-      url: '#contact',
+      url: '/du-an/demo/corporate-landing',
     },
     {
       title: 'Tin tức công nghệ',
@@ -418,7 +418,7 @@ export const defaultProjectsData: Pick<SiteLayoutData, 'projectCategories' | 'pr
       categorySlug: 'tin-tuc',
       categoryName: 'Tin tức',
       image: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&h=600&fit=crop',
-      url: '/blog',
+      url: '/du-an/demo/tin-cong-nghe',
     },
     {
       title: 'Portfolio thiết kế',
@@ -426,7 +426,7 @@ export const defaultProjectsData: Pick<SiteLayoutData, 'projectCategories' | 'pr
       categorySlug: 'thiet-ke',
       categoryName: 'Thiết kế',
       image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop',
-      url: '#contact',
+      url: '/du-an/demo/portfolio-thiet-ke',
     },
     {
       title: 'Quán cà phê specialty',
@@ -434,7 +434,7 @@ export const defaultProjectsData: Pick<SiteLayoutData, 'projectCategories' | 'pr
       categorySlug: 'an-uong',
       categoryName: 'Ăn uống',
       image: 'https://images.unsplash.com/photo-1501339847302-ac724a563a6a?w=800&h=600&fit=crop',
-      url: '#contact',
+      url: '/du-an/demo/cafe-specialty',
     },
   ],
 };

@@ -1,0 +1,43 @@
+{{> demo/toolbar }}
+
+<main class="demo-main">
+  <div class="demo-browser" data-aos="fade-up">
+    <div class="demo-browser-chrome" aria-hidden="true">
+      <span class="demo-dot demo-dot-red"></span>
+      <span class="demo-dot demo-dot-yellow"></span>
+      <span class="demo-dot demo-dot-green"></span>
+      <span class="demo-browser-url">honize.demo/{{demo.slug}}</span>
+    </div>
+    <div class="demo-browser-viewport">
+      <img
+        src="{{demo.image}}"
+        alt="Demo giao diện {{demo.title}}"
+        class="demo-screenshot"
+        width="1200"
+        height="1500"
+      />
+    </div>
+  </div>
+
+  <nav class="demo-pager" aria-label="Demo khác" data-aos="fade-up" data-aos-delay="80">
+    {{#if prevDemo}}
+    <a href="/du-an/demo/{{prevDemo.slug}}" class="demo-pager-link">
+      <span class="demo-pager-label">Trước</span>
+      <span class="demo-pager-name">{{prevDemo.title}}</span>
+    </a>
+    {{else}}
+    <span class="demo-pager-link is-disabled"></span>
+    {{/if}}
+
+    <a href="/du-an/demo" class="demo-pager-all">Tất cả demo</a>
+
+    {{#if nextDemo}}
+    <a href="/du-an/demo/{{nextDemo.slug}}" class="demo-pager-link demo-pager-next">
+      <span class="demo-pager-label">Sau</span>
+      <span class="demo-pager-name">{{nextDemo.title}}</span>
+    </a>
+    {{else}}
+    <span class="demo-pager-link is-disabled"></span>
+    {{/if}}
+  </nav>
+</main>

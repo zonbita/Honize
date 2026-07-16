@@ -1,0 +1,323 @@
+{{> demo/toolbar }}
+
+
+
+<div class="fr-page">
+
+  <div class="fr-wrap">
+
+    <header class="fr-header">
+
+      <label class="fr-search">
+
+        <span class="fr-search-label">tìm mọi thứ</span>
+
+        <input type="search" id="fr-search" aria-label="Tìm mọi thứ" placeholder="Ghế, bàn, sofa..." />
+
+      </label>
+
+
+
+      <a href="/du-an/demo/tour-da-nang" class="fr-logo">NộiThất</a>
+
+
+
+      <nav class="fr-nav" aria-label="Điều hướng chính">
+
+        <a href="#products">Sản phẩm</a>
+
+        <a href="#about">Giới thiệu</a>
+
+        <a href="#contact">Liên hệ</a>
+
+      </nav>
+
+
+
+      <button type="button" class="fr-menu" id="fr-menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="fr-drawer">
+
+        <span></span>
+
+        <span></span>
+
+        <span></span>
+
+      </button>
+
+    </header>
+
+
+
+    <nav class="fr-drawer" id="fr-drawer" aria-label="Menu di động" hidden>
+
+      <a href="#products">Sản phẩm</a>
+
+      <a href="#about">Giới thiệu</a>
+
+      <a href="#contact">Liên hệ</a>
+
+    </nav>
+
+
+
+    <section class="fr-products" id="products">
+
+      <div class="fr-grid" id="fr-grid">
+
+        {{#each items}}
+
+        <article class="fr-card fr-card--{{this.size}}" data-aos="fade-up" data-aos-delay="{{multiply @index 60}}">
+
+          <div class="fr-card-copy">
+
+            <h2 class="fr-card-title">{{this.title}}</h2>
+
+            <p class="fr-card-text">{{this.text}}</p>
+
+          </div>
+
+          <div class="fr-card-media">
+
+            <img src="{{{this.image}}}" alt="{{this.title}}" loading="lazy" width="600" height="400" />
+
+          </div>
+
+        </article>
+
+        {{/each}}
+
+      </div>
+
+    </section>
+
+
+
+    <section class="fr-about" id="about" data-aos="fade-up">
+
+      <div class="fr-about-inner">
+
+        <p class="fr-about-kicker">Câu chuyện thương hiệu</p>
+
+        <h2 class="fr-about-title">Nội thất tối giản, ấm áp từng không gian</h2>
+
+        <p class="fr-about-text">
+
+          NộiThất ra đời từ niềm tin rằng ngôi nhà cần sự cân bằng giữa thẩm mỹ và công năng. Chúng tôi chọn gỗ tự nhiên, đường nét tinh gọn và từng chi tiết được chế tác thủ công — để mỗi món đồ không chỉ trang trí mà còn đồng hành cùng cuộc sống hàng ngày của bạn.
+
+        </p>
+
+      </div>
+
+    </section>
+
+
+
+    <section class="fr-quote" data-aos="fade-up">
+
+      <h2 class="fr-quote-title">Không gian sống tinh giản</h2>
+
+      <p class="fr-quote-text">
+
+        Bộ sưu tập nội thất hiện đại — chất liệu tự nhiên, form dáng tối giản, mang lại cảm giác ấm áp cho ngôi nhà bạn.
+
+      </p>
+
+    </section>
+
+  </div>
+
+
+
+  <section class="fr-feature" data-aos="fade-up" data-aos-delay="80">
+
+    <img
+
+      class="fr-feature-img"
+
+      src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1400&q=80"
+
+      alt="Giường gỗ hiện đại với ga trắng"
+
+      width="1400"
+
+      height="700"
+
+    />
+
+    <button type="button" class="fr-play" aria-label="Phát video">
+
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+
+    </button>
+
+  </section>
+
+
+
+  <section class="fr-contact" id="contact">
+
+    <div class="fr-wrap fr-contact-inner">
+
+      <div class="fr-contact-copy" data-aos="fade-right" data-aos-duration="850">
+
+        <p class="fr-about-kicker">Liên hệ</p>
+
+        <h2 class="fr-contact-title">Đặt lịch tư vấn thiết kế</h2>
+
+        <p class="fr-contact-text">
+
+          Gửi yêu cầu, đội ngũ NộiThất sẽ liên hệ trong vòng 24 giờ để tư vấn bố trí và chọn sản phẩm phù hợp.
+
+        </p>
+
+      </div>
+
+
+
+      <form class="fr-contact-form" action="#" onsubmit="return false" data-aos="fade-left" data-aos-delay="110" data-aos-duration="850">
+
+        <label class="fr-field">
+
+          <span>Họ tên</span>
+
+          <input type="text" name="name" placeholder="Nguyễn Văn A" required />
+
+        </label>
+
+        <label class="fr-field">
+
+          <span>Số điện thoại</span>
+
+          <input type="tel" name="phone" placeholder="0901 234 567" required />
+
+        </label>
+
+        <label class="fr-field fr-field-full">
+
+          <span>Nhu cầu</span>
+
+          <textarea name="message" rows="3" placeholder="Tôi muốn tư vấn phòng khách..."></textarea>
+
+        </label>
+
+        <button type="submit" class="fr-btn">Gửi yêu cầu</button>
+
+      </form>
+
+    </div>
+
+  </section>
+
+
+
+  <footer class="fr-footer">
+
+    <div class="fr-wrap fr-footer-inner">
+
+      <div class="fr-footer-brand">
+
+        <a href="/du-an/demo/tour-da-nang" class="fr-logo">NộiThất</a>
+
+        <p class="fr-footer-tagline">Nội thất tối giản — chất liệu tự nhiên, form dáng ấm áp.</p>
+
+      </div>
+
+      <nav class="fr-footer-nav" aria-label="Liên kết chân trang">
+
+        <a href="#products">Sản phẩm</a>
+
+        <a href="#about">Giới thiệu</a>
+
+        <a href="#contact">Liên hệ</a>
+
+      </nav>
+
+      <div class="fr-footer-contact">
+
+        <p><a href="tel:02838234567">028 3823 4567</a></p>
+
+        <p>hello@noithat.vn</p>
+
+      </div>
+
+    </div>
+
+    <p class="fr-footer-copy">© 2026 NộiThất. Bản demo thiết kế bởi Honize.</p>
+
+  </footer>
+
+</div>
+
+
+
+<script>
+
+  (function () {
+
+    var search = document.getElementById('fr-search');
+
+    var menuBtn = document.getElementById('fr-menu-btn');
+
+    var drawer = document.getElementById('fr-drawer');
+
+
+
+    if (search) {
+
+      search.addEventListener('input', function () {
+
+        var q = search.value.trim().toLowerCase();
+
+        document.querySelectorAll('.fr-card').forEach(function (card) {
+
+          var title = (card.querySelector('.fr-card-title') || {}).textContent || '';
+
+          card.classList.toggle('is-hidden', q.length > 0 && title.toLowerCase().indexOf(q) === -1);
+
+        });
+
+      });
+
+    }
+
+
+
+    if (menuBtn && drawer) {
+
+      function closeDrawer() {
+
+        drawer.hidden = true;
+
+        menuBtn.setAttribute('aria-expanded', 'false');
+
+        document.body.classList.remove('fr-drawer-open');
+
+      }
+
+
+
+      menuBtn.addEventListener('click', function () {
+
+        var open = drawer.hidden;
+
+        drawer.hidden = !open;
+
+        menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+
+        document.body.classList.toggle('fr-drawer-open', open);
+
+      });
+
+
+
+      drawer.querySelectorAll('a').forEach(function (link) {
+
+        link.addEventListener('click', closeDrawer);
+
+      });
+
+    }
+
+  })();
+
+</script>

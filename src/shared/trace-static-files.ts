@@ -6,14 +6,19 @@ import { join } from 'path';
  * (and includeFiles) can ship content/views/public with the serverless function.
  */
 export function projectAssetRoot(): string {
+  // Prefer process.cwd() so local `nest start --watch` serves live public/
+  // assets (not a stale dist/public copy). Dist paths remain for serverless.
   const candidates = [
-    join(__dirname, '..', '..'),
-    join(__dirname, '..', '..', '..'),
     process.cwd(),
+    join(__dirname, '..', '..', '..'),
+    join(__dirname, '..', '..'),
   ];
   return (
     candidates.find(
-      (dir) => existsSync(join(dir, 'content')) && existsSync(join(dir, 'views')),
+      (dir) =>
+        existsSync(join(dir, 'content')) &&
+        existsSync(join(dir, 'views')) &&
+        existsSync(join(dir, 'public')),
     ) ?? candidates[0]
   );
 }

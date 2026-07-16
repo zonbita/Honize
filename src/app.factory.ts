@@ -54,11 +54,9 @@ function configureViewEngine(app: NestExpressApplication, root: string): void {
     }),
   );
 
-  app.useStaticAssets(join(root, 'public'));
-  app.setBaseViewsDir(join(root, 'views'));
-  app.setViewEngine('hbs');
-
   const devMode = process.env.NODE_ENV !== 'production';
+  const publicDir = join(root, 'public');
+
   app.use((req: Request, res: Response, next: NextFunction) => {
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('X-Frame-Options', 'SAMEORIGIN');
@@ -68,12 +66,46 @@ function configureViewEngine(app: NestExpressApplication, root: string): void {
     res.locals.devMode = devMode;
     if (devMode) {
       res.locals.devRevision = getDevRevision();
+    }
+
+    const path = req.path || '';
+    const isStaticAsset =
+      /\.(css|js|map|png|jpe?g|gif|webp|svg|ico|woff2?|ttf|eot|mp4|webm)$/i.test(path) ||
+      path.startsWith('/css/') ||
+      path.startsWith('/js/') ||
+      path.startsWith('/images/') ||
+      path.startsWith('/uploads/') ||
+      path.startsWith('/vendor/');
+
+    if (devMode && !isStaticAsset) {
+      // HTML / API indev: always fresh. Static assets keep short revalidate cache below.
       res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
     }
+
     recordVisit(req);
     next();
   });
 
+  app.useStaticAssets(publicDir, {
+    etag: true,
+    lastModified: true,
+    maxAge: devMode ? 0 : '7d',
+    setHeaders(res, filePath) {
+      if (devMode) {
+        // Allow browser to reuse CSS/JS across in-site navigations while still revalidating.
+        res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+        return;
+      }
+      if (/\.(png|jpe?g|gif|webp|svg|ico|woff2?|ttf)$/i.test(filePath)) {
+        res.setHeader('Cache-Control', 'public, max-age=2592000, immutable');
+      } else if (/\.(css|js)$/i.test(filePath)) {
+        res.setHeader('Cache-Control', 'public, max-age=604800');
+      }
+    },
+  });
+
+  app.setBaseViewsDir(join(root, 'views'));
+  app.setViewEngine('hbs');
   app.use(authGate);
 }
 

@@ -1,0 +1,617 @@
+/* SCHOOL education demo — trung-tam-dao-tao */
+.sch-page {
+  --sch-navy: #002b5b;
+  --sch-mustard: #f9c02e;
+  --sch-peach: #ffb37e;
+  --sch-grey: #8a94a6;
+  --sch-white: #ffffff;
+  font-family: 'Poppins', 'Be Vietnam Pro', system-ui, sans-serif;
+  color: var(--sch-navy);
+  background: var(--sch-white);
+  min-height: 100vh;
+}
+
+.sch-page * {
+  box-sizing: border-box;
+}
+
+/* ── Hero ── */
+.sch-hero {
+  position: relative;
+  background: var(--sch-mustard);
+  overflow: hidden;
+  padding-bottom: 3rem;
+}
+
+.sch-blob {
+  position: absolute;
+  background: var(--sch-navy);
+  pointer-events: none;
+}
+
+.sch-blob-a {
+  width: 55%;
+  height: 85%;
+  top: -8%;
+  right: -5%;
+  border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%;
+}
+
+.sch-blob-b {
+  width: 18%;
+  height: 22%;
+  top: 0;
+  left: 0;
+  border-radius: 0 0 80% 0;
+}
+
+.sch-blob-c {
+  width: 12%;
+  height: 14%;
+  top: 18%;
+  left: 8%;
+  border-radius: 50% 50% 0 50%;
+  opacity: 0.85;
+}
+
+.sch-hero-inner {
+  position: relative;
+  z-index: 1;
+  width: min(1180px, calc(100% - 2rem));
+  margin-inline: auto;
+  padding-top: 1.5rem;
+}
+
+.sch-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.sch-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-decoration: none;
+  color: var(--sch-white);
+}
+
+.sch-logo-shield {
+  width: 2.5rem;
+  height: 2.75rem;
+  flex-shrink: 0;
+}
+
+.sch-logo-text {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.sch-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 999px;
+}
+
+.sch-nav a {
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  color: var(--sch-navy);
+  background: rgba(255, 179, 126, 0.25);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.sch-nav a.is-active {
+  background: var(--sch-navy);
+  color: var(--sch-white);
+}
+
+.sch-nav a:hover:not(.is-active) {
+  background: rgba(255, 179, 126, 0.45);
+}
+
+.sch-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.sch-hero-copy {
+  position: relative;
+  max-width: 34rem;
+}
+
+.sch-plus {
+  width: 4.5rem;
+  height: 4.5rem;
+  background-image:
+    linear-gradient(var(--sch-white) 2px, transparent 2px),
+    linear-gradient(90deg, var(--sch-white) 2px, transparent 2px);
+  background-size: 14px 14px;
+  opacity: 0.9;
+}
+
+.sch-plus-top {
+  margin-bottom: 1.25rem;
+}
+
+.sch-plus-bottom {
+  margin-top: 1.5rem;
+}
+
+.sch-hero-title {
+  margin: 0 0 1rem;
+  font-size: clamp(2.75rem, 6vw, 4.25rem);
+  font-weight: 800;
+  line-height: 1.05;
+  color: var(--sch-navy);
+}
+
+.sch-hero-text {
+  margin: 0 0 1.75rem;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--sch-navy);
+  max-width: 28rem;
+}
+
+.sch-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 2rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sch-btn-solid {
+  background: var(--sch-navy);
+  color: var(--sch-white);
+  border: 2px solid var(--sch-navy);
+}
+
+.sch-btn-solid:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 43, 91, 0.25);
+}
+
+.sch-hero-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  min-height: 22rem;
+}
+
+.sch-deco-circle {
+  position: absolute;
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  background: var(--sch-mustard);
+  border: 4px solid var(--sch-navy);
+  top: 8%;
+  right: 18%;
+  z-index: 0;
+}
+
+.sch-deco-stripes {
+  position: absolute;
+  width: 5.5rem;
+  height: 5.5rem;
+  border-radius: 50%;
+  top: 10%;
+  right: 20%;
+  z-index: 1;
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--sch-navy),
+    var(--sch-navy) 4px,
+    var(--sch-mustard) 4px,
+    var(--sch-mustard) 10px
+  );
+  opacity: 0.95;
+}
+
+.sch-deco-tri {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 16px solid var(--sch-mustard);
+  z-index: 2;
+}
+
+.sch-deco-tri-a { top: 6%; right: 12%; transform: rotate(15deg); }
+.sch-deco-tri-b { top: 14%; right: 8%; transform: rotate(-20deg); opacity: 0.85; }
+.sch-deco-tri-c { top: 20%; right: 14%; transform: rotate(35deg); opacity: 0.7; }
+
+.sch-hero-img {
+  position: relative;
+  z-index: 3;
+  max-width: min(100%, 26rem);
+  height: auto;
+  object-fit: cover;
+  filter: drop-shadow(0 16px 32px rgba(0, 43, 91, 0.2));
+}
+
+/* ── About ── */
+.sch-about {
+  background: var(--sch-white);
+  padding: 4.5rem 0 5rem;
+}
+
+.sch-about-inner {
+  width: min(1180px, calc(100% - 2rem));
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.sch-about-media img {
+  display: block;
+  width: 100%;
+  max-width: 30rem;
+  height: auto;
+  border-radius: 40px;
+  object-fit: cover;
+  aspect-ratio: 4 / 4.5;
+}
+
+.sch-about-copy {
+  position: relative;
+}
+
+.sch-dots {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 5rem;
+  height: 5rem;
+  background-image: radial-gradient(circle, #d0d5de 2px, transparent 2px);
+  background-size: 14px 14px;
+  opacity: 0.8;
+}
+
+.sch-kicker {
+  margin: 0 0 0.75rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--sch-peach);
+  text-transform: lowercase;
+}
+
+.sch-about-title {
+  margin: 0 0 1.25rem;
+  font-size: clamp(1.65rem, 3.5vw, 2.35rem);
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--sch-navy);
+  max-width: 26rem;
+  padding-right: 4rem;
+}
+
+.sch-about-text {
+  margin: 0 0 1rem;
+  font-size: 0.92rem;
+  line-height: 1.8;
+  color: var(--sch-grey);
+  max-width: 32rem;
+}
+
+.sch-signature {
+  margin: 1.5rem 0 1.75rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--sch-navy);
+}
+
+.sch-btn-outline {
+  background: transparent;
+  color: var(--sch-navy);
+  border: 2px solid var(--sch-navy);
+}
+
+.sch-btn-outline:hover {
+  background: var(--sch-navy);
+  color: var(--sch-white);
+}
+
+/* ── Testimony header ── */
+.sch-testimony {
+  background: var(--sch-white);
+  padding: 0 0 5rem;
+}
+
+.sch-testimony-inner {
+  width: min(1180px, calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+.sch-testimony-title {
+  margin: 0;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 800;
+  color: var(--sch-navy);
+  max-width: 20rem;
+  line-height: 1.2;
+}
+
+.sch-testimony-line {
+  display: block;
+  width: min(100%, 22rem);
+  height: 4px;
+  margin-top: 1.25rem;
+  background: var(--sch-navy);
+  border-radius: 2px;
+}
+
+/* ── Courses ── */
+.sch-courses {
+  background: #f8f9fb;
+  padding: 4rem 0 5rem;
+}
+
+.sch-courses-inner {
+  width: min(1180px, calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+.sch-courses-title {
+  margin: 0 0 2.5rem;
+  font-size: clamp(1.75rem, 4vw, 2.35rem);
+  font-weight: 800;
+  color: var(--sch-navy);
+  max-width: 28rem;
+  line-height: 1.2;
+}
+
+.sch-courses-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.sch-course-card {
+  background: var(--sch-white);
+  border-radius: 20px;
+  padding: 2rem 1.75rem;
+  box-shadow: 0 8px 28px rgba(0, 43, 91, 0.08);
+}
+
+.sch-course-name {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--sch-navy);
+}
+
+.sch-course-meta {
+  margin: 0 0 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--sch-peach);
+}
+
+.sch-course-desc {
+  margin: 0 0 1.5rem;
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: var(--sch-grey);
+}
+
+.sch-course-btn {
+  font-size: 0.88rem;
+  padding: 0.7rem 1.5rem;
+}
+
+/* ── Testimony cards ── */
+.sch-testimony-grid {
+  width: min(1180px, calc(100% - 2rem));
+  margin: 2.5rem auto 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.sch-testimony-card {
+  margin: 0;
+  padding: 2rem 1.75rem;
+  background: #f8f9fb;
+  border-radius: 20px;
+  border-left: 4px solid var(--sch-mustard);
+}
+
+.sch-testimony-quote {
+  margin: 0 0 1.25rem;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--sch-navy);
+  font-style: italic;
+}
+
+.sch-testimony-author {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.sch-testimony-author strong {
+  font-size: 0.95rem;
+  color: var(--sch-navy);
+}
+
+.sch-testimony-author span {
+  font-size: 0.82rem;
+  color: var(--sch-grey);
+}
+
+/* ── Contact ── */
+.sch-contact {
+  background: var(--sch-navy);
+  color: var(--sch-white);
+  padding: 4.5rem 0;
+}
+
+.sch-contact-inner {
+  width: min(1180px, calc(100% - 2rem));
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.sch-contact .sch-kicker {
+  color: var(--sch-mustard);
+}
+
+.sch-contact-title {
+  margin: 0 0 1rem;
+  font-size: clamp(1.65rem, 3.5vw, 2.25rem);
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.sch-contact-text {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.78);
+  max-width: 28rem;
+}
+
+.sch-contact-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.sch-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.sch-field span {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.sch-field input,
+.sch-field select,
+.sch-field textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 0;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--sch-navy);
+  background: var(--sch-white);
+}
+
+.sch-field textarea {
+  resize: vertical;
+  min-height: 6rem;
+}
+
+.sch-field-full {
+  grid-column: 1 / -1;
+}
+
+.sch-contact-form .sch-btn-solid {
+  grid-column: 1 / -1;
+  justify-self: start;
+  margin-top: 0.5rem;
+  background: var(--sch-mustard);
+  color: var(--sch-navy);
+  border-color: var(--sch-mustard);
+}
+
+.sch-contact-form .sch-btn-solid:hover {
+  box-shadow: 0 8px 24px rgba(249, 192, 46, 0.35);
+}
+
+/* ── Footer ── */
+.sch-footer {
+  background: #001a38;
+  color: rgba(255, 255, 255, 0.75);
+  padding: 2rem 0;
+}
+
+.sch-footer-inner {
+  width: min(1180px, calc(100% - 2rem));
+  margin-inline: auto;
+  text-align: center;
+}
+
+.sch-footer-brand {
+  margin: 0 0 0.35rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--sch-white);
+}
+
+.sch-footer-meta {
+  margin: 0;
+  font-size: 0.82rem;
+}
+
+@media (min-width: 768px) {
+  .sch-hero-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .sch-about-inner {
+    grid-template-columns: 1fr 1.1fr;
+    gap: 3.5rem;
+  }
+
+  .sch-courses-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .sch-testimony-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .sch-contact-inner {
+    grid-template-columns: 1fr 1.2fr;
+    gap: 3rem;
+    align-items: center;
+  }
+}
+
+@media (max-width: 767px) {
+  .sch-nav {
+    display: none;
+  }
+
+  .sch-header {
+    justify-content: center;
+  }
+}

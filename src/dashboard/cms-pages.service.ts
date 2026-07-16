@@ -207,7 +207,7 @@ export class CmsPagesService {
       categorySlug: category.slug,
       categoryName: category.name,
       image: input.image,
-      url: input.url || '#contact',
+      url: input.url?.trim() || `/du-an/demo/${slug}`,
     };
 
     if (previousSlug) {

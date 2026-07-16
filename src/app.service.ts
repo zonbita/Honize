@@ -1,5 +1,8 @@
 import { Injectable } from '@nestjs/common';
+import { existsSync } from 'fs';
+import { join } from 'path';
 import { ArticlesService } from './articles/articles.service';
+import { resolveProjectRoot } from './shared/content-path';
 import { loadPublicSiteData, loadSiteSettings } from './shared/site-settings';
 
 @Injectable()
@@ -87,6 +90,383 @@ export class AppService {
       ),
       blogPosts: articles.map((a) => this.articlesService.toBlogPost(a)),
     };
+  }
+
+  getDemoIndexData(categorySlug?: string) {
+    const site = loadPublicSiteData();
+    const demos = categorySlug
+      ? site.projects.filter((p) => p.categorySlug === categorySlug)
+      : site.projects;
+
+    return {
+      ...this.buildStaticPage(
+        'Demo giao diện',
+        'Demo giao diện',
+        `Thư viện demo giao diện website theo danh mục dự án của ${site.brand}.`,
+        categorySlug ? `/du-an/demo?danh-muc=${categorySlug}` : '/du-an/demo',
+      ),
+      demos,
+      activeCategory: categorySlug || '',
+    };
+  }
+
+  getDemoPageData(slug: string) {
+    const site = loadPublicSiteData();
+    const projects = site.projects;
+    const index = projects.findIndex((p) => p.slug === slug);
+    if (index < 0) return null;
+
+    const demo = projects[index];
+    const prevDemo = index > 0 ? projects[index - 1] : null;
+    const nextDemo = index < projects.length - 1 ? projects[index + 1] : null;
+    const templateSlug = this.resolveDemoTemplateSlug(slug);
+    const customView = this.resolveCustomDemoView(slug);
+    const demoCss = existsSync(
+      join(resolveProjectRoot(), 'public', 'demo', `${templateSlug}.css`),
+    )
+      ? `/demo/${templateSlug}.css`
+      : null;
+
+    return {
+      layout: 'demo',
+      year: new Date().getFullYear(),
+      brand: site.brand,
+      pageTitle: `Demo ${demo.title} — ${site.brand}`,
+      seo: this.articlesService.buildStaticPageSeo(
+        `Demo ${demo.title} — ${site.brand}`,
+        `Xem demo giao diện ${demo.title} (${demo.categoryName}) thiết kế bởi ${site.brand}.`,
+        `/du-an/demo/${demo.slug}`,
+        site.brand,
+      ),
+      demo,
+      prevDemo,
+      nextDemo,
+      demoView: customView || 'demo/show',
+      demoCss,
+      products: customView ? this.getDemoProducts(templateSlug) : [],
+      items: customView ? this.getDemoItems(templateSlug) : [],
+      features: customView ? this.getDemoFeatures(templateSlug) : [],
+      services: customView ? this.getDemoServices(templateSlug) : [],
+      stats: customView ? this.getDemoStats(templateSlug) : [],
+      tours: customView ? this.getDemoTours(templateSlug) : [],
+      courses: customView ? this.getDemoCourses(templateSlug) : [],
+      testimonials: customView ? this.getDemoTestimonials(templateSlug) : [],
+    };
+  }
+
+  /**
+   * Projects that share the same mockup image reuse one HTML template.
+   * Key = project slug, value = template slug under views/demo/pages/.
+   */
+  private resolveDemoTemplateSlug(slug: string): string {
+    const aliases: Record<string, string> = {
+      'thiet-ke-ngoai-that': 'shop-thoi-trang',
+      'cong-ty-kien-truc': 'nha-hang-sai-gon',
+      'showroom-noi-that': 'can-ho-cao-cap',
+      'cafe-specialty': 'trung-tam-dao-tao',
+      'cua-hang-dien-tu': 'spa-wellness',
+      'du-an-dat-nen': 'tu-van-du-hoc',
+    };
+    return aliases[slug] || slug;
+  }
+
+  /** Custom interactive demo templates live in views/demo/pages/{slug}.hbs */
+  resolveCustomDemoView(slug: string): string | null {
+    const templateSlug = this.resolveDemoTemplateSlug(slug).replace(/[^a-z0-9-]/gi, '');
+    if (!templateSlug) return null;
+    const path = join(
+      resolveProjectRoot(),
+      'views',
+      'demo',
+      'pages',
+      `${templateSlug}.hbs`,
+    );
+    return existsSync(path) ? `demo/pages/${templateSlug}` : null;
+  }
+
+  private getDemoServices(slug: string) {
+    if (slug === 'tu-van-du-hoc') {
+      return [
+        {
+          title: 'Tư vấn chọn trường',
+          text: 'Phân tích hồ sơ, ngân sách và mục tiêu nghề nghiệp để đề xuất trường và chương trình phù hợp nhất.',
+          highlight: false,
+        },
+        {
+          title: 'Hỗ trợ hồ sơ & visa',
+          text: 'Hướng dẫn chuẩn bị hồ sơ, luyện phỏng vấn và theo sát quy trình xin visa du học từng bước.',
+          highlight: true,
+        },
+        {
+          title: 'Định hướng nghề nghiệp',
+          text: 'Tư vấn lộ trình học tập và cơ hội việc làm sau tốt nghiệp tại các thị trường quốc tế.',
+          highlight: false,
+        },
+      ];
+    }
+    if (slug === 'giai-phap-so') return [];
+  }
+
+  private getDemoStats(slug: string) {
+    if (slug === 'tu-van-du-hoc') {
+      return [
+        { value: '2.500+', label: 'Hồ sơ thành công' },
+        { value: '25+', label: 'Quốc gia đối tác' },
+        { value: '2.000+', label: 'Học viên tin tưởng' },
+      ];
+    }
+    if (slug !== 'corporate-landing') return [];
+    return [
+      { value: '150+', label: 'Dự án hoàn thành' },
+      { value: '15', label: 'Năm kinh nghiệm' },
+      { value: '85', label: 'Giải thưởng thiết kế' },
+      { value: '200+', label: 'Khách hàng hài lòng' },
+    ];
+  }
+
+  private getDemoItems(slug: string) {
+    if (slug === 'tour-da-nang') {
+      return [
+        {
+          title: 'Bàn góc gỗ sồi',
+          text: 'Kiểu dáng tối giản, phù hợp góc phòng khách hoặc phòng ngủ.',
+          image:
+            'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=500&h=500&q=80',
+          size: 's',
+        },
+        {
+          title: 'Ghế thư giãn',
+          text: 'Nệm êm, khung gỗ chắc chắn — điểm nhấn ấm áp cho không gian sống.',
+          image:
+            'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=800&h=600&q=80',
+          size: 'l',
+        },
+        {
+          title: 'Cây trang trí',
+          text: 'Mang sắc xanh tự nhiên, cân bằng cảm giác giữa các món nội thất.',
+          image:
+            'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=500&h=500&q=80',
+          size: 's',
+        },
+        {
+          title: 'Sofa góc hiện đại',
+          text: 'Phom rộng rãi, dễ phối với gối và thảm tông trung tính.',
+          image:
+            'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=900&h=600&q=80',
+          size: 'l',
+        },
+        {
+          title: 'Tủ buffet gỗ',
+          text: 'Lưu trữ tiện dụng với vẻ ngoài vintage nhẹ nhàng.',
+          image:
+            'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=600&h=600&q=80',
+          size: 'm',
+        },
+      ];
+    }
+    if (slug !== 'nha-hang-sai-gon') return [];
+    return [
+      {
+        title: 'Mì ramen đặc biệt',
+        price: '185.000đ',
+        image:
+          'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=600&h=600&q=80',
+      },
+      {
+        title: 'Salad rau theo mùa',
+        price: '120.000đ',
+        image:
+          'https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=600&h=600&q=80',
+      },
+      {
+        title: 'Sushi tổng hợp',
+        price: '290.000đ',
+        image:
+          'https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?auto=format&fit=crop&w=600&h=600&q=80',
+      },
+      {
+        title: 'Cá nướng chanh dây',
+        price: '320.000đ',
+        image:
+          'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&h=600&q=80',
+      },
+    ];
+  }
+
+  private getDemoTours(slug: string) {
+    if (slug !== 'spa-wellness') return [];
+    return [
+      {
+        title: 'Sapa – Ruộng bậc thang',
+        duration: '3 NGÀY 2 ĐÊM',
+        image:
+          'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80',
+      },
+      {
+        title: 'Vịnh Hạ Long',
+        duration: '2 NGÀY 1 ĐÊM',
+        image:
+          'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=800&q=80',
+      },
+      {
+        title: 'Đà Nẵng – Bà Nà Hills',
+        duration: '3 NGÀY 2 ĐÊM',
+        image:
+          'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=800&q=80',
+      },
+    ];
+  }
+
+  private getDemoCourses(slug: string) {
+    if (slug !== 'trung-tam-dao-tao') return [];
+    return [
+      {
+        title: 'Thiết kế đồ họa',
+        duration: '3 tháng',
+        price: '4.500.000đ',
+        desc: 'Làm chủ Photoshop, Illustrator và nguyên tắc thiết kế thương hiệu — xây portfolio chuyên nghiệp ngay trong khóa học.',
+      },
+      {
+        title: 'Marketing số',
+        duration: '2 tháng',
+        price: '3.800.000đ',
+        desc: 'Chiến lược nội dung, quảng cáo Facebook/Google và phân tích hiệu quả chiến dịch cho doanh nghiệp vừa và nhỏ.',
+      },
+      {
+        title: 'Phát triển web cơ bản',
+        duration: '4 tháng',
+        price: '5.200.000đ',
+        desc: 'HTML, CSS, JavaScript và WordPress — từ landing page đến website hoàn chỉnh, kèm dự án thực tế cuối khóa.',
+      },
+    ];
+  }
+
+  private getDemoTestimonials(slug: string) {
+    if (slug !== 'trung-tam-dao-tao') return [];
+    return [
+      {
+        quote:
+          'Sau khóa thiết kế đồ họa, mình tự tin ứng tuyển và nhận offer designer tại agency trong vòng 2 tháng.',
+        name: 'Trần Thu Hà',
+        role: 'Cựu học viên — Designer',
+      },
+      {
+        quote:
+          'Giảng viên nhiệt tình, lộ trình rõ ràng. Mình chuyển ngành sang marketing số mà không cảm thấy quá tải.',
+        name: 'Lê Hoàng Nam',
+        role: 'Cựu học viên — Digital Marketer',
+      },
+      {
+        quote:
+          'Dự án cuối khóa web giúp mình có sản phẩm thật để phỏng vấn — điều mà nhiều khóa online không có.',
+        name: 'Phạm Minh Quân',
+        role: 'Cựu học viên — Front-end Developer',
+      },
+    ];
+  }
+
+  private getDemoFeatures(slug: string) {
+    if (slug !== 'can-ho-cao-cap') return [];
+    const icon = (paths: string) =>
+      `<svg viewBox="0 0 24 24" aria-hidden="true">${paths}</svg>`;
+    return [
+      {
+        icon: icon(
+          '<circle cx="12" cy="12" r="2"/><circle cx="12" cy="4" r="1.5"/><circle cx="12" cy="20" r="1.5"/><circle cx="4" cy="12" r="1.5"/><circle cx="20" cy="12" r="1.5"/><path d="M12 6v4M12 14v4M6 12h4M14 12h4"/>',
+        ),
+        title: 'Kết nối thông minh',
+        text: 'Hệ thống tiện ích tích hợp giúp cư dân quản lý cuộc sống hàng ngày dễ dàng hơn.',
+      },
+      {
+        icon: icon(
+          '<circle cx="12" cy="12" r="9"/><path d="M2 12h20M12 2a15 15 0 010 20M12 2a15 15 0 000 20"/><path d="M16 8l2-2M8 16l-2 2"/>',
+        ),
+        title: 'Vị trí chiến lược',
+        text: 'Kết nối nhanh đến trung tâm thương mại, trường học và trục giao thông chính.',
+      },
+      {
+        icon: icon(
+          '<path d="M7 11V7a5 5 0 0110 0v4"/><rect x="5" y="11" width="14" height="10" rx="2"/><circle cx="12" cy="16" r="1"/>',
+        ),
+        title: 'An ninh 24/7',
+        text: 'Camera và đội ngũ bảo vệ chuyên nghiệp mang lại sự yên tâm tuyệt đối.',
+      },
+      {
+        icon: icon(
+          '<path d="M4 19V5M4 19h16M8 17v-4M12 17V9M16 17v-6"/>',
+        ),
+        title: 'Giá trị đầu tư',
+        text: 'Thiết kế bền vững giúp căn hộ giữ vững giá trị theo thời gian.',
+      },
+      {
+        icon: icon(
+          '<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/>',
+        ),
+        title: 'Lịch bàn giao rõ ràng',
+        text: 'Tiến độ minh bạch, hỗ trợ pháp lý và quy trình nhận nhà chuyên nghiệp.',
+      },
+    ];
+  }
+
+  private getDemoProducts(slug: string) {
+    if (slug !== 'shop-thoi-trang') return [];
+    const mk = (title: string, cat: string, bg: string, image: string) => ({
+      title,
+      price: '590.000đ',
+      cat,
+      bg,
+      image,
+    });
+    return [
+      mk(
+        'Áo sơ mi linen',
+        'a',
+        '#eceff3',
+        'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&h=600&q=80',
+      ),
+      mk(
+        'Váy hoa mùa hè',
+        'b',
+        '#f7d6de',
+        'https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=600&h=600&q=80',
+      ),
+      mk(
+        'Quần ống rộng',
+        'c',
+        '#e7e1f5',
+        'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=600&h=600&q=80',
+      ),
+      mk(
+        'Túi tote canvas',
+        'd',
+        '#e8f0fa',
+        'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=600&h=600&q=80',
+      ),
+      mk(
+        'Áo khoác nhẹ',
+        'a',
+        '#efe9e2',
+        'https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=600&h=600&q=80',
+      ),
+      mk(
+        'Đầm suông pastel',
+        'b',
+        '#f3e8f5',
+        'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=600&h=600&q=80',
+      ),
+      mk(
+        'Quần jeans ống đứng',
+        'c',
+        '#e6f4ea',
+        'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&h=600&q=80',
+      ),
+      mk(
+        'Khăn lụa họa tiết',
+        'd',
+        '#fdeedc',
+        'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=600&h=600&q=80',
+      ),
+    ];
   }
 
   getContactPageData(options?: {

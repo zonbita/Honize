@@ -708,7 +708,7 @@ export class ArticlesService {
 
   buildSitemapXml(): string {
     const siteUrl = getSiteUrl();
-    const staticPaths = ['/', '/gioi-thieu', '/quy-trinh-thiet-ke-website', '/thiet-ke', '/du-an', '/kien-thuc', '/lien-he', '/blog'];
+    const staticPaths = ['/', '/gioi-thieu', '/quy-trinh-thiet-ke-website', '/thiet-ke', '/du-an', '/du-an/demo', '/kien-thuc', '/lien-he', '/blog'];
     const articles = this.getPublished();
 
     const urls = [

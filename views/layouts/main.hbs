@@ -26,9 +26,11 @@
   {{/if}}
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="preload" href="/css/styles.css{{#if devMode}}?v={{devRevision}}{{/if}}" as="style" />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" /></noscript>
   <link rel="stylesheet" href="/css/styles.css{{#if devMode}}?v={{devRevision}}{{/if}}" />
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+  <link rel="stylesheet" href="/vendor/aos/aos.css{{#if devMode}}?v={{devRevision}}{{/if}}" />
 </head>
 <body>
   {{> header }}
@@ -46,10 +48,10 @@
       });
     }
   </script>
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-  <script src="/js/aos-init.js{{#if devMode}}?v={{devRevision}}{{/if}}"></script>
-  <script src="/js/float-tools.js{{#if devMode}}?v={{devRevision}}{{/if}}"></script>
-  <script src="/js/contact-form.js{{#if devMode}}?v={{devRevision}}{{/if}}"></script>
+  <script src="/vendor/aos/aos.js{{#if devMode}}?v={{devRevision}}{{/if}}" defer></script>
+  <script src="/js/aos-init.js{{#if devMode}}?v={{devRevision}}{{/if}}" defer></script>
+  <script src="/js/float-tools.js{{#if devMode}}?v={{devRevision}}{{/if}}" defer></script>
+  <script src="/js/contact-form.js{{#if devMode}}?v={{devRevision}}{{/if}}" defer></script>
   {{> live-reload }}
 </body>
 </html>

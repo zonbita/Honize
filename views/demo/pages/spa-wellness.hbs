@@ -1,0 +1,279 @@
+{{> demo/toolbar }}
+
+
+
+<div class="ta-page">
+
+  <section class="ta-hero" id="home">
+
+    <img
+
+      class="ta-hero-bg"
+
+      src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1600&q=80"
+
+      alt=""
+
+      aria-hidden="true"
+
+      width="1600"
+
+      height="900"
+
+    />
+
+    <div class="ta-hero-overlay" aria-hidden="true"></div>
+
+
+
+    <div class="ta-hero-inner">
+
+      <header class="ta-header">
+
+        <a href="/du-an/demo/spa-wellness" class="ta-logo" aria-label="Du lịch Việt">
+
+          <svg class="ta-logo-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+
+            <path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 00-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+
+          </svg>
+
+          DU LỊCH VIỆT
+
+        </a>
+
+
+
+        <nav class="ta-nav" aria-label="Main">
+
+          <a href="#home" class="is-active">Trang chủ</a>
+
+          <a href="#intro">Giới thiệu</a>
+
+          <a href="#tours">Tour</a>
+
+          <a href="#contact">Liên hệ</a>
+
+        </nav>
+
+
+
+        <button type="button" class="ta-search" aria-label="Tìm kiếm">
+
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+
+            <circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/>
+
+          </svg>
+
+        </button>
+
+      </header>
+
+
+
+      <div class="ta-hero-copy" data-aos="fade-up" data-aos-duration="850">
+
+        <h1 class="ta-hero-title">Sapa</h1>
+
+        <p class="ta-hero-subtitle">Viên ngọc miền Bắc</p>
+
+        <p class="ta-hero-text">
+
+          Khám phá ruộng bậc thang Sapa, văn hóa dân tộc và hành trình khó quên cùng đội ngũ hướng dẫn tận tâm.
+
+        </p>
+
+        <div class="ta-hero-actions">
+
+          <a href="#contact" class="ta-btn ta-btn-solid">Liên hệ</a>
+
+          <a href="#tours" class="ta-btn ta-btn-ghost">Xem tour</a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <section class="ta-about" id="intro">
+
+    <div class="ta-about-inner">
+
+      <div class="ta-about-copy" data-aos="fade-right" data-aos-duration="850">
+
+        <h2 class="ta-about-title">Du lịch Việt — Đồng hành khắp mọi miền</h2>
+
+        <p class="ta-about-text">
+
+          Chúng tôi thiết kế tour trọn gói từ miền núi phía Bắc đến biển đảo và thành phố biển miền Trung — lịch trình linh hoạt, hướng dẫn viên địa phương và dịch vụ chu đáo.
+
+        </p>
+
+        <p class="ta-about-text">
+
+          Mỗi hành trình được tối ưu trải nghiệm: homestay, ẩm thực đặc sản và hoạt động văn hóa giúp bạn cảm nhận Việt Nam một cách trọn vẹn.
+
+        </p>
+
+      </div>
+
+
+
+      <div class="ta-about-media" data-aos="fade-left" data-aos-delay="110" data-aos-duration="850">
+
+        <img
+
+          src="https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=800&q=80"
+
+          alt="Du thuyền trên vịnh Hạ Long"
+
+          width="560"
+
+          height="380"
+
+          loading="lazy"
+
+        />
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <section class="ta-tours" id="tours">
+
+    <div class="ta-tours-inner">
+
+      <h2 class="ta-tours-title" data-aos="fade-up">Tour nổi bật</h2>
+
+      <p class="ta-tours-sub" data-aos="fade-up" data-aos-delay="60">
+
+        Sapa, Hạ Long và Đà Nẵng — những điểm đến được yêu thích nhất trong năm.
+
+      </p>
+
+
+
+      <div class="ta-tours-grid">
+
+        {{#each tours}}
+
+        <article class="ta-tour-card" data-aos="fade-up" data-aos-delay="{{multiply @index 60}}">
+
+          <div class="ta-tour-media">
+
+            <img src="{{{this.image}}}" alt="{{this.title}}" loading="lazy" width="400" height="260" />
+
+          </div>
+
+          <h3 class="ta-tour-name">{{this.title}}</h3>
+
+          <p class="ta-tour-duration">{{this.duration}}</p>
+
+          <a href="#contact" class="ta-btn ta-btn-solid ta-tour-cta">Đặt tour</a>
+
+        </article>
+
+        {{/each}}
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <section class="ta-contact" id="contact" aria-label="Liên hệ">
+
+    <div class="ta-contact-inner">
+
+      <div class="ta-contact-copy" data-aos="fade-up" data-aos-duration="850">
+
+        <h2 class="ta-contact-title">Đặt tour &amp; tư vấn</h2>
+
+        <p class="ta-contact-text">
+
+          Gửi thông tin, chúng tôi sẽ báo giá và lên lịch trình phù hợp trong vòng 24 giờ.
+
+        </p>
+
+      </div>
+
+
+
+      <form class="ta-contact-form" action="#" method="get" data-aos="fade-up" data-aos-delay="110" data-aos-duration="850">
+
+        <label class="ta-field">
+
+          <span>Họ tên</span>
+
+          <input type="text" name="name" placeholder="Nguyễn Văn A" required />
+
+        </label>
+
+        <label class="ta-field">
+
+          <span>SĐT</span>
+
+          <input type="tel" name="phone" placeholder="0901 234 567" required />
+
+        </label>
+
+        <label class="ta-field ta-field-full">
+
+          <span>Tour quan tâm</span>
+
+          <select name="tour">
+
+            <option value="">Chọn tour</option>
+
+            <option value="sapa">Sapa – Ruộng bậc thang</option>
+
+            <option value="halong">Vịnh Hạ Long</option>
+
+            <option value="danang">Đà Nẵng – Bà Nà Hills</option>
+
+          </select>
+
+        </label>
+
+        <label class="ta-field ta-field-full">
+
+          <span>Nội dung</span>
+
+          <textarea name="message" rows="4" placeholder="Số người, ngày khởi hành dự kiến..."></textarea>
+
+        </label>
+
+        <button type="submit" class="ta-btn ta-btn-solid">Gửi yêu cầu</button>
+
+      </form>
+
+    </div>
+
+  </section>
+
+
+
+  <footer class="ta-footer">
+
+    <div class="ta-footer-inner">
+
+      <p class="ta-footer-brand">© {{year}} DU LỊCH VIỆT</p>
+
+      <p class="ta-footer-meta">Hotline: 1900 5678 · tour@dulichviet.vn</p>
+
+    </div>
+
+  </footer>
+
+</div>

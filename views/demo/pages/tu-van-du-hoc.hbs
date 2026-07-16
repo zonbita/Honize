@@ -1,0 +1,369 @@
+{{> demo/toolbar }}
+
+
+
+<div class="dg-page">
+
+  <div class="dg-wrap">
+
+    <header class="dg-header">
+
+      <a href="/du-an/demo/tu-van-du-hoc" class="dg-logo">Digit.</a>
+
+
+
+      <nav class="dg-nav" aria-label="Main">
+
+        <a href="#home">Trang chủ</a>
+
+        <a href="#services">Dịch vụ</a>
+
+        <a href="#about">Về chúng tôi</a>
+
+        <a href="#contact">Liên hệ</a>
+
+      </nav>
+
+
+
+      <div class="dg-header-actions">
+
+        <button type="button" class="dg-search-btn" aria-label="Tìm kiếm">
+
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+
+        </button>
+
+        <a href="#contact" class="dg-signin">Đăng nhập</a>
+
+      </div>
+
+    </header>
+
+
+
+    <section class="dg-hero" id="home">
+
+      <div class="dg-hero-copy" data-aos="fade-right" data-aos-duration="850">
+
+        <h1 class="dg-hero-title">
+
+          Đồng hành tư vấn <span class="dg-accent">du học</span> toàn cầu
+
+        </h1>
+
+        <p class="dg-hero-text">
+
+          Từ chọn trường đến visa và định hướng nghề nghiệp — đội ngũ tư vấn giúp bạn tự tin chinh phục hành trình học tập quốc tế.
+
+        </p>
+
+        <div class="dg-hero-actions">
+
+          <a href="#services" class="dg-btn dg-btn-solid">Tìm hiểu thêm</a>
+
+          <a href="#contact" class="dg-btn dg-btn-outline">Liên hệ</a>
+
+        </div>
+
+      </div>
+
+
+
+      <div class="dg-hero-visual" data-aos="fade-left" data-aos-delay="110" data-aos-duration="850">
+
+        <img
+
+          class="dg-hero-img"
+
+          src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=900&q=80"
+
+          alt="Chuyên viên tư vấn du học trình bày thông tin tại máy tính"
+
+          width="640"
+
+          height="480"
+
+        />
+
+      </div>
+
+    </section>
+
+  </div>
+
+
+
+  <section class="dg-stats" id="about">
+
+    <div class="dg-wrap dg-stats-grid">
+
+      <div class="dg-stats-copy" data-aos="fade-right" data-aos-duration="850">
+
+        <h2 class="dg-stats-title">Đồng hành cùng hàng nghìn học viên</h2>
+
+        <p class="dg-stats-text">
+
+          Với kinh nghiệm tư vấn du học tại nhiều quốc gia, chúng tôi đồng hành từ bước chọn ngành, chuẩn bị hồ sơ đến khi bạn ổn định tại trường quốc tế.
+
+        </p>
+
+        <form class="dg-email-form" action="#" method="get">
+
+          <input type="email" placeholder="Nhập email nhận bản tin du học" aria-label="Email của bạn" />
+
+          <button type="submit" class="dg-btn dg-btn-solid">Đăng ký</button>
+
+        </form>
+
+      </div>
+
+
+
+      <ul class="dg-stats-list">
+
+        {{#each stats}}
+
+        <li class="dg-stat" data-aos="fade-up" data-aos-delay="{{multiply @index 60}}">
+
+          <span class="dg-stat-value">{{this.value}}</span>
+
+          <span class="dg-stat-label">{{this.label}}</span>
+
+        </li>
+
+        {{/each}}
+
+      </ul>
+
+    </div>
+
+  </section>
+
+
+
+  <section class="dg-services" id="services">
+
+    <div class="dg-wrap">
+
+      <div class="dg-services-head" data-aos="fade-up">
+
+        <h2 class="dg-services-title">Dịch vụ của chúng tôi</h2>
+
+        <p class="dg-services-lead">
+
+          Giải pháp tư vấn du học toàn diện — từ lộ trình học tập, hồ sơ visa đến định hướng nghề nghiệp sau tốt nghiệp.
+
+        </p>
+
+      </div>
+
+
+
+      <div class="dg-services-grid">
+
+        {{#each services}}
+
+        <article class="dg-service-card{{#if this.highlight}} is-highlighted{{/if}}" data-aos="fade-up" data-aos-delay="{{multiply @index 60}}">
+
+          <div class="dg-service-icon" aria-hidden="true">
+
+            {{#if this.highlight}}
+
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 20h16M6 16l3-10 3 6 3-4 3 8"/></svg>
+
+            {{else if @first}}
+
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18h6M10 22h4M12 2a7 7 0 00-4 12.7V17h8v-2.3A7 7 0 0012 2z"/></svg>
+
+            {{else}}
+
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M7 4v3M17 4v3M5 20h14a2 2 0 002-2V9H3v9a2 2 0 002 2z"/><circle cx="12" cy="13" r="3"/></svg>
+
+            {{/if}}
+
+          </div>
+
+          <h3 class="dg-service-title">{{this.title}}</h3>
+
+          <p class="dg-service-text">{{this.text}}</p>
+
+        </article>
+
+        {{/each}}
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <section class="dg-testimonials" id="testimonials">
+
+    <div class="dg-wrap">
+
+      <div class="dg-testimonials-head" data-aos="fade-up">
+
+        <h2 class="dg-testimonials-title">Câu chuyện thành công</h2>
+
+        <p class="dg-testimonials-lead">Học viên Việt Nam đã chinh phục hành trình du học cùng Digit.</p>
+
+      </div>
+
+
+
+      <div class="dg-testimonials-grid">
+
+        <blockquote class="dg-testimonial-card" data-aos="fade-up" data-aos-delay="0">
+
+          <p class="dg-testimonial-quote">"Nhờ Digit, mình nhận học bổng 50% tại Đại học Melbourne và visa được duyệt chỉ sau 3 tuần."</p>
+
+          <footer class="dg-testimonial-author">
+
+            <strong>Nguyễn Thảo My</strong>
+
+            <span>Du học Úc — Thạc sĩ Kinh doanh</span>
+
+          </footer>
+
+        </blockquote>
+
+
+
+        <blockquote class="dg-testimonial-card" data-aos="fade-up" data-aos-delay="60">
+
+          <p class="dg-testimonial-quote">"Đội ngũ hỗ trợ hồ sơ rất chi tiết, luyện phỏng vấn visa giúp mình tự tin hơn rất nhiều."</p>
+
+          <footer class="dg-testimonial-author">
+
+            <strong>Trần Đức Anh</strong>
+
+            <span>Du học Canada — Cử nhân CNTT</span>
+
+          </footer>
+
+        </blockquote>
+
+
+
+        <blockquote class="dg-testimonial-card" data-aos="fade-up" data-aos-delay="120">
+
+          <p class="dg-testimonial-quote">"Từ chọn ngành đến tìm việc làm part-time, Digit đồng hành suốt 2 năm đầu tại Nhật Bản."</p>
+
+          <footer class="dg-testimonial-author">
+
+            <strong>Lê Phương Linh</strong>
+
+            <span>Du học Nhật — Thiết kế đồ họa</span>
+
+          </footer>
+
+        </blockquote>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <section class="dg-contact" id="contact">
+
+    <div class="dg-wrap dg-contact-grid">
+
+      <div class="dg-contact-copy" data-aos="fade-right" data-aos-duration="850">
+
+        <h2 class="dg-contact-title">Liên hệ tư vấn du học</h2>
+
+        <p class="dg-contact-text">
+
+          Điền form bên cạnh để nhận lộ trình cá nhân hóa — hoàn toàn miễn phí, phản hồi trong 24 giờ.
+
+        </p>
+
+      </div>
+
+
+
+      <form class="dg-contact-form" action="#" method="get" data-aos="fade-left" data-aos-delay="110" data-aos-duration="850">
+
+        <label class="dg-field">
+
+          <span>Họ và tên</span>
+
+          <input type="text" name="name" placeholder="Nguyễn Văn A" required />
+
+        </label>
+
+        <label class="dg-field">
+
+          <span>Email</span>
+
+          <input type="email" name="email" placeholder="ban@email.com" required />
+
+        </label>
+
+        <label class="dg-field">
+
+          <span>Số điện thoại</span>
+
+          <input type="tel" name="phone" placeholder="0901 234 567" required />
+
+        </label>
+
+        <label class="dg-field dg-field-full">
+
+          <span>Quốc gia quan tâm</span>
+
+          <select name="country">
+
+            <option value="">Chọn quốc gia</option>
+
+            <option value="au">Úc</option>
+
+            <option value="ca">Canada</option>
+
+            <option value="jp">Nhật Bản</option>
+
+            <option value="us">Mỹ</option>
+
+            <option value="uk">Anh</option>
+
+          </select>
+
+        </label>
+
+        <label class="dg-field dg-field-full">
+
+          <span>Nội dung</span>
+
+          <textarea name="message" rows="4" placeholder="Ngành học, ngân sách, thời gian dự kiến..."></textarea>
+
+        </label>
+
+        <button type="submit" class="dg-btn dg-btn-solid">Gửi yêu cầu tư vấn</button>
+
+      </form>
+
+    </div>
+
+  </section>
+
+
+
+  <footer class="dg-footer">
+
+    <div class="dg-wrap dg-footer-inner">
+
+      <p class="dg-footer-brand">© {{year}} Digit. — Tư vấn du học toàn cầu</p>
+
+      <p class="dg-footer-meta">Hotline: 1900 8888 · hello@digit.vn</p>
+
+    </div>
+
+  </footer>
+
+</div>

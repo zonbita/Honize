@@ -1,0 +1,38 @@
+<section class="demo-index knowledge-page bg-surface-muted">
+  <div class="container-main">
+    <div class="demo-index-head" data-aos="fade-up">
+      <a href="/du-an" class="demo-back">← Dự án mẫu</a>
+      <h1 class="section-title">Thư viện demo giao diện</h1>
+      <p class="section-subtitle mx-auto">
+        Xem trước các mẫu giao diện tương ứng danh sách dự án trên trang /du-an. Chọn một demo để xem ảnh giao diện phóng lớn.
+      </p>
+    </div>
+
+    <div class="demo-index-filters" data-aos="fade-up" data-aos-delay="80">
+      <a href="/du-an/demo" class="project-category-card{{#unless activeCategory}} is-active{{/unless}}">Tất cả</a>
+      {{#each projectCategories}}
+      <a
+        href="/du-an/demo?danh-muc={{this.slug}}"
+        class="project-category-card{{#ifeq ../activeCategory this.slug}} is-active{{/ifeq}}"
+      >{{this.name}}</a>
+      {{/each}}
+    </div>
+
+    <div class="demo-index-grid">
+      {{#each demos}}
+      <a href="/du-an/demo/{{this.slug}}" class="demo-index-card" data-aos="fade-up" data-aos-delay="{{multiply @index 60}}">
+        <div class="demo-index-thumb">
+          <img src="{{this.image}}" alt="{{this.title}}" loading="lazy" width="400" height="500" />
+        </div>
+        <div class="demo-index-body">
+          <p class="demo-index-cat">{{this.categoryName}}</p>
+          <h2 class="demo-index-title">{{this.title}}</h2>
+          <span class="demo-index-open">Xem demo →</span>
+        </div>
+      </a>
+      {{else}}
+      <p class="col-span-full text-center text-slate-500">Chưa có demo nào trong danh mục này.</p>
+      {{/each}}
+    </div>
+  </div>
+</section>

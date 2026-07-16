@@ -1,4 +1,14 @@
-import { Body, Controller, Get, Post, Query, Redirect, Render, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  Post,
+  Query,
+  Render,
+  Res,
+} from '@nestjs/common';
 import { Response } from 'express';
 import { AppService } from './app.service';
 import { saveContactSubmission } from './shared/contact-submissions';
@@ -37,6 +47,19 @@ export class AppController {
   @Render('pages/projects')
   getProjects(@Query('danh-muc') category?: string) {
     return this.appService.getProjectsPageData(category);
+  }
+
+  @Get('du-an/demo')
+  @Render('demo/index')
+  getDemoIndex(@Query('danh-muc') category?: string) {
+    return this.appService.getDemoIndexData(category);
+  }
+
+  @Get('du-an/demo/:slug')
+  getDemo(@Param('slug') slug: string, @Res() res: Response) {
+    const data = this.appService.getDemoPageData(slug);
+    if (!data) throw new NotFoundException(`Demo "${slug}" không tồn tại`);
+    return res.render(data.demoView, data);
   }
 
   @Get('kien-thuc')

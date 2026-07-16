@@ -1,0 +1,619 @@
+{{> demo/toolbar }}
+
+
+
+<div class="ar-page" id="top">
+
+
+
+  <section class="ar-hero">
+
+
+
+    <div class="ar-hero-inner">
+
+
+
+      <header class="ar-header">
+
+
+
+        <a href="/du-an/demo/nha-hang-sai-gon" class="ar-logo">Aroflit</a>
+
+
+
+        <nav class="ar-nav" aria-label="Điều hướng chính">
+
+
+
+          <a href="#top" class="is-active">Trang chủ</a>
+
+
+
+          <a href="#menu">Thực đơn</a>
+
+
+
+          <a href="#about">Giới thiệu</a>
+
+
+
+        </nav>
+
+
+
+        <p class="ar-indicator"><span>01</span> <span class="ar-indicator-dash">—</span> <span>04</span></p>
+
+
+
+      </header>
+
+
+
+      <div class="ar-hero-grid">
+
+
+
+        <div class="ar-hero-copy" data-aos="fade-right" data-aos-duration="850">
+
+
+
+          <h1 class="ar-hero-title">Hương vị địa phương</h1>
+
+
+
+          <p class="ar-hero-by">by <span>Long Nguyễn</span></p>
+
+
+
+          <p class="ar-hero-text">
+
+
+
+            Nhà hàng mang đến trải nghiệm ẩm thực tinh tế với nguyên liệu tươi mỗi ngày và không gian ấm cúng giữa lòng Sài Gòn.
+
+
+
+          </p>
+
+
+
+          <div class="ar-hero-actions">
+
+
+
+            <a href="#menu" class="ar-btn ar-btn-solid">Đặt món</a>
+
+
+
+            <a href="#reserve" class="ar-btn ar-btn-ghost">Đặt bàn</a>
+
+
+
+          </div>
+
+
+
+        </div>
+
+
+
+        <div class="ar-hero-visual">
+
+
+
+          <span class="ar-hero-bar" aria-hidden="true"></span>
+
+
+
+          <div class="ar-hero-circle" data-aos="fade-left" data-aos-delay="110" data-aos-duration="850">
+
+
+
+            <img
+
+
+
+              src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=800&h=800&q=80"
+
+
+
+              alt="Tô mì ramen nhìn từ trên"
+
+
+
+              width="520"
+
+
+
+              height="520"
+
+
+
+            />
+
+
+
+            <div class="ar-hero-price">
+
+
+
+              <p class="ar-hero-price-label">Mì ramen đặc biệt</p>
+
+
+
+              <p class="ar-hero-price-value">185.000đ</p>
+
+
+
+            </div>
+
+
+
+          </div>
+
+
+
+          <div class="ar-hero-arrows" aria-hidden="true">
+
+
+
+            <button type="button" aria-label="Trước">&lt;</button>
+
+
+
+            <span class="ar-hero-arrows-sep">|</span>
+
+
+
+            <button type="button" aria-label="Sau">&gt;</button>
+
+
+
+          </div>
+
+
+
+        </div>
+
+
+
+      </div>
+
+
+
+    </div>
+
+
+
+    <img
+
+
+
+      class="ar-drink"
+
+
+
+      data-aos="fade-left"
+
+
+
+      data-aos-delay="120"
+
+
+
+      data-aos-duration="850"
+
+
+
+      src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=400&h=400&q=80"
+
+
+
+      alt="Cocktail trang trí chanh"
+
+
+
+      width="160"
+
+
+
+      height="160"
+
+
+
+    />
+
+
+
+  </section>
+
+
+
+  <section class="ar-menu" id="menu">
+
+
+
+    <div class="ar-menu-inner">
+
+
+
+      <div class="ar-menu-head" data-aos="fade-up">
+
+
+
+        <h2 class="ar-menu-title">Thực đơn yêu thích</h2>
+
+
+
+        <a href="#menu" class="ar-menu-link">Xem tất cả →</a>
+
+
+
+      </div>
+
+
+
+      <div class="ar-menu-grid">
+
+
+
+        {{#each items}}
+
+
+
+        <article class="ar-card" data-aos="fade-up" data-aos-delay="{{multiply @index 60}}">
+
+
+
+          <div class="ar-card-media">
+
+
+
+            <img src="{{{this.image}}}" alt="{{this.title}}" loading="lazy" width="280" height="280" />
+
+
+
+          </div>
+
+
+
+          <p class="ar-card-text">{{this.title}}</p>
+
+
+
+          <p class="ar-card-price">{{this.price}}</p>
+
+
+
+        </article>
+
+
+
+        {{/each}}
+
+
+
+      </div>
+
+
+
+    </div>
+
+
+
+  </section>
+
+
+
+  <section class="ar-about" id="about">
+
+
+
+    <div class="ar-about-inner">
+
+
+
+      <div class="ar-about-media" data-aos="fade-right" data-aos-duration="850">
+
+
+
+        <img
+
+
+
+          src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=800&h=600&q=80"
+
+
+
+          alt="Đầu bếp Long Nguyễn trong bếp nhà hàng"
+
+
+
+          width="560"
+
+
+
+          height="420"
+
+
+
+        />
+
+
+
+      </div>
+
+
+
+      <div class="ar-about-copy" data-aos="fade-left" data-aos-delay="110" data-aos-duration="850">
+
+
+
+        <p class="ar-about-kicker">Giới thiệu</p>
+
+
+
+        <h2 class="ar-about-title">Chef Long Nguyễn</h2>
+
+
+
+        <p>
+
+
+
+          Sinh ra và lớn lên giữa Sài Gòn, Long Nguyễn bắt đầu nấu ăn từ căn bếp gia đình — nơi ông học cách cân bằng vị chua, cay, mặn, ngọt trong từng món ăn Việt.
+
+
+
+        </p>
+
+
+
+        <p>
+
+
+
+          Sau hơn mười năm làm việc tại các nhà hàng fusion, ông quay về quê hương để mở Aroflit: không gian ẩm thực hiện đại nhưng giữ trọn hồn dân dã — nguyên liệu địa phương, thực đơn theo mùa, và câu chuyện đằng sau mỗi món ăn.
+
+
+
+        </p>
+
+
+
+        <a href="#reserve" class="ar-btn ar-btn-solid ar-btn-dark">Đặt bàn ngay</a>
+
+
+
+      </div>
+
+
+
+    </div>
+
+
+
+  </section>
+
+
+
+  <section class="ar-reserve" id="reserve" aria-label="Đặt bàn">
+
+
+
+    <div class="ar-reserve-inner" data-aos="fade-up">
+
+
+
+      <div class="ar-reserve-copy">
+
+
+
+        <p class="ar-about-kicker">Đặt bàn</p>
+
+
+
+        <h2 class="ar-reserve-title">Giữ chỗ cho buổi tối của bạn</h2>
+
+
+
+        <p class="ar-reserve-text">Điền thông tin bên dưới — chúng tôi sẽ xác nhận qua điện thoại trong vòng 2 giờ.</p>
+
+
+
+      </div>
+
+
+
+      <form class="ar-reserve-form" action="#" onsubmit="return false">
+
+
+
+        <label class="ar-field">
+
+
+
+          <span>Họ tên</span>
+
+
+
+          <input type="text" name="name" placeholder="Nguyễn Văn A" required />
+
+
+
+        </label>
+
+
+
+        <label class="ar-field">
+
+
+
+          <span>SĐT</span>
+
+
+
+          <input type="tel" name="phone" placeholder="0901 234 567" required />
+
+
+
+        </label>
+
+
+
+        <label class="ar-field">
+
+
+
+          <span>Ngày</span>
+
+
+
+          <input type="date" name="date" required />
+
+
+
+        </label>
+
+
+
+        <label class="ar-field">
+
+
+
+          <span>Số khách</span>
+
+
+
+          <select name="guests" required>
+
+
+
+            <option value="">Chọn số khách</option>
+
+
+
+            <option value="2">2 khách</option>
+
+
+
+            <option value="3">3 khách</option>
+
+
+
+            <option value="4">4 khách</option>
+
+
+
+            <option value="5">5 khách</option>
+
+
+
+            <option value="6+">6+ khách</option>
+
+
+
+          </select>
+
+
+
+        </label>
+
+
+
+        <button type="submit" class="ar-btn ar-btn-solid ar-btn-wide">Gửi yêu cầu</button>
+
+
+
+      </form>
+
+
+
+    </div>
+
+
+
+  </section>
+
+
+
+  <footer class="ar-footer">
+
+
+
+    <div class="ar-footer-inner">
+
+
+
+      <div class="ar-footer-brand">
+
+
+
+        <a href="/du-an/demo/nha-hang-sai-gon" class="ar-logo ar-logo-footer">Aroflit</a>
+
+
+
+        <p class="ar-footer-tagline">Ẩm thực tinh tế giữa lòng Sài Gòn.</p>
+
+
+
+      </div>
+
+
+
+      <nav class="ar-footer-nav" aria-label="Liên kết chân trang">
+
+
+
+        <a href="#top">Trang chủ</a>
+
+
+
+        <a href="#menu">Thực đơn</a>
+
+
+
+        <a href="#about">Giới thiệu</a>
+
+
+
+        <a href="#reserve">Đặt bàn</a>
+
+
+
+      </nav>
+
+
+
+      <div class="ar-footer-contact">
+
+
+
+        <p><a href="tel:02838234567">028 3823 4567</a></p>
+
+
+
+        <p>123 Nguyễn Huệ, Q.1, TP.HCM</p>
+
+
+
+      </div>
+
+
+
+    </div>
+
+
+
+    <p class="ar-footer-copy">© 2026 Aroflit. Bản demo thiết kế bởi Honize.</p>
+
+
+
+  </footer>
+
+
+
+</div>
+
+
