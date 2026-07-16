@@ -151,6 +151,7 @@ export class AppService {
       tours: customView ? this.getDemoTours(templateSlug) : [],
       courses: customView ? this.getDemoCourses(templateSlug) : [],
       testimonials: customView ? this.getDemoTestimonials(templateSlug) : [],
+      destinations: customView ? this.getDemoDestinations(templateSlug) : [],
     };
   }
 
@@ -208,6 +209,27 @@ export class AppService {
   }
 
   private getDemoStats(slug: string) {
+    if (slug === 'vivu') {
+      const icon = (paths: string) =>
+        `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">${paths}</svg>`;
+      return [
+        {
+          value: '500+',
+          label: 'Hành trình',
+          icon: icon('<path d="M4 19V5M4 19h16M8 17v-4M12 17V9M16 17v-6"/>'),
+        },
+        {
+          value: '50+',
+          label: 'Điểm đến',
+          icon: icon('<path d="M12 21s7-4.5 7-11a7 7 0 10-14 0c0 6.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>'),
+        },
+        {
+          value: '98%',
+          label: 'Khách hàng hài lòng',
+          icon: icon('<path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.8 5.7 21l2.3-7-6-4.6h7.6z"/>'),
+        },
+      ];
+    }
     if (slug === 'tu-van-du-hoc') {
       return [
         { value: '2.500+', label: 'Hồ sơ thành công' },
@@ -341,7 +363,77 @@ export class AppService {
     ];
   }
 
+  private getDemoDestinations(slug: string) {
+    if (slug !== 'vivu') return [];
+    const icon = (paths: string) =>
+      `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">${paths}</svg>`;
+    return [
+      {
+        name: 'Hạ Long',
+        image: '/images/Vivu/vivu%20(4).png',
+        icon: icon('<path d="M3 18l4-6 4 3 5-8 5 11H3z"/>'),
+      },
+      {
+        name: 'Đà Nẵng',
+        image: '/images/Vivu/vivu%20(3).png',
+        icon: icon('<path d="M4 18h16M8 18V8l4-4 4 4v10"/>'),
+      },
+      {
+        name: 'Hội An',
+        image: '/images/Vivu/vivu%20(5).png',
+        icon: icon('<rect x="8" y="6" width="8" height="12" rx="1"/><path d="M12 6V4"/>'),
+      },
+      {
+        name: 'Đà Lạt',
+        image: '/images/Vivu/vivu%20(6).png',
+        icon: icon('<path d="M4 20l6-14 4 8 3-5 3 11H4z"/>'),
+      },
+      {
+        name: 'Phú Quốc',
+        image: '/images/Vivu/vivu%20(7).png',
+        icon: icon('<path d="M2 14c3-2 6-2 10 0s7 2 10 0"/><path d="M6 10c2-3 4-4 6-4s4 1 6 4"/>'),
+      },
+      {
+        name: 'Sa Pa',
+        image: '/images/Vivu/vivu%20(8).png',
+        icon: icon('<path d="M3 18h18M6 18l3-6 3 4 3-8 3 10"/>'),
+      },
+    ];
+  }
+
   private getDemoTestimonials(slug: string) {
+    if (slug === 'vivu') {
+      return [
+        {
+          quote:
+            'Chuyến đi Hội An thật tuyệt vời! Lịch trình hợp lý, hướng dẫn viên nhiệt tình và khách sạn view đẹp.',
+          name: 'Nguyễn Minh Châu',
+          location: 'Hà Nội',
+          color: '#31899a',
+        },
+        {
+          quote:
+            'Gia đình mình rất hài lòng tour Phú Quốc — dịch vụ chu đáo, đưa đón đúng giờ và hoạt động phù hợp cả trẻ em.',
+          name: 'Trần Hoài An',
+          location: 'TP. Hồ Chí Minh',
+          color: '#55a4ae',
+        },
+        {
+          quote:
+            'Sa Pa mùa lúa chín đẹp như tranh. VIVU sắp xếp homestay ấm cúng và trải nghiệm văn hóa địa phương rất chân thực.',
+          name: 'Lê Phương Thảo',
+          location: 'Đà Nẵng',
+          color: '#718d78',
+        },
+        {
+          quote:
+            'Đặt tour Hạ Long qua VIVU nhanh gọn, báo giá rõ ràng. Du thuyền sang trọng, ẩm thực onboard ngon.',
+          name: 'Phạm Quốc Bảo',
+          location: 'Cần Thơ',
+          color: '#236f80',
+        },
+      ];
+    }
     if (slug !== 'trung-tam-dao-tao') return [];
     return [
       {

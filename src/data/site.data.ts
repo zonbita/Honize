@@ -389,6 +389,14 @@ export const defaultProjectsData: Pick<SiteLayoutData, 'projectCategories' | 'pr
       url: '/du-an/demo/can-ho-cao-cap',
     },
     {
+      title: 'Aurelia Estates',
+      slug: 'aurelia-estates',
+      categorySlug: 'bat-dong-san',
+      categoryName: 'Bất động sản',
+      image: '/images/House/house%20(1).png',
+      url: '/du-an/demo/aurelia-estates',
+    },
+    {
       title: 'Tour du lịch Đà Nẵng',
       slug: 'tour-da-nang',
       categorySlug: 'du-lich',

@@ -75,6 +75,14 @@
       "url": "/du-an/demo/can-ho-cao-cap"
     },
     {
+      "title": "Aurelia Estates",
+      "slug": "aurelia-estates",
+      "categorySlug": "bat-dong-san",
+      "categoryName": "Bất động sản",
+      "image": "/images/House/house%20(1).png",
+      "url": "/du-an/demo/aurelia-estates"
+    },
+    {
       "title": "Trung tâm đào tạo",
       "slug": "trung-tam-dao-tao",
       "categorySlug": "dao-tao",
@@ -105,6 +113,14 @@
       "categoryName": "Du lịch",
       "image": "/images/08-1.jpg",
       "url": "/du-an/demo/tour-da-nang"
+    },
+    {
+      "title": "VIVU — Du lịch Việt Nam",
+      "slug": "vivu",
+      "categorySlug": "du-lich",
+      "categoryName": "Du lịch",
+      "image": "/images/Vivu/vivu%20(2).png",
+      "url": "/du-an/demo/vivu"
     },
     {
       "title": "Giải pháp số doanh nghiệp",

@@ -22,5 +22,9 @@ Có file `views/demo/pages/{template}.hbs` + `public/demo/{template}.css` → re
 | `tour-da-nang` | tour-da-nang | 08-1.jpg furniture |
 | `giai-phap-so` | giai-phap-so | achi.jpg Larson |
 | `corporate-landing` | corporate-landing | exterior.jpg LaCasa |
+| `vivu` | vivu | Vivu/ Design.MD travel landing |
+| `aurelia-estates` | aurelia-estates | House/Design.MD Aurelia Estates |
+
+**Cursor checklist (chỉ Aurelia):** `public/demo/aurelia/manifest.json` + `CURSOR.md` + `node public/demo/aurelia/audit.mjs`
 
 Slug trùng ảnh mockup dùng chung template (alias trong `AppService.resolveDemoTemplateSlug`).

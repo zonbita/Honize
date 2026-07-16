@@ -1,0 +1,485 @@
+{{> demo/toolbar }}
+
+<div class="vivu-page">
+
+  <header class="vivu-header" id="vivu-header">
+    <div class="vivu-container vivu-header-inner">
+      <a href="/du-an/demo/vivu" class="vivu-logo" aria-label="VIVU — Trang chủ">
+        <svg class="vivu-logo-icon" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
+          <circle cx="16" cy="16" r="13" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <polygon points="16,6 18,14 16,12 14,14" fill="currentColor"/>
+          <line x1="16" y1="16" x2="16" y2="22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <span class="vivu-logo-text">VIVU</span>
+      </a>
+
+      <nav class="vivu-nav" id="vivu-nav" aria-label="Menu chính">
+        <a href="#home" class="is-active">Trang chủ</a>
+        <a href="#destinations">Điểm đến</a>
+        <a href="#tours">Tour du lịch</a>
+        <a href="#experiences">Trải nghiệm</a>
+        <a href="#handbook">Cẩm nang</a>
+        <a href="#contact">Liên hệ</a>
+      </nav>
+
+      <div class="vivu-header-actions">
+        <button type="button" class="vivu-lang-btn" aria-label="Ngôn ngữ">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="18" height="18" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M2 12h20M12 2a15 15 0 010 20M12 2a15 15 0 000 20"/>
+          </svg>
+          VN
+        </button>
+        <a href="#contact" class="vivu-btn vivu-btn-primary">Đặt tour</a>
+      </div>
+
+      <button type="button" class="vivu-menu-btn" id="vivu-menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="vivu-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <section class="vivu-hero" id="home">
+    <div class="vivu-container vivu-hero-inner">
+      <div class="vivu-hero-content" data-aos="fade-up" data-aos-duration="650">
+        <span class="vivu-badge">KHÁM PHÁ VIỆT NAM THEO CÁCH CỦA BẠN</span>
+        <h1 class="vivu-hero-title">Chạm vào vẻ đẹp Việt Nam</h1>
+        <p class="vivu-hero-text">
+          Hành trình được thiết kế tinh tế, đưa bạn đến những miền đất đẹp nhất và trải nghiệm văn hóa bản địa chân thực.
+        </p>
+        <div class="vivu-hero-actions">
+          <a href="#tours" class="vivu-btn vivu-btn-primary">
+            Khám phá tour
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6"/>
+            </svg>
+          </a>
+          <a href="#experiences" class="vivu-btn vivu-btn-outline">
+            <span class="vivu-play-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg>
+            </span>
+            Xem hành trình
+          </a>
+        </div>
+        <div class="vivu-avatars" aria-label="10.000+ du khách đã đồng hành">
+          <span class="vivu-avatar" style="--av-bg:#31899a">LM</span>
+          <span class="vivu-avatar" style="--av-bg:#55a4ae">TH</span>
+          <span class="vivu-avatar" style="--av-bg:#236f80">PK</span>
+          <span class="vivu-avatar" style="--av-bg:#718d78">NA</span>
+          <p class="vivu-avatars-text"><strong>10.000+</strong> du khách đã đồng hành</p>
+        </div>
+      </div>
+
+      <div class="vivu-hero-visual" data-aos="fade-up" data-aos-delay="100" data-aos-duration="650">
+        <span class="vivu-deco vivu-deco--sphere vivu-deco--1" aria-hidden="true"></span>
+        <span class="vivu-deco vivu-deco--sphere vivu-deco--2" aria-hidden="true"></span>
+        <span class="vivu-deco vivu-deco--ribbon vivu-deco--1" aria-hidden="true"></span>
+        <span class="vivu-deco vivu-deco--ribbon vivu-deco--2" aria-hidden="true"></span>
+
+        <div class="vivu-hero-frame">
+          <img
+            src="/images/Vivu/vivu%20(2).png"
+            alt="Du thuyền trên vịnh Hạ Long"
+            class="vivu-hero-img"
+            width="900"
+            height="620"
+            loading="eager"
+          />
+        </div>
+
+        <div class="vivu-platform" aria-hidden="true"></div>
+
+        <div class="vivu-float-cards">
+          <article class="vivu-float-card vivu-float-card--1">
+            <img src="/images/Vivu/vivu%20(4).png" alt="" width="48" height="48" loading="lazy" />
+            <div>
+              <strong>Hạ Long</strong>
+              <span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" aria-hidden="true"><path d="M12 21s7-4.5 7-11a7 7 0 10-14 0c0 6.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                Quảng Ninh
+              </span>
+            </div>
+          </article>
+          <article class="vivu-float-card vivu-float-card--2">
+            <img src="/images/Vivu/vivu%20(5).png" alt="" width="48" height="48" loading="lazy" />
+            <div>
+              <strong>Hội An</strong>
+              <span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" aria-hidden="true"><path d="M12 21s7-4.5 7-11a7 7 0 10-14 0c0 6.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                Quảng Nam
+              </span>
+            </div>
+          </article>
+          <article class="vivu-float-card vivu-float-card--3">
+            <img src="/images/Vivu/vivu%20(7).png" alt="" width="48" height="48" loading="lazy" />
+            <div>
+              <strong>Phú Quốc</strong>
+              <span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" aria-hidden="true"><path d="M12 21s7-4.5 7-11a7 7 0 10-14 0c0 6.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                Kiên Giang
+              </span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="vivu-destinations" id="destinations">
+    <div class="vivu-container">
+      <div class="vivu-section-head" data-aos="fade-up">
+        <p class="vivu-kicker">ĐIỂM ĐẾN NỔI BẬT</p>
+        <h2 class="vivu-section-title">Việt Nam – Mỗi điểm đến, một câu chuyện</h2>
+      </div>
+
+      <div class="vivu-dest-grid" id="vivu-dest-grid">
+        {{#each destinations}}
+        <article class="vivu-dest-card" data-aos="fade-up" data-aos-delay="{{multiply @index 50}}">
+          <div class="vivu-dest-media">
+            <img src="{{this.image}}" alt="{{this.name}}" loading="lazy" width="220" height="280" />
+          </div>
+          <div class="vivu-dest-info">
+            <span class="vivu-dest-icon" aria-hidden="true">{{{this.icon}}}</span>
+            <h3 class="vivu-dest-name">{{this.name}}</h3>
+          </div>
+        </article>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <section class="vivu-benefits" id="experiences">
+    <div class="vivu-container vivu-benefits-inner">
+      <div class="vivu-benefits-copy" data-aos="fade-up">
+        <h2 class="vivu-section-title vivu-section-title--left">
+          Hành trình trọn vẹn –<br />Trải nghiệm khác biệt
+        </h2>
+        <ul class="vivu-benefit-list">
+          <li class="vivu-benefit-item">
+            <span class="vivu-benefit-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            </span>
+            <div>
+              <h3>Lịch trình được cá nhân hóa</h3>
+              <p>Thiết kế hành trình theo sở thích, nhịp độ và ngân sách của bạn.</p>
+            </div>
+          </li>
+          <li class="vivu-benefit-item">
+            <span class="vivu-benefit-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            </span>
+            <div>
+              <h3>Hướng dẫn viên chuyên nghiệp</h3>
+              <p>Đội ngũ am hiểu văn hóa địa phương, hỗ trợ tận tâm suốt chuyến đi.</p>
+            </div>
+          </li>
+          <li class="vivu-benefit-item">
+            <span class="vivu-benefit-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.8 5.7 21l2.3-7-6-4.6h7.6z"/></svg>
+            </span>
+            <div>
+              <h3>Dịch vụ chọn lọc</h3>
+              <p>Khách sạn, nhà hàng và trải nghiệm được kiểm duyệt chất lượng.</p>
+            </div>
+          </li>
+          <li class="vivu-benefit-item">
+            <span class="vivu-benefit-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11v2a2 2 0 002 2h1l3 3 7-7-3-3-7 7H5a2 2 0 01-2-2z"/><path d="M14 6l4 4"/></svg>
+            </span>
+            <div>
+              <h3>Hỗ trợ xuyên suốt hành trình</h3>
+              <p>Hotline 24/7 và đồng hành từ lúc đặt tour đến khi trở về.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="vivu-benefits-visual" data-aos="fade-up" data-aos-delay="80">
+        <img
+          src="/images/Vivu/vivu%20(9).png"
+          alt="Cặp đôi du lịch ngắm cảnh biển"
+          width="800"
+          height="500"
+          loading="lazy"
+        />
+        <span class="vivu-benefits-glow" aria-hidden="true"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="vivu-proof" id="handbook">
+    <div class="vivu-container">
+      <div class="vivu-proof-card" data-aos="fade-up">
+        <div class="vivu-stats">
+          {{#each stats}}
+          <div class="vivu-stat">
+            <span class="vivu-stat-icon" aria-hidden="true">{{{this.icon}}}</span>
+            <span class="vivu-stat-value">{{this.value}}</span>
+            <span class="vivu-stat-label">{{this.label}}</span>
+          </div>
+          {{/each}}
+        </div>
+
+        <div class="vivu-testimonial" id="vivu-testimonial">
+          <span class="vivu-quote-icon" aria-hidden="true">"</span>
+          <blockquote class="vivu-quote" id="vivu-quote"></blockquote>
+          <div class="vivu-quote-author">
+            <span class="vivu-quote-avatar" id="vivu-quote-avatar" aria-hidden="true"></span>
+            <div>
+              <strong id="vivu-quote-name"></strong>
+              <span id="vivu-quote-location"></span>
+            </div>
+          </div>
+          <div class="vivu-carousel-dots" id="vivu-carousel-dots" role="tablist" aria-label="Đánh giá khách hàng"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="vivu-tours" id="tours">
+    <div class="vivu-container vivu-tours-inner">
+      <div class="vivu-tours-copy" data-aos="fade-up">
+        <h2 class="vivu-section-title vivu-section-title--left">
+          Tour được<br />yêu thích nhất
+        </h2>
+        <a href="#destinations" class="vivu-btn vivu-btn-primary">Xem tất cả tour</a>
+      </div>
+      <div class="vivu-tours-visual" data-aos="fade-up" data-aos-delay="100">
+        <span class="vivu-deco vivu-deco--ribbon vivu-deco--3" aria-hidden="true"></span>
+        <div class="vivu-tours-platform" aria-hidden="true"></div>
+        <img
+          src="/images/Vivu/vivu%20(1).png"
+          alt="Vali du lịch trong suốt với cảnh Hạ Long"
+          class="vivu-tours-img"
+          width="560"
+          height="420"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="vivu-newsletter" id="contact">
+    <div class="vivu-container">
+      <form class="vivu-newsletter-card" id="vivu-newsletter-form" data-aos="fade-up" novalidate>
+        <span class="vivu-newsletter-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+        </span>
+        <div class="vivu-newsletter-copy">
+          <h2 class="vivu-newsletter-title">Nhận cảm hứng cho chuyến đi tiếp theo</h2>
+          <p>Đăng ký nhận ưu đãi độc quyền và gợi ý hành trình mới nhất.</p>
+        </div>
+        <div class="vivu-newsletter-form">
+          <label class="vivu-field">
+            <span class="sr-only">Email</span>
+            <input type="email" name="email" id="vivu-email" placeholder="Nhập email của bạn" required />
+          </label>
+          <button type="submit" class="vivu-btn vivu-btn-primary">Đăng ký</button>
+          <p class="vivu-form-msg" id="vivu-form-msg" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <footer class="vivu-footer">
+    <div class="vivu-container">
+      <div class="vivu-footer-grid">
+        <div class="vivu-footer-brand">
+          <a href="/du-an/demo/vivu" class="vivu-logo">
+            <svg class="vivu-logo-icon" viewBox="0 0 32 32" width="26" height="26" aria-hidden="true">
+              <circle cx="16" cy="16" r="13" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <polygon points="16,6 18,14 16,12 14,14" fill="currentColor"/>
+              <line x1="16" y1="16" x2="16" y2="22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <span class="vivu-logo-text">VIVU</span>
+          </a>
+          <p>VIVU mang đến những hành trình tinh tế, đưa bạn khám phá vẻ đẹp Việt Nam và trải nghiệm văn hóa bản địa chân thực.</p>
+          <div class="vivu-footer-social" aria-label="Mạng xã hội">
+            <a href="#" aria-label="Facebook">f</a>
+            <a href="#" aria-label="Instagram">ig</a>
+            <a href="#" aria-label="YouTube">yt</a>
+            <a href="#" aria-label="TikTok">tt</a>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="vivu-footer-col-title">Khám phá</h3>
+          <ul class="vivu-footer-links">
+            <li><a href="#destinations">Điểm đến</a></li>
+            <li><a href="#tours">Tour du lịch</a></li>
+            <li><a href="#experiences">Trải nghiệm</a></li>
+            <li><a href="#contact">Khuyến mãi</a></li>
+            <li><a href="#handbook">Cẩm nang du lịch</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="vivu-footer-col-title">Về VIVU</h3>
+          <ul class="vivu-footer-links">
+            <li><a href="#home">Giới thiệu</a></li>
+            <li><a href="#experiences">Cam kết chất lượng</a></li>
+            <li><a href="#handbook">Tin tức</a></li>
+            <li><a href="#contact">Tuyển dụng</a></li>
+            <li><a href="#contact">Đối tác</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="vivu-footer-col-title">Hỗ trợ</h3>
+          <ul class="vivu-footer-links">
+            <li><a href="#contact">Câu hỏi thường gặp</a></li>
+            <li><a href="#contact">Chính sách đặt tour</a></li>
+            <li><a href="#contact">Điều khoản sử dụng</a></li>
+            <li><a href="#contact">Chính sách bảo mật</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="vivu-footer-col-title">Liên hệ</h3>
+          <ul class="vivu-footer-links">
+            <li><a href="tel:19001234">1900 1234</a></li>
+            <li><a href="mailto:hello@vivu.vn">hello@vivu.vn</a></li>
+            <li><a href="#contact">123 Đường Lê Lợi, Quận 1</a></li>
+            <li><a href="#contact">TP. Hồ Chí Minh, Việt Nam</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="vivu-footer-bottom">
+        <p>© {{year}} VIVU. All rights reserved.</p>
+        <button type="button" class="vivu-back-top" id="vivu-back-top" aria-label="Về đầu trang">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script type="application/json" id="vivu-testimonials-data">{{{json testimonials}}}</script>
+
+<script>
+  (function () {
+    var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var header = document.getElementById('vivu-header');
+    var menuBtn = document.getElementById('vivu-menu-btn');
+    var nav = document.getElementById('vivu-nav');
+    var backTop = document.getElementById('vivu-back-top');
+    var form = document.getElementById('vivu-newsletter-form');
+    var formMsg = document.getElementById('vivu-form-msg');
+
+    function onScroll() {
+      if (header) header.classList.toggle('is-scrolled', window.scrollY > 8);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    if (menuBtn && nav) {
+      menuBtn.addEventListener('click', function () {
+        var open = nav.classList.toggle('is-open');
+        menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      nav.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () {
+          nav.classList.remove('is-open');
+          menuBtn.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+
+    document.querySelectorAll('.vivu-page a[href^="#"]').forEach(function (anchor) {
+      anchor.addEventListener('click', function (e) {
+        var id = anchor.getAttribute('href');
+        if (!id || id === '#') return;
+        var target = document.querySelector(id);
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+      });
+    });
+
+    if (backTop) {
+      backTop.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
+      });
+    }
+
+    if (form) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var input = document.getElementById('vivu-email');
+        var email = input && input.value ? input.value.trim() : '';
+        var valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        if (!formMsg) return;
+        if (!valid) {
+          formMsg.textContent = 'Vui lòng nhập địa chỉ email hợp lệ.';
+          formMsg.className = 'vivu-form-msg is-error';
+          input && input.focus();
+          return;
+        }
+        formMsg.textContent = 'Đăng ký thành công! Cảm ơn bạn đã theo dõi VIVU.';
+        formMsg.className = 'vivu-form-msg is-success';
+        form.reset();
+      });
+    }
+
+    var dataEl = document.getElementById('vivu-testimonials-data');
+    var testimonials = [];
+    try {
+      testimonials = JSON.parse(dataEl ? dataEl.textContent : '[]');
+    } catch (err) {
+      testimonials = [];
+    }
+
+    var quoteEl = document.getElementById('vivu-quote');
+    var nameEl = document.getElementById('vivu-quote-name');
+    var locEl = document.getElementById('vivu-quote-location');
+    var avatarEl = document.getElementById('vivu-quote-avatar');
+    var dotsEl = document.getElementById('vivu-carousel-dots');
+    var activeIndex = 0;
+    var timer;
+
+    function renderTestimonial(index) {
+      if (!testimonials.length) return;
+      var item = testimonials[index];
+      if (quoteEl) quoteEl.textContent = item.quote;
+      if (nameEl) nameEl.textContent = item.name;
+      if (locEl) locEl.textContent = item.location || item.role || '';
+      if (avatarEl) {
+        avatarEl.textContent = (item.name || '?').charAt(0);
+        avatarEl.style.background = item.color || '#31899a';
+      }
+      if (dotsEl) {
+        dotsEl.querySelectorAll('button').forEach(function (btn, i) {
+          btn.classList.toggle('is-active', i === index);
+          btn.setAttribute('aria-selected', i === index ? 'true' : 'false');
+        });
+      }
+      activeIndex = index;
+    }
+
+    if (testimonials.length && dotsEl) {
+      testimonials.forEach(function (_, i) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.setAttribute('role', 'tab');
+        btn.setAttribute('aria-label', 'Đánh giá ' + (i + 1));
+        btn.addEventListener('click', function () {
+          renderTestimonial(i);
+          restartTimer();
+        });
+        dotsEl.appendChild(btn);
+      });
+      renderTestimonial(0);
+
+      function restartTimer() {
+        if (timer) clearInterval(timer);
+        if (reducedMotion || testimonials.length < 2) return;
+        timer = setInterval(function () {
+          renderTestimonial((activeIndex + 1) % testimonials.length);
+        }, 6000);
+      }
+      restartTimer();
+    }
+  })();
+</script>

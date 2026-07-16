@@ -1,0 +1,175 @@
+{
+  "demo": "aurelia-estates",
+  "url": "/du-an/demo/aurelia-estates",
+  "files": {
+    "template": "views/demo/pages/aurelia-estates.hbs",
+    "styles": "public/demo/aurelia-estates.css",
+    "design": "public/images/House/Design.MD"
+  },
+  "convention": {
+    "pending": "Thành phần tương tác chưa có logic — không có data-demo-live",
+    "live": "Đã có logic — gắn data-demo-live trên element hoặc wrapper",
+    "anchor": "Link #section — coi là live (scroll), không cần implement thêm"
+  },
+  "features": [
+    {
+      "id": "search-tab-mua",
+      "selector": "[data-demo-id=\"search-tabs\"] button:nth-child(1)",
+      "type": "button",
+      "status": "pending",
+      "label": "Tab MUA",
+      "expected": "Đổi tab active, hiển thị bộ lọc mua bán"
+    },
+    {
+      "id": "search-tab-thue",
+      "selector": "[data-demo-id=\"search-tabs\"] button:nth-child(2)",
+      "type": "button",
+      "status": "pending",
+      "label": "Tab THUÊ",
+      "expected": "Đổi tab active, hiển thị bộ lọc thuê"
+    },
+    {
+      "id": "search-tab-du-an",
+      "selector": "[data-demo-id=\"search-tabs\"] button:nth-child(3)",
+      "type": "button",
+      "status": "pending",
+      "label": "Tab DỰ ÁN",
+      "expected": "Đổi tab active, hiển thị bộ lọc dự án"
+    },
+    {
+      "id": "search-type",
+      "selector": "[data-demo-id=\"search-type\"]",
+      "type": "select",
+      "status": "pending",
+      "label": "Loại hình",
+      "expected": "Lọc danh sách BĐS theo loại hình"
+    },
+    {
+      "id": "search-area",
+      "selector": "[data-demo-id=\"search-area\"]",
+      "type": "select",
+      "status": "pending",
+      "label": "Khu vực",
+      "expected": "Lọc danh sách BĐS theo khu vực"
+    },
+    {
+      "id": "search-price",
+      "selector": "[data-demo-id=\"search-price\"]",
+      "type": "select",
+      "status": "pending",
+      "label": "Khoảng giá",
+      "expected": "Lọc danh sách BĐS theo khoảng giá"
+    },
+    {
+      "id": "search-keyword",
+      "selector": "[data-demo-id=\"search-keyword\"]",
+      "type": "input",
+      "status": "pending",
+      "label": "Từ khóa",
+      "expected": "Tìm theo tên dự án / khu vực"
+    },
+    {
+      "id": "search-submit",
+      "selector": "[data-demo-id=\"search-submit\"]",
+      "type": "button",
+      "status": "pending",
+      "label": "TÌM KIẾM",
+      "expected": "Submit form, scroll tới #properties và lọc card"
+    },
+    {
+      "id": "property-fav-1",
+      "selector": "[data-demo-id=\"property-fav-1\"]",
+      "type": "button",
+      "status": "pending",
+      "label": "Yêu thích — The Rivus Elie Saab",
+      "expected": "Toggle trạng thái yêu thích (localStorage hoặc UI state)"
+    },
+    {
+      "id": "property-fav-2",
+      "selector": "[data-demo-id=\"property-fav-2\"]",
+      "type": "button",
+      "status": "pending",
+      "label": "Yêu thích — The Orchard Residences",
+      "expected": "Toggle trạng thái yêu thích"
+    },
+    {
+      "id": "property-fav-3",
+      "selector": "[data-demo-id=\"property-fav-3\"]",
+      "type": "button",
+      "status": "pending",
+      "label": "Yêu thích — Regal Victoria Villa",
+      "expected": "Toggle trạng thái yêu thích"
+    },
+    {
+      "id": "property-fav-4",
+      "selector": "[data-demo-id=\"property-fav-4\"]",
+      "type": "button",
+      "status": "pending",
+      "label": "Yêu thích — Laguna Parkside",
+      "expected": "Toggle trạng thái yêu thích"
+    },
+    {
+      "id": "properties-view-all",
+      "selector": "[data-demo-id=\"properties-view-all\"]",
+      "type": "link",
+      "status": "pending",
+      "label": "XEM TẤT CẢ",
+      "expected": "Mở trang danh sách BĐS hoặc mở rộng grid"
+    },
+    {
+      "id": "testimonials-prev",
+      "selector": "[data-demo-id=\"testimonials-prev\"]",
+      "type": "button",
+      "status": "pending",
+      "label": "Testimonial prev",
+      "expected": "Chưa có trong template — cần thêm nút prev/next theo Design.MD"
+    },
+    {
+      "id": "testimonials-next",
+      "selector": "[data-demo-id=\"testimonials-next\"]",
+      "type": "button",
+      "status": "pending",
+      "label": "Testimonial next",
+      "expected": "Chưa có trong template — cần thêm nút prev/next theo Design.MD"
+    },
+    {
+      "id": "nav-home",
+      "selector": ".ae-nav a[href=\"#home\"]",
+      "type": "anchor",
+      "status": "live",
+      "label": "TRANG CHỦ",
+      "expected": "Scroll tới #home — nav có data-demo-live"
+    },
+    {
+      "id": "nav-about",
+      "selector": ".ae-nav a[href=\"#about\"]",
+      "type": "anchor",
+      "status": "live",
+      "label": "GIỚI THIỆU",
+      "expected": "Scroll tới #about — nav có data-demo-live"
+    },
+    {
+      "id": "hotline",
+      "selector": ".ae-hotline",
+      "type": "link",
+      "status": "live",
+      "label": "Hotline",
+      "expected": "tel: link — đã hoạt động"
+    }
+  ],
+  "cycle": [
+    "search-tab-mua",
+    "search-tab-thue",
+    "search-tab-du-an",
+    "search-type",
+    "search-area",
+    "search-price",
+    "search-keyword",
+    "search-submit",
+    "property-fav-1",
+    "property-fav-2",
+    "property-fav-3",
+    "property-fav-4",
+    "properties-view-all"
+  ]
+}
