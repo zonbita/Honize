@@ -36,6 +36,69 @@
   overflow-x: clip;
 }
 
+/* Full-page silk background (inner demo subpages) */
+.tmv-page--bg {
+  position: relative;
+  min-height: 100vh;
+  background: var(--color-background);
+  isolation: isolate;
+}
+
+.tmv-page--bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: var(--tmv-page-bg);
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+.tmv-page--bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 253, 249, 0.5) 0%,
+    rgba(255, 253, 249, 0.75) 45%,
+    rgba(255, 253, 249, 0.9) 100%
+  );
+  pointer-events: none;
+}
+
+.tmv-page--bg > * {
+  position: relative;
+  z-index: 1;
+}
+
+.tmv-page--bg .tmv-header--solid {
+  background: rgba(255, 253, 249, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.tmv-page--bg .tmv-header--solid.is-scrolled {
+  background: rgba(255, 253, 249, 0.94);
+}
+
+.tmv-page--bg .tmv-stats-band,
+.tmv-page--bg .tmv-contact-form-wrap,
+.tmv-page--bg .tmv-value-card,
+.tmv-page--bg .tmv-tech-card,
+.tmv-page--bg .tmv-service-card,
+.tmv-page--bg .tmv-blog-card,
+.tmv-page--bg .tmv-team-card,
+.tmv-page--bg .tmv-pricing-table,
+.tmv-page--bg .tmv-cta-band-inner {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
 .tmv-page *,
 .tmv-page *::before,
 .tmv-page *::after {
@@ -630,8 +693,8 @@
 
 .tmv-step {
   width: 220px;
-  min-height: 220px;
-  padding: 28px 18px;
+  min-height: 260px;
+  padding: 24px 18px 28px;
   border: 1px solid var(--color-border);
   border-radius: 6px;
   background: var(--color-surface);
@@ -642,10 +705,23 @@
 }
 
 .tmv-step-icon {
-  width: 44px;
-  height: 44px;
-  color: var(--color-champagne);
+  display: block;
+  width: 80px;
+  height: 80px;
   margin-bottom: 12px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid rgba(201, 164, 106, 0.35);
+  box-shadow: 0 6px 20px rgba(92, 68, 40, 0.1);
+  flex-shrink: 0;
+}
+
+.tmv-step-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
 }
 
 .tmv-step-icon svg {
@@ -1311,5 +1387,721 @@
   .tmv-btn {
     animation: none !important;
     transition: none !important;
+  }
+}
+
+/* Inner pages */
+.tmv-header--solid {
+  position: relative;
+  background: rgba(255, 253, 249, 0.96);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.tmv-header--solid.is-scrolled {
+  position: sticky;
+  top: 0;
+}
+
+.tmv-page-hero {
+  padding: 140px 0 72px;
+  background: linear-gradient(180deg, var(--color-background-soft) 0%, var(--color-background) 100%);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.tmv-page-hero--bg {
+  position: relative;
+  overflow: hidden;
+  min-height: 360px;
+  display: flex;
+  align-items: flex-end;
+  padding: 140px 0 64px;
+  background: transparent;
+  border-bottom: 0;
+}
+
+.tmv-page-hero--bg .tmv-page-hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 253, 249, 0.82) 0%,
+    rgba(255, 253, 249, 0.55) 45%,
+    rgba(255, 253, 249, 0.15) 100%
+  );
+  pointer-events: none;
+}
+
+.tmv-page-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.tmv-page-hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center right;
+}
+
+.tmv-page-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 253, 249, 0.94) 0%,
+    rgba(255, 253, 249, 0.82) 38%,
+    rgba(255, 253, 249, 0.45) 62%,
+    rgba(255, 253, 249, 0.2) 100%
+  );
+}
+
+.tmv-page-hero-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+.tmv-page-hero--bg h1,
+.tmv-page-hero--bg .tmv-breadcrumb a,
+.tmv-page-hero--bg .tmv-breadcrumb span {
+  text-shadow: 0 1px 24px rgba(255, 253, 249, 0.85);
+}
+
+.tmv-page-hero h1 {
+  font-size: 56px;
+  line-height: 1.08;
+  margin: 16px 0 20px;
+  max-width: 720px;
+}
+
+.tmv-page-hero-text {
+  margin: 0;
+  max-width: 640px;
+  color: var(--color-text-secondary);
+  font-size: 16px;
+}
+
+.tmv-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.tmv-breadcrumb a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+.tmv-breadcrumb a:hover {
+  color: var(--color-primary);
+}
+
+.tmv-about-grid,
+.tmv-safety-grid,
+.tmv-contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.tmv-about-media img,
+.tmv-safety-grid .tmv-about-media img {
+  width: 100%;
+  border-radius: 6px;
+  object-fit: cover;
+  box-shadow: var(--shadow-card);
+}
+
+.tmv-stats-band {
+  padding: 56px 0;
+  background: var(--color-surface);
+  border-block: 1px solid var(--color-border-light);
+}
+
+.tmv-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  text-align: center;
+}
+
+.tmv-stats-grid strong {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 42px;
+  color: var(--color-primary);
+  line-height: 1.1;
+}
+
+.tmv-stats-grid span {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.tmv-values-grid,
+.tmv-why-grid,
+.tmv-tech-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.tmv-value-card,
+.tmv-tech-card,
+.tmv-why-grid article {
+  padding: 28px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-light);
+  border-radius: 6px;
+  box-shadow: var(--shadow-card);
+}
+
+.tmv-value-card h3,
+.tmv-tech-card h3,
+.tmv-why-grid h3 {
+  margin-bottom: 12px;
+}
+
+.tmv-value-card p,
+.tmv-tech-card p,
+.tmv-why-grid p {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+.tmv-team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.tmv-team-card {
+  text-align: center;
+  padding: 24px 16px;
+  border: 1px solid var(--color-border-light);
+  border-radius: 6px;
+  background: var(--color-surface);
+}
+
+.tmv-team-card img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 16px;
+}
+
+.tmv-team-card p {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.tmv-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 720px;
+  margin-inline: auto;
+}
+
+.tmv-timeline li {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 24px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.tmv-timeline li:last-child {
+  border-bottom: 0;
+}
+
+.tmv-timeline-year {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  color: var(--color-primary);
+}
+
+.tmv-timeline h3 {
+  margin-bottom: 8px;
+}
+
+.tmv-timeline p {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+.tmv-cta-band {
+  padding: 0 0 var(--tmv-section);
+}
+
+.tmv-cta-band-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 48px 56px;
+  background: var(--color-surface-gold);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+}
+
+.tmv-cta-band-inner h2 {
+  font-size: 36px;
+  margin-bottom: 8px;
+}
+
+.tmv-cta-band-inner p {
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+.tmv-cta-band-actions {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.tmv-service-tabs,
+.tmv-blog-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 48px;
+}
+
+.tmv-service-tabs button,
+.tmv-blog-tabs button {
+  height: 40px;
+  padding: 0 18px;
+  border: 1px solid var(--color-border-light);
+  border-radius: 4px;
+  background: var(--color-surface);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.tmv-service-tabs button.is-active,
+.tmv-blog-tabs button.is-active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.tmv-services-grid--page {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.tmv-price {
+  display: block;
+  margin: 12px 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}
+
+.tmv-pricing-table-wrap {
+  overflow-x: auto;
+}
+
+.tmv-pricing-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-light);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.tmv-pricing-table th,
+.tmv-pricing-table td {
+  padding: 16px 20px;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border-light);
+  font-size: 14px;
+}
+
+.tmv-pricing-table th {
+  background: var(--color-background-soft);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.tmv-pricing-table td:last-child {
+  font-weight: 600;
+  color: var(--color-primary-dark);
+  white-space: nowrap;
+}
+
+.tmv-pricing-note {
+  margin: 16px 0 0;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.tmv-tech--page .tmv-tech-grid {
+  min-height: 520px;
+}
+
+.tmv-checklist--block {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.tmv-blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.tmv-blog-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-light);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+.tmv-blog-media {
+  display: block;
+  aspect-ratio: 5 / 3;
+  overflow: hidden;
+}
+
+.tmv-blog-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.tmv-blog-card:hover .tmv-blog-media img {
+  transform: scale(1.03);
+}
+
+.tmv-blog-body {
+  padding: 22px;
+}
+
+.tmv-blog-body time {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.tmv-blog-body h2 {
+  font-size: 22px;
+  margin: 10px 0 12px;
+  line-height: 1.25;
+}
+
+.tmv-blog-body h2 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.tmv-blog-body h2 a:hover {
+  color: var(--color-primary);
+}
+
+.tmv-blog-body p {
+  margin: 0 0 12px;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.tmv-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 48px;
+}
+
+.tmv-pagination a,
+.tmv-pagination span {
+  min-width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border-light);
+}
+
+.tmv-pagination-current {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.tmv-pagination a:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.tmv-pagination-next {
+  padding: 0 16px;
+  width: auto;
+}
+
+.tmv-popular-list {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.tmv-popular-item {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--color-border-light);
+  text-decoration: none;
+  color: inherit;
+}
+
+.tmv-popular-item:hover h3 {
+  color: var(--color-primary);
+}
+
+.tmv-popular-rank {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  color: var(--color-champagne);
+}
+
+.tmv-popular-item h3 {
+  font-size: 20px;
+  margin: 0 0 6px;
+  transition: color 0.25s ease;
+}
+
+.tmv-popular-item time {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.tmv-contact-cards {
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 16px;
+}
+
+.tmv-contact-cards li {
+  padding: 16px 20px;
+  background: var(--color-background-soft);
+  border: 1px solid var(--color-border-light);
+  border-radius: 6px;
+}
+
+.tmv-contact-cards strong {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 6px;
+}
+
+.tmv-contact-cards a {
+  color: var(--color-primary-dark);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.tmv-contact-form-wrap {
+  padding: 32px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-light);
+  border-radius: 6px;
+  box-shadow: var(--shadow-soft);
+}
+
+.tmv-contact-form-wrap h3 {
+  margin-bottom: 24px;
+}
+
+.tmv-contact-form {
+  display: grid;
+  gap: 16px;
+}
+
+.tmv-contact-form label span {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.tmv-contact-form input,
+.tmv-contact-form select,
+.tmv-contact-form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border-light);
+  border-radius: 4px;
+  font: inherit;
+  font-size: 14px;
+  background: var(--color-background);
+  color: var(--color-text);
+}
+
+.tmv-contact-form input:focus,
+.tmv-contact-form select:focus,
+.tmv-contact-form textarea:focus {
+  outline: 2px solid rgba(185, 138, 78, 0.35);
+  border-color: var(--color-primary);
+}
+
+.tmv-form-note {
+  margin: 0;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.tmv-map-placeholder {
+  min-height: 280px;
+  display: grid;
+  place-items: center;
+  background: var(--color-background-soft);
+  border: 1px dashed var(--color-border);
+  border-radius: 6px;
+  color: var(--color-text-muted);
+}
+
+.tmv-faq-list {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.tmv-faq-item {
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.tmv-faq-item button {
+  width: 100%;
+  padding: 20px 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  font: inherit;
+  font-size: 17px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.tmv-faq-answer {
+  display: none;
+  padding: 0 0 20px;
+}
+
+.tmv-faq-answer p {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+.tmv-faq-item.is-open .tmv-faq-answer {
+  display: block;
+}
+
+@media (max-width: 1023px) {
+  .tmv-page-hero h1 {
+    font-size: 42px;
+  }
+
+  .tmv-about-grid,
+  .tmv-safety-grid,
+  .tmv-contact-grid,
+  .tmv-values-grid,
+  .tmv-why-grid,
+  .tmv-tech-cards,
+  .tmv-services-grid--page,
+  .tmv-blog-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .tmv-team-grid,
+  .tmv-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .tmv-cta-band-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 36px 32px;
+  }
+}
+
+@media (max-width: 639px) {
+  .tmv-page-hero {
+    padding: 120px 0 48px;
+  }
+
+  .tmv-page-hero--bg {
+    min-height: 300px;
+    padding: 120px 0 48px;
+  }
+
+  .tmv-page-hero-bg img {
+    object-position: 70% center;
+  }
+
+  .tmv-page-hero-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 253, 249, 0.92) 0%,
+      rgba(255, 253, 249, 0.78) 55%,
+      rgba(255, 253, 249, 0.55) 100%
+    );
+  }
+
+  .tmv-page-hero h1 {
+    font-size: 34px;
+  }
+
+  .tmv-about-grid,
+  .tmv-safety-grid,
+  .tmv-contact-grid,
+  .tmv-values-grid,
+  .tmv-why-grid,
+  .tmv-tech-cards,
+  .tmv-services-grid--page,
+  .tmv-blog-grid,
+  .tmv-team-grid,
+  .tmv-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tmv-timeline li {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .tmv-contact-form-wrap {
+    padding: 24px 20px;
   }
 }

@@ -55,6 +55,19 @@ export class AppController {
     return this.appService.getDemoIndexData(category);
   }
 
+  @Get('du-an/demo/:slug/:subpage')
+  getDemoSubpage(
+    @Param('slug') slug: string,
+    @Param('subpage') subpage: string,
+    @Res() res: Response,
+  ) {
+    const data = this.appService.getDemoSubpageData(slug, subpage);
+    if (!data) {
+      throw new NotFoundException(`Trang demo "${slug}/${subpage}" không tồn tại`);
+    }
+    return res.render(data.demoView, data);
+  }
+
   @Get('du-an/demo/:slug')
   getDemo(@Param('slug') slug: string, @Res() res: Response) {
     const data = this.appService.getDemoPageData(slug);

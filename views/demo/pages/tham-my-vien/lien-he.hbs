@@ -1,0 +1,152 @@
+<div class="tmv-page tmv-page--bg" style="--tmv-page-bg: url('{{tmvPageBg}}')">
+  {{> demo/tmv/header }}
+
+  <main>
+    <section class="tmv-page-hero tmv-page-hero--bg">
+      <div class="tmv-page-hero-overlay" aria-hidden="true"></div>
+      <div class="tmv-container tmv-page-hero-inner">
+        <nav class="tmv-breadcrumb" aria-label="Breadcrumb">
+          <a href="{{tmvBase}}">Trang chủ</a>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">Liên hệ</span>
+        </nav>
+        <h1>Liên hệ</h1>
+        <p class="tmv-page-hero-text">
+          Kết nối với Aesthetic Clinic để được tư vấn miễn phí và đặt lịch thăm khám thuận tiện.
+        </p>
+      </div>
+    </section>
+
+    <section class="tmv-section tmv-contact">
+      <div class="tmv-container tmv-contact-grid">
+        <div class="tmv-contact-info" data-aos="fade-up" data-aos-duration="600">
+          <p class="tmv-label">KÊNH LIÊN HỆ CHÍNH THỨC</p>
+          <h2>Chúng tôi luôn sẵn sàng hỗ trợ</h2>
+          <ul class="tmv-contact-cards">
+            <li>
+              <strong>Hotline 24/7</strong>
+              <a href="tel:19001234">1900 1234</a>
+            </li>
+            <li>
+              <strong>Email</strong>
+              <a href="mailto:info@clinic.vn">info@clinic.vn</a>
+            </li>
+            <li>
+              <strong>Giờ làm việc</strong>
+              <span>08:30 – 20:00 | Thứ 2 – Chủ nhật</span>
+            </li>
+            <li>
+              <strong>Địa chỉ</strong>
+              <span>123 Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh</span>
+            </li>
+          </ul>
+          <ul class="tmv-checklist tmv-checklist--block">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>
+              Tư vấn trực tiếp cùng chuyên gia
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>
+              Báo giá rõ ràng, minh bạch
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>
+              Đặt lịch nhanh và ưu tiên hỗ trợ
+            </li>
+          </ul>
+        </div>
+
+        <div class="tmv-contact-form-wrap" data-aos="fade-up" data-aos-delay="80" data-aos-duration="600">
+          <h3>Để lại thông tin tư vấn</h3>
+          <form class="tmv-contact-form" action="#" method="post" onsubmit="return false;">
+            <label>
+              <span>Họ và tên</span>
+              <input type="text" name="name" placeholder="Nguyễn Văn A" autocomplete="name" />
+            </label>
+            <label>
+              <span>Số điện thoại</span>
+              <input type="tel" name="phone" placeholder="090x xxx xxx" autocomplete="tel" />
+            </label>
+            <label>
+              <span>Email</span>
+              <input type="email" name="email" placeholder="email@example.com" autocomplete="email" />
+            </label>
+            <label>
+              <span>Nhu cầu tư vấn</span>
+              <select name="service">
+                <option value="">— Chọn dịch vụ —</option>
+                <option>Chăm sóc da cá nhân hóa</option>
+                <option>Trẻ hóa &amp; phục hồi</option>
+                <option>Dưỡng sáng &amp; đều màu</option>
+                <option>Trị mụn chuyên sâu</option>
+                <option>Khác</option>
+              </select>
+            </label>
+            <label>
+              <span>Ghi chú</span>
+              <textarea name="message" rows="4" placeholder="Mô tả tình trạng da hoặc mong muốn của bạn..."></textarea>
+            </label>
+            <button type="submit" class="tmv-btn tmv-btn-primary">Tư vấn ngay</button>
+            <p class="tmv-form-note">* Đây là trang demo — form không gửi dữ liệu thật.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="tmv-section tmv-map-section">
+      <div class="tmv-container">
+        <div class="tmv-map-placeholder" data-aos="fade-up" data-aos-duration="600">
+          <p>Bản đồ — 123 Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="tmv-section tmv-faq" id="faq">
+      <div class="tmv-container">
+        <div class="tmv-section-head" data-aos="fade-up" data-aos-duration="600">
+          <p class="tmv-label">HỎI ĐÁP</p>
+          <h2>Câu hỏi thường gặp</h2>
+          <span class="tmv-heading-line" aria-hidden="true"></span>
+        </div>
+        <div class="tmv-faq-list" data-aos="fade-up" data-aos-duration="600">
+          <article class="tmv-faq-item is-open">
+            <button type="button" aria-expanded="true">
+              Chi phí chăm sóc da tại phòng khám là bao nhiêu?
+            </button>
+            <div class="tmv-faq-answer">
+              <p>Mức chi phí phụ thuộc tình trạng da và liệu trình được chỉ định. Sau khi thăm khám, chuyên gia sẽ tư vấn báo giá cụ thể và minh bạch trước khi thực hiện.</p>
+            </div>
+          </article>
+          <article class="tmv-faq-item">
+            <button type="button" aria-expanded="false">
+              Một buổi chăm sóc da mất bao lâu?
+            </button>
+            <div class="tmv-faq-answer">
+              <p>Thông thường từ 60–90 phút tùy dịch vụ. Liệu trình có sử dụng công nghệ có thể kéo dài hơn một chút.</p>
+            </div>
+          </article>
+          <article class="tmv-faq-item">
+            <button type="button" aria-expanded="false">
+              Cần chuẩn bị gì trước khi đến phòng khám?
+            </button>
+            <div class="tmv-faq-answer">
+              <p>Nên đến với làn da sạch, không trang điểm. Mang theo danh sách sản phẩm đang dùng để chuyên gia đánh giá phù hợp hơn.</p>
+            </div>
+          </article>
+          <article class="tmv-faq-item">
+            <button type="button" aria-expanded="false">
+              Bao lâu thì thấy kết quả rõ rệt?
+            </button>
+            <div class="tmv-faq-answer">
+              <p>Tùy tình trạng da và liệu trình. Một số dịch vụ cho thấy cải thiện ngay sau buổi đầu; điều trị nám/mụn thường cần 4–8 buổi.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  {{> demo/tmv/footer }}
+</div>
+
+{{> demo/tmv/scripts }}

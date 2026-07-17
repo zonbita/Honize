@@ -24,7 +24,7 @@ Có file `views/demo/pages/{template}.hbs` + `public/demo/{template}.css` → re
 | `corporate-landing` | corporate-landing | exterior.jpg LaCasa |
 | `vivu` | vivu | Vivu/ Design.MD travel landing |
 | `aurelia-estates` | aurelia-estates | House/Design.MD Aurelia Estates |
-| `tham-my-vien` | tham-my-vien | ThamMyVien/Design.MD Aesthetic Clinic |
+| `tham-my-vien` | tham-my-vien | ThamMyVien/Design.MD Aesthetic Clinic (+ subpages: gioi-thieu, dich-vu, cong-nghe, kien-thuc, lien-he) |
 
 **Cursor checklist (chỉ Aurelia):** `public/demo/aurelia/manifest.json` + `CURSOR.md` + `node public/demo/aurelia/audit.mjs`
 

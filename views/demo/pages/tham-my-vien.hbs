@@ -1,37 +1,5 @@
-{{> demo/toolbar }}
-
 <div class="tmv-page">
-  <header class="tmv-header" id="tmv-header">
-    <div class="tmv-container tmv-header-inner">
-      <a href="/du-an/demo/tham-my-vien" class="tmv-logo" aria-label="Aesthetic Clinic — Trang chủ">
-        <svg class="tmv-logo-mark" viewBox="0 0 36 36" width="36" height="36" aria-hidden="true">
-          <circle cx="18" cy="18" r="15" fill="none" stroke="currentColor" stroke-width="1.2"/>
-          <path d="M18 8c2.8 3.2 4.5 6.2 4.5 9.2a4.5 4.5 0 11-9 0c0-3 1.7-6 4.5-9.2z" fill="none" stroke="currentColor" stroke-width="1.2"/>
-          <circle cx="18" cy="17.5" r="1.6" fill="currentColor"/>
-        </svg>
-        <span class="tmv-logo-text">
-          <span class="tmv-logo-name">Aesthetic Clinic</span>
-          <span class="tmv-logo-sub">CHĂM SÓC DA CHUYÊN SÂU</span>
-        </span>
-      </a>
-
-      <nav class="tmv-nav" id="tmv-nav" aria-label="Menu chính">
-        <a href="#home" class="is-active">Trang chủ</a>
-        <a href="#about">Giới thiệu</a>
-        <a href="#services">Dịch vụ</a>
-        <a href="#technology">Công nghệ</a>
-        <a href="#knowledge">Kiến thức</a>
-        <a href="#contact">Liên hệ</a>
-        <a href="#booking" class="tmv-btn tmv-btn-primary tmv-nav-cta">Đặt lịch tư vấn</a>
-      </nav>
-
-      <a href="#booking" class="tmv-btn tmv-btn-primary tmv-header-cta">Đặt lịch tư vấn</a>
-
-      <button type="button" class="tmv-menu-btn" id="tmv-menu-btn" aria-label="Mở menu" aria-expanded="false" aria-controls="tmv-nav">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </header>
+  {{> demo/tmv/header }}
 
   <section class="tmv-hero" id="home">
     <div class="tmv-hero-bg" aria-hidden="true">
@@ -58,7 +26,7 @@
             </svg>
             Đặt lịch tư vấn
           </a>
-          <a href="#services" class="tmv-btn tmv-btn-text">
+          <a href="{{tmvBase}}/dich-vu" class="tmv-btn tmv-btn-text">
             <span class="tmv-play" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="currentColor" width="10" height="10"><path d="M8 5v14l11-7z"/></svg>
             </span>
@@ -230,58 +198,7 @@
       </div>
 
       <div class="tmv-journey-track" data-aos="fade-up" data-aos-duration="600">
-        <article class="tmv-step">
-          <span class="tmv-step-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg>
-          </span>
-          <p class="tmv-step-num">01</p>
-          <h3>Thăm khám &amp; phân tích da</h3>
-          <p>Đánh giá chuyên sâu tình trạng da bằng thiết bị phân tích hiện đại.</p>
-        </article>
-        <span class="tmv-step-arrow" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </span>
-        <article class="tmv-step">
-          <span class="tmv-step-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2.7c-2.5 3-4 5.6-4 8a4 4 0 108 0c0-2.4-1.5-5-4-8z"/></svg>
-          </span>
-          <p class="tmv-step-num">02</p>
-          <h3>Tư vấn &amp; thiết kế phác đồ</h3>
-          <p>Xây dựng lộ trình cá nhân hóa phù hợp mục tiêu và ngân sách.</p>
-        </article>
-        <span class="tmv-step-arrow" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </span>
-        <article class="tmv-step">
-          <span class="tmv-step-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.8 4.6a5.5 5.5 0 00-7.8 0L12 5.6l-1-1a5.5 5.5 0 00-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 000-7.8z"/></svg>
-          </span>
-          <p class="tmv-step-num">03</p>
-          <h3>Chăm sóc chuyên sâu</h3>
-          <p>Thực hiện liệu trình trong không gian chuẩn 5 sao, an toàn tuyệt đối.</p>
-        </article>
-        <span class="tmv-step-arrow" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </span>
-        <article class="tmv-step">
-          <span class="tmv-step-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 10l9-7 9 7v10a2 2 0 01-2 2H5a2 2 0 01-2-2V10z"/><path d="M9 22V12h6v10"/></svg>
-          </span>
-          <p class="tmv-step-num">04</p>
-          <h3>Hướng dẫn chăm sóc tại nhà</h3>
-          <p>Đồng hành với quy trình skincare tại nhà để duy trì kết quả bền vững.</p>
-        </article>
-        <span class="tmv-step-arrow" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </span>
-        <article class="tmv-step">
-          <span class="tmv-step-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0116 0"/></svg>
-          </span>
-          <p class="tmv-step-num">05</p>
-          <h3>Theo dõi &amp; đánh giá định kỳ</h3>
-          <p>Kiểm tra tiến trình và điều chỉnh phác đồ khi cần thiết.</p>
-        </article>
+        {{> demo/tmv/journey-steps }}
       </div>
     </div>
   </section>
@@ -389,125 +306,7 @@
     </div>
   </section>
 
-  <footer class="tmv-footer" id="contact">
-    <div class="tmv-container">
-      <div class="tmv-footer-grid">
-        <div class="tmv-footer-brand">
-          <a href="/du-an/demo/tham-my-vien" class="tmv-logo">
-            <svg class="tmv-logo-mark" viewBox="0 0 36 36" width="32" height="32" aria-hidden="true">
-              <circle cx="18" cy="18" r="15" fill="none" stroke="currentColor" stroke-width="1.2"/>
-              <path d="M18 8c2.8 3.2 4.5 6.2 4.5 9.2a4.5 4.5 0 11-9 0c0-3 1.7-6 4.5-9.2z" fill="none" stroke="currentColor" stroke-width="1.2"/>
-              <circle cx="18" cy="17.5" r="1.6" fill="currentColor"/>
-            </svg>
-            <span class="tmv-logo-text">
-              <span class="tmv-logo-name">Aesthetic Clinic</span>
-              <span class="tmv-logo-sub">CHĂM SÓC DA CHUYÊN SÂU</span>
-            </span>
-          </a>
-          <p>Không gian chăm sóc da chuẩn y khoa — tinh tế, an toàn và cá nhân hóa cho từng làn da.</p>
-          <div class="tmv-social">
-            <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M14 9h3V6h-3c-1.7 0-3 1.3-3 3v2H8v3h3v7h3v-7h3l1-3h-4V9c0-.6.4-1 1-1z"/></svg></a>
-            <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="18" height="18"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
-            <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M23 12s0-3.2-.4-4.7c-.2-.8-.8-1.4-1.6-1.6C19.4 5.2 12 5.2 12 5.2s-7.4 0-8.9.5c-.8.2-1.4.8-1.6 1.6C1 8.8 1 12 1 12s0 3.2.4 4.7c.2.8.8 1.4 1.6 1.6 1.6.4 8.9.5 8.9.5s7.4 0 8.9-.5c.8-.2 1.4-.8 1.6-1.6.5-1.5.5-4.7.5-4.7zM9.8 15.5v-7l6.2 3.5-6.2 3.5z"/></svg></a>
-          </div>
-        </div>
-
-        <div>
-          <h3>Về chúng tôi</h3>
-          <ul>
-            <li><a href="#about">Đội ngũ chuyên môn</a></li>
-            <li><a href="#technology">Cơ sở vật chất</a></li>
-            <li><a href="#about">Tuyển dụng</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h3>Dịch vụ</h3>
-          <ul>
-            <li><a href="#services">Chăm sóc da cá nhân hóa</a></li>
-            <li><a href="#services">Trẻ hóa &amp; phục hồi</a></li>
-            <li><a href="#services">Dưỡng sáng &amp; đều màu</a></li>
-            <li><a href="#services">Cấp ẩm &amp; cân bằng</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h3>Kiến thức</h3>
-          <ul>
-            <li><a href="#knowledge">Chăm sóc da hàng ngày</a></li>
-            <li><a href="#knowledge">Xu hướng làm đẹp</a></li>
-            <li><a href="#knowledge">Câu hỏi thường gặp</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h3>Liên hệ</h3>
-          <ul class="tmv-footer-contact">
-            <li>123 Nguyễn Huệ, Q.1, TP. Hồ Chí Minh</li>
-            <li><a href="mailto:info@clinic.vn">info@clinic.vn</a></li>
-            <li><a href="tel:19001234">1900 1234</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="tmv-footer-bottom">
-        <p>© {{year}} Aesthetic Clinic. All rights reserved.</p>
-        <div>
-          <a href="#">Chính sách bảo mật</a>
-          <a href="#">Điều khoản sử dụng</a>
-        </div>
-      </div>
-    </div>
-  </footer>
+  {{> demo/tmv/footer }}
 </div>
 
-<script>
-(function () {
-  var header = document.getElementById('tmv-header');
-  var menuBtn = document.getElementById('tmv-menu-btn');
-  var nav = document.getElementById('tmv-nav');
-  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  function onScroll() {
-    if (!header) return;
-    header.classList.toggle('is-scrolled', window.scrollY > 24);
-  }
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
-  if (menuBtn && nav) {
-    menuBtn.addEventListener('click', function () {
-      var open = nav.classList.toggle('is-open');
-      menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      menuBtn.setAttribute('aria-label', open ? 'Đóng menu' : 'Mở menu');
-      menuBtn.classList.toggle('is-open', open);
-    });
-
-    nav.querySelectorAll('a').forEach(function (link) {
-      link.addEventListener('click', function () {
-        nav.classList.remove('is-open');
-        menuBtn.classList.remove('is-open');
-        menuBtn.setAttribute('aria-expanded', 'false');
-        menuBtn.setAttribute('aria-label', 'Mở menu');
-      });
-    });
-  }
-
-  var dots = document.querySelectorAll('.tmv-dots button');
-  dots.forEach(function (dot, index) {
-    dot.addEventListener('click', function () {
-      dots.forEach(function (d, i) {
-        d.classList.toggle('is-active', i === index);
-        d.setAttribute('aria-selected', i === index ? 'true' : 'false');
-      });
-    });
-  });
-
-  if (!reducedMotion) {
-    document.querySelectorAll('.tmv-hero-portrait, .tmv-booking-visual img').forEach(function (el) {
-      el.classList.add('tmv-float');
-    });
-  }
-})();
-</script>
+{{> demo/tmv/scripts }}

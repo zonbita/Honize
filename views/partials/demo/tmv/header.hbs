@@ -1,0 +1,31 @@
+<header class="tmv-header{{#if tmvHeaderSolid}} tmv-header--solid{{/if}}{{#if tmvHeaderScrolled}} is-scrolled{{/if}}" id="tmv-header">
+  <div class="tmv-container tmv-header-inner">
+    <a href="{{tmvBase}}" class="tmv-logo" aria-label="Aesthetic Clinic — Trang chủ">
+      <svg class="tmv-logo-mark" viewBox="0 0 36 36" width="36" height="36" aria-hidden="true">
+        <circle cx="18" cy="18" r="15" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <path d="M18 8c2.8 3.2 4.5 6.2 4.5 9.2a4.5 4.5 0 11-9 0c0-3 1.7-6 4.5-9.2z" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <circle cx="18" cy="17.5" r="1.6" fill="currentColor"/>
+      </svg>
+      <span class="tmv-logo-text">
+        <span class="tmv-logo-name">Aesthetic Clinic</span>
+        <span class="tmv-logo-sub">CHĂM SÓC DA CHUYÊN SÂU</span>
+      </span>
+    </a>
+
+    <nav class="tmv-nav" id="tmv-nav" aria-label="Menu chính">
+      <a href="{{tmvBase}}" class="{{#if (eq tmvActive 'home')}}is-active{{/if}}">Trang chủ</a>
+      <a href="{{tmvBase}}/gioi-thieu" class="{{#if (eq tmvActive 'about')}}is-active{{/if}}">Giới thiệu</a>
+      <a href="{{tmvBase}}/dich-vu" class="{{#if (eq tmvActive 'services')}}is-active{{/if}}">Dịch vụ</a>
+      <a href="{{tmvBase}}/cong-nghe" class="{{#if (eq tmvActive 'technology')}}is-active{{/if}}">Công nghệ</a>
+      <a href="{{tmvBase}}/kien-thuc" class="{{#if (eq tmvActive 'knowledge')}}is-active{{/if}}">Kiến thức</a>
+      <a href="{{tmvBase}}/lien-he" class="{{#if (eq tmvActive 'contact')}}is-active{{/if}}">Liên hệ</a>
+      <a href="{{tmvBase}}#booking" class="tmv-btn tmv-btn-primary tmv-nav-cta">Đặt lịch tư vấn</a>
+    </nav>
+
+    <a href="{{tmvBase}}#booking" class="tmv-btn tmv-btn-primary tmv-header-cta">Đặt lịch tư vấn</a>
+
+    <button type="button" class="tmv-menu-btn" id="tmv-menu-btn" aria-label="Mở menu" aria-expanded="false" aria-controls="tmv-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>

@@ -127,10 +127,14 @@ export class AppService {
       ? `/demo/${templateSlug}.css`
       : null;
 
+    const tmvBase = slug === 'tham-my-vien' ? `/du-an/demo/${slug}` : null;
+
     return {
       layout: 'demo',
       year: new Date().getFullYear(),
       brand: site.brand,
+      tmvBase,
+      tmvActive: slug === 'tham-my-vien' ? 'home' : null,
       pageTitle: `Demo ${demo.title} — ${site.brand}`,
       seo: this.articlesService.buildStaticPageSeo(
         `Demo ${demo.title} — ${site.brand}`,
@@ -152,6 +156,75 @@ export class AppService {
       courses: customView ? this.getDemoCourses(templateSlug) : [],
       testimonials: customView ? this.getDemoTestimonials(templateSlug) : [],
       destinations: customView ? this.getDemoDestinations(templateSlug) : [],
+    };
+  }
+
+  /** Multi-page demo sub-routes (slug → subpage → view + nav id). */
+  private readonly demoSubpages: Record<
+    string,
+    Record<string, { view: string; nav: string; title: string }>
+  > = {
+    'tham-my-vien': {
+      'gioi-thieu': {
+        view: 'demo/pages/tham-my-vien/gioi-thieu',
+        nav: 'about',
+        title: 'Giới thiệu',
+      },
+      'dich-vu': {
+        view: 'demo/pages/tham-my-vien/dich-vu',
+        nav: 'services',
+        title: 'Dịch vụ',
+      },
+      'cong-nghe': {
+        view: 'demo/pages/tham-my-vien/cong-nghe',
+        nav: 'technology',
+        title: 'Công nghệ',
+      },
+      'kien-thuc': {
+        view: 'demo/pages/tham-my-vien/kien-thuc',
+        nav: 'knowledge',
+        title: 'Kiến thức',
+      },
+      'lien-he': {
+        view: 'demo/pages/tham-my-vien/lien-he',
+        nav: 'contact',
+        title: 'Liên hệ',
+      },
+    },
+  };
+
+  getDemoSubpageData(slug: string, subpage: string) {
+    const subpages = this.demoSubpages[slug];
+    const config = subpages?.[subpage];
+    if (!config) return null;
+
+    const viewPath = join(
+      resolveProjectRoot(),
+      'views',
+      ...config.view.split('/'),
+    ).replace(/\.hbs$/, '') + '.hbs';
+    if (!existsSync(viewPath)) return null;
+
+    const base = this.getDemoPageData(slug);
+    if (!base) return null;
+
+    const demoTitle = base.demo?.title ?? slug;
+    const path = `/du-an/demo/${slug}/${subpage}`;
+
+    return {
+      ...base,
+      demoView: config.view,
+      tmvBase: `/du-an/demo/${slug}`,
+      tmvActive: config.nav,
+      tmvHeaderSolid: true,
+      tmvPageBg: `/images/ThamMyVien/tmv-bg-${subpage}.png`,
+      pageTitle: `${config.title} — ${demoTitle} — ${base.brand}`,
+      seo: this.articlesService.buildStaticPageSeo(
+        `${config.title} — ${demoTitle}`,
+        `Trang ${config.title.toLowerCase()} của demo ${demoTitle} thiết kế bởi ${base.brand}.`,
+        path,
+        base.brand,
+      ),
     };
   }
 
