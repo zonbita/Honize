@@ -1,8 +1,11 @@
-<div class="tmv-page tmv-page--bg" style="--tmv-page-bg: url('{{tmvPageBg}}')">
+<div class="tmv-page">
   {{> demo/tmv/header }}
 
   <main>
     <section class="tmv-page-hero tmv-page-hero--bg">
+      <div class="tmv-page-hero-bg" aria-hidden="true">
+        <img src="{{tmvHeroBg}}" alt="" width="1600" height="900" />
+      </div>
       <div class="tmv-page-hero-overlay" aria-hidden="true"></div>
       <div class="tmv-container tmv-page-hero-inner">
         <nav class="tmv-breadcrumb" aria-label="Breadcrumb">
@@ -31,19 +34,28 @@
                 <span class="tmv-tech-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"/></svg>
                 </span>
-                <span>Laser &amp; ánh sáng sinh học</span>
+                <div class="tmv-tech-list-text">
+                  <strong>Laser &amp; ánh sáng sinh học</strong>
+                  <span>Điều trị sắc tố, tái tạo collagen</span>
+                </div>
               </li>
               <li>
                 <span class="tmv-tech-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
                 </span>
-                <span>Phân tích da đa chiều</span>
+                <div class="tmv-tech-list-text">
+                  <strong>Phân tích da đa chiều</strong>
+                  <span>Chẩn đoán chính xác trước liệu trình</span>
+                </div>
               </li>
               <li>
                 <span class="tmv-tech-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
                 </span>
-                <span>Sản phẩm dược mỹ phẩm cao cấp</span>
+                <div class="tmv-tech-list-text">
+                  <strong>Sản phẩm dược mỹ phẩm cao cấp</strong>
+                  <span>Lành tính, hiệu quả lâu dài</span>
+                </div>
               </li>
             </ul>
           </div>

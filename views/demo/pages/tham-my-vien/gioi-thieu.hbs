@@ -1,8 +1,11 @@
-<div class="tmv-page tmv-page--bg" style="--tmv-page-bg: url('{{tmvPageBg}}')">
+<div class="tmv-page">
   {{> demo/tmv/header }}
 
   <main>
     <section class="tmv-page-hero tmv-page-hero--bg">
+      <div class="tmv-page-hero-bg" aria-hidden="true">
+        <img src="{{tmvHeroBg}}" alt="" width="1600" height="900" />
+      </div>
       <div class="tmv-page-hero-overlay" aria-hidden="true"></div>
       <div class="tmv-container tmv-page-hero-inner">
         <nav class="tmv-breadcrumb" aria-label="Breadcrumb">
@@ -35,10 +38,22 @@
     <section class="tmv-section tmv-stats-band" aria-label="Số liệu nổi bật">
       <div class="tmv-container">
         <div class="tmv-stats-grid">
-          <article><strong>8+</strong><span>Năm kinh nghiệm</span></article>
-          <article><strong>15.000+</strong><span>Khách hàng tin tưởng</span></article>
-          <article><strong>98%</strong><span>Mức hài lòng</span></article>
-          <article><strong>12+</strong><span>Chuyên gia &amp; kỹ thuật viên</span></article>
+          <article>
+            <strong><span class="tmv-count" data-count="8" data-suffix="+">0</span></strong>
+            <span>Năm kinh nghiệm</span>
+          </article>
+          <article>
+            <strong><span class="tmv-count" data-count="15000" data-separator="." data-suffix="+">0</span></strong>
+            <span>Khách hàng tin tưởng</span>
+          </article>
+          <article>
+            <strong><span class="tmv-count" data-count="98" data-suffix="%">0</span></strong>
+            <span>Mức hài lòng</span>
+          </article>
+          <article>
+            <strong><span class="tmv-count" data-count="12" data-suffix="+">0</span></strong>
+            <span>Chuyên gia &amp; kỹ thuật viên</span>
+          </article>
         </div>
       </div>
     </section>
@@ -123,10 +138,46 @@
           <span class="tmv-heading-line" aria-hidden="true"></span>
         </div>
         <ol class="tmv-timeline" data-aos="fade-up" data-aos-duration="600">
-          <li><span class="tmv-timeline-year">2018</span><div><h3>Thành lập</h3><p>Ra mắt cơ sở đầu tiên tại TP. Hồ Chí Minh.</p></div></li>
-          <li><span class="tmv-timeline-year">2020</span><div><h3>Đầu tư công nghệ</h3><p>Nâng cấp thiết bị phân tích da và laser điều trị.</p></div></li>
-          <li><span class="tmv-timeline-year">2022</span><div><h3>Mở rộng dịch vụ</h3><p>Bổ sung liệu trình trẻ hóa và phục hồi da chuyên sâu.</p></div></li>
-          <li><span class="tmv-timeline-year">2025</span><div><h3>Chuẩn 5 sao</h3><p>Hoàn thiện không gian trải nghiệm cao cấp cho khách hàng.</p></div></li>
+          <li>
+            <span class="tmv-timeline-year">2011</span>
+            <span class="tmv-timeline-dot" aria-hidden="true"></span>
+            <div class="tmv-timeline-content">
+              <h3>Thành lập thương hiệu</h3>
+              <p>Ra mắt cơ sở đầu tiên, đặt nền móng cho mô hình chăm sóc da chuẩn y khoa tại TP. Hồ Chí Minh.</p>
+            </div>
+          </li>
+          <li>
+            <span class="tmv-timeline-year">2016</span>
+            <span class="tmv-timeline-dot" aria-hidden="true"></span>
+            <div class="tmv-timeline-content">
+              <h3>Mở rộng quy mô</h3>
+              <p>Phát triển đội ngũ chuyên gia và nâng cấp không gian điều trị, phục vụ hàng nghìn khách hàng mỗi năm.</p>
+            </div>
+          </li>
+          <li>
+            <span class="tmv-timeline-year">2018</span>
+            <span class="tmv-timeline-dot" aria-hidden="true"></span>
+            <div class="tmv-timeline-content">
+              <h3>Đầu tư công nghệ</h3>
+              <p>Ứng dụng thiết bị phân tích da và laser điều trị hiện đại, chuẩn hóa quy trình chăm sóc.</p>
+            </div>
+          </li>
+          <li>
+            <span class="tmv-timeline-year">2020</span>
+            <span class="tmv-timeline-dot" aria-hidden="true"></span>
+            <div class="tmv-timeline-content">
+              <h3>Chuẩn hóa y khoa</h3>
+              <p>Hoàn thiện quy trình an toàn — vô khuẩn — cá nhân hóa phác đồ cho từng làn da.</p>
+            </div>
+          </li>
+          <li>
+            <span class="tmv-timeline-year">2023</span>
+            <span class="tmv-timeline-dot" aria-hidden="true"></span>
+            <div class="tmv-timeline-content">
+              <h3>Trải nghiệm 5 sao</h3>
+              <p>Kiến tạo không gian cao cấp, mang đến hành trình chăm sóc tinh tế và trọn vẹn hơn.</p>
+            </div>
+          </li>
         </ol>
       </div>
     </section>

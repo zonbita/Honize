@@ -1,8 +1,11 @@
-<div class="tmv-page tmv-page--bg" style="--tmv-page-bg: url('{{tmvPageBg}}')">
+<div class="tmv-page">
   {{> demo/tmv/header }}
 
   <main>
     <section class="tmv-page-hero tmv-page-hero--bg">
+      <div class="tmv-page-hero-bg" aria-hidden="true">
+        <img src="{{tmvHeroBg}}" alt="" width="1600" height="900" />
+      </div>
       <div class="tmv-page-hero-overlay" aria-hidden="true"></div>
       <div class="tmv-container tmv-page-hero-inner">
         <nav class="tmv-breadcrumb" aria-label="Breadcrumb">

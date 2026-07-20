@@ -1,9 +1,9 @@
-<div class="tmv-page">
+<div class="tmv-page tmv-page--home">
   {{> demo/tmv/header }}
 
   <section class="tmv-hero" id="home">
     <div class="tmv-hero-bg" aria-hidden="true">
-      <img src="/images/ThamMyVien/thammyvien%20(3).png" alt="" width="1600" height="900" />
+      <img src="/images/ThamMyVien/thammyvien%20(4).png" alt="" width="1600" height="900" />
       <div class="tmv-hero-overlay"></div>
     </div>
 
@@ -34,16 +34,6 @@
           </a>
         </div>
       </div>
-
-      <div class="tmv-hero-visual" data-aos="fade-up" data-aos-delay="80" data-aos-duration="600">
-        <img
-          class="tmv-hero-portrait"
-          src="/images/ThamMyVien/thammyvien%20(4).png"
-          alt="Khách hàng với làn da khỏe đẹp, rạng rỡ tại Aesthetic Clinic"
-          width="720"
-          height="900"
-        />
-      </div>
     </div>
   </section>
 
@@ -55,21 +45,21 @@
           <circle cx="9" cy="7" r="4"/>
           <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
         </svg>
-        <strong>15.000+</strong>
+        <strong><span class="tmv-count" data-count="15000" data-separator="." data-suffix="+">0</span></strong>
         <span>Khách hàng tin tưởng</span>
       </article>
       <article class="tmv-metric">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
           <path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.8 5.7 21l2.3-7-6-4.6h7.6z"/>
         </svg>
-        <strong>98%</strong>
+        <strong><span class="tmv-count" data-count="98" data-suffix="%">0</span></strong>
         <span>Khách hàng hài lòng</span>
       </article>
       <article class="tmv-metric">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
         </svg>
-        <strong>100%</strong>
+        <strong><span class="tmv-count" data-count="100" data-suffix="%">0</span></strong>
         <span>Quy trình an toàn</span>
       </article>
       <article class="tmv-metric">
@@ -77,7 +67,7 @@
           <circle cx="12" cy="12" r="9"/>
           <path d="M12 7v5l3 2"/>
         </svg>
-        <strong>8+ năm</strong>
+        <strong><span class="tmv-count" data-count="8" data-suffix="+ năm">0</span></strong>
         <span>Kinh nghiệm chuyên môn</span>
       </article>
     </div>
@@ -159,19 +149,28 @@
               <span class="tmv-tech-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"/></svg>
               </span>
-              <span>Công nghệ tiên tiến</span>
+              <div class="tmv-tech-list-text">
+                <strong>Công nghệ tiên tiến</strong>
+                <span>Được chọn lọc và kiểm chứng</span>
+              </div>
             </li>
             <li>
               <span class="tmv-tech-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
               </span>
-              <span>Quy trình chuẩn y khoa</span>
+              <div class="tmv-tech-list-text">
+                <strong>Quy trình chuẩn y khoa</strong>
+                <span>An toàn – Tinh tế – Hiệu quả</span>
+              </div>
             </li>
             <li>
               <span class="tmv-tech-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
               </span>
-              <span>Sản phẩm cao cấp</span>
+              <div class="tmv-tech-list-text">
+                <strong>Sản phẩm cao cấp</strong>
+                <span>Lành tính và hiệu quả</span>
+              </div>
             </li>
           </ul>
           <a href="#booking" class="tmv-btn tmv-btn-primary">Khám phá công nghệ</a>
@@ -262,46 +261,44 @@
     </div>
   </section>
 
-  <section class="tmv-booking-wrap" id="booking">
-    <div class="tmv-container">
-      <div class="tmv-booking" data-aos="fade-up" data-aos-duration="600">
-        <div class="tmv-booking-bg" aria-hidden="true">
-          <img src="/images/ThamMyVien/thammyvien%20(3).png" alt="" />
-        </div>
-        <div class="tmv-booking-content">
-          <h2>Đặt lịch tư vấn</h2>
-          <p class="tmv-booking-sub">Trải nghiệm cá nhân hóa dành riêng cho bạn</p>
-          <ul class="tmv-checklist">
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>
-              Thăm khám chuyên sâu
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>
-              Tư vấn giải pháp phù hợp
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>
-              Trải nghiệm không gian chuẩn 5 sao
-            </li>
-          </ul>
-          <div class="tmv-booking-actions">
-            <a href="tel:19001234" class="tmv-btn tmv-btn-primary">Đặt lịch ngay</a>
-            <div class="tmv-booking-phone">
-              <a href="tel:19001234">1900 1234</a>
-              <span>08:30 – 20:00 | T2 – CN</span>
-            </div>
+  <section class="tmv-section tmv-booking-wrap" id="booking">
+    <div class="tmv-booking-bg" aria-hidden="true">
+      <img src="/images/ThamMyVien/thammyvien%20(3).png" alt="" width="1920" height="1080" />
+    </div>
+    <div class="tmv-container tmv-booking" data-aos="fade-up" data-aos-duration="600">
+      <div class="tmv-booking-content">
+        <h2>Đặt lịch tư vấn</h2>
+        <p class="tmv-booking-sub">Trải nghiệm cá nhân hóa dành riêng cho bạn</p>
+        <ul class="tmv-checklist">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>
+            Thăm khám chuyên sâu
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>
+            Tư vấn giải pháp phù hợp
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>
+            Trải nghiệm không gian chuẩn 5 sao
+          </li>
+        </ul>
+        <div class="tmv-booking-actions">
+          <a href="tel:19001234" class="tmv-btn tmv-btn-primary">Đặt lịch ngay</a>
+          <div class="tmv-booking-phone">
+            <a href="tel:19001234">1900 1234</a>
+            <span>08:30 – 20:00 | T2 – CN</span>
           </div>
         </div>
-        <div class="tmv-booking-visual">
-          <img
-            src="/images/ThamMyVien/thammyvien%20(5).png"
-            alt="Bộ sản phẩm serum cao cấp của Aesthetic Clinic"
-            loading="lazy"
-            width="520"
-            height="420"
-          />
-        </div>
+      </div>
+      <div class="tmv-booking-visual">
+        <img
+          src="/images/ThamMyVien/thammyvien%20(5).png"
+          alt="Bộ sản phẩm serum cao cấp của Aesthetic Clinic"
+          loading="lazy"
+          width="520"
+          height="420"
+        />
       </div>
     </div>
   </section>

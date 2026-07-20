@@ -162,33 +162,38 @@ export class AppService {
   /** Multi-page demo sub-routes (slug → subpage → view + nav id). */
   private readonly demoSubpages: Record<
     string,
-    Record<string, { view: string; nav: string; title: string }>
+    Record<string, { view: string; nav: string; title: string; heroBg?: string }>
   > = {
     'tham-my-vien': {
       'gioi-thieu': {
         view: 'demo/pages/tham-my-vien/gioi-thieu',
         nav: 'about',
         title: 'Giới thiệu',
+        heroBg: '/images/ThamMyVien/ssskfdfkdfdfk.png',
       },
       'dich-vu': {
         view: 'demo/pages/tham-my-vien/dich-vu',
         nav: 'services',
         title: 'Dịch vụ',
+        heroBg: '/images/ThamMyVien/tmv-bg-dich-vu.png',
       },
       'cong-nghe': {
         view: 'demo/pages/tham-my-vien/cong-nghe',
         nav: 'technology',
         title: 'Công nghệ',
+        heroBg: '/images/ThamMyVien/tmv-bg-cong-nghe.png',
       },
       'kien-thuc': {
         view: 'demo/pages/tham-my-vien/kien-thuc',
         nav: 'knowledge',
         title: 'Kiến thức',
+        heroBg: '/images/ThamMyVien/tmv-bg-kien-thuc.png',
       },
       'lien-he': {
         view: 'demo/pages/tham-my-vien/lien-he',
         nav: 'contact',
         title: 'Liên hệ',
+        heroBg: '/images/ThamMyVien/tmv-bg-lien-he.png',
       },
     },
   };
@@ -217,7 +222,8 @@ export class AppService {
       tmvBase: `/du-an/demo/${slug}`,
       tmvActive: config.nav,
       tmvHeaderSolid: true,
-      tmvPageBg: `/images/ThamMyVien/tmv-bg-${subpage}.png`,
+      tmvHeroBg:
+        config.heroBg ?? `/images/ThamMyVien/tmv-bg-${subpage}.png`,
       pageTitle: `${config.title} — ${demoTitle} — ${base.brand}`,
       seo: this.articlesService.buildStaticPageSeo(
         `${config.title} — ${demoTitle}`,

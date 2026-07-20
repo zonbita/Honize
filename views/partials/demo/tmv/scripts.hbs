@@ -54,5 +54,56 @@
       el.classList.add('tmv-float');
     });
   }
+
+  var counters = document.querySelectorAll('.tmv-count');
+  if (counters.length) {
+    function formatCount(value, separator) {
+      var str = Math.round(value).toString();
+      if (!separator) return str;
+      return str.replace(/\B(?=(\d{3})+(?!\d))/g, separator);
+    }
+
+    function setFinalValue(el) {
+      el.textContent =
+        formatCount(Number(el.dataset.count || 0), el.dataset.separator || '') +
+        (el.dataset.suffix || '');
+    }
+
+    function animateCounter(el) {
+      var target = Number(el.dataset.count || 0);
+      var suffix = el.dataset.suffix || '';
+      var separator = el.dataset.separator || '';
+      var duration = 1800;
+      var start = performance.now();
+
+      function tick(now) {
+        var progress = Math.min((now - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = formatCount(target * eased, separator) + suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+
+      requestAnimationFrame(tick);
+    }
+
+    if (reducedMotion) {
+      counters.forEach(setFinalValue);
+    } else {
+      var counterObserver = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            animateCounter(entry.target);
+            counterObserver.unobserve(entry.target);
+          });
+        },
+        { threshold: 0.35 }
+      );
+
+      counters.forEach(function (el) {
+        counterObserver.observe(el);
+      });
+    }
+  }
 })();
 </script>
