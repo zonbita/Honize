@@ -237,6 +237,7 @@ export class DashboardController {
       isEdit: true,
       projectCategories: data.projectCategories,
       project,
+      demoPreviewUrl: this.resolveDemoPreviewUrl(project?.url),
       ...this.dashboardService.getSharedLayoutData('projects'),
     };
   }
@@ -294,5 +295,10 @@ export class DashboardController {
       ...this.behaviorTreeService.getAnalysisPage(context),
       ...this.dashboardService.getSharedLayoutData('overview'),
     };
+  }
+
+  private resolveDemoPreviewUrl(url?: string): string | null {
+    if (!url?.startsWith('/du-an/demo/')) return null;
+    return url;
   }
 }

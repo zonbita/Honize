@@ -1,0 +1,444 @@
+<div class="nova-page">
+
+  <div class="nova-promo-bar">
+    <div class="nova-container nova-promo-inner">
+      <p>Ưu đãi học phí lên đến <strong>20%</strong> — Đăng ký trước 30/06/2026</p>
+      <a href="#contact" class="nova-promo-link">Đăng ký ngay →</a>
+    </div>
+  </div>
+
+  <header class="nova-header" id="nova-header">
+    <div class="nova-container nova-header-inner">
+      <a href="/du-an/demo/hoc-tieng-anh" class="nova-logo" aria-label="NOVA ENGLISH — Trang chủ">
+        <span class="nova-logo-nova">NOVA</span>
+        <span class="nova-logo-english">ENGLISH</span>
+      </a>
+
+      <nav class="nova-nav" id="nova-nav" aria-label="Menu chính">
+        <a href="#courses">Khóa học</a>
+        <a href="#method">Phương pháp</a>
+        <a href="#achievements">Kết quả</a>
+        <a href="#teachers">Giảng viên</a>
+        <a href="#testimonials">Học viên</a>
+        <a href="#news">Tin tức</a>
+        <a href="#about">Về NOVA</a>
+      </nav>
+
+      <div class="nova-header-actions">
+        <a href="tel:19006393" class="nova-phone">
+          <span class="nova-phone-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          </span>
+          1900 6339
+        </a>
+        <a href="#contact" class="nova-btn nova-btn-primary nova-btn-header">Kiểm tra trình độ miễn phí</a>
+      </div>
+
+      <button type="button" class="nova-menu-btn" id="nova-menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="nova-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <section class="nova-hero" id="home">
+    <div class="nova-hero-diagonal" aria-hidden="true"></div>
+    <div class="nova-container nova-hero-grid">
+      <div class="nova-hero-copy" data-aos="fade-right" data-aos-duration="700">
+        <h1 class="nova-hero-title">
+          Tư duy đúng.<br>
+          <span class="nova-text-red">Tiếng Anh bứt phá.</span>
+        </h1>
+        <p class="nova-hero-desc">
+          Phương pháp Logic Path độc quyền — giúp bạn tư duy bằng tiếng Anh, chinh phục IELTS, TOEIC và giao tiếp tự tin chỉ trong thời gian ngắn.
+        </p>
+        <a href="#contact" class="nova-btn nova-btn-primary nova-btn-lg">
+          Kiểm tra trình độ miễn phí →
+        </a>
+        <p class="nova-hero-note">Hơn <strong>12.000+</strong> học viên đã đạt mục tiêu</p>
+      </div>
+
+      <div class="nova-hero-visual" data-aos="fade-left" data-aos-duration="700">
+        <div class="nova-hero-img-wrap">
+          <img
+            src="/images/TiengAnh/21aaeeea-fe80-4525-b01f-526c1b267d93.png"
+            alt="Học viên NOVA ENGLISH học nhóm cùng giảng viên"
+            width="720"
+            height="540"
+            loading="eager"
+          />
+        </div>
+        <div class="nova-score-badges" aria-hidden="true">
+          <div class="nova-score-badge" style="--badge-top:6%;--badge-left:55%">
+            <span class="nova-score-av">TH</span>
+            <div><strong>Trần Hà</strong><em>IELTS 7.5</em></div>
+          </div>
+          <div class="nova-score-badge" style="--badge-top:32%;--badge-left:72%">
+            <span class="nova-score-av">MA</span>
+            <div><strong>Minh Anh</strong><em>IELTS 8.0</em></div>
+          </div>
+          <div class="nova-score-badge" style="--badge-top:58%;--badge-left:60%">
+            <span class="nova-score-av">QB</span>
+            <div><strong>Quốc Bảo</strong><em>IELTS 7.0</em></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="nova-courses" id="courses">
+    <div class="nova-container">
+      <div class="nova-section-head" data-aos="fade-up">
+        <h2 class="nova-section-title">Chọn lộ trình phù hợp với bạn</h2>
+      </div>
+      <div class="nova-course-grid">
+        {{#each courses}}
+        <article class="nova-course-card" data-aos="fade-up" data-aos-delay="{{multiply @index 60}}">
+          <div class="nova-course-icon-wrap" aria-hidden="true">
+            <div class="nova-course-icon">{{{this.icon}}}</div>
+          </div>
+          <h3 class="nova-course-title">{{this.title}}</h3>
+          <p class="nova-course-desc">{{this.desc}}</p>
+          <a href="#contact" class="nova-course-arrow" aria-label="Tìm hiểu {{this.title}}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </article>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <section class="nova-achievements-wrap" id="achievements">
+    <div class="nova-achievements-bar">
+      <div class="nova-container nova-achievements-head">
+        <h2 class="nova-section-title nova-section-title--white">Bảng vàng thành tích</h2>
+        <a href="#contact" class="nova-link-white">Xem thêm →</a>
+      </div>
+    </div>
+    <div class="nova-achievements-body">
+      <div class="nova-container">
+        <div class="nova-achievement-grid">
+          {{#each achievements}}
+          <article class="nova-achievement-card" data-aos="fade-up" data-aos-delay="{{multiply @index 50}}">
+            <div class="nova-achievement-photo">
+              <img src="{{this.image}}" alt="{{this.name}}" loading="lazy" width="200" height="260" />
+              <span class="nova-achievement-score">IELTS {{this.score}}</span>
+            </div>
+            <h3 class="nova-achievement-name">{{this.name}}</h3>
+            <p class="nova-achievement-meta">{{this.course}}</p>
+            <p class="nova-achievement-time">{{this.duration}}</p>
+          </article>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+    <div class="nova-stats-bar" aria-label="Thống kê NOVA ENGLISH">
+      <div class="nova-container nova-stats-grid">
+        {{#each stats}}
+        <div class="nova-stat" data-aos="fade-up" data-aos-delay="{{multiply @index 80}}">
+          <div class="nova-stat-icon" aria-hidden="true">{{{this.icon}}}</div>
+          <strong class="nova-stat-value">{{this.value}}</strong>
+          <span class="nova-stat-label">{{this.label}}</span>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <section class="nova-method" id="method">
+    <div class="nova-container nova-method-grid">
+      <div class="nova-method-copy" data-aos="fade-right">
+        <p class="nova-kicker">Phương pháp độc quyền</p>
+        <h2 class="nova-section-title nova-section-title--left">Logic Path</h2>
+        <p class="nova-method-desc">
+          Logic Path là phương pháp giảng dạy độc quyền của NOVA — kết hợp tư duy logic, công nghệ học tập thông minh và chương trình tinh gọn, giúp học viên tiếp thu nhanh và ghi nhớ lâu.
+        </p>
+      </div>
+      <div class="nova-method-cards" data-aos="fade-left">
+        {{#each features}}
+        <article class="nova-method-card nova-method-card--{{this.variant}}">
+          <span class="nova-method-num">{{this.num}}</span>
+          <div class="nova-method-card-icon" aria-hidden="true">{{{this.icon}}}</div>
+          <h3 class="nova-method-card-title">{{this.title}}</h3>
+          <p class="nova-method-card-text">{{this.text}}</p>
+        </article>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <section class="nova-lms" id="lms">
+    <div class="nova-lms-blob nova-lms-blob--tl" aria-hidden="true"></div>
+    <div class="nova-lms-blob nova-lms-blob--br" aria-hidden="true"></div>
+    <div class="nova-container nova-lms-grid">
+      <div class="nova-lms-visual" data-aos="fade-right">
+        <img
+          src="/images/TiengAnh/nova-lms-laptop.png"
+          alt="Nền tảng LMS NOVA ENGLISH trên laptop"
+          width="640"
+          height="480"
+          loading="lazy"
+        />
+      </div>
+      <div class="nova-lms-copy" data-aos="fade-left">
+        <h2 class="nova-section-title nova-section-title--left">Học tập hiệu quả trên nền tảng LMS hiện đại</h2>
+        <ul class="nova-lms-list">
+          <li>
+            <span class="nova-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M20 6L9 17l-5-5"/></svg></span>
+            Bài giảng video HD, bài tập tương tác và chấm điểm tự động
+          </li>
+          <li>
+            <span class="nova-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M20 6L9 17l-5-5"/></svg></span>
+            Theo dõi tiến độ cá nhân và lộ trình học thông minh
+          </li>
+          <li>
+            <span class="nova-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M20 6L9 17l-5-5"/></svg></span>
+            Thi thử IELTS/TOEIC online với báo cáo chi tiết
+          </li>
+          <li>
+            <span class="nova-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M20 6L9 17l-5-5"/></svg></span>
+            Hỗ trợ giảng viên 1:1 qua chat và video call
+          </li>
+        </ul>
+        <a href="#contact" class="nova-btn nova-btn-outline">
+          Khám phá nền tảng học tập
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="nova-teachers" id="teachers">
+    <div class="nova-container">
+      <div class="nova-section-head" data-aos="fade-up">
+        <h2 class="nova-section-title nova-section-title--white">Đội ngũ giảng viên xuất sắc</h2>
+      </div>
+      <div class="nova-teacher-grid">
+        {{#each teachers}}
+        <article class="nova-teacher-card" data-aos="fade-up" data-aos-delay="{{multiply @index 60}}">
+          <div class="nova-teacher-frame">
+            <div class="nova-teacher-photo">
+              <img src="{{this.image}}" alt="{{this.name}}" loading="lazy" width="200" height="240" />
+            </div>
+          </div>
+          <h3 class="nova-teacher-name">{{this.name}}</h3>
+          <span class="nova-teacher-score">IELTS {{this.score}}</span>
+          <p class="nova-teacher-exp">{{this.experience}}</p>
+        </article>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <section class="nova-testimonials" id="testimonials">
+    <div class="nova-container">
+      <div class="nova-section-head" data-aos="fade-up">
+        <h2 class="nova-section-title">Học viên nói gì về NOVA</h2>
+      </div>
+      <div class="nova-testimonial-grid">
+        {{#each testimonials}}
+        <blockquote class="nova-testimonial-card" data-aos="fade-up" data-aos-delay="{{multiply @index 70}}">
+          <div class="nova-stars" aria-label="5 sao">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.8 5.7 21l2.3-7-6-4.6h7.6z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.8 5.7 21l2.3-7-6-4.6h7.6z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.8 5.7 21l2.3-7-6-4.6h7.6z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.8 5.7 21l2.3-7-6-4.6h7.6z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.8 5.7 21l2.3-7-6-4.6h7.6z"/></svg>
+          </div>
+          <p class="nova-testimonial-quote">"{{this.quote}}"</p>
+          <footer class="nova-testimonial-author">
+            <span class="nova-testimonial-avatar" style="--av-color:{{this.color}}">{{this.initials}}</span>
+            <div>
+              <strong>{{this.name}}</strong>
+              <span>IELTS {{this.score}}</span>
+            </div>
+          </footer>
+        </blockquote>
+        {{/each}}
+      </div>
+      <div class="nova-partners" data-aos="fade-up">
+        <span>British Council</span>
+        <span>IDP</span>
+        <span>Cambridge</span>
+        <span>ETS TOEIC</span>
+        <span>College Board</span>
+        <span>GMAC</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="nova-campuses" id="campuses">
+    <div class="nova-container">
+      <div class="nova-section-head" data-aos="fade-up">
+        <h2 class="nova-section-title">Hệ thống cơ sở</h2>
+      </div>
+      <div class="nova-campus-grid">
+        {{#each campuses}}
+        <article class="nova-campus-card" data-aos="fade-up" data-aos-delay="{{multiply @index 60}}">
+          <img src="{{this.image}}" alt="{{this.name}}" loading="lazy" width="400" height="240" />
+          <div class="nova-campus-body">
+            <h3 class="nova-campus-name">{{this.name}}</h3>
+            <p class="nova-campus-address">{{this.address}}</p>
+            <a href="tel:{{this.phone}}" class="nova-campus-phone">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+              {{this.phoneDisplay}}
+            </a>
+          </div>
+        </article>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <section class="nova-news" id="news">
+    <div class="nova-container">
+      <div class="nova-section-head nova-section-head--row" data-aos="fade-up">
+        <h2 class="nova-section-title">Tin tức &amp; sự kiện</h2>
+        <a href="#" class="nova-link-red">Xem tất cả →</a>
+      </div>
+      <div class="nova-news-grid">
+        {{#each news}}
+        <article class="nova-news-card" data-aos="fade-up" data-aos-delay="{{multiply @index 60}}">
+          <img src="{{this.image}}" alt="{{this.title}}" loading="lazy" width="400" height="220" />
+          <div class="nova-news-body">
+            <span class="nova-news-tag">{{this.tag}}</span>
+            <h3 class="nova-news-title">{{this.title}}</h3>
+            <time class="nova-news-date">{{this.date}}</time>
+          </div>
+        </article>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <section class="nova-cta" id="contact">
+    <div class="nova-container nova-cta-grid">
+      <div class="nova-cta-visual" data-aos="fade-right">
+        <img
+          src="/images/TiengAnh/nova-cta-advisor.png"
+          alt="Tư vấn viên NOVA ENGLISH"
+          width="400"
+          height="480"
+          loading="lazy"
+        />
+      </div>
+      <div class="nova-cta-center" data-aos="fade-up">
+        <h2 class="nova-cta-title">Kiểm tra trình độ miễn phí</h2>
+        <ul class="nova-cta-benefits">
+          <li>
+            <span class="nova-cta-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
+            Chuẩn quốc tế Cambridge &amp; IELTS
+          </li>
+          <li>
+            <span class="nova-cta-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
+            Bài test 30 phút — kết quả ngay
+          </li>
+          <li>
+            <span class="nova-cta-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></span>
+            Tư vấn lộ trình 1:1 miễn phí
+          </li>
+        </ul>
+      </div>
+      <div class="nova-cta-action" data-aos="fade-left">
+        <a href="#" class="nova-btn nova-btn-white nova-btn-lg">Đăng ký ngay →</a>
+        <p class="nova-cta-phone">Hotline: <a href="tel:19006393">1900 6339</a></p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="nova-footer" id="about">
+    <div class="nova-container nova-footer-grid">
+      <div class="nova-footer-brand">
+        <a href="/du-an/demo/hoc-tieng-anh" class="nova-logo nova-logo--footer">
+          <span class="nova-logo-nova">NOVA</span>
+          <span class="nova-logo-english">ENGLISH</span>
+        </a>
+        <p class="nova-footer-address">Tầng 8, Tòa nhà NOVA Tower, 123 Phố Huế, Hai Bà Trưng, Hà Nội</p>
+        <div class="nova-socials">
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.43zM9.75 15.02V8.48l5.75 3.27-5.75 3.27z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg></a>
+          <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg></a>
+        </div>
+      </div>
+      <div class="nova-footer-col">
+        <h4>Khóa học</h4>
+        <ul>
+          <li><a href="#courses">IELTS Người lớn</a></li>
+          <li><a href="#courses">IELTS THCS &amp; THPT</a></li>
+          <li><a href="#courses">Kids 6–12 tuổi</a></li>
+          <li><a href="#courses">TOEIC &amp; Giao tiếp</a></li>
+        </ul>
+      </div>
+      <div class="nova-footer-col">
+        <h4>Về NOVA</h4>
+        <ul>
+          <li><a href="#about">Giới thiệu</a></li>
+          <li><a href="#teachers">Giảng viên</a></li>
+          <li><a href="#achievements">Thành tích</a></li>
+          <li><a href="#">Tuyển dụng</a></li>
+        </ul>
+      </div>
+      <div class="nova-footer-col">
+        <h4>Hỗ trợ</h4>
+        <ul>
+          <li><a href="#contact">Đăng ký học</a></li>
+          <li><a href="#">Học phí &amp; ưu đãi</a></li>
+          <li><a href="#">Câu hỏi thường gặp</a></li>
+          <li><a href="#">Chính sách bảo mật</a></li>
+        </ul>
+      </div>
+      <div class="nova-footer-col nova-footer-contact">
+        <h4>Liên hệ</h4>
+        <ul>
+          <li><a href="tel:19006393">1900 6339</a></li>
+          <li><a href="mailto:info@novaenglish.vn">info@novaenglish.vn</a></li>
+          <li><a href="#">novaenglish.vn</a></li>
+        </ul>
+        <div class="nova-qr" aria-label="QR Code">
+          <svg viewBox="0 0 80 80" width="80" height="80" aria-hidden="true">
+            <rect width="80" height="80" fill="#fff" rx="4"/>
+            <rect x="8" y="8" width="24" height="24" fill="#1a1a1a"/>
+            <rect x="48" y="8" width="24" height="24" fill="#1a1a1a"/>
+            <rect x="8" y="48" width="24" height="24" fill="#1a1a1a"/>
+            <rect x="14" y="14" width="12" height="12" fill="#fff"/>
+            <rect x="54" y="14" width="12" height="12" fill="#fff"/>
+            <rect x="14" y="54" width="12" height="12" fill="#fff"/>
+            <rect x="36" y="36" width="8" height="8" fill="#e31b23"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="nova-footer-bottom">
+      <div class="nova-container">
+        <p>&copy; {{year}} NOVA ENGLISH. Demo giao diện bởi {{brand}}.</p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var btn = document.getElementById('nova-menu-btn');
+  var nav = document.getElementById('nova-nav');
+  var header = document.getElementById('nova-header');
+  if (!btn || !nav) return;
+
+  btn.addEventListener('click', function () {
+    var open = nav.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.classList.toggle('is-open', open);
+  });
+
+  nav.querySelectorAll('a').forEach(function (link) {
+    link.addEventListener('click', function () {
+      nav.classList.remove('is-open');
+      btn.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  window.addEventListener('scroll', function () {
+    if (header) header.classList.toggle('is-scrolled', window.scrollY > 40);
+  }, { passive: true });
+})();
+</script>

@@ -72,12 +72,11 @@
                 hoặc
                 <button type="button" id="thumb-browse" class="text-brand-600 hover:underline">chọn từ máy</button>
                 ·
-                <button type="button" id="thumb-library-toggle" class="text-brand-600 hover:underline" aria-expanded="false" aria-controls="thumb-library-panel">chọn từ thư viện ▾</button>
+                <button type="button" id="thumb-library-toggle" class="text-brand-600 hover:underline" aria-expanded="false" aria-controls="thumb-library-modal" aria-haspopup="dialog">chọn từ thư viện</button>
                 · JPG, PNG, WebP · tối đa 5MB
               </p>
               <p id="thumb-upload-status" class="mt-2 hidden text-xs"></p>
             </div>
-            {{> dashboard/image-library-picker }}
             <div>
               <label class="mb-1 block text-xs text-slate-500">Hoặc dán URL ảnh</label>
               <input id="thumbnail-input" name="thumbnail" value="{{article.thumbnail}}" class="dash-input w-full text-sm" placeholder="https://... hoặc /images/... hoặc /uploads/..." />
@@ -118,6 +117,8 @@
       <a href="/dashboard" class="dash-btn-secondary">Hủy</a>
     </div>
   </form>
+
+  {{> dashboard/image-library-picker }}
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/tinymce@7.6.1/tinymce.min.js"></script>

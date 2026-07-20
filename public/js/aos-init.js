@@ -8,7 +8,11 @@
       offset: 60,
       delay: 0,
       disable: function () {
-        return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        return (
+          window.__TMV_DISABLE_AOS__ === true ||
+          window.__DEMO_DISABLE_AOS__ === true ||
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        );
       },
     });
   }

@@ -67,7 +67,7 @@
 .ae-nav a {
   text-decoration: none;
   color: #423e37;
-  font-size: 10px;
+  font-size: 13px;
   letter-spacing: 0.1em;
   position: relative;
   line-height: 1;
@@ -681,6 +681,10 @@
     width: 100%;
     justify-content: center;
     gap: 14px;
+  }
+
+  .ae-nav a {
+    font-size: 12px;
   }
 
   .ae-hotline {

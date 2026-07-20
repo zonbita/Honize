@@ -1,50 +1,88 @@
-<div id="thumb-library-panel" class="thumb-library-panel hidden" hidden>
-  <div class="mb-3 flex flex-wrap items-center justify-between gap-2">
-    <div>
-      <p class="text-sm font-semibold text-slate-800">Thư viện <code class="rounded bg-slate-100 px-1 text-xs">public/images</code></p>
-      <p id="thumb-library-count" class="text-xs text-slate-500">Đang tải danh sách ảnh…</p>
+<div
+  id="thumb-library-modal"
+  class="thumb-library-modal hidden"
+  hidden
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="thumb-library-title"
+>
+  <button type="button" class="thumb-library-backdrop" aria-label="Đóng thư viện ảnh" data-thumb-library-close></button>
+
+  <div id="thumb-library-panel" class="thumb-library-panel">
+    <div class="thumb-library-header">
+      <div class="min-w-0 flex-1">
+        <h2 id="thumb-library-title" class="text-base font-semibold text-slate-800">
+          Thư viện <code class="rounded bg-slate-100 px-1 text-xs">images · uploads</code>
+        </h2>
+        <p id="thumb-library-count" class="mt-1 text-xs text-slate-500">Đang tải danh sách ảnh…</p>
+      </div>
+      <div class="flex shrink-0 flex-wrap items-center gap-2">
+        <button
+          type="button"
+          id="thumb-library-capture"
+          class="dash-btn-secondary hidden px-3 py-1.5 text-xs font-semibold"
+        >
+          Chụp làm thumbnail
+        </button>
+        <select id="thumb-library-sort" class="dash-input w-auto min-w-[140px] text-sm" aria-label="Sắp xếp ảnh">
+          <option value="newest">Mới nhất</option>
+          <option value="name">Tên</option>
+          <option value="size">Dung lượng</option>
+        </select>
+        <input
+          id="thumb-library-search"
+          type="search"
+          class="dash-input w-full min-w-[200px] max-w-xs text-sm"
+          placeholder="Tìm theo tên hoặc thư mục…"
+          autocomplete="off"
+        />
+        <button type="button" class="thumb-library-close" aria-label="Đóng" data-thumb-library-close>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" aria-hidden="true">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
     </div>
-    <input
-      id="thumb-library-search"
-      type="search"
-      class="dash-input w-full max-w-xs text-sm"
-      placeholder="Tìm theo tên hoặc thư mục…"
-      autocomplete="off"
-    />
-  </div>
-  <div class="thumb-library-table-wrap">
-    <table class="thumb-library-table">
-      <thead>
-        <tr>
-          <th class="w-16">Ảnh</th>
-          <th>Tên file</th>
-          <th>Thư mục</th>
-          <th class="w-20">Dung lượng</th>
-          <th class="w-24"></th>
-        </tr>
-      </thead>
-      <tbody id="thumb-library-body">
-        <tr>
-          <td colspan="5" class="py-8 text-center text-sm text-slate-400">Đang tải…</td>
-        </tr>
-      </tbody>
-    </table>
+
+    <div class="thumb-library-table-wrap">
+      <table class="thumb-library-table">
+        <thead>
+          <tr>
+            <th class="thumb-library-col-thumb">Ảnh</th>
+            <th>Tên file</th>
+            <th>Thư mục</th>
+            <th class="w-20">Dung lượng</th>
+            <th class="w-24"></th>
+          </tr>
+        </thead>
+        <tbody id="thumb-library-body">
+          <tr>
+            <td colspan="5" class="py-8 text-center text-sm text-slate-400">Đang tải…</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
 <script>
   (function initImageLibraryPicker() {
+    function boot() {
     const toggleBtn = document.getElementById('thumb-library-toggle');
+    const modal = document.getElementById('thumb-library-modal');
     const panel = document.getElementById('thumb-library-panel');
     const body = document.getElementById('thumb-library-body');
     const searchInput = document.getElementById('thumb-library-search');
+    const sortSelect = document.getElementById('thumb-library-sort');
+    const captureBtn = document.getElementById('thumb-library-capture');
     const countEl = document.getElementById('thumb-library-count');
     const urlInput = document.getElementById('thumbnail-input');
     const preview = document.getElementById('thumb-preview');
     const previewImg = document.getElementById('thumb-preview-img');
     const previewPlaceholder = preview ? preview.querySelector('svg') : null;
     const status = document.getElementById('thumb-upload-status');
-    if (!toggleBtn || !panel || !body) return;
+    const form = document.getElementById('project-form') || document.getElementById('article-form');
+    if (!toggleBtn || !modal || !panel || !body) return;
 
     let images = [];
     let loaded = false;
@@ -88,7 +126,7 @@
         .map(function (item) {
           return (
             '<tr>' +
-            '<td><img src="' + item.url + '" alt="" class="thumb-library-thumb" loading="lazy" width="48" height="48" /></td>' +
+            '<td class="thumb-library-col-thumb"><img src="' + item.url + '" alt="" class="thumb-library-thumb" loading="lazy" width="320" height="320" /></td>' +
             '<td><span class="font-medium text-slate-700">' + escapeHtml(item.name) + '</span></td>' +
             '<td><span class="text-slate-500">' + escapeHtml(item.folder) + '</span></td>' +
             '<td class="text-slate-500">' + formatSize(item.size) + '</td>' +
@@ -113,6 +151,25 @@
       return escapeHtml(str).replace(/'/g, '&#39;');
     }
 
+    function sortImages(list) {
+      const mode = sortSelect && sortSelect.value ? sortSelect.value : 'newest';
+      const sorted = list.slice();
+      if (mode === 'name') {
+        sorted.sort(function (a, b) {
+          return a.name.localeCompare(b.name, 'vi', { sensitivity: 'base' });
+        });
+      } else if (mode === 'size') {
+        sorted.sort(function (a, b) {
+          return (b.size || 0) - (a.size || 0);
+        });
+      } else {
+        sorted.sort(function (a, b) {
+          return (b.mtime || 0) - (a.mtime || 0);
+        });
+      }
+      return sorted;
+    }
+
     function applyFilter() {
       const q = (searchInput && searchInput.value ? searchInput.value : '').trim().toLowerCase();
       const filtered = !q
@@ -127,12 +184,14 @@
       if (countEl) {
         countEl.textContent = filtered.length + ' / ' + images.length + ' ảnh';
       }
-      renderRows(filtered);
+      renderRows(sortImages(filtered));
     }
 
-    async function loadImages() {
-      if (loaded || loading) return;
+    async function loadImages(force) {
+      if (loading) return;
+      if (loaded && !force) return;
       loading = true;
+      if (force) loaded = false;
       try {
         const res = await fetch('/dashboard/api/library-images');
         if (!res.ok) throw new Error('Không tải được danh sách ảnh');
@@ -150,21 +209,67 @@
       }
     }
 
+    function syncCaptureButton() {
+      if (!captureBtn) return;
+      const demoCaptureBtn = document.getElementById('demo-capture-btn');
+      captureBtn.classList.toggle('hidden', !demoCaptureBtn);
+    }
+
     function setOpen(open) {
-      panel.classList.toggle('hidden', !open);
-      panel.hidden = !open;
+      modal.classList.toggle('hidden', !open);
+      modal.hidden = !open;
+      document.body.classList.toggle('thumb-library-open', open);
       toggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
       toggleBtn.classList.toggle('is-open', open);
-      if (open) loadImages();
+      if (open) {
+        syncCaptureButton();
+        loadImages(true);
+        window.setTimeout(function () {
+          if (searchInput) searchInput.focus();
+        }, 0);
+      } else if (searchInput) {
+        searchInput.value = '';
+        if (loaded) applyFilter();
+      }
     }
 
     toggleBtn.addEventListener('click', function () {
-      setOpen(panel.hidden);
+      setOpen(modal.hidden);
+    });
+
+    modal.querySelectorAll('[data-thumb-library-close]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        setOpen(false);
+      });
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !modal.hidden) {
+        e.preventDefault();
+        setOpen(false);
+      }
     });
 
     if (searchInput) {
       searchInput.addEventListener('input', applyFilter);
     }
+
+    if (sortSelect) {
+      sortSelect.addEventListener('change', applyFilter);
+    }
+
+    if (captureBtn) {
+      captureBtn.addEventListener('click', function () {
+        const demoCaptureBtn = document.getElementById('demo-capture-btn');
+        if (demoCaptureBtn) demoCaptureBtn.click();
+      });
+    }
+
+    window.addEventListener('thumb-library:reload', function () {
+      loadImages(true);
+    });
+
+    syncCaptureButton();
 
     body.addEventListener('click', function (e) {
       const target = e.target instanceof Element ? e.target : e.target.parentElement;
@@ -177,5 +282,20 @@
       setPreview(url);
       setOpen(false);
     });
+
+    if (form && urlInput) {
+      form.addEventListener('submit', function () {
+        if (urlInput.value) {
+          urlInput.setAttribute('value', urlInput.value);
+        }
+      });
+    }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', boot);
+    } else {
+      boot();
+    }
   })();
 </script>

@@ -2271,3 +2271,57 @@
     padding: 24px 20px;
   }
 }
+
+/* Full-page screenshot mode — open with ?screenshot=1 */
+html.tmv-screenshot-mode .tmv-page {
+  overflow-x: visible;
+}
+
+html.tmv-screenshot-mode .tmv-header,
+html.tmv-screenshot-mode .tmv-header.is-scrolled {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 88px;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom: 0;
+  box-shadow: none;
+}
+
+html.tmv-screenshot-mode .tmv-hero,
+html.tmv-screenshot-mode .tmv-booking-wrap,
+html.tmv-screenshot-mode .tmv-page-hero--bg {
+  overflow: visible;
+}
+
+html.tmv-screenshot-mode .tmv-hero-bg,
+html.tmv-screenshot-mode .tmv-booking-bg,
+html.tmv-screenshot-mode .tmv-page-hero-bg {
+  background: var(--color-background);
+}
+
+html.tmv-screenshot-mode .tmv-hero-bg img,
+html.tmv-screenshot-mode .tmv-booking-bg img,
+html.tmv-screenshot-mode .tmv-page-hero-bg img {
+  object-fit: contain;
+  object-position: center top;
+}
+
+html.tmv-screenshot-mode .tmv-hero-portrait,
+html.tmv-screenshot-mode .tmv-booking-visual img {
+  object-fit: contain;
+  object-position: center top;
+}
+
+html.tmv-screenshot-mode [data-aos] {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+html.tmv-screenshot-mode .tmv-float {
+  animation: none;
+}

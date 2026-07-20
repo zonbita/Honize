@@ -3,79 +3,108 @@
     <a href="/dashboard/projects" class="text-slate-400 hover:text-slate-600">← Quay lại</a>
     <h1 class="text-xl font-bold text-slate-800">{{pageTitle}}</h1>
   </div>
+  {{#if demoPreviewUrl}}
+  <a href="{{demoPreviewUrl}}?screenshot=1" target="_blank" rel="noopener" class="text-sm font-medium text-brand-600 hover:underline">
+    Mở demo tab mới
+  </a>
+  {{/if}}
 </header>
 
 <div class="flex-1 overflow-y-auto p-6">
-  <form id="project-form" method="POST" action="{{#if isEdit}}/dashboard/projects/{{project.slug}}{{else}}/dashboard/projects{{/if}}" class="mx-auto max-w-3xl space-y-6">
-    <div class="dash-card p-6 space-y-4">
-      <h2 class="font-bold text-slate-800">Thông tin dự án</h2>
-      <p class="text-xs text-slate-500">Nhãn hiển thị dưới ảnh trên trang chủ là <strong>tên danh mục</strong> (vd: Ăn uống, Bán hàng).</p>
+  <div class="grid w-full gap-6 {{#if demoPreviewUrl}}xl:grid-cols-[minmax(320px,400px)_minmax(0,1fr)]{{/if}}">
+    <form id="project-form" method="POST" action="{{#if isEdit}}/dashboard/projects/{{project.slug}}{{else}}/dashboard/projects{{/if}}" class="w-full space-y-6">
+      <div class="dash-card p-6 space-y-4">
+        <h2 class="font-bold text-slate-800">Thông tin dự án</h2>
+        <p class="text-xs text-slate-500">Nhãn hiển thị dưới ảnh trên trang chủ là <strong>tên danh mục</strong> (vd: Ăn uống, Bán hàng).</p>
 
-      <div>
-        <label class="mb-1 block text-sm font-medium text-slate-700">Tiêu đề nội bộ *</label>
-        <input name="title" value="{{project.title}}" required class="dash-input w-full" placeholder="Website nhà hàng" />
-      </div>
-
-      <div class="grid gap-4 sm:grid-cols-2">
         <div>
-          <label class="mb-1 block text-sm font-medium text-slate-700">Slug</label>
-          <input name="slug" value="{{project.slug}}" class="dash-input w-full" placeholder="tu-dong-tao-tu-tieu-de" />
+          <label class="mb-1 block text-sm font-medium text-slate-700">Tiêu đề nội bộ *</label>
+          <input name="title" value="{{project.title}}" required class="dash-input w-full" placeholder="Website nhà hàng" />
         </div>
-        <div>
-          <label class="mb-1 block text-sm font-medium text-slate-700">Danh mục hiển thị *</label>
-          <select name="categorySlug" required class="dash-input w-full">
-            {{#each projectCategories}}
-            <option value="{{this.slug}}" {{#if (eq ../project.categorySlug this.slug)}}selected{{/if}}>{{this.name}}</option>
-            {{/each}}
-          </select>
-        </div>
-      </div>
 
-      <div>
-        <label class="mb-1 block text-sm font-medium text-slate-700">Link khi click</label>
-        <input name="url" value="{{project.url}}" class="dash-input w-full" placeholder="#contact hoặc /blog/..." />
-      </div>
-
-      <div>
-        <label class="mb-2 block text-sm font-medium text-slate-700">Ảnh dự án (cao 500px trên trang chủ)</label>
-        <div class="flex flex-wrap items-start gap-4">
-          <div id="thumb-preview" class="thumb-preview h-32 w-24 {{#unless project.image}}thumb-preview-empty{{/unless}}">
-            {{#if project.image}}
-            <img id="thumb-preview-img" src="{{project.image}}" alt="Preview" class="h-full w-full object-cover" />
-            {{else}}
-            <img id="thumb-preview-img" src="" alt="" class="hidden h-full w-full object-cover" />
-            <svg class="h-8 w-8 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-            {{/if}}
+        <div class="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label class="mb-1 block text-sm font-medium text-slate-700">Slug</label>
+            <input name="slug" value="{{project.slug}}" class="dash-input w-full" placeholder="tu-dong-tao-tu-tieu-de" />
           </div>
-
-          <div class="min-w-[240px] flex-1 space-y-3">
-            <div id="thumb-dropzone" class="thumb-dropzone">
-              <input type="file" id="thumb-file" accept="image/*" class="hidden" />
-              <svg class="mx-auto mb-2 h-8 w-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
-              <p class="text-sm font-medium text-slate-700">Kéo thả hình vào đây</p>
-              <p class="mt-1 text-xs text-slate-400">
-                hoặc
-                <button type="button" id="thumb-browse" class="text-brand-600 hover:underline">chọn từ máy</button>
-                ·
-                <button type="button" id="thumb-library-toggle" class="text-brand-600 hover:underline" aria-expanded="false" aria-controls="thumb-library-panel">chọn từ thư viện ▾</button>
-              </p>
-              <p id="thumb-upload-status" class="mt-2 hidden text-xs"></p>
-            </div>
-            {{> dashboard/image-library-picker }}
-            <div>
-              <label class="mb-1 block text-xs text-slate-500">Hoặc dán URL ảnh</label>
-              <input id="thumbnail-input" name="image" value="{{project.image}}" required class="dash-input w-full text-sm" placeholder="https://... hoặc /images/... hoặc /uploads/..." />
-            </div>
+          <div>
+            <label class="mb-1 block text-sm font-medium text-slate-700">Danh mục hiển thị *</label>
+            <select name="categorySlug" required class="dash-input w-full">
+              {{#each projectCategories}}
+              <option value="{{this.slug}}" {{#if (eq ../project.categorySlug this.slug)}}selected{{/if}}>{{this.name}}</option>
+              {{/each}}
+            </select>
           </div>
         </div>
-      </div>
-    </div>
 
-    <div class="flex gap-3">
-      <button type="submit" class="dash-btn-primary">{{#if isEdit}}Cập nhật{{else}}Thêm dự án{{/if}}</button>
-      <a href="/dashboard/projects" class="dash-btn-secondary">Hủy</a>
+        <div>
+          <label class="mb-1 block text-sm font-medium text-slate-700">Link khi click</label>
+          <input name="url" value="{{project.url}}" class="dash-input w-full" placeholder="#contact hoặc /blog/..." />
+        </div>
+
+        <div>
+          <label class="mb-2 block text-sm font-medium text-slate-700">Ảnh dự án (400×480px trên trang chủ)</label>
+          <div class="flex flex-wrap items-start gap-4">
+            <div id="thumb-preview" class="thumb-preview h-32 w-[6.67rem] {{#unless project.image}}thumb-preview-empty{{/unless}}">
+              {{#if project.image}}
+              <img id="thumb-preview-img" src="{{project.image}}" alt="Preview" class="h-full w-full object-cover" />
+              {{else}}
+              <img id="thumb-preview-img" src="" alt="" class="hidden h-full w-full object-cover" />
+              <svg class="h-8 w-8 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              {{/if}}
+            </div>
+
+            <div class="min-w-[240px] flex-1 space-y-3">
+              <div id="thumb-dropzone" class="thumb-dropzone">
+                <input type="file" id="thumb-file" accept="image/*" class="hidden" />
+                <svg class="mx-auto mb-2 h-8 w-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+                <p class="text-sm font-medium text-slate-700">Kéo thả hình vào đây</p>
+                <p class="mt-1 text-xs text-slate-400">
+                  hoặc
+                  <button type="button" id="thumb-browse" class="text-brand-600 hover:underline">chọn từ máy</button>
+                  ·
+                  <button type="button" id="thumb-library-toggle" class="text-brand-600 hover:underline" aria-expanded="false" aria-controls="thumb-library-modal" aria-haspopup="dialog">chọn từ thư viện</button>
+                </p>
+                <p id="thumb-upload-status" class="mt-2 hidden text-xs"></p>
+              </div>
+              <div>
+                <label class="mb-1 block text-xs text-slate-500">Hoặc dán URL ảnh</label>
+                <input id="thumbnail-input" name="image" value="{{project.image}}" required class="dash-input w-full text-sm" placeholder="https://... hoặc /images/... hoặc /uploads/..." />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex gap-3">
+        <button type="submit" class="dash-btn-primary">{{#if isEdit}}Cập nhật{{else}}Thêm dự án{{/if}}</button>
+        <a href="/dashboard/projects" class="dash-btn-secondary">Hủy</a>
+      </div>
+    </form>
+
+    {{> dashboard/image-library-picker }}
+
+    {{#if demoPreviewUrl}}
+    <div class="dash-card flex min-h-[calc(100vh-7rem)] min-w-0 flex-col overflow-hidden p-0">
+      <div class="flex items-center justify-between gap-3 border-b border-slate-200 px-4 py-3">
+        <h2 class="text-sm font-semibold text-slate-800">Xem trước demo</h2>
+        <div class="flex items-center gap-2">
+          <span class="hidden text-xs text-slate-400 sm:inline">Full width · chế độ screenshot</span>
+          <button type="button" id="demo-capture-btn" class="dash-btn-secondary px-3 py-1.5 text-xs font-semibold">
+            Chụp làm thumbnail
+          </button>
+        </div>
+      </div>
+      <p id="demo-capture-status" class="hidden border-b border-slate-200 px-4 py-2 text-xs"></p>
+      <iframe
+        id="demo-preview-frame"
+        src="{{demoPreviewUrl}}?screenshot=1"
+        title="Xem trước demo"
+        class="w-full flex-1 border-0 bg-white"
+      ></iframe>
     </div>
-  </form>
+    {{/if}}
+  </div>
 </div>
 
 <script>
@@ -149,6 +178,96 @@
 
     urlInput.addEventListener('change', () => {
       if (urlInput.value.trim()) setPreview(urlInput.value.trim());
+    });
+  })();
+
+  (function initDemoCapture() {
+    const captureBtn = document.getElementById('demo-capture-btn');
+    const iframe = document.getElementById('demo-preview-frame');
+    const status = document.getElementById('demo-capture-status');
+    const urlInput = document.getElementById('thumbnail-input');
+    const preview = document.getElementById('thumb-preview');
+    const previewImg = document.getElementById('thumb-preview-img');
+    const dropzone = document.getElementById('thumb-dropzone');
+    if (!captureBtn || !iframe || !urlInput || !previewImg) return;
+
+    function setPreview(url) {
+      previewImg.src = url;
+      previewImg.classList.remove('hidden');
+      preview.classList.remove('thumb-preview-empty');
+      urlInput.value = url;
+    }
+
+    function showCaptureStatus(msg, isError) {
+      if (!status) return;
+      status.textContent = msg;
+      status.className =
+        'border-b border-slate-200 px-4 py-2 text-xs ' +
+        (isError ? 'text-red-600' : 'text-green-600');
+      status.classList.remove('hidden');
+    }
+
+    function dataUrlToBlob(dataUrl) {
+      const parts = dataUrl.split(',');
+      const mime = parts[0].match(/:(.*?);/)[1];
+      const binary = atob(parts[1]);
+      const len = binary.length;
+      const buffer = new Uint8Array(len);
+      for (let i = 0; i < len; i++) buffer[i] = binary.charCodeAt(i);
+      return new Blob([buffer], { type: mime });
+    }
+
+    window.addEventListener('message', async function (event) {
+      if (event.origin !== window.location.origin) return;
+      const data = event.data;
+      if (!data || data.type !== 'demo-capture-result') return;
+
+      captureBtn.disabled = false;
+      captureBtn.textContent = 'Chụp làm thumbnail';
+
+      if (!data.ok || !data.dataUrl) {
+        showCaptureStatus(data.error || 'Chụp ảnh thất bại', true);
+        return;
+      }
+
+      showCaptureStatus('Đang tải ảnh lên...', false);
+
+      try {
+        const blob = dataUrlToBlob(data.dataUrl);
+        const formData = new FormData();
+        formData.append('file', blob, 'demo-thumbnail.png');
+        const res = await fetch('/api/upload', { method: 'POST', body: formData });
+        const payload = await res.json();
+        if (!res.ok) throw new Error(payload.message || 'Upload thất bại');
+        setPreview(payload.url);
+        showCaptureStatus('Đã chụp và gán làm thumbnail dự án', false);
+        window.dispatchEvent(new CustomEvent('thumb-library:reload'));
+      } catch (err) {
+        showCaptureStatus(err.message || 'Upload thất bại', true);
+      }
+    });
+
+    captureBtn.addEventListener('click', function () {
+      if (!iframe.contentWindow) {
+        showCaptureStatus('Iframe demo chưa sẵn sàng', true);
+        return;
+      }
+
+      captureBtn.disabled = true;
+      captureBtn.textContent = 'Đang chụp...';
+      showCaptureStatus('Đang chụp vùng hero của demo...', false);
+
+      iframe.contentWindow.postMessage(
+        {
+          type: 'demo-capture',
+          selector: '.vivu-hero, .tmv-hero, #home',
+          viewportWidth: 1280,
+          outputWidth: 400,
+          outputHeight: 480,
+          objectPosition: 'top center',
+        },
+        window.location.origin,
+      );
     });
   })();
 </script>

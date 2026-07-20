@@ -1,0 +1,576 @@
+/* ==========================================================================
+   NOVA ENGLISH — hoc-tieng-anh demo (pixel-match mockup)
+   ========================================================================== */
+
+.nova-page {
+  --nova-red: #e4001d;
+  --nova-red-dark: #c10018;
+  --nova-red-soft: #fde8eb;
+  --nova-red-icon: #fce4e7;
+  --nova-black: #1a1a1a;
+  --nova-gray: #6b6b6b;
+  --nova-gray-light: #f7f7f7;
+  --nova-cream: #faf6f2;
+  --nova-white: #ffffff;
+  --nova-gold: #f5a623;
+  --nova-container: min(1180px, calc(100% - 2rem));
+  --nova-shadow: 0 8px 32px rgba(0, 0, 0, 0.07);
+  font-family: 'Be Vietnam Pro', 'Roboto', system-ui, sans-serif;
+  color: var(--nova-black);
+  background: var(--nova-white);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.nova-page *, .nova-page *::before, .nova-page *::after { box-sizing: border-box; }
+.nova-page img { display: block; max-width: 100%; height: auto; }
+.nova-page a { color: inherit; text-decoration: none; }
+.nova-page ul { margin: 0; padding: 0; list-style: none; }
+.nova-container { width: var(--nova-container); margin-inline: auto; }
+
+/* ── Promo ── */
+.nova-promo-bar { background: var(--nova-red); color: #fff; font-size: 0.78rem; }
+.nova-promo-inner { display: flex; align-items: center; justify-content: center; gap: 1rem; padding: 0.45rem 0; flex-wrap: wrap; }
+.nova-promo-inner p { margin: 0; }
+.nova-promo-link { color: #fff; font-weight: 700; white-space: nowrap; }
+
+/* ── Header ── */
+.nova-header {
+  position: sticky; top: 0; z-index: 100;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  transition: box-shadow 0.2s;
+}
+.nova-header.is-scrolled { box-shadow: 0 2px 16px rgba(0,0,0,.06); }
+.nova-header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; padding: 0.7rem 0;
+}
+.nova-logo { display: flex; align-items: baseline; gap: 0.3rem; font-weight: 800; flex-shrink: 0; }
+.nova-logo-nova { color: var(--nova-red); font-size: 1.3rem; letter-spacing: 0.02em; }
+.nova-logo-english { color: var(--nova-black); font-size: 1.05rem; font-weight: 700; }
+.nova-logo--footer .nova-logo-english { color: rgba(255,255,255,.92); }
+
+.nova-nav { display: none; align-items: center; gap: 1.4rem; }
+.nova-nav a {
+  font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.04em; color: var(--nova-black); transition: color .2s;
+}
+.nova-nav a:hover { color: var(--nova-red); }
+
+.nova-header-actions { display: none; align-items: center; gap: 1rem; }
+.nova-phone {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  font-weight: 700; font-size: 0.88rem; color: var(--nova-black);
+}
+.nova-phone-icon {
+  display: flex; align-items: center; justify-content: center;
+  width: 2rem; height: 2rem; border-radius: 50%;
+  background: var(--nova-red-soft); color: var(--nova-red);
+}
+
+/* ── Buttons ── */
+.nova-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem;
+  padding: 0.6rem 1.2rem; border-radius: 3px;
+  font-size: 0.72rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.05em; border: 2px solid transparent; cursor: pointer;
+  transition: background .2s, color .2s, border-color .2s; white-space: nowrap;
+}
+.nova-btn-primary { background: var(--nova-red); color: #fff; border-color: var(--nova-red); }
+.nova-btn-primary:hover { background: var(--nova-red-dark); border-color: var(--nova-red-dark); }
+.nova-btn-header { padding: 0.65rem 1rem; font-size: 0.68rem; }
+.nova-btn-outline { background: #fff; color: var(--nova-black); border-color: var(--nova-black); }
+.nova-btn-outline:hover { background: var(--nova-black); color: #fff; }
+.nova-btn-white { background: #fff; color: var(--nova-red); border-color: #fff; }
+.nova-btn-white:hover { background: var(--nova-red-soft); }
+.nova-btn-lg { padding: 0.8rem 1.6rem; font-size: 0.75rem; }
+
+.nova-menu-btn {
+  display: flex; flex-direction: column; justify-content: center; gap: 5px;
+  width: 2.25rem; height: 2.25rem; padding: 0; border: 0; background: transparent; cursor: pointer;
+}
+.nova-menu-btn span { display: block; width: 100%; height: 2px; background: var(--nova-black); border-radius: 2px; transition: transform .25s, opacity .25s; }
+.nova-menu-btn.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nova-menu-btn.is-open span:nth-child(2) { opacity: 0; }
+.nova-menu-btn.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── Hero ── */
+.nova-hero {
+  position: relative;
+  padding: 2.5rem 0 4rem;
+  background: #fff;
+  overflow: hidden;
+}
+.nova-hero-diagonal {
+  position: absolute;
+  top: 0; right: 0;
+  width: 52%;
+  height: 100%;
+  background: var(--nova-red);
+  clip-path: polygon(22% 0, 100% 0, 100% 100%, 8% 100%);
+  z-index: 0;
+}
+.nova-hero-grid {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: center;
+}
+.nova-hero-title {
+  margin: 0 0 1rem;
+  font-size: clamp(2.1rem, 5.5vw, 3.4rem);
+  font-weight: 800; line-height: 1.12; letter-spacing: -0.02em;
+  color: var(--nova-black);
+}
+.nova-text-red { color: var(--nova-red); }
+.nova-hero-desc {
+  margin: 0 0 1.5rem; font-size: 0.95rem; line-height: 1.75;
+  color: var(--nova-gray); max-width: 30rem;
+}
+.nova-hero-note { margin: 1rem 0 0; font-size: 0.82rem; color: var(--nova-gray); }
+.nova-hero-note strong { color: var(--nova-red); font-weight: 700; }
+
+.nova-hero-visual { position: relative; }
+.nova-hero-img-wrap {
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+}
+.nova-hero-img-wrap img {
+  width: 100%;
+  object-fit: cover;
+  aspect-ratio: 4/3;
+  mix-blend-mode: multiply;
+  filter: contrast(1.08) saturate(1.05);
+}
+
+.nova-score-badges { position: absolute; inset: 0; pointer-events: none; }
+.nova-score-badge {
+  position: absolute; top: var(--badge-top); left: var(--badge-left);
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.35rem 0.7rem 0.35rem 0.35rem;
+  background: #fff; border-radius: 999px;
+  box-shadow: 0 6px 20px rgba(0,0,0,.12);
+  animation: nova-float 3s ease-in-out infinite;
+  font-size: 0.68rem;
+}
+.nova-score-badge:nth-child(2) { animation-delay: .5s; }
+.nova-score-badge:nth-child(3) { animation-delay: 1s; }
+.nova-score-av {
+  width: 1.75rem; height: 1.75rem; border-radius: 50%;
+  background: var(--nova-red); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.6rem; font-weight: 800; flex-shrink: 0;
+}
+.nova-score-badge strong { display: block; font-size: 0.68rem; color: var(--nova-black); line-height: 1.2; }
+.nova-score-badge em { font-style: normal; color: var(--nova-red); font-weight: 700; font-size: 0.62rem; }
+
+@keyframes nova-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* ── Sections common ── */
+.nova-section-head { text-align: center; margin-bottom: 2.25rem; }
+.nova-section-head--row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; flex-wrap: wrap; text-align: left;
+}
+.nova-section-title {
+  margin: 0; font-size: clamp(1.35rem, 2.8vw, 1.75rem);
+  font-weight: 800; text-transform: uppercase; letter-spacing: 0.03em;
+}
+.nova-section-title--left { text-align: left; }
+.nova-section-title--white { color: #fff; }
+.nova-kicker {
+  margin: 0 0 0.4rem; font-size: 0.75rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--nova-red);
+}
+.nova-link-red { color: var(--nova-red); font-weight: 700; font-size: 0.82rem; }
+.nova-link-white { color: #fff; font-weight: 700; font-size: 0.82rem; opacity: .92; }
+
+/* ── Courses ── */
+.nova-courses { padding: 4rem 0 4.5rem; background: #fff; }
+.nova-course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 1rem;
+}
+.nova-course-card {
+  display: flex; flex-direction: column;
+  padding: 1.75rem 1.25rem 1.25rem;
+  background: #fff;
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 4px 20px rgba(0,0,0,.05);
+  transition: transform .2s, box-shadow .2s;
+  min-height: 250px;
+}
+.nova-course-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(228,0,29,.1);
+  border-color: rgba(228,0,29,.15);
+}
+.nova-course-icon-wrap {
+  width: 3.5rem; height: 3.5rem; border-radius: 50%;
+  background: var(--nova-red-icon);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1.1rem;
+}
+.nova-course-icon { width: 1.75rem; height: 1.75rem; }
+.nova-course-icon svg { width: 100%; height: 100%; }
+.nova-course-title { margin: 0 0 0.55rem; font-size: 0.92rem; font-weight: 800; line-height: 1.35; }
+.nova-course-desc {
+  margin: 0 0 auto; font-size: 0.78rem; line-height: 1.65;
+  color: var(--nova-gray); flex: 1;
+}
+.nova-course-arrow {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2rem; height: 2rem; margin-top: 1rem;
+  color: var(--nova-red); transition: transform .2s;
+}
+.nova-course-card:hover .nova-course-arrow { transform: translateX(4px); }
+
+/* ── Achievements block ── */
+.nova-achievements-wrap { background: var(--nova-red); }
+.nova-achievements-bar { padding: 1.25rem 0 0.5rem; }
+.nova-achievements-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; flex-wrap: wrap;
+}
+.nova-achievements-body { padding: 1.5rem 0 0.5rem; }
+.nova-achievement-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.85rem;
+}
+.nova-achievement-card {
+  text-align: center;
+  background: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,.12);
+}
+.nova-achievement-photo {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+}
+.nova-achievement-photo img { width: 100%; height: 100%; object-fit: cover; }
+.nova-achievement-score {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 0.5rem;
+  background: var(--nova-red);
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 800;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+.nova-achievement-name {
+  margin: 0.65rem 0.75rem 0.15rem;
+  font-size: 0.82rem; font-weight: 800;
+  color: var(--nova-black);
+}
+.nova-achievement-meta, .nova-achievement-time {
+  margin: 0 0.75rem;
+  font-size: 0.68rem;
+  color: var(--nova-gray);
+  line-height: 1.4;
+}
+.nova-achievement-time { padding-bottom: 0.75rem; }
+
+/* ── Stats ── */
+.nova-stats-bar {
+  padding: 1.5rem 0 2rem;
+  background: var(--nova-red);
+  border-top: 1px solid rgba(255,255,255,.15);
+}
+.nova-stats-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem;
+}
+.nova-stat {
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; color: #fff; gap: 0.2rem;
+}
+.nova-stat-icon { width: 1.75rem; height: 1.75rem; opacity: .9; margin-bottom: 0.15rem; }
+.nova-stat-icon svg { width: 100%; height: 100%; }
+.nova-stat-value { font-size: clamp(1.4rem, 2.5vw, 1.85rem); font-weight: 800; line-height: 1; }
+.nova-stat-label { font-size: 0.72rem; opacity: .88; max-width: 9rem; line-height: 1.35; }
+
+/* ── Methodology ── */
+.nova-method { padding: 4.5rem 0; background: #fff; }
+.nova-method-grid {
+  display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: start;
+}
+.nova-method-desc { margin: 0; line-height: 1.75; color: var(--nova-gray); font-size: 0.92rem; max-width: 26rem; }
+.nova-method-cards {
+  display: grid; grid-template-columns: 1fr; gap: 0.75rem;
+}
+.nova-method-card {
+  padding: 1.75rem 1.25rem; border-radius: 0;
+  min-height: 220px; display: flex; flex-direction: column;
+}
+.nova-method-card--red { background: var(--nova-red); color: #fff; }
+.nova-method-card--dark { background: #222; color: #fff; }
+.nova-method-card--outline { background: var(--nova-cream); border: none; color: var(--nova-black); }
+.nova-method-num { font-size: 2.25rem; font-weight: 800; opacity: .35; line-height: 1; margin-bottom: 1rem; }
+.nova-method-card-icon { width: 2.75rem; height: 2.75rem; margin-bottom: auto; margin-top: 0.5rem; }
+.nova-method-card-icon svg { width: 100%; height: 100%; }
+.nova-method-card-title {
+  margin: 0 0 0.4rem; font-size: 0.82rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.03em;
+}
+.nova-method-card-text { margin: 0; font-size: 0.78rem; line-height: 1.6; opacity: .9; flex: 1; }
+
+/* ── LMS ── */
+.nova-lms {
+  position: relative; padding: 4.5rem 0; background: var(--nova-gray-light); overflow: hidden;
+}
+.nova-lms-blob {
+  position: absolute; border-radius: 50%;
+  background: rgba(228, 0, 29, 0.06); pointer-events: none;
+}
+.nova-lms-blob--tl { width: 280px; height: 280px; top: -80px; left: -80px; }
+.nova-lms-blob--br { width: 220px; height: 220px; bottom: -60px; right: 5%; }
+.nova-lms-grid {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: center;
+}
+.nova-lms-visual img { width: 100%; filter: drop-shadow(0 20px 40px rgba(0,0,0,.12)); }
+.nova-lms-list { margin: 0 0 1.75rem; display: grid; gap: 0.7rem; }
+.nova-lms-list li {
+  display: flex; align-items: flex-start; gap: 0.6rem;
+  font-size: 0.88rem; line-height: 1.55; color: var(--nova-gray);
+}
+.nova-check {
+  flex-shrink: 0; width: 1.35rem; height: 1.35rem; border-radius: 50%;
+  background: var(--nova-red); color: #fff;
+  display: flex; align-items: center; justify-content: center; margin-top: 0.1rem;
+}
+
+/* ── Teachers ── */
+.nova-teachers { padding: 4.5rem 0; background: #222; }
+.nova-teacher-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+  gap: 1.5rem;
+}
+.nova-teacher-card { text-align: center; color: #fff; }
+.nova-teacher-frame {
+  position: relative; margin: 0 auto 0.85rem;
+  width: 130px; height: 155px;
+}
+.nova-teacher-frame::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 130px; height: 130px;
+  background: var(--nova-red);
+  border-radius: 50%;
+  z-index: 0;
+}
+.nova-teacher-photo {
+  position: relative; z-index: 1;
+  width: 120px; height: 120px;
+  margin: 0 auto;
+  border-radius: 50%; overflow: hidden;
+  border: 3px solid #fff;
+  box-shadow: 0 4px 16px rgba(0,0,0,.2);
+}
+.nova-teacher-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+.nova-teacher-name { margin: 0 0 0.35rem; font-size: 0.8rem; font-weight: 700; color: #fff; }
+.nova-teacher-score {
+  display: inline-block; padding: 0.2rem 0.55rem;
+  background: var(--nova-red); color: #fff;
+  font-size: 0.65rem; font-weight: 800; border-radius: 2px; margin-bottom: 0.3rem;
+}
+.nova-teacher-exp { margin: 0; font-size: 0.65rem; color: rgba(255,255,255,.55); }
+
+/* ── Testimonials ── */
+.nova-testimonials { padding: 4.5rem 0; background: var(--nova-gray-light); }
+.nova-testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem; margin-bottom: 2.5rem;
+}
+.nova-testimonial-card {
+  margin: 0; padding: 1.5rem;
+  background: #fff; border-radius: 4px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.04);
+  border: 1px solid #eee;
+}
+.nova-stars { display: flex; gap: 0.1rem; margin-bottom: 0.75rem; color: var(--nova-gold); }
+.nova-testimonial-quote {
+  margin: 0 0 1rem; font-size: 0.82rem; line-height: 1.7;
+  font-style: italic; color: var(--nova-gray);
+}
+.nova-testimonial-author { display: flex; align-items: center; gap: 0.65rem; }
+.nova-testimonial-avatar {
+  width: 2.25rem; height: 2.25rem; border-radius: 50%;
+  background: var(--av-color, var(--nova-red)); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.68rem; font-weight: 800; flex-shrink: 0;
+}
+.nova-testimonial-author strong { display: block; font-size: 0.8rem; }
+.nova-testimonial-author span { font-size: 0.7rem; color: var(--nova-red); font-weight: 700; }
+
+.nova-partners {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+  gap: 1.75rem; padding-top: 1rem; border-top: 1px solid #eee;
+}
+.nova-partners span {
+  font-size: 0.75rem; font-weight: 800; color: #c8c8c8;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+
+/* ── Campuses ── */
+.nova-campuses { padding: 4.5rem 0; background: var(--nova-gray-light); }
+.nova-campus-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1rem;
+}
+.nova-campus-card {
+  background: #fff; border-radius: 4px; overflow: hidden;
+  box-shadow: var(--nova-shadow); transition: transform .2s;
+}
+.nova-campus-card:hover { transform: translateY(-3px); }
+.nova-campus-card img { width: 100%; aspect-ratio: 16/10; object-fit: cover; }
+.nova-campus-body { padding: 1rem; }
+.nova-campus-name { margin: 0 0 0.3rem; font-size: 0.85rem; font-weight: 800; color: var(--nova-red); }
+.nova-campus-address { margin: 0 0 0.55rem; font-size: 0.75rem; color: var(--nova-gray); line-height: 1.45; }
+.nova-campus-phone {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  font-size: 0.75rem; font-weight: 700; color: var(--nova-black);
+}
+.nova-campus-phone svg { color: var(--nova-red); }
+
+/* ── News ── */
+.nova-news { padding: 4.5rem 0; background: #fff; }
+.nova-news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.nova-news-card {
+  background: #fff; border: 1px solid #eee; border-radius: 4px;
+  overflow: hidden; transition: box-shadow .2s, transform .2s;
+}
+.nova-news-card:hover { box-shadow: var(--nova-shadow); transform: translateY(-3px); }
+.nova-news-card img { width: 100%; aspect-ratio: 16/10; object-fit: cover; }
+.nova-news-body { padding: 1rem; }
+.nova-news-tag {
+  display: inline-block; padding: 0.15rem 0.45rem;
+  background: var(--nova-red); color: #fff;
+  font-size: 0.62rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.04em; border-radius: 2px; margin-bottom: 0.45rem;
+}
+.nova-news-title { margin: 0 0 0.4rem; font-size: 0.82rem; font-weight: 700; line-height: 1.45; }
+.nova-news-date { font-size: 0.7rem; color: var(--nova-gray); }
+
+/* ── CTA ── */
+.nova-cta {
+  padding: 0; background: var(--nova-red); color: #fff; overflow: hidden;
+}
+.nova-cta-grid {
+  display: grid; grid-template-columns: 1fr;
+  align-items: center; min-height: 300px;
+}
+.nova-cta-visual {
+  display: flex; align-items: flex-end; justify-content: center;
+  padding-top: 1rem;
+}
+.nova-cta-visual img {
+  max-height: 320px; width: auto; object-fit: contain;
+  object-position: bottom center;
+  filter: drop-shadow(0 8px 24px rgba(0,0,0,.15));
+}
+.nova-cta-center { padding: 2rem 0; }
+.nova-cta-title {
+  margin: 0 0 1.25rem;
+  font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+  font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em;
+}
+.nova-cta-benefits { margin: 0; display: grid; gap: 0.65rem; }
+.nova-cta-benefits li {
+  display: flex; align-items: center; gap: 0.65rem; font-size: 0.88rem;
+}
+.nova-cta-icon {
+  display: flex; align-items: center; justify-content: center;
+  width: 2.25rem; height: 2.25rem; border-radius: 50%;
+  background: rgba(255,255,255,.15); flex-shrink: 0;
+}
+.nova-cta-action {
+  display: flex; flex-direction: column; align-items: flex-start;
+  gap: 0.75rem; padding: 2rem 0;
+}
+.nova-cta-phone { margin: 0; font-size: 0.88rem; }
+.nova-cta-phone a { color: #fff; font-weight: 800; text-decoration: underline; }
+
+/* ── Footer ── */
+.nova-footer { background: #141414; color: rgba(255,255,255,.7); padding-top: 3rem; }
+.nova-footer-grid {
+  display: grid; grid-template-columns: 1fr; gap: 1.75rem; padding-bottom: 2rem;
+}
+.nova-footer-address { margin: 0.85rem 0; font-size: 0.82rem; line-height: 1.65; max-width: 17rem; }
+.nova-socials { display: flex; gap: 0.6rem; }
+.nova-socials a {
+  display: flex; align-items: center; justify-content: center;
+  width: 2rem; height: 2rem; border-radius: 50%;
+  background: rgba(255,255,255,.1); color: #fff; transition: background .2s;
+}
+.nova-socials a:hover { background: var(--nova-red); }
+.nova-footer-col h4 {
+  margin: 0 0 0.85rem; font-size: 0.72rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.07em; color: #fff;
+}
+.nova-footer-col ul { display: grid; gap: 0.4rem; }
+.nova-footer-col a { font-size: 0.82rem; transition: color .2s; }
+.nova-footer-col a:hover { color: #fff; }
+.nova-qr { margin-top: 0.85rem; padding: 0.3rem; background: #fff; border-radius: 4px; display: inline-block; }
+.nova-footer-bottom { border-top: 1px solid rgba(255,255,255,.08); padding: 1rem 0; }
+.nova-footer-bottom p { margin: 0; font-size: 0.75rem; text-align: center; opacity: .55; }
+
+/* ── Responsive ── */
+@media (min-width: 768px) {
+  .nova-nav { display: flex; }
+  .nova-header-actions { display: flex; }
+  .nova-menu-btn { display: none; }
+  .nova-hero-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+  .nova-stats-grid { grid-template-columns: repeat(4, 1fr); }
+  .nova-method-grid { grid-template-columns: 0.9fr 1.1fr; gap: 2.5rem; align-items: center; }
+  .nova-method-cards { grid-template-columns: repeat(3, 1fr); gap: 0.65rem; }
+  .nova-method-card { min-height: 280px; }
+  .nova-lms-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
+  .nova-cta-grid { grid-template-columns: 0.85fr 1.15fr 0.7fr; gap: 1.5rem; }
+  .nova-cta-action { align-items: flex-end; padding: 2.5rem 0; }
+  .nova-footer-grid { grid-template-columns: 1.5fr repeat(4, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .nova-course-grid { grid-template-columns: repeat(5, 1fr); gap: 0.75rem; }
+  .nova-achievement-grid { grid-template-columns: repeat(6, 1fr); }
+  .nova-teacher-grid { grid-template-columns: repeat(6, 1fr); }
+  .nova-testimonial-grid { grid-template-columns: repeat(4, 1fr); }
+  .nova-campus-grid { grid-template-columns: repeat(5, 1fr); }
+  .nova-news-grid { grid-template-columns: repeat(5, 1fr); }
+}
+
+@media (max-width: 767px) {
+  .nova-hero-diagonal {
+    width: 100%; height: 50%;
+    clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+    top: auto; bottom: 0;
+  }
+  .nova-nav.is-open {
+    display: flex; flex-direction: column;
+    position: absolute; top: 100%; left: 0; right: 0;
+    background: #fff; padding: 1rem;
+    border-bottom: 1px solid #eee;
+    box-shadow: 0 8px 24px rgba(0,0,0,.08); gap: 0.85rem;
+  }
+  .nova-header { position: relative; }
+  .nova-header-inner { position: relative; flex-wrap: wrap; }
+}

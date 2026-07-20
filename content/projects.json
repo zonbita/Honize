@@ -83,6 +83,14 @@
       "url": "/du-an/demo/aurelia-estates"
     },
     {
+      "title": "NOVA ENGLISH — Học tiếng Anh",
+      "slug": "hoc-tieng-anh",
+      "categorySlug": "dao-tao",
+      "categoryName": "Đào tạo",
+      "image": "/images/TiengAnh/dcdee458-b319-4cec-ac51-067b6a294cac.png",
+      "url": "/du-an/demo/hoc-tieng-anh"
+    },
+    {
       "title": "Trung tâm đào tạo",
       "slug": "trung-tam-dao-tao",
       "categorySlug": "dao-tao",
@@ -103,7 +111,7 @@
       "slug": "tham-my-vien",
       "categorySlug": "dich-vu",
       "categoryName": "Dịch vụ",
-      "image": "/images/ThamMyVien/thammyvien%20(4).png",
+      "image": "/images/ThamMyVien/thumnail.jpg",
       "url": "/du-an/demo/tham-my-vien"
     },
     {
@@ -127,7 +135,7 @@
       "slug": "vivu",
       "categorySlug": "du-lich",
       "categoryName": "Du lịch",
-      "image": "/images/Vivu/vivu%20(2).png",
+      "image": "/uploads/1784536283184-692152251.png",
       "url": "/du-an/demo/vivu"
     },
     {

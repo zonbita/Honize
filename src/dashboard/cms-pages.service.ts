@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { existsSync, readdirSync, statSync, unlinkSync } from 'fs';
+import { Dirent, existsSync, readdirSync, statSync, unlinkSync } from 'fs';
 import { basename, extname, join } from 'path';
 import { ArticlesService } from '../articles/articles.service';
 import { Project } from '../data/site.data';
@@ -25,6 +25,7 @@ export interface LibraryImage {
   relativePath: string;
   url: string;
   size: number;
+  mtime: number;
 }
 
 export interface Category {
@@ -91,58 +92,106 @@ export class CmsPagesService {
       }));
   }
 
-  /** Recursively list images under public/images for the dashboard picker. */
+  /** List images under public/images and public/uploads for the dashboard picker. */
   getPublicImages(): LibraryImage[] {
-    const root = join(resolveProjectRoot(), 'public', 'images');
-    if (!existsSync(root)) return [];
-
+    const imagesRoot = join(resolveProjectRoot(), 'public', 'images');
     const results: LibraryImage[] = [];
 
-    const walk = (dir: string, rel: string) => {
-      let entries;
+    if (existsSync(imagesRoot)) {
+      this.collectLibraryImages(imagesRoot, '', '/images', results);
+    }
+
+    const uploadsDir = getUploadsDir();
+    if (existsSync(uploadsDir)) {
+      let entries: Dirent[] = [];
       try {
-        entries = readdirSync(dir, { withFileTypes: true });
+        entries = readdirSync(uploadsDir, { withFileTypes: true });
       } catch {
-        return;
+        entries = [];
       }
 
       for (const entry of entries) {
-        if (entry.name.startsWith('.')) continue;
-        const abs = join(dir, entry.name);
-        const nextRel = rel ? `${rel}/${entry.name}` : entry.name;
-
-        if (entry.isDirectory()) {
-          walk(abs, nextRel);
-          continue;
-        }
-
+        if (!entry.isFile() || entry.name.startsWith('.')) continue;
         const ext = extname(entry.name).toLowerCase();
         if (!IMAGE_EXTENSIONS.includes(ext)) continue;
 
+        const abs = join(uploadsDir, entry.name);
         let size = 0;
+        let mtime = 0;
         try {
-          size = statSync(abs).size;
+          const fileStat = statSync(abs);
+          size = fileStat.size;
+          mtime = fileStat.mtimeMs;
         } catch {
           size = 0;
+          mtime = 0;
         }
-
-        const encoded = nextRel
-          .split('/')
-          .map((segment) => encodeURIComponent(segment))
-          .join('/');
 
         results.push({
           name: entry.name,
-          folder: rel || '/',
-          relativePath: nextRel,
-          url: `/images/${encoded}`,
+          folder: 'uploads',
+          relativePath: `uploads/${entry.name}`,
+          url: `/uploads/${encodeURIComponent(entry.name)}`,
           size,
+          mtime,
         });
       }
-    };
+    }
 
-    walk(root, '');
-    return results.sort((a, b) => a.relativePath.localeCompare(b.relativePath, 'vi'));
+    return results;
+  }
+
+  private collectLibraryImages(
+    dir: string,
+    rel: string,
+    urlPrefix: '/images',
+    results: LibraryImage[],
+  ) {
+    let entries;
+    try {
+      entries = readdirSync(dir, { withFileTypes: true });
+    } catch {
+      return;
+    }
+
+    for (const entry of entries) {
+      if (entry.name.startsWith('.')) continue;
+      const abs = join(dir, entry.name);
+      const nextRel = rel ? `${rel}/${entry.name}` : entry.name;
+
+      if (entry.isDirectory()) {
+        this.collectLibraryImages(abs, nextRel, urlPrefix, results);
+        continue;
+      }
+
+      const ext = extname(entry.name).toLowerCase();
+      if (!IMAGE_EXTENSIONS.includes(ext)) continue;
+
+      let size = 0;
+      let mtime = 0;
+      try {
+        const fileStat = statSync(abs);
+        size = fileStat.size;
+        mtime = fileStat.mtimeMs;
+      } catch {
+        size = 0;
+        mtime = 0;
+      }
+
+      const encoded = nextRel
+        .split('/')
+        .map((segment) => encodeURIComponent(segment))
+        .join('/');
+
+      results.push({
+        name: entry.name,
+        folder: rel ? rel.split('/')[0] : '/',
+        relativePath: nextRel,
+        url: `${urlPrefix}/${encoded}`,
+        size,
+        mtime,
+      });
+    }
   }
 
   deleteMediaFile(filename: string): void {
