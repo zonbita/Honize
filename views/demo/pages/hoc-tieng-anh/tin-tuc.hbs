@@ -1,0 +1,101 @@
+<div class="nova-page">
+  <div class="nova-promo-bar">
+    <div class="nova-container nova-promo-inner">
+      <p>Ưu đãi học phí lên đến <strong>20%</strong> — Đăng ký trước 30/06/2026</p>
+      <a href="{{novaBase}}#contact" class="nova-promo-link">Đăng ký ngay →</a>
+    </div>
+  </div>
+
+  {{> demo/nova/header }}
+
+  <section class="nova-page-hero">
+    <div class="nova-container">
+      <nav class="nova-breadcrumb" aria-label="Breadcrumb">
+        <a href="{{novaBase}}">Trang chủ</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Tin tức</span>
+      </nav>
+      <h1 class="nova-page-hero-title">Tin tức &amp; sự kiện</h1>
+      <p class="nova-page-hero-desc">Cập nhật workshop, học bổng, kiến thức IELTS/TOEIC và hoạt động cộng đồng NOVA.</p>
+    </div>
+  </section>
+
+  <section class="nova-block">
+    <div class="nova-container">
+      <article class="nova-featured" data-aos="fade-up">
+        <div class="nova-featured-media">
+          <img src="{{novaNewsFeatured.image}}" alt="{{novaNewsFeatured.title}}" width="960" height="540" loading="eager" />
+        </div>
+        <div class="nova-featured-body">
+          <span class="nova-featured-tag">{{novaNewsFeatured.tag}}</span>
+          <h2>{{novaNewsFeatured.title}}</h2>
+          <time class="nova-news-date">{{novaNewsFeatured.date}}</time>
+          <p>{{novaNewsFeatured.excerpt}}</p>
+          <a href="#" class="nova-featured-link">Đọc tiếp →</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="nova-block nova-block--gray">
+    <div class="nova-container">
+      <div class="nova-section-head" data-aos="fade-up">
+        <h2 class="nova-section-title">Danh mục</h2>
+      </div>
+      <div class="nova-cats" data-aos="fade-up">
+        {{#each novaNewsCategories}}
+        <button type="button" class="nova-cat-chip{{#if @first}} is-active{{/if}}">{{this}}</button>
+        {{/each}}
+      </div>
+      <div class="nova-news-grid" style="margin-top:1.75rem">
+        {{#each news}}
+        <article class="nova-news-card" data-aos="fade-up" data-aos-delay="{{multiply @index 50}}">
+          <img src="{{this.image}}" alt="{{this.title}}" loading="lazy" width="400" height="220" />
+          <div class="nova-news-body">
+            <span class="nova-news-tag">{{this.tag}}</span>
+            <h3 class="nova-news-title">{{this.title}}</h3>
+            <time class="nova-news-date">{{this.date}}</time>
+          </div>
+        </article>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <section class="nova-block">
+    <div class="nova-container">
+      <div class="nova-section-head nova-section-head--left" data-aos="fade-up">
+        <h2 class="nova-section-title nova-section-title--left">Bài viết phổ biến</h2>
+      </div>
+      <ol class="nova-popular" data-aos="fade-up">
+        {{#each novaNewsPopular}}
+        <li class="nova-popular-item">
+          <span class="nova-popular-num" aria-hidden="true"></span>
+          <div>
+            <a href="#" class="nova-popular-title">{{this.title}}</a>
+            <time class="nova-popular-date">{{this.date}}</time>
+          </div>
+        </li>
+        {{/each}}
+      </ol>
+    </div>
+  </section>
+
+  <section class="nova-newsletter">
+    <div class="nova-container nova-newsletter-inner" data-aos="fade-up">
+      <div>
+        <h2 class="nova-newsletter-title">Đăng ký nhận bản tin</h2>
+        <p>Nhận tip học IELTS/TOEIC, lịch workshop và ưu đãi học phí mỗi tuần.</p>
+      </div>
+      <form class="nova-newsletter-form" action="#" method="post">
+        <label class="sr-only" for="nova-email">Email</label>
+        <input id="nova-email" type="email" name="email" placeholder="Email của bạn" required />
+        <button type="submit" class="nova-btn nova-btn-white">Đăng ký</button>
+      </form>
+    </div>
+  </section>
+
+  {{> demo/nova/cta }}
+  {{> demo/nova/footer }}
+</div>
+{{> demo/nova/scripts }}

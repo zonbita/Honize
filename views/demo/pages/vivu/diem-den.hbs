@@ -1,0 +1,84 @@
+<div class="vivu-page vivu-page--inner">
+  {{> demo/vivu/header }}
+
+  <section class="vivu-page-hero" aria-labelledby="vivu-dest-hero-title">
+    <div class="vivu-page-hero-bg" aria-hidden="true">
+      <img src="{{vivuHeroBg}}" alt="" width="1920" height="720" loading="eager" />
+      <div class="vivu-page-hero-overlay"></div>
+    </div>
+    <div class="vivu-container vivu-page-hero-inner" data-aos="fade-up">
+      <nav class="vivu-breadcrumb" aria-label="Breadcrumb">
+        <a href="{{vivuBase}}">Trang chủ</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Điểm đến</span>
+      </nav>
+      <h1 id="vivu-dest-hero-title" class="vivu-page-hero-title">Khám phá những điểm đến đẹp nhất Việt Nam</h1>
+      <p class="vivu-page-hero-desc">Mỗi vùng đất đều mang một vẻ đẹp riêng, từ biển xanh, núi rừng đến các di sản văn hóa lâu đời.</p>
+      <div class="vivu-page-hero-actions">
+        <a href="{{vivuBase}}/tour-du-lich" class="vivu-btn vivu-btn-primary">Xem Tour</a>
+        <a href="{{vivuBase}}/lien-he" class="vivu-btn vivu-btn-outline vivu-btn-outline--light">Liên hệ tư vấn</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="vivu-block" aria-label="Bộ lọc điểm đến">
+    <div class="vivu-container">
+      <div class="vivu-filter-bar" role="tablist" aria-label="Lọc điểm đến" data-aos="fade-up">
+        <button type="button" class="is-active" role="tab" aria-selected="true">Miền Bắc</button>
+        <button type="button" role="tab" aria-selected="false">Miền Trung</button>
+        <button type="button" role="tab" aria-selected="false">Miền Nam</button>
+        <button type="button" role="tab" aria-selected="false">Biển</button>
+        <button type="button" role="tab" aria-selected="false">Núi</button>
+        <button type="button" role="tab" aria-selected="false">Di sản</button>
+        <button type="button" role="tab" aria-selected="false">Nghỉ dưỡng</button>
+        <button type="button" role="tab" aria-selected="false">Khám phá</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="vivu-block vivu-block--tight-top">
+    <div class="vivu-container">
+      <div class="vivu-dest-list">
+        {{#each destinations}}
+        <article class="vivu-dest-list-card" data-aos="fade-up" data-aos-delay="{{multiply @index 50}}">
+          <div class="vivu-dest-list-media">
+            <img src="{{this.image}}" alt="{{this.name}}" width="480" height="360" loading="lazy" />
+          </div>
+          <div class="vivu-dest-list-body">
+            <p class="vivu-dest-category">{{this.category}}</p>
+            <h2 class="vivu-dest-list-name">{{this.name}}</h2>
+            <p class="vivu-dest-list-desc">{{this.desc}}</p>
+            <div class="vivu-dest-list-meta">
+              <span>{{this.tours}} tour</span>
+              <span aria-label="Đánh giá {{this.rating}} sao">★ {{this.rating}}</span>
+            </div>
+            <a href="{{../vivuBase}}/tour-du-lich" class="vivu-btn vivu-btn-sm vivu-btn-primary">Xem chi tiết</a>
+          </div>
+        </article>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <section class="vivu-block vivu-block--soft">
+    <div class="vivu-container">
+      <div class="vivu-section-head" data-aos="fade-up">
+        <p class="vivu-kicker">ĐIỂM NỔI BẬT</p>
+        <h2 class="vivu-section-title">Vì sao điểm đến VIVU khác biệt</h2>
+      </div>
+      <div class="vivu-icon-grid">
+        {{#each vivuHighlights}}
+        <article class="vivu-icon-card" data-aos="fade-up" data-aos-delay="{{multiply @index 50}}">
+          <span class="vivu-icon-card-mark" aria-hidden="true"></span>
+          <h3>{{this.title}}</h3>
+          <p>{{this.text}}</p>
+        </article>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  {{> demo/vivu/cta title="Bạn đã sẵn sàng cho chuyến đi tiếp theo?" primary="Khám phá Tour" secondary="Liên hệ tư vấn" bg="/images/Vivu/06-phu-quoc.png" }}
+  {{> demo/vivu/footer }}
+</div>
+{{> demo/vivu/scripts }}

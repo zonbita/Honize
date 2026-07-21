@@ -36,6 +36,7 @@
   }
 
   function findCaptureTarget(selector) {
+    if (!selector) return document.body;
     if (selector) {
       var explicit = document.querySelector(selector);
       if (explicit) return explicit;
@@ -50,17 +51,70 @@
 
   function applyCaptureViewport(width) {
     var px = width + 'px';
-    document.documentElement.style.width = px;
-    document.documentElement.style.minWidth = px;
-    document.body.style.width = px;
-    document.body.style.minWidth = px;
+    document.documentElement.style.setProperty('width', px, 'important');
+    document.documentElement.style.setProperty('min-width', px, 'important');
+    document.body.style.setProperty('width', px, 'important');
+    document.body.style.setProperty('min-width', px, 'important');
   }
 
   function clearCaptureViewport() {
-    document.documentElement.style.width = '';
-    document.documentElement.style.minWidth = '';
-    document.body.style.width = '';
-    document.body.style.minWidth = '';
+    document.documentElement.style.removeProperty('width');
+    document.documentElement.style.removeProperty('min-width');
+    document.body.style.removeProperty('width');
+    document.body.style.removeProperty('min-width');
+  }
+
+  function waitForCaptureAssets() {
+    var fontsReady =
+      document.fonts && document.fonts.ready
+        ? document.fonts.ready.catch(function () {})
+        : Promise.resolve();
+    var imagesReady = Array.prototype.map.call(document.images, function (image) {
+      if (image.complete) return Promise.resolve();
+      return new Promise(function (resolve) {
+        image.addEventListener('load', resolve, { once: true });
+        image.addEventListener('error', resolve, { once: true });
+      });
+    });
+
+    return Promise.all([fontsReady, Promise.all(imagesReady)]).then(function () {
+      return new Promise(function (resolve) {
+        requestAnimationFrame(function () {
+          requestAnimationFrame(resolve);
+        });
+      });
+    });
+  }
+
+  /**
+   * html2canvas can create a temporary 0×0 canvas for zero-sized decorative
+   * elements, then pass it to createPattern(). Chromium rejects that source.
+   */
+  function renderWithSafePatterns(render) {
+    var proto = window.CanvasRenderingContext2D && window.CanvasRenderingContext2D.prototype;
+    if (!proto || !proto.createPattern) return render();
+
+    var originalCreatePattern = proto.createPattern;
+    var transparentPixel = document.createElement('canvas');
+    transparentPixel.width = 1;
+    transparentPixel.height = 1;
+
+    proto.createPattern = function (source, repetition) {
+      if (
+        source &&
+        source.tagName === 'CANVAS' &&
+        (!source.width || !source.height)
+      ) {
+        return originalCreatePattern.call(this, transparentPixel, repetition);
+      }
+      return originalCreatePattern.call(this, source, repetition);
+    };
+
+    return Promise.resolve()
+      .then(render)
+      .finally(function () {
+        proto.createPattern = originalCreatePattern;
+      });
   }
 
   /** Cover-crop like object-cover; default aligns to top center (project cards). */
@@ -110,37 +164,69 @@
     if (!data || data.type !== 'demo-capture') return;
 
     var viewportWidth = data.viewportWidth || SCREENSHOT_VIEWPORT;
-    var outputWidth = data.outputWidth || 400;
-    var outputHeight = data.outputHeight || 480;
-    var pixelRatio = Math.min(data.pixelRatio || window.devicePixelRatio || 1, 2);
-    var exportWidth = Math.round(outputWidth * pixelRatio);
-    var exportHeight = Math.round(outputHeight * pixelRatio);
+    var outputWidth = data.outputWidth || viewportWidth;
+    var viewportHeight = Math.max(1, Math.round(data.viewportHeight || window.innerHeight));
+    var pixelRatio = Math.min(data.pixelRatio || 1, 2);
+    var exportWidth;
+    var exportHeight;
+    var captureHeight;
 
     Promise.resolve()
       .then(function () {
         window.scrollTo(0, 0);
         applyCaptureViewport(viewportWidth);
+        return waitForCaptureAssets();
+      })
+      .then(function () {
         return loadHtml2Canvas();
       })
       .then(function (html2canvas) {
         var target = findCaptureTarget(data.selector);
         if (!target) throw new Error('Không tìm thấy vùng chụp trên demo');
 
-        return html2canvas(target, {
-          useCORS: true,
-          allowTaint: true,
-          backgroundColor: null,
-          scale: pixelRatio,
-          scrollX: 0,
-          scrollY: -window.scrollY,
-          windowWidth: viewportWidth,
-          windowHeight: Math.max(target.offsetHeight, window.innerHeight),
+        var documentHeight = Math.max(
+          document.documentElement.scrollHeight,
+          document.documentElement.offsetHeight,
+          document.body.scrollHeight,
+          document.body.offsetHeight,
+        );
+        captureHeight = data.fullPage ? documentHeight : viewportHeight;
+        exportWidth = Math.round(outputWidth * pixelRatio);
+        exportHeight = Math.round((data.outputHeight || captureHeight) * pixelRatio);
+
+        return renderWithSafePatterns(function () {
+          return html2canvas(target, {
+            useCORS: true,
+            allowTaint: true,
+            backgroundColor: data.fullPage ? '#ffffff' : null,
+            scale: pixelRatio,
+            scrollX: 0,
+            scrollY: 0,
+            width: viewportWidth,
+            height: data.captureViewport || data.fullPage
+              ? captureHeight
+              : Math.min(captureHeight, Math.max(target.scrollHeight, target.offsetHeight)),
+            windowWidth: viewportWidth,
+            windowHeight: viewportHeight,
+            onclone: function (clonedDocument) {
+              Array.prototype.forEach.call(
+                clonedDocument.querySelectorAll('canvas'),
+                function (canvas) {
+                  if (!canvas.width || !canvas.height) canvas.style.display = 'none';
+                },
+              );
+            },
+          });
         }).then(function (canvas) {
+          if (!canvas.width || !canvas.height) {
+            throw new Error('Vùng chụp chưa có kích thước');
+          }
           return fitCanvas(canvas, exportWidth, exportHeight, data.objectPosition || 'top center');
         });
       })
       .then(function (canvas) {
-        var dataUrl = canvas.toDataURL('image/png', 0.92);
+        var mimeType = data.fullPage ? 'image/jpeg' : 'image/png';
+        var dataUrl = canvas.toDataURL(mimeType, 0.9);
         event.source.postMessage(
           { type: 'demo-capture-result', ok: true, dataUrl: dataUrl },
           event.origin,

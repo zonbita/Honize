@@ -1,0 +1,31 @@
+<header class="nova-header" id="nova-header">
+  <div class="nova-container nova-header-inner">
+    <a href="{{novaBase}}" class="nova-logo" aria-label="NOVA ENGLISH — Trang chủ">
+      <span class="nova-logo-nova">NOVA</span>
+      <span class="nova-logo-english">ENGLISH</span>
+    </a>
+
+    <nav class="nova-nav" id="nova-nav" aria-label="Menu chính">
+      <a href="{{novaBase}}/phuong-phap" class="{{#if (eq novaActive 'method')}}is-active{{/if}}">Phương pháp</a>
+      <a href="{{novaBase}}/ket-qua" class="{{#if (eq novaActive 'results')}}is-active{{/if}}">Kết quả</a>
+      <a href="{{novaBase}}/giang-vien" class="{{#if (eq novaActive 'teachers')}}is-active{{/if}}">Giảng viên</a>
+      <a href="{{novaBase}}/hoc-vien" class="{{#if (eq novaActive 'students')}}is-active{{/if}}">Học viên</a>
+      <a href="{{novaBase}}/tin-tuc" class="{{#if (eq novaActive 'news')}}is-active{{/if}}">Tin tức</a>
+      <a href="{{novaBase}}/ve-nova" class="{{#if (eq novaActive 'about')}}is-active{{/if}}">Về NOVA</a>
+    </nav>
+
+    <div class="nova-header-actions">
+      <a href="tel:19006393" class="nova-phone">
+        <span class="nova-phone-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        </span>
+        1900 6339
+      </a>
+      <a href="{{novaBase}}#contact" class="nova-btn nova-btn-primary nova-btn-header">Kiểm tra trình độ miễn phí</a>
+    </div>
+
+    <button type="button" class="nova-menu-btn" id="nova-menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="nova-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>

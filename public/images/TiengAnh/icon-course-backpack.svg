@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- backpack -->
+  <path d="M20 24h24v28a6 6 0 01-6 6H26a6 6 0 01-6-6V24z" stroke="#e4001d" stroke-width="2.6" stroke-linejoin="round"/>
+  <path d="M24 24c0-6 3.5-10 8-10s8 4 8 10" stroke="#e4001d" stroke-width="2.6" stroke-linecap="round"/>
+  <path d="M20 34h-4a3 3 0 01-3-3v-2a3 3 0 013-3h4M44 34h4a3 3 0 003-3v-2a3 3 0 00-3-3h-4" stroke="#e4001d" stroke-width="2.6" stroke-linejoin="round"/>
+  <path d="M26 40h12" stroke="#e4001d" stroke-width="2.6" stroke-linecap="round"/>
+  <rect x="28" y="44" width="8" height="6" rx="1.5" stroke="#e4001d" stroke-width="2.2"/>
+</svg>

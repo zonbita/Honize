@@ -1,0 +1,23 @@
+<section class="vivu-page-cta" aria-labelledby="vivu-page-cta-title">
+  <div class="vivu-page-cta-bg" aria-hidden="true">
+    <img src="{{#if bg}}{{bg}}{{else}}/images/Vivu/01-hero-ha-long.png{{/if}}" alt="" width="1920" height="640" loading="lazy" />
+    <div class="vivu-page-cta-overlay"></div>
+  </div>
+  <div class="vivu-container vivu-page-cta-inner" data-aos="fade-up">
+    <p class="vivu-kicker vivu-kicker--light">{{#if kicker}}{{kicker}}{{else}}SẴN SÀNG KHÁM PHÁ{{/if}}</p>
+    <h2 id="vivu-page-cta-title" class="vivu-page-cta-title">
+      {{#if title}}{{title}}{{else}}Bạn đã sẵn sàng cho chuyến đi tiếp theo?{{/if}}
+    </h2>
+    {{#if text}}
+    <p class="vivu-page-cta-text">{{text}}</p>
+    {{/if}}
+    <div class="vivu-page-cta-actions">
+      <a href="{{vivuBase}}/tour-du-lich" class="vivu-btn vivu-btn-gold">
+        {{#if primary}}{{primary}}{{else}}Khám phá Tour{{/if}}
+      </a>
+      <a href="{{vivuBase}}/lien-he" class="vivu-btn vivu-btn-outline vivu-btn-outline--light">
+        {{#if secondary}}{{secondary}}{{else}}Liên hệ tư vấn{{/if}}
+      </a>
+    </div>
+  </div>
+</section>

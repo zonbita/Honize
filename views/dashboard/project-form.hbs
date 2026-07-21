@@ -235,7 +235,8 @@
       try {
         const blob = dataUrlToBlob(data.dataUrl);
         const formData = new FormData();
-        formData.append('file', blob, 'demo-thumbnail.png');
+        const extension = blob.type === 'image/jpeg' ? 'jpg' : 'png';
+        formData.append('file', blob, `demo-thumbnail.${extension}`);
         const res = await fetch('/api/upload', { method: 'POST', body: formData });
         const payload = await res.json();
         if (!res.ok) throw new Error(payload.message || 'Upload thất bại');
@@ -253,18 +254,21 @@
         return;
       }
 
+      const viewportWidth = Math.max(1, Math.round(iframe.clientWidth));
+      const viewportHeight = Math.max(1, Math.round(iframe.clientHeight));
+
       captureBtn.disabled = true;
       captureBtn.textContent = 'Đang chụp...';
-      showCaptureStatus('Đang chụp vùng hero của demo...', false);
+      showCaptureStatus('Đang chụp toàn bộ chiều cao của trang demo...', false);
 
       iframe.contentWindow.postMessage(
         {
           type: 'demo-capture',
-          selector: '.vivu-hero, .tmv-hero, #home',
-          viewportWidth: 1280,
-          outputWidth: 400,
-          outputHeight: 480,
-          objectPosition: 'top center',
+          fullPage: true,
+          viewportWidth,
+          viewportHeight,
+          outputWidth: viewportWidth,
+          pixelRatio: 1,
         },
         window.location.origin,
       );

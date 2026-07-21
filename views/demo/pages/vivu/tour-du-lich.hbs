@@ -1,0 +1,137 @@
+<div class="vivu-page vivu-page--inner">
+  {{> demo/vivu/header }}
+
+  <section class="vivu-page-hero" aria-labelledby="vivu-tours-hero-title">
+    <div class="vivu-page-hero-bg" aria-hidden="true">
+      <img src="{{vivuHeroBg}}" alt="" width="1920" height="720" loading="eager" />
+      <div class="vivu-page-hero-overlay"></div>
+    </div>
+    <div class="vivu-container vivu-page-hero-inner" data-aos="fade-up">
+      <nav class="vivu-breadcrumb" aria-label="Breadcrumb">
+        <a href="{{vivuBase}}">Trang chủ</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Tour du lịch</span>
+      </nav>
+      <h1 id="vivu-tours-hero-title" class="vivu-page-hero-title">Chọn hành trình phù hợp với bạn</h1>
+      <p class="vivu-page-hero-desc">Khám phá hàng trăm tour được thiết kế chuyên nghiệp với lịch trình tối ưu.</p>
+      <div class="vivu-page-hero-actions">
+        <a href="#vivu-tour-grid" class="vivu-btn vivu-btn-primary">Xem danh sách tour</a>
+        <a href="{{vivuBase}}/lien-he" class="vivu-btn vivu-btn-outline vivu-btn-outline--light">Đặt tour ngay</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="vivu-block" aria-label="Bộ lọc tour">
+    <div class="vivu-container">
+      <div class="vivu-filter-panel" data-aos="fade-up">
+        <label class="vivu-filter-field">
+          <span>Điểm đến</span>
+          <select aria-label="Điểm đến">
+            <option>Tất cả điểm đến</option>
+            <option>Hạ Long</option>
+            <option>Hội An</option>
+            <option>Phú Quốc</option>
+            <option>Sa Pa</option>
+            <option>Đà Nẵng</option>
+            <option>Đà Lạt</option>
+          </select>
+        </label>
+        <label class="vivu-filter-field">
+          <span>Giá</span>
+          <select aria-label="Khoảng giá">
+            <option>Mọi mức giá</option>
+            <option>Dưới 3 triệu</option>
+            <option>3 – 5 triệu</option>
+            <option>Trên 5 triệu</option>
+          </select>
+        </label>
+        <label class="vivu-filter-field">
+          <span>Thời gian</span>
+          <select aria-label="Thời gian">
+            <option>Mọi thời lượng</option>
+            <option>2N1Đ</option>
+            <option>3N2Đ</option>
+            <option>4N3Đ+</option>
+          </select>
+        </label>
+        <label class="vivu-filter-field">
+          <span>Chủ đề</span>
+          <select aria-label="Chủ đề">
+            <option>Tất cả chủ đề</option>
+            <option>Nghỉ dưỡng</option>
+            <option>Khám phá</option>
+            <option>Gia đình</option>
+            <option>Cặp đôi</option>
+          </select>
+        </label>
+        <label class="vivu-filter-field">
+          <span>Sắp xếp</span>
+          <select aria-label="Sắp xếp">
+            <option>Phổ biến nhất</option>
+            <option>Giá tăng dần</option>
+            <option>Giá giảm dần</option>
+            <option>Đánh giá cao</option>
+          </select>
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <section class="vivu-block vivu-block--tight-top" id="vivu-tour-grid">
+    <div class="vivu-container">
+      <div class="vivu-tour-grid vivu-tour-grid--page">
+        {{#each tours}}
+        <article class="vivu-tour-card" data-aos="fade-up" data-aos-delay="{{multiply @index 50}}">
+          <div class="vivu-tour-media">
+            <img src="{{this.image}}" alt="{{this.title}}" loading="lazy" width="400" height="240" />
+            {{#if this.badge}}<span class="vivu-tour-badge">{{this.badge}}</span>{{/if}}
+            <span class="vivu-tour-duration">{{this.duration}}</span>
+          </div>
+          <div class="vivu-tour-body">
+            <h2 class="vivu-tour-title">{{this.title}}</h2>
+            <div class="vivu-tour-rating" aria-label="Đánh giá {{this.rating}} sao">
+              <span class="vivu-tour-stars" aria-hidden="true">★★★★★</span>
+              <span>{{this.rating}} ({{this.reviews}} đánh giá)</span>
+            </div>
+            <ul class="vivu-tour-highlights">
+              {{#each this.highlights}}
+              <li>{{this}}</li>
+              {{/each}}
+            </ul>
+            <div class="vivu-tour-footer">
+              <div class="vivu-tour-price">
+                <span>Từ</span>
+                <strong>{{this.price}}</strong>
+                <small>/ Khách</small>
+              </div>
+              <a href="{{../vivuBase}}/lien-he" class="vivu-btn vivu-btn-sm vivu-btn-primary">Xem chi tiết</a>
+            </div>
+          </div>
+        </article>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <section class="vivu-block vivu-block--soft">
+    <div class="vivu-container">
+      <div class="vivu-section-head" data-aos="fade-up">
+        <p class="vivu-kicker">LỢI ÍCH KHI ĐẶT TOUR</p>
+        <h2 class="vivu-section-title">Yên tâm trên mọi hành trình</h2>
+      </div>
+      <div class="vivu-icon-grid vivu-icon-grid--4">
+        {{#each vivuTourBenefits}}
+        <article class="vivu-icon-card" data-aos="fade-up" data-aos-delay="{{multiply @index 50}}">
+          <span class="vivu-icon-card-mark" aria-hidden="true"></span>
+          <h3>{{this.title}}</h3>
+          <p>{{this.text}}</p>
+        </article>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  {{> demo/vivu/cta title="Đặt tour ngay hôm nay" text="Giữ chỗ sớm để nhận ưu đãi và lịch trình phù hợp nhất." primary="Đặt tour ngay" secondary="Liên hệ tư vấn" bg="/images/Vivu/02-ha-long.png" }}
+  {{> demo/vivu/footer }}
+</div>
+{{> demo/vivu/scripts }}

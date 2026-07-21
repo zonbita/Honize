@@ -1,0 +1,160 @@
+<div class="vivu-page vivu-page--inner">
+  {{> demo/vivu/header }}
+
+  <section class="vivu-page-hero" aria-labelledby="vivu-contact-hero-title">
+    <div class="vivu-page-hero-bg" aria-hidden="true">
+      <img src="{{vivuHeroBg}}" alt="" width="1920" height="720" loading="eager" />
+      <div class="vivu-page-hero-overlay"></div>
+    </div>
+    <div class="vivu-container vivu-page-hero-inner" data-aos="fade-up">
+      <nav class="vivu-breadcrumb" aria-label="Breadcrumb">
+        <a href="{{vivuBase}}">Trang chủ</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Liên hệ</span>
+      </nav>
+      <h1 id="vivu-contact-hero-title" class="vivu-page-hero-title">Chúng tôi luôn sẵn sàng đồng hành cùng bạn.</h1>
+      <p class="vivu-page-hero-desc">Để lại thông tin — đội ngũ VIVU sẽ tư vấn hành trình phù hợp trong thời gian sớm nhất.</p>
+    </div>
+  </section>
+
+  <section class="vivu-block">
+    <div class="vivu-container">
+      <div class="vivu-contact-cards">
+        <article class="vivu-contact-card" data-aos="fade-up">
+          <h2>Hotline</h2>
+          <p><a href="tel:19001234">1900 1234</a></p>
+          <span>Hỗ trợ 24/7</span>
+        </article>
+        <article class="vivu-contact-card" data-aos="fade-up" data-aos-delay="50">
+          <h2>Email</h2>
+          <p><a href="mailto:hello@vivu.vn">hello@vivu.vn</a></p>
+          <span>Phản hồi trong 24 giờ</span>
+        </article>
+        <article class="vivu-contact-card" data-aos="fade-up" data-aos-delay="100">
+          <h2>Địa chỉ</h2>
+          <p>123 Đường Lê Lợi, Quận 1<br />TP. Hồ Chí Minh</p>
+          <span>Việt Nam</span>
+        </article>
+        <article class="vivu-contact-card" data-aos="fade-up" data-aos-delay="150">
+          <h2>Giờ làm việc</h2>
+          <p>Thứ 2 – Chủ nhật</p>
+          <span>08:00 – 21:00</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="vivu-block vivu-block--soft">
+    <div class="vivu-container vivu-contact-layout">
+      <div data-aos="fade-up">
+        <p class="vivu-kicker">FORM TƯ VẤN</p>
+        <h2 class="vivu-section-title vivu-section-title--left">Nhận tư vấn miễn phí</h2>
+        <p class="vivu-contact-lead">Điền thông tin bên dưới để nhận gợi ý hành trình và báo giá phù hợp.</p>
+        <form class="vivu-contact-form" id="vivu-contact-form" novalidate>
+          <div class="vivu-contact-grid">
+            <label class="vivu-field">
+              <span>Họ tên</span>
+              <input type="text" name="name" placeholder="Nguyễn Văn A" required autocomplete="name" />
+            </label>
+            <label class="vivu-field">
+              <span>Điện thoại</span>
+              <input type="tel" name="phone" placeholder="09xx xxx xxx" required autocomplete="tel" />
+            </label>
+            <label class="vivu-field">
+              <span>Email</span>
+              <input type="email" name="email" placeholder="you@email.com" autocomplete="email" />
+            </label>
+            <label class="vivu-field">
+              <span>Điểm đến</span>
+              <select name="destination">
+                <option value="">Chọn điểm đến</option>
+                <option>Hạ Long</option>
+                <option>Hội An</option>
+                <option>Phú Quốc</option>
+                <option>Sa Pa</option>
+                <option>Đà Nẵng</option>
+                <option>Đà Lạt</option>
+                <option>Khác</option>
+              </select>
+            </label>
+            <label class="vivu-field">
+              <span>Ngày khởi hành</span>
+              <input type="date" name="depart" />
+            </label>
+            <label class="vivu-field">
+              <span>Số người</span>
+              <input type="number" name="guests" min="1" max="50" placeholder="2" />
+            </label>
+            <label class="vivu-field vivu-field--full">
+              <span>Ngân sách</span>
+              <select name="budget">
+                <option value="">Chọn ngân sách</option>
+                <option>Dưới 5 triệu / khách</option>
+                <option>5 – 10 triệu / khách</option>
+                <option>Trên 10 triệu / khách</option>
+              </select>
+            </label>
+            <label class="vivu-field vivu-field--full">
+              <span>Nội dung</span>
+              <textarea name="message" rows="4" placeholder="Mô tả mong muốn chuyến đi của bạn..."></textarea>
+            </label>
+          </div>
+          <button type="submit" class="vivu-btn vivu-btn-gold">Nhận tư vấn miễn phí</button>
+          <p class="vivu-form-msg" id="vivu-contact-msg" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+
+      <div class="vivu-map-wrap" data-aos="fade-up" data-aos-delay="80">
+        <h2 class="vivu-side-title">Bản đồ</h2>
+        <div class="vivu-map" role="img" aria-label="Bản đồ văn phòng VIVU tại Quận 1, TP. Hồ Chí Minh">
+          <iframe
+            title="Bản đồ VIVU"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://maps.google.com/maps?q=123%20Le%20Loi%20District%201%20Ho%20Chi%20Minh%20City&t=&z=15&ie=UTF8&iwloc=&output=embed"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="vivu-block" id="faq">
+    <div class="vivu-container vivu-faq-wrap">
+      <div class="vivu-section-head" data-aos="fade-up">
+        <p class="vivu-kicker">CÂU HỎI THƯỜNG GẶP</p>
+        <h2 class="vivu-section-title">Giải đáp nhanh trước khi đặt tour</h2>
+      </div>
+      <div class="vivu-faq-list" data-aos="fade-up">
+        {{#each vivuFaq}}
+        <div class="vivu-faq-item">
+          <button type="button" class="vivu-faq-trigger" aria-expanded="false">
+            <span>{{this.q}}</span>
+            <span class="vivu-faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="vivu-faq-panel">
+            <p>{{this.a}}</p>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <section class="vivu-block vivu-block--soft">
+    <div class="vivu-container" data-aos="fade-up">
+      <div class="vivu-section-head">
+        <p class="vivu-kicker">MẠNG XÃ HỘI</p>
+        <h2 class="vivu-section-title">Kết nối cùng VIVU</h2>
+      </div>
+      <div class="vivu-social-row">
+        <a href="#" class="vivu-social-chip" aria-label="Facebook">Facebook</a>
+        <a href="#" class="vivu-social-chip" aria-label="Instagram">Instagram</a>
+        <a href="#" class="vivu-social-chip" aria-label="TikTok">TikTok</a>
+        <a href="#" class="vivu-social-chip" aria-label="YouTube">YouTube</a>
+      </div>
+    </div>
+  </section>
+
+  {{> demo/vivu/footer }}
+</div>
+{{> demo/vivu/scripts }}

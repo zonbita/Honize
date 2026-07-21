@@ -1,0 +1,153 @@
+<div class="nova-page">
+  <div class="nova-promo-bar">
+    <div class="nova-container nova-promo-inner">
+      <p>Ưu đãi học phí lên đến <strong>20%</strong> — Đăng ký trước 30/06/2026</p>
+      <a href="{{novaBase}}#contact" class="nova-promo-link">Đăng ký ngay →</a>
+    </div>
+  </div>
+
+  {{> demo/nova/header }}
+
+  <section class="nova-page-hero">
+    <div class="nova-container">
+      <nav class="nova-breadcrumb" aria-label="Breadcrumb">
+        <a href="{{novaBase}}">Trang chủ</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Học viên</span>
+      </nav>
+      <h1 class="nova-page-hero-title">Học viên nói gì về NOVA</h1>
+      <p class="nova-page-hero-desc">Câu chuyện thật, điểm số thật và hành trình thay đổi của học viên NOVA ENGLISH.</p>
+    </div>
+  </section>
+
+  <section class="nova-block nova-block--gray">
+    <div class="nova-container">
+      <div class="nova-section-head" data-aos="fade-up">
+        <h2 class="nova-section-title">Testimonials</h2>
+      </div>
+      <div class="nova-filter" data-aos="fade-up" role="group" aria-label="Lọc đánh giá">
+        <button type="button" class="nova-filter-chip is-active">Tất cả</button>
+        <button type="button" class="nova-filter-chip">IELTS</button>
+        <button type="button" class="nova-filter-chip">TOEIC</button>
+        <button type="button" class="nova-filter-chip">Kids</button>
+        <button type="button" class="nova-filter-chip">Giao tiếp</button>
+      </div>
+      <div class="nova-testimonial-grid" style="margin-top:1.5rem">
+        {{#each testimonials}}
+        <blockquote class="nova-testimonial-card" data-aos="fade-up" data-aos-delay="{{multiply @index 70}}">
+          <div class="nova-stars" aria-label="5 sao">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.8 5.7 21l2.3-7-6-4.6h7.6z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.8 5.7 21l2.3-7-6-4.6h7.6z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.8 5.7 21l2.3-7-6-4.6h7.6z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.8 5.7 21l2.3-7-6-4.6h7.6z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.8 5.7 21l2.3-7-6-4.6h7.6z"/></svg>
+          </div>
+          <p class="nova-testimonial-quote">"{{this.quote}}"</p>
+          <footer class="nova-testimonial-author">
+            <span class="nova-testimonial-avatar" style="--av-color:{{this.color}}">{{this.initials}}</span>
+            <div>
+              <strong>{{this.name}}</strong>
+              <span>IELTS {{this.score}}</span>
+            </div>
+          </footer>
+        </blockquote>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <section class="nova-block">
+    <div class="nova-container">
+      <div class="nova-section-head" data-aos="fade-up">
+        <p class="nova-kicker">Video story</p>
+        <h2 class="nova-section-title">Học viên chia sẻ hành trình</h2>
+      </div>
+      <div class="nova-video-grid">
+        {{#each novaBeforeAfter}}
+        <article class="nova-video-card" data-aos="fade-up" data-aos-delay="{{multiply @index 70}}">
+          <div class="nova-video-thumb" aria-hidden="true"><span class="nova-video-play"></span></div>
+          <h3>{{this.name}}</h3>
+          <p>{{this.note}}</p>
+        </article>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <section class="nova-block nova-block--cream">
+    <div class="nova-container">
+      <div class="nova-section-head" data-aos="fade-up">
+        <p class="nova-kicker">Before / After</p>
+        <h2 class="nova-section-title">Sự thay đổi rõ ràng sau lộ trình</h2>
+      </div>
+      <div class="nova-ba">
+        {{#each novaBeforeAfter}}
+        <article class="nova-ba-card" data-aos="fade-up" data-aos-delay="{{multiply @index 70}}">
+          <h3>{{this.name}}</h3>
+          <div class="nova-ba-scores">
+            <div>
+              <span>Trước</span>
+              <strong>{{this.before}}</strong>
+            </div>
+            <span class="nova-ba-arrow" aria-hidden="true">→</span>
+            <div>
+              <span>Sau</span>
+              <strong class="nova-text-red">{{this.after}}</strong>
+            </div>
+          </div>
+          <p>{{this.note}}</p>
+        </article>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <section class="nova-block">
+    <div class="nova-container">
+      <div class="nova-section-head" data-aos="fade-up">
+        <p class="nova-kicker">Hoạt động</p>
+        <h2 class="nova-section-title">Workshop · Speaking Club · Graduation · Contest</h2>
+      </div>
+      <div class="nova-album">
+        {{#each novaActivities}}
+        <figure data-aos="fade-up" data-aos-delay="{{multiply @index 60}}">
+          <img src="{{this.image}}" alt="{{this.title}}" loading="lazy" width="480" height="320" />
+          <figcaption>{{this.title}}</figcaption>
+        </figure>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <section class="nova-block nova-block--gray">
+    <div class="nova-container">
+      <div class="nova-section-head" data-aos="fade-up">
+        <h2 class="nova-section-title">Đối tác đồng hành</h2>
+      </div>
+      <div class="nova-partners" aria-label="Đối tác">
+        <div class="nova-partners-track">
+          <div class="nova-partners-group">
+            <span>British Council</span>
+            <span>IDP</span>
+            <span>Cambridge</span>
+            <span>ETS TOEIC</span>
+            <span>College Board</span>
+            <span>GMAC</span>
+          </div>
+          <div class="nova-partners-group" aria-hidden="true">
+            <span>British Council</span>
+            <span>IDP</span>
+            <span>Cambridge</span>
+            <span>ETS TOEIC</span>
+            <span>College Board</span>
+            <span>GMAC</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {{> demo/nova/cta }}
+  {{> demo/nova/footer }}
+</div>
+{{> demo/nova/scripts }}

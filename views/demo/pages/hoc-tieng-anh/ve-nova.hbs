@@ -1,0 +1,140 @@
+<div class="nova-page">
+  <div class="nova-promo-bar">
+    <div class="nova-container nova-promo-inner">
+      <p>Ưu đãi học phí lên đến <strong>20%</strong> — Đăng ký trước 30/06/2026</p>
+      <a href="{{novaBase}}#contact" class="nova-promo-link">Đăng ký ngay →</a>
+    </div>
+  </div>
+
+  {{> demo/nova/header }}
+
+  <section class="nova-page-hero">
+    <div class="nova-container">
+      <nav class="nova-breadcrumb" aria-label="Breadcrumb">
+        <a href="{{novaBase}}">Trang chủ</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Về NOVA</span>
+      </nav>
+      <h1 class="nova-page-hero-title">Về NOVA ENGLISH</h1>
+      <p class="nova-page-hero-desc">Trung tâm Anh ngữ định hướng kết quả — tư duy đúng, tiếng Anh bứt phá.</p>
+    </div>
+  </section>
+
+  <section class="nova-block">
+    <div class="nova-container nova-about-grid">
+      <div data-aos="fade-up">
+        <p class="nova-kicker">Giới thiệu</p>
+        <h2 class="nova-section-title nova-section-title--left">Thành lập · Sứ mệnh · Tầm nhìn</h2>
+        <p class="nova-about-text">
+          NOVA ENGLISH được thành lập với khát vọng giúp người học Việt Nam làm chủ tiếng Anh bằng tư duy logic, không chỉ học thuộc lòng. Chúng tôi kết hợp đội ngũ giảng viên xuất sắc, phương pháp Logic Path và LMS hiện đại để mỗi học viên đạt mục tiêu trong thời gian tối ưu.
+        </p>
+      </div>
+      <div class="nova-about-media" data-aos="fade-up" data-aos-delay="80">
+        <img src="/images/TiengAnh/21aaeeea-fe80-4525-b01f-526c1b267d93.png" alt="NOVA ENGLISH" width="640" height="480" loading="lazy" />
+      </div>
+    </div>
+    <div class="nova-container" style="margin-top:2.5rem">
+      <div class="nova-values">
+        {{#each novaAboutValues}}
+        <article class="nova-value-card" data-aos="fade-up" data-aos-delay="{{multiply @index 60}}">
+          <h3>{{this.title}}</h3>
+          <p>{{this.text}}</p>
+        </article>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <section class="nova-block nova-block--cream">
+    <div class="nova-container">
+      <div class="nova-section-head" data-aos="fade-up">
+        <p class="nova-kicker">Timeline</p>
+        <h2 class="nova-section-title">Lịch sử phát triển</h2>
+      </div>
+      <ol class="nova-history" data-aos="fade-up">
+        {{#each novaHistory}}
+        <li class="nova-history-item">
+          <span class="nova-history-year">{{this.year}}</span>
+          <p>{{this.text}}</p>
+        </li>
+        {{/each}}
+      </ol>
+    </div>
+  </section>
+
+  <div class="nova-stats-bar" aria-label="Thành tựu NOVA">
+    <div class="nova-container nova-stats-grid">
+      {{#each stats}}
+      <div class="nova-stat" data-aos="fade-up" data-aos-delay="{{multiply @index 80}}">
+        <div class="nova-stat-icon" aria-hidden="true">{{{this.icon}}}</div>
+        <strong class="nova-stat-value">{{this.value}}</strong>
+        <span class="nova-stat-label">{{this.label}}</span>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+
+  <section class="nova-campuses" id="campuses">
+    <div class="nova-container">
+      <div class="nova-section-head nova-section-head--left" data-aos="fade-up">
+        <h2 class="nova-section-title nova-section-title--left">Hệ thống cơ sở</h2>
+        <p style="margin:0.5rem 0 0;color:var(--nova-gray);font-size:0.9rem;max-width:36rem">Mạng lưới cơ sở tại Hà Nội và Hải Phòng — môi trường học hiện đại, dễ tiếp cận.</p>
+      </div>
+      <div class="nova-campus-grid">
+        {{#each campuses}}
+        <article class="nova-campus-card" data-aos="fade-up" data-aos-delay="{{multiply @index 60}}">
+          <img src="{{this.image}}" alt="{{this.name}}" loading="lazy" width="400" height="240" />
+          <div class="nova-campus-body">
+            <h3 class="nova-campus-name">{{this.name}}</h3>
+            <p class="nova-campus-address">{{this.address}}</p>
+            <a href="tel:{{this.phone}}" class="nova-campus-phone">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+              {{this.phoneDisplay}}
+            </a>
+          </div>
+        </article>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <section class="nova-block">
+    <div class="nova-container">
+      <div class="nova-section-head" data-aos="fade-up">
+        <h2 class="nova-section-title">Đối tác</h2>
+      </div>
+      <div class="nova-partner-grid" data-aos="fade-up">
+        <div class="nova-partner-item"><span class="nova-partner-name">British Council</span></div>
+        <div class="nova-partner-item"><span class="nova-partner-name">IDP</span></div>
+        <div class="nova-partner-item"><span class="nova-partner-name">Cambridge</span></div>
+        <div class="nova-partner-item"><span class="nova-partner-name">ETS TOEIC</span></div>
+        <div class="nova-partner-item"><span class="nova-partner-name">College Board</span></div>
+        <div class="nova-partner-item"><span class="nova-partner-name">GMAC</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="nova-block nova-block--gray">
+    <div class="nova-container">
+      <div class="nova-section-head" data-aos="fade-up">
+        <p class="nova-kicker">Văn hóa doanh nghiệp</p>
+        <h2 class="nova-section-title">Con người &amp; tinh thần NOVA</h2>
+      </div>
+      <div class="nova-album">
+        {{#each novaCulture}}
+        <figure data-aos="fade-up" data-aos-delay="{{multiply @index 60}}">
+          <img src="{{this.image}}" alt="{{this.title}}" loading="lazy" width="480" height="320" />
+          <figcaption>
+            <strong>{{this.title}}</strong>
+            <span>{{this.text}}</span>
+          </figcaption>
+        </figure>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  {{> demo/nova/cta }}
+  {{> demo/nova/footer }}
+</div>
+{{> demo/nova/scripts }}

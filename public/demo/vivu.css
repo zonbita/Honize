@@ -1481,8 +1481,16 @@
   align-items: center;
   padding: 48px;
   border-radius: var(--radius-panel);
-  background: var(--background-soft);
+  background:
+    linear-gradient(
+      105deg,
+      rgba(250, 247, 242, 0.88) 0%,
+      rgba(250, 247, 242, 0.72) 42%,
+      rgba(243, 239, 232, 0.55) 100%
+    ),
+    url('/images/Vivu/10-newsletter-nature-bg.png') center / cover no-repeat;
   border: 1px solid var(--border);
+  overflow: hidden;
 }
 
 .vivu-newsletter-title {
@@ -1507,10 +1515,22 @@
   align-items: start;
 }
 
+.vivu-newsletter-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  isolation: isolate;
+}
+
 .vivu-newsletter-visual img {
   width: 100%;
   max-width: 420px;
   margin-inline: auto;
+  filter:
+    drop-shadow(0 18px 14px rgba(12, 58, 66, 0.18))
+    drop-shadow(0 36px 42px rgba(12, 58, 66, 0.22))
+    drop-shadow(8px 48px 28px rgba(12, 58, 66, 0.12));
 }
 
 .vivu-field input {
@@ -1942,4 +1962,828 @@ html.demo-screenshot-mode [data-aos] {
   opacity: 1 !important;
   transform: none !important;
   transition: none !important;
+}
+
+/* ==========================================================================
+   Internal pages — hero, filters, lists, contact, gallery
+   ========================================================================== */
+
+.vivu-header.is-solid {
+  position: sticky;
+  top: 0;
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom-color: var(--border);
+  box-shadow: 0 8px 24px rgba(12, 58, 66, 0.06);
+}
+
+.vivu-page--inner {
+  padding-top: 0;
+}
+
+.vivu-btn-outline--light {
+  color: var(--white) !important;
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+.vivu-btn-outline--light:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: var(--white);
+}
+
+.vivu-kicker--light {
+  color: var(--gold-400);
+}
+
+.vivu-page-hero {
+  position: relative;
+  min-height: clamp(380px, 52vh, 520px);
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  color: var(--white);
+}
+
+.vivu-page-hero-bg {
+  position: absolute;
+  inset: 0;
+}
+
+.vivu-page-hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vivu-page-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(12, 58, 66, 0.35) 0%, rgba(12, 58, 66, 0.72) 100%);
+}
+
+.vivu-page-hero-inner {
+  position: relative;
+  z-index: 1;
+  padding-block: 72px 64px;
+  max-width: 760px;
+}
+
+.vivu-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.vivu-breadcrumb a:hover {
+  color: var(--gold-400);
+}
+
+.vivu-page-hero-title {
+  margin: 0 0 14px;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(32px, 4.5vw, 52px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.vivu-page-hero-desc {
+  margin: 0 0 28px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.88);
+  max-width: 560px;
+}
+
+.vivu-page-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.vivu-block {
+  padding: 72px 0;
+}
+
+.vivu-block--tight-top {
+  padding-top: 24px;
+}
+
+.vivu-block--soft {
+  background: var(--background-soft);
+}
+
+.vivu-filter-bar,
+.vivu-handbook-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.vivu-filter-bar button,
+.vivu-handbook-tabs button {
+  min-height: 42px;
+  padding: 0 18px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-btn);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.vivu-filter-bar button:hover,
+.vivu-handbook-tabs button:hover,
+.vivu-filter-bar button.is-active,
+.vivu-handbook-tabs button.is-active {
+  color: var(--white);
+  background: linear-gradient(135deg, var(--primary-600), var(--primary-800));
+  border-color: transparent;
+}
+
+.vivu-filter-panel {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+  padding: 20px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+}
+
+.vivu-filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.vivu-filter-field select,
+.vivu-contact-form select,
+.vivu-contact-form textarea,
+.vivu-contact-form input {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 14px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--text-primary);
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-btn);
+}
+
+.vivu-contact-form textarea {
+  min-height: 120px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  resize: vertical;
+}
+
+.vivu-dest-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.vivu-dest-list-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.vivu-dest-list-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 42px rgba(12, 58, 66, 0.12);
+}
+
+.vivu-dest-list-media {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.vivu-dest-list-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 400ms ease;
+}
+
+.vivu-dest-list-card:hover .vivu-dest-list-media img {
+  transform: scale(1.04);
+}
+
+.vivu-dest-list-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px;
+  flex: 1;
+}
+
+.vivu-dest-list-name {
+  margin: 0;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.vivu-dest-list-desc {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.vivu-dest-list-meta {
+  display: flex;
+  gap: 16px;
+  margin: 4px 0 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary-700);
+}
+
+.vivu-icon-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.vivu-icon-grid--4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.vivu-icon-card {
+  padding: 28px 24px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  transition: var(--transition);
+}
+
+.vivu-icon-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-soft);
+}
+
+.vivu-icon-card-mark {
+  display: block;
+  width: 36px;
+  height: 3px;
+  margin-bottom: 18px;
+  background: linear-gradient(90deg, var(--gold-500), var(--primary-500));
+}
+
+.vivu-icon-card h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.vivu-icon-card p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+.vivu-page-cta {
+  position: relative;
+  padding: 96px 0;
+  overflow: hidden;
+  color: var(--white);
+  text-align: center;
+}
+
+.vivu-page-cta-bg {
+  position: absolute;
+  inset: 0;
+}
+
+.vivu-page-cta-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vivu-page-cta-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(12, 58, 66, 0.55), rgba(12, 58, 66, 0.78));
+}
+
+.vivu-page-cta-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+}
+
+.vivu-page-cta-title {
+  margin: 0 0 14px;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.vivu-page-cta-text {
+  margin: 0 auto 28px;
+  max-width: 480px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.vivu-page-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.vivu-tour-grid--page {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.vivu-exp-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.vivu-exp-card {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.vivu-exp-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 450ms ease;
+}
+
+.vivu-exp-card:hover img {
+  transform: scale(1.06);
+}
+
+.vivu-exp-card-overlay {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 22px 18px;
+  background: linear-gradient(180deg, transparent, rgba(12, 58, 66, 0.88));
+  color: var(--white);
+}
+
+.vivu-exp-card-overlay h3 {
+  margin: 0 0 6px;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 22px;
+}
+
+.vivu-exp-card-overlay p {
+  margin: 0;
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+.vivu-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.vivu-gallery-item {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+}
+
+.vivu-gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 400ms ease;
+}
+
+.vivu-gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+.vivu-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(12, 58, 66, 0.88);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 220ms ease, visibility 220ms ease;
+}
+
+.vivu-lightbox.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.vivu-lightbox img {
+  max-width: min(960px, 100%);
+  max-height: 85vh;
+  object-fit: contain;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+
+.vivu-lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--white);
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.vivu-video--page {
+  margin: 0;
+}
+
+.vivu-review-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.vivu-review-card {
+  padding: 28px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+}
+
+.vivu-review-stars {
+  margin-bottom: 12px;
+  color: var(--gold-500);
+  letter-spacing: 2px;
+}
+
+.vivu-review-card blockquote {
+  margin: 0 0 20px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-primary);
+}
+
+.vivu-review-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.vivu-review-author strong {
+  display: block;
+  font-size: 14px;
+}
+
+.vivu-review-author span {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.vivu-handbook-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 36px;
+  margin-top: 36px;
+  align-items: start;
+}
+
+.vivu-blog-grid--handbook {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.vivu-handbook-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.vivu-side-card {
+  padding: 22px;
+  background: var(--white);
+  border: 1px solid var(--border);
+}
+
+.vivu-side-title {
+  margin: 0 0 14px;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.vivu-side-list,
+.vivu-side-cats {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0 0 14px;
+  padding: 0;
+  list-style: none;
+}
+
+.vivu-side-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.vivu-side-list strong {
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.vivu-side-list span {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.vivu-side-cats a {
+  font-size: 14px;
+  color: var(--text-secondary);
+  transition: color 220ms ease;
+}
+
+.vivu-side-cats a:hover {
+  color: var(--primary-700);
+}
+
+.vivu-newsletter--page {
+  padding-top: 24px;
+}
+
+.vivu-contact-cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.vivu-contact-card {
+  padding: 28px 22px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  transition: var(--transition);
+}
+
+.vivu-contact-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-soft);
+}
+
+.vivu-contact-card h2 {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-600);
+}
+
+.vivu-contact-card p {
+  margin: 0 0 8px;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.vivu-contact-card span {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.vivu-contact-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 40px;
+  align-items: start;
+}
+
+.vivu-contact-lead {
+  margin: 0 0 24px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.vivu-contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.vivu-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.vivu-field--full {
+  grid-column: 1 / -1;
+}
+
+.vivu-map-wrap {
+  position: sticky;
+  top: 100px;
+}
+
+.vivu-map {
+  margin-top: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--background-soft);
+  aspect-ratio: 4 / 3;
+}
+
+.vivu-map iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.vivu-faq-wrap {
+  max-width: 820px;
+}
+
+.vivu-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.vivu-faq-item {
+  background: var(--white);
+  border: 1px solid var(--border);
+}
+
+.vivu-faq-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: left;
+  color: var(--text-primary);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.vivu-faq-icon {
+  flex-shrink: 0;
+  color: var(--gold-600);
+  font-size: 22px;
+  line-height: 1;
+}
+
+.vivu-faq-panel {
+  display: none;
+  padding: 0 20px 18px;
+}
+
+.vivu-faq-item.is-open .vivu-faq-panel {
+  display: block;
+}
+
+.vivu-faq-item.is-open .vivu-faq-icon {
+  transform: rotate(45deg);
+}
+
+.vivu-faq-panel p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.vivu-social-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.vivu-social-chip {
+  min-height: 44px;
+  padding: 0 22px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary-800);
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-btn);
+  transition: var(--transition);
+}
+
+.vivu-social-chip:hover {
+  border-color: var(--gold-500);
+  color: var(--gold-600);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 1024px) {
+  .vivu-filter-panel,
+  .vivu-dest-list,
+  .vivu-icon-grid,
+  .vivu-icon-grid--4,
+  .vivu-tour-grid--page,
+  .vivu-exp-grid,
+  .vivu-gallery,
+  .vivu-review-grid,
+  .vivu-contact-cards,
+  .vivu-contact-layout,
+  .vivu-handbook-layout,
+  .vivu-blog-grid--handbook {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .vivu-exp-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .vivu-map-wrap {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .vivu-page-hero-inner {
+    padding-block: 56px 48px;
+  }
+
+  .vivu-filter-panel,
+  .vivu-dest-list,
+  .vivu-icon-grid,
+  .vivu-icon-grid--4,
+  .vivu-tour-grid--page,
+  .vivu-exp-grid,
+  .vivu-gallery,
+  .vivu-review-grid,
+  .vivu-contact-cards,
+  .vivu-contact-layout,
+  .vivu-contact-grid,
+  .vivu-handbook-layout,
+  .vivu-blog-grid--handbook {
+    grid-template-columns: 1fr;
+  }
+
+  .vivu-handbook-sidebar {
+    order: -1;
+  }
 }

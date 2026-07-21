@@ -1,0 +1,139 @@
+<div class="vivu-page vivu-page--inner">
+  {{> demo/vivu/header }}
+
+  <section class="vivu-page-hero" aria-labelledby="vivu-handbook-hero-title">
+    <div class="vivu-page-hero-bg" aria-hidden="true">
+      <img src="{{vivuHeroBg}}" alt="" width="1920" height="720" loading="eager" />
+      <div class="vivu-page-hero-overlay"></div>
+    </div>
+    <div class="vivu-container vivu-page-hero-inner" data-aos="fade-up">
+      <nav class="vivu-breadcrumb" aria-label="Breadcrumb">
+        <a href="{{vivuBase}}">Trang chủ</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Cẩm nang</span>
+      </nav>
+      <h1 id="vivu-handbook-hero-title" class="vivu-page-hero-title">Cẩm nang du lịch Việt Nam</h1>
+      <p class="vivu-page-hero-desc">Tất cả kinh nghiệm, lịch trình và mẹo du lịch được cập nhật liên tục.</p>
+    </div>
+  </section>
+
+  <section class="vivu-block" aria-label="Danh mục cẩm nang">
+    <div class="vivu-container">
+      <div class="vivu-handbook-tabs" role="tablist" aria-label="Danh mục bài viết" data-aos="fade-up">
+        <button type="button" class="is-active" role="tab" aria-selected="true">Kinh nghiệm</button>
+        <button type="button" role="tab" aria-selected="false">Lịch trình</button>
+        <button type="button" role="tab" aria-selected="false">Ăn gì</button>
+        <button type="button" role="tab" aria-selected="false">Chơi gì</button>
+        <button type="button" role="tab" aria-selected="false">Review</button>
+        <button type="button" role="tab" aria-selected="false">Mẹo</button>
+      </div>
+
+      <div class="vivu-handbook-layout">
+        <div class="vivu-handbook-main">
+          <div class="vivu-blog-grid vivu-blog-grid--handbook">
+            {{#each vivuArticles}}
+            <article class="vivu-blog-card" data-aos="fade-up" data-aos-delay="{{multiply @index 40}}">
+              <div class="vivu-blog-media">
+                <img src="{{this.image}}" alt="" loading="lazy" width="400" height="240" />
+                <span class="vivu-blog-cat">{{this.category}}</span>
+              </div>
+              <div class="vivu-blog-body">
+                <time datetime="{{this.datetime}}">{{this.date}}</time>
+                <h2>{{this.title}}</h2>
+                <p>{{this.excerpt}}</p>
+                <a href="{{../vivuBase}}/lien-he" class="vivu-link-more">Đọc thêm →</a>
+              </div>
+            </article>
+            {{/each}}
+          </div>
+        </div>
+
+        <aside class="vivu-handbook-sidebar" data-aos="fade-up" aria-label="Sidebar cẩm nang">
+          <div class="vivu-side-card">
+            <h3 class="vivu-side-title">Bài nổi bật</h3>
+            <ul class="vivu-side-list">
+              <li>
+                <strong>Kinh nghiệm du lịch Hạ Long 3 ngày 2 đêm</strong>
+                <span>15/03/2026</span>
+              </li>
+              <li>
+                <strong>Nên đi Phú Quốc tháng mấy?</strong>
+                <span>02/03/2026</span>
+              </li>
+              <li>
+                <strong>Sa Pa mùa lúa chín — Thời điểm đẹp nhất</strong>
+                <span>28/02/2026</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="vivu-side-card">
+            <h3 class="vivu-side-title">Danh mục</h3>
+            <ul class="vivu-side-cats">
+              <li><a href="#">Kinh nghiệm</a></li>
+              <li><a href="#">Lịch trình</a></li>
+              <li><a href="#">Ăn gì</a></li>
+              <li><a href="#">Chơi gì</a></li>
+              <li><a href="#">Review</a></li>
+              <li><a href="#">Mẹo</a></li>
+            </ul>
+          </div>
+
+          <div class="vivu-side-card">
+            <h3 class="vivu-side-title">Tour bán chạy</h3>
+            <ul class="vivu-side-list">
+              {{#each tours}}
+              {{#if (eq @index 0)}}
+              <li>
+                <strong>{{this.title}}</strong>
+                <span>Từ {{this.price}}</span>
+              </li>
+              {{/if}}
+              {{#if (eq @index 1)}}
+              <li>
+                <strong>{{this.title}}</strong>
+                <span>Từ {{this.price}}</span>
+              </li>
+              {{/if}}
+              {{#if (eq @index 2)}}
+              <li>
+                <strong>{{this.title}}</strong>
+                <span>Từ {{this.price}}</span>
+              </li>
+              {{/if}}
+              {{/each}}
+            </ul>
+            <a href="{{vivuBase}}/tour-du-lich" class="vivu-link-more">Xem tất cả tour →</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="vivu-newsletter vivu-newsletter--page" id="newsletter">
+    <div class="vivu-container">
+      <div class="vivu-newsletter-inner" data-aos="fade-up">
+        <div class="vivu-newsletter-copy">
+          <p class="vivu-kicker">ĐĂNG KÝ NHẬN CẨM NANG</p>
+          <h2 class="vivu-newsletter-title">Nhận cảm hứng cho chuyến đi tiếp theo</h2>
+          <p>Đăng ký nhận ưu đãi độc quyền và gợi ý hành trình mới nhất.</p>
+          <form class="vivu-newsletter-form" id="vivu-newsletter-form" novalidate>
+            <label class="vivu-field">
+              <span class="sr-only">Email</span>
+              <input type="email" name="email" id="vivu-email" placeholder="Nhập email của bạn" required />
+            </label>
+            <button type="submit" class="vivu-btn vivu-btn-gold">Đăng ký ngay</button>
+            <p class="vivu-form-msg" id="vivu-form-msg" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+        <div class="vivu-newsletter-visual" aria-hidden="true">
+          <img src="/images/Vivu/09-3d-travel-suitcase.png" alt="" width="480" height="400" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {{> demo/vivu/cta title="Bạn muốn trải nghiệm thực tế?" text="Để VIVU biến những bài viết thành hành trình của riêng bạn." primary="Đặt Tour ngay" secondary="Liên hệ tư vấn" bg="/images/Vivu/04-hoi-an.png" }}
+  {{> demo/vivu/footer }}
+</div>
+{{> demo/vivu/scripts }}

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- speech bubble -->
+  <path d="M12 18c0-4 4-8 10-8h20c6 0 10 4 10 8v16c0 4-4 8-10 8H28l-8 10v-10h-8c-6 0-10-4-10-8V18z" stroke="#e4001d" stroke-width="2.6" stroke-linejoin="round"/>
+  <circle cx="26" cy="26" r="2.6" fill="#e4001d"/>
+  <circle cx="32" cy="26" r="2.6" fill="#e4001d"/>
+  <circle cx="38" cy="26" r="2.6" fill="#e4001d"/>
+</svg>

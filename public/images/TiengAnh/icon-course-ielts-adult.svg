@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- graduation cap -->
+  <path d="M8 28L32 16l24 12-24 12L8 28z" stroke="#e4001d" stroke-width="2.6" stroke-linejoin="round"/>
+  <path d="M18 33v10c0 4 6.5 8 14 8s14-4 14-8V33" stroke="#e4001d" stroke-width="2.6" stroke-linejoin="round"/>
+  <path d="M56 28v14" stroke="#e4001d" stroke-width="2.6" stroke-linecap="round"/>
+  <circle cx="56" cy="44" r="2.5" fill="#e4001d"/>
+</svg>

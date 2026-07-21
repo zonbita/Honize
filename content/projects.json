@@ -51,12 +51,12 @@
   ],
   "projects": [
     {
-      "title": "Website nhà hàng",
-      "slug": "nha-hang-sai-gon",
+      "title": "KAZE — Nhà hàng Nhật Bản",
+      "slug": "nhahang",
       "categorySlug": "an-uong",
       "categoryName": "Ăn uống",
-      "image": "/images/01.jpg",
-      "url": "/du-an/demo/nha-hang-sai-gon"
+      "image": "/uploads/1784627907504-824529183.jpg",
+      "url": "/du-an/demo/nhahang"
     },
     {
       "title": "Shop thời trang online",
@@ -65,14 +65,6 @@
       "categoryName": "Bán hàng",
       "image": "/images/02.jpg",
       "url": "/du-an/demo/shop-thoi-trang"
-    },
-    {
-      "title": "Dự án căn hộ cao cấp",
-      "slug": "can-ho-cao-cap",
-      "categorySlug": "bat-dong-san",
-      "categoryName": "Bất động sản",
-      "image": "/images/04.jpg",
-      "url": "/du-an/demo/can-ho-cao-cap"
     },
     {
       "title": "Aurelia Estates",
@@ -91,22 +83,6 @@
       "url": "/du-an/demo/hoc-tieng-anh"
     },
     {
-      "title": "Trung tâm đào tạo",
-      "slug": "trung-tam-dao-tao",
-      "categorySlug": "dao-tao",
-      "categoryName": "Đào tạo",
-      "image": "/images/05.jpg",
-      "url": "/du-an/demo/trung-tam-dao-tao"
-    },
-    {
-      "title": "Spa & Wellness",
-      "slug": "spa-wellness",
-      "categorySlug": "dich-vu",
-      "categoryName": "Dịch vụ",
-      "image": "/images/06.jpg",
-      "url": "/du-an/demo/spa-wellness"
-    },
-    {
       "title": "Aesthetic Clinic — Thẩm mỹ viện",
       "slug": "tham-my-vien",
       "categorySlug": "dich-vu",
@@ -123,19 +99,11 @@
       "url": "/du-an/demo/tu-van-du-hoc"
     },
     {
-      "title": "Tour du lịch Đà Nẵng",
-      "slug": "tour-da-nang",
-      "categorySlug": "du-lich",
-      "categoryName": "Du lịch",
-      "image": "/images/08-1.jpg",
-      "url": "/du-an/demo/tour-da-nang"
-    },
-    {
       "title": "VIVU — Du lịch Việt Nam",
       "slug": "vivu",
       "categorySlug": "du-lich",
       "categoryName": "Du lịch",
-      "image": "/uploads/1784536283184-692152251.png",
+      "image": "/uploads/1784628089207-380370084.jpg",
       "url": "/du-an/demo/vivu"
     },
     {
@@ -153,22 +121,6 @@
       "categoryName": "Giới thiệu công ty",
       "image": "/images/exterior.jpg",
       "url": "/du-an/demo/corporate-landing"
-    },
-    {
-      "title": "Công ty kiến trúc",
-      "slug": "cong-ty-kien-truc",
-      "categorySlug": "kien-truc",
-      "categoryName": "Kiến trúc",
-      "image": "/images/01.jpg",
-      "url": "/du-an/demo/cong-ty-kien-truc"
-    },
-    {
-      "title": "Thiết kế ngoại thất",
-      "slug": "thiet-ke-ngoai-that",
-      "categorySlug": "ngoai-that",
-      "categoryName": "Ngoại thất",
-      "image": "/images/02.jpg",
-      "url": "/du-an/demo/thiet-ke-ngoai-that"
     },
     {
       "title": "Showroom nội thất",
@@ -193,14 +145,6 @@
       "categoryName": "Bán hàng",
       "image": "/images/06.jpg",
       "url": "/du-an/demo/cua-hang-dien-tu"
-    },
-    {
-      "title": "Dự án đất nền",
-      "slug": "du-an-dat-nen",
-      "categorySlug": "bat-dong-san",
-      "categoryName": "Bất động sản",
-      "image": "/images/07.jpg",
-      "url": "/du-an/demo/du-an-dat-nen"
     }
   ]
 }

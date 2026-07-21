@@ -56,7 +56,7 @@ export class ArticlesController {
   @Post('api/upload')
   @UseInterceptors(
     FileInterceptor('file', {
-      limits: { fileSize: 5 * 1024 * 1024 },
+      limits: { fileSize: 20 * 1024 * 1024 },
       fileFilter: (_req, file, cb) => {
         const ok = /^image\/(jpeg|png|gif|webp|svg\+xml)$/i.test(file.mimetype);
         cb(ok ? null : new Error('Chỉ chấp nhận ảnh JPG, PNG, GIF, WebP, SVG'), ok);

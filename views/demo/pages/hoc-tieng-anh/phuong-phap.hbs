@@ -1,0 +1,137 @@
+<div class="nova-page">
+  <div class="nova-promo-bar">
+    <div class="nova-container nova-promo-inner">
+      <p>Ưu đãi học phí lên đến <strong>20%</strong> — Đăng ký trước 30/06/2026</p>
+      <a href="{{novaBase}}#contact" class="nova-promo-link">Đăng ký ngay →</a>
+    </div>
+  </div>
+
+  {{> demo/nova/header }}
+
+  <section class="nova-page-hero">
+    <div class="nova-container">
+      <nav class="nova-breadcrumb" aria-label="Breadcrumb">
+        <a href="{{novaBase}}">Trang chủ</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Phương pháp</span>
+      </nav>
+      <h1 class="nova-page-hero-title">Phương pháp độc quyền Logic Path</h1>
+      <p class="nova-page-hero-desc">Không học mẹo, không học thuộc lòng — NOVA xây nền tảng ngôn ngữ và tư duy bằng tiếng Anh để bạn bứt phá bền vững.</p>
+    </div>
+  </section>
+
+  <section class="nova-block nova-block--gray">
+    <div class="nova-container">
+      <div class="nova-section-head" data-aos="fade-up">
+        <p class="nova-kicker">Triết lý đào tạo</p>
+        <h2 class="nova-section-title">Cách NOVA đào tạo khác biệt</h2>
+      </div>
+      <div class="nova-icon-grid">
+        {{#each novaPhilosophy}}
+        <article class="nova-icon-card" data-aos="fade-up" data-aos-delay="{{multiply @index 60}}">
+          <img src="{{this.image}}" alt="" width="48" height="48" loading="lazy" />
+          <h3>{{this.title}}</h3>
+          <p>{{this.text}}</p>
+        </article>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <section class="nova-block">
+    <div class="nova-container">
+      <div class="nova-section-head" data-aos="fade-up">
+        <p class="nova-kicker">Logic Path</p>
+        <h2 class="nova-section-title">Ba trụ cột của phương pháp</h2>
+      </div>
+      <div class="nova-method-cards" data-aos="fade-up" style="margin-bottom:2.5rem">
+        {{#each features}}
+        <article class="nova-method-card nova-method-card--{{this.variant}}">
+          <span class="nova-method-num">{{this.num}}</span>
+          <h3 class="nova-method-card-title">{{this.title}}</h3>
+          <p class="nova-method-card-text">{{this.text}}</p>
+          <div class="nova-method-card-icon" aria-hidden="true">
+            <img src="{{this.image}}" alt="" width="120" height="100" loading="lazy" />
+          </div>
+        </article>
+        {{/each}}
+      </div>
+      <div class="nova-steps" data-aos="fade-up">
+        {{#each novaLogicSteps}}
+        <article class="nova-step">
+          <span class="nova-step-num">{{this.num}}</span>
+          <h3>{{this.title}}</h3>
+          <p>{{this.text}}</p>
+        </article>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <section class="nova-block nova-block--cream">
+    <div class="nova-container">
+      <div class="nova-section-head" data-aos="fade-up">
+        <p class="nova-kicker">Quy trình học</p>
+        <h2 class="nova-section-title">Hành trình từ đầu vào đến mục tiêu</h2>
+      </div>
+      <ol class="nova-recruit-row" data-aos="fade-up" aria-label="Quy trình học">
+        {{#each novaProcess}}
+        <li class="nova-recruit-row-item{{#if @last}} is-last{{/if}}">
+          <span class="nova-recruit-row-mark" aria-hidden="true"></span>
+          <strong class="nova-recruit-row-label">{{this.title}}</strong>
+        </li>
+        {{/each}}
+      </ol>
+    </div>
+  </section>
+
+  <section class="nova-lms" id="lms">
+    <div class="nova-lms-blob nova-lms-blob--tl" aria-hidden="true"></div>
+    <div class="nova-lms-blob nova-lms-blob--br" aria-hidden="true"></div>
+    <div class="nova-container nova-lms-grid">
+      <div class="nova-lms-visual" data-aos="fade-right">
+        <img src="/images/TiengAnh/nova-lms-laptop.png" alt="Nền tảng LMS NOVA ENGLISH" width="640" height="480" loading="lazy" />
+      </div>
+      <div class="nova-lms-copy" data-aos="fade-left">
+        <h2 class="nova-section-title nova-section-title--left">Học tập hiệu quả trên LMS hiện đại</h2>
+        <ul class="nova-lms-list">
+          <li><span class="nova-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M20 6L9 17l-5-5"/></svg></span>Bài giảng video HD, bài tập tương tác và chấm điểm tự động</li>
+          <li><span class="nova-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M20 6L9 17l-5-5"/></svg></span>Theo dõi tiến độ cá nhân và lộ trình học thông minh</li>
+          <li><span class="nova-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M20 6L9 17l-5-5"/></svg></span>Thi thử IELTS/TOEIC online với báo cáo chi tiết</li>
+          <li><span class="nova-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M20 6L9 17l-5-5"/></svg></span>Hỗ trợ giảng viên 1:1 qua chat và video call</li>
+        </ul>
+      </div>
+    </div>
+    <div class="nova-container" style="margin-top:2.5rem">
+      <div class="nova-lms-extra">
+        {{#each novaLmsExtras}}
+        <article class="nova-lms-extra-tile" data-aos="fade-up" data-aos-delay="{{multiply @index 50}}">
+          <h3>{{this.title}}</h3>
+          <p>{{this.text}}</p>
+        </article>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <section class="nova-block">
+    <div class="nova-container">
+      <div class="nova-section-head" data-aos="fade-up">
+        <p class="nova-kicker">Hiệu quả đã chứng minh</p>
+        <h2 class="nova-section-title">Vì sao phương pháp Logic Path hiệu quả</h2>
+      </div>
+      <div class="nova-why-grid">
+        {{#each novaWhyMethod}}
+        <article class="nova-why-card" data-aos="fade-up" data-aos-delay="{{multiply @index 50}}">
+          <h3>{{this.title}}</h3>
+          <p>{{this.text}}</p>
+        </article>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  {{> demo/nova/cta }}
+  {{> demo/nova/footer }}
+</div>
+{{> demo/nova/scripts }}

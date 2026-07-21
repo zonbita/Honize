@@ -1,0 +1,142 @@
+<div class="vivu-page vivu-page--inner">
+  {{> demo/vivu/header }}
+
+  <section class="vivu-page-hero" aria-labelledby="vivu-exp-hero-title">
+    <div class="vivu-page-hero-bg" aria-hidden="true">
+      <img src="{{vivuHeroBg}}" alt="" width="1920" height="720" loading="eager" />
+      <div class="vivu-page-hero-overlay"></div>
+    </div>
+    <div class="vivu-container vivu-page-hero-inner" data-aos="fade-up">
+      <nav class="vivu-breadcrumb" aria-label="Breadcrumb">
+        <a href="{{vivuBase}}">Trang chủ</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Trải nghiệm</span>
+      </nav>
+      <h1 id="vivu-exp-hero-title" class="vivu-page-hero-title">Không chỉ là chuyến đi,<br />đó là những kỷ niệm đáng nhớ.</h1>
+      <p class="vivu-page-hero-desc">Cảm xúc, khoảnh khắc và câu chuyện — được thiết kế tinh tế trong từng hành trình VIVU.</p>
+    </div>
+  </section>
+
+  <section class="vivu-block">
+    <div class="vivu-container">
+      <div class="vivu-section-head" data-aos="fade-up">
+        <p class="vivu-kicker">DANH MỤC TRẢI NGHIỆM</p>
+        <h2 class="vivu-section-title">Chọn cảm xúc bạn muốn mang về</h2>
+      </div>
+      <div class="vivu-exp-grid">
+        {{#each vivuExperiences}}
+        <article class="vivu-exp-card" data-aos="fade-up" data-aos-delay="{{multiply @index 40}}">
+          <img src="{{this.image}}" alt="" width="480" height="360" loading="lazy" />
+          <div class="vivu-exp-card-overlay">
+            <h3>{{this.title}}</h3>
+            <p>{{this.text}}</p>
+          </div>
+        </article>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <section class="vivu-block vivu-block--soft">
+    <div class="vivu-container">
+      <div class="vivu-section-head" data-aos="fade-up">
+        <p class="vivu-kicker">GALLERY</p>
+        <h2 class="vivu-section-title">Khoảnh khắc trên hành trình</h2>
+      </div>
+      <div class="vivu-gallery" data-aos="fade-up">
+        <button type="button" class="vivu-gallery-item" data-lightbox="/images/Vivu/01-hero-ha-long.png" aria-label="Xem ảnh Hạ Long">
+          <img src="/images/Vivu/01-hero-ha-long.png" alt="Vịnh Hạ Long" width="600" height="400" loading="lazy" />
+        </button>
+        <button type="button" class="vivu-gallery-item" data-lightbox="/images/Vivu/04-hoi-an.png" aria-label="Xem ảnh Hội An">
+          <img src="/images/Vivu/04-hoi-an.png" alt="Phố cổ Hội An" width="600" height="400" loading="lazy" />
+        </button>
+        <button type="button" class="vivu-gallery-item" data-lightbox="/images/Vivu/07-sa-pa.png" aria-label="Xem ảnh Sa Pa">
+          <img src="/images/Vivu/07-sa-pa.png" alt="Sa Pa" width="600" height="400" loading="lazy" />
+        </button>
+        <button type="button" class="vivu-gallery-item" data-lightbox="/images/Vivu/06-phu-quoc.png" aria-label="Xem ảnh Phú Quốc">
+          <img src="/images/Vivu/06-phu-quoc.png" alt="Phú Quốc" width="600" height="400" loading="lazy" />
+        </button>
+        <button type="button" class="vivu-gallery-item" data-lightbox="/images/Vivu/08-travel-couple.png" aria-label="Xem ảnh du lịch">
+          <img src="/images/Vivu/08-travel-couple.png" alt="Du khách trên hành trình" width="600" height="400" loading="lazy" />
+        </button>
+        <button type="button" class="vivu-gallery-item" data-lightbox="/images/Vivu/05-da-lat.png" aria-label="Xem ảnh Đà Lạt">
+          <img src="/images/Vivu/05-da-lat.png" alt="Đà Lạt" width="600" height="400" loading="lazy" />
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="vivu-video vivu-video--page" aria-label="Video trải nghiệm">
+    <div class="vivu-video-bg" aria-hidden="true">
+      <img src="/images/Vivu/07-sa-pa.png" alt="" width="1920" height="600" loading="lazy" />
+      <div class="vivu-video-overlay"></div>
+    </div>
+    <div class="vivu-container vivu-video-inner" data-aos="fade-up">
+      <div class="vivu-video-copy">
+        <h2 class="vivu-video-title">Xem hành trình thực tế của khách hàng</h2>
+        <button type="button" class="vivu-btn vivu-btn-outline vivu-btn-video" aria-label="Phát video trải nghiệm">
+          <span class="vivu-play-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+          Phát video
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="vivu-block">
+    <div class="vivu-container">
+      <div class="vivu-section-head" data-aos="fade-up">
+        <p class="vivu-kicker">STORIES</p>
+        <h2 class="vivu-section-title">Câu chuyện từ những chuyến đi</h2>
+      </div>
+      <div class="vivu-blog-grid">
+        {{#each vivuStories}}
+        <article class="vivu-blog-card" data-aos="fade-up" data-aos-delay="{{multiply @index 50}}">
+          <div class="vivu-blog-media">
+            <img src="{{this.image}}" alt="" loading="lazy" width="400" height="240" />
+          </div>
+          <div class="vivu-blog-body">
+            <time>{{this.date}}</time>
+            <h3>{{this.title}}</h3>
+            <p>{{this.excerpt}}</p>
+          </div>
+        </article>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <section class="vivu-block vivu-block--soft">
+    <div class="vivu-container">
+      <div class="vivu-section-head" data-aos="fade-up">
+        <p class="vivu-kicker">ĐÁNH GIÁ</p>
+        <h2 class="vivu-section-title">Khách hàng nói về VIVU</h2>
+      </div>
+      <div class="vivu-review-grid">
+        {{#each testimonials}}
+        <article class="vivu-review-card" data-aos="fade-up" data-aos-delay="{{multiply @index 50}}">
+          <div class="vivu-review-stars" aria-hidden="true">★★★★★</div>
+          <blockquote>{{this.quote}}</blockquote>
+          <div class="vivu-review-author">
+            <span class="vivu-quote-avatar" style="background:{{this.color}}" aria-hidden="true">{{initials this.name}}</span>
+            <div>
+              <strong>{{this.name}}</strong>
+              <span>{{this.location}}</span>
+            </div>
+          </div>
+        </article>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <div id="vivu-lightbox" class="vivu-lightbox" aria-hidden="true" role="dialog" aria-label="Xem ảnh lớn">
+    <button type="button" class="vivu-lightbox-close" data-lightbox-close aria-label="Đóng">×</button>
+    <img id="vivu-lightbox-img" alt="" />
+  </div>
+
+  {{> demo/vivu/cta title="Khám phá Tour ngay" text="Biến cảm xúc thành hành trình thực tế cùng VIVU." primary="Khám phá Tour" secondary="Liên hệ tư vấn" bg="/images/Vivu/08-travel-couple.png" }}
+  {{> demo/vivu/footer }}
+</div>
+{{> demo/vivu/scripts }}

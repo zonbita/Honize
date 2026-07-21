@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- bar chart growing -->
+  <path d="M14 48V34h8v14H14z" stroke="#e4001d" stroke-width="2.4" stroke-linejoin="round"/>
+  <path d="M28 48V24h8v24h-8z" stroke="#e4001d" stroke-width="2.4" stroke-linejoin="round"/>
+  <path d="M42 48V16h8v32h-8z" stroke="#e4001d" stroke-width="2.4" stroke-linejoin="round"/>
+  <path d="M12 48h42" stroke="#e4001d" stroke-width="2.6" stroke-linecap="round"/>
+  <!-- trend arrow -->
+  <path d="M18 30l12-8 10 4 10-10" stroke="#e4001d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M44 16h6v6" stroke="#e4001d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

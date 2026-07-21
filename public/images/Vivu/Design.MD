@@ -1,493 +1,355 @@
-2. General visual style
+# VIVU — Design Spec
 
-Build a premium, bright and minimal travel website.
+Reference mockups: `vivu (1).png` … `vivu (9).png`, `34b86968-2f4a-4561-b1cd-ec300a4c1371.png`  
+Home: `/du-an/demo/vivu`  
+Styles: `public/demo/vivu.css`  
+Views: `views/demo/pages/vivu.hbs` + `views/demo/pages/vivu/*`  
+Partials: `views/partials/demo/vivu/{header,footer,cta,scripts}.hbs`  
+Data: `src/app.service.ts` → destinations / tours / stats / testimonials / `getVivuExtras`
 
-The main visual direction is:
+---
 
-Neutral ocean blue.
-Muted teal.
-Sage leaf green.
-White and very pale blue-gray backgrounds.
-Soft glassmorphism.
-Subtle aqua light trails.
-Natural travel photography.
-Clean and spacious layout.
-Avoid excessive gold, orange, neon turquoise or dark navy backgrounds.
+## 1. GENERAL STYLE
 
-Use a maximum content width of 1280px.
+Build a premium travel landing for **VIVU** — khám phá Việt Nam.
 
-:root {
-  --primary-900: #123f4a;
-  --primary-800: #185666;
-  --primary-700: #236f80;
-  --primary-600: #31899a;
-  --primary-500: #55a4ae;
+Feel:
+- Calm, natural, refined
+- Dark teal + muted gold + cream
+- Soft glassmorphism on overlays / cards
+- Full-bleed photography in hero & video band
+- Clean spacious layout, serif display headings
+
+Do **not** use:
+- Purple / indigo gradients
+- Neon turquoise or heavy glow stacks
+- Dark mode as default page chrome
+- Placeholder image CDNs (Unsplash, etc.)
+- Text baked into image files — copy/UI must be HTML
+
+---
+
+## 2. COLOR SYSTEM
+
+```css
+.vivu-page {
+  --primary-900: #0c3a42;
+  --primary-800: #134f5d;
+  --primary-700: #1a6574;
+  --primary-600: #247d8e;
+  --primary-500: #3d97a6;
+
+  --gold-600: #b8924a;
+  --gold-500: #c9a46a;
+  --gold-400: #d4b483;
+  --gold-100: #f5ead8;
 
   --sage-700: #547463;
   --sage-600: #718d78;
   --sage-500: #8fa592;
   --sage-100: #e8f0eb;
 
-  --background: #ffffff;
-  --background-soft: #f6f9f8;
+  --background: #faf7f2;
+  --background-soft: #f3efe8;
   --background-blue: #f1f7f8;
 
-  --text-primary: #103844;
-  --text-secondary: #637477;
-  --border: #dce7e5;
+  --text-primary: #0c3a42;
+  --text-secondary: #5a6b6e;
+  --border: rgba(185, 146, 74, 0.22);
   --white: #ffffff;
+
+  --shadow-soft: 0 14px 38px rgba(12, 58, 66, 0.08);
+  --shadow-card: 0 12px 28px rgba(12, 58, 66, 0.1);
+  --shadow-hero: 0 24px 60px rgba(12, 58, 66, 0.18);
+
+  --radius-btn: 999px;
+  --radius-card: 0;
+  --radius-panel: 0;
+  --transition: all 220ms ease;
 }
-
-Typography:
-
-font-family: "Be Vietnam Pro", "Inter", sans-serif;
-
-Heading font weights:
-
-Hero heading: 700.
-Section headings: 600–700.
-Card headings: 600.
-Body content: 400.
-Buttons: 600.
-
-Global page background:
-
-background:
-  radial-gradient(
-    circle at 90% 10%,
-    rgba(111, 170, 177, 0.12),
-    transparent 32%
-  ),
-  linear-gradient(180deg, #ffffff 0%, #f9fbfa 100%);
-3. Header
-
-Create a fixed or sticky header with:
-
-Height: 76px.
-White translucent background.
-backdrop-filter: blur(18px).
-Very subtle bottom border.
-Horizontal padding: clamp(24px, 5vw, 72px).
-
-Left:
-
-Logo with a compass symbol.
-Brand name: VIVU.
-Logo color: deep ocean blue.
-
-Center navigation:
-
-Trang chủ
-Điểm đến
-Tour du lịch
-Trải nghiệm
-Cẩm nang
-Liên hệ
-
-Active item:
-
-Ocean-blue text.
-2px underline.
-Underline width around 32px.
-
-Right:
-
-Globe icon.
-Language selector: VN.
-Primary button: Đặt tour.
-
-Button:
-
-height: 42px;
-padding: 0 22px;
-border-radius: 8px;
-color: white;
-background: linear-gradient(135deg, #3e8794, #176678);
-box-shadow: 0 8px 20px rgba(31, 107, 123, 0.2);
-4. Hero section
-
-Desktop height: approximately 650px.
-
-Create a two-column layout:
-
-grid-template-columns: 38% 62%;
-gap: 48px;
-align-items: center;
-Left content
-
-Small label:
-
-KHÁM PHÁ VIỆT NAM THEO CÁCH CỦA BẠN
-
-Label style:
-
-Pale sage background.
-Deep green text.
-Capsule shape.
-Font size: 12px.
-Padding: 7px 14px.
-
-Hero heading:
-
-Chạm vào vẻ đẹp Việt Nam
-
-Style:
-
-Font size: clamp(46px, 5vw, 70px).
-Line height: 1.08.
-Deep blue-green.
-Maximum width: 550px.
-
-Description:
-
-Hành trình được thiết kế tinh tế, đưa bạn đến những miền đất đẹp nhất và trải nghiệm văn hóa bản địa chân thực.
-
-Use two CTA buttons:
-
-Khám phá tour with arrow icon.
-Xem hành trình with circular play icon.
-
-Below the buttons:
-
-Four overlapping traveler avatars.
-Text: 10.000+ du khách đã đồng hành.
-Make 10.000+ ocean blue and semibold.
-Right hero visual
-
-Display a large Hạ Long Bay image.
-
-The visual container should have:
-
-position: relative;
-aspect-ratio: 1.45 / 1;
-border-radius: 56px 56px 42px 42px;
-overflow: hidden;
-border: 1px solid rgba(180, 211, 211, 0.7);
-box-shadow: 0 30px 70px rgba(20, 72, 79, 0.14);
-
-Create a glass-like outer frame using pseudo-elements.
-
-Add a white pearl platform underneath the image:
-
-Three soft elliptical layers.
-White and silver surface.
-Thin muted teal edge.
-Soft shadow under the platform.
-
-Place three floating destination cards on the right:
-
-Hạ Long — Quảng Ninh.
-Hội An — Quảng Nam.
-Phú Quốc — Kiên Giang.
-
-Floating card dimensions:
-
-width: 170px;
-min-height: 72px;
-padding: 10px;
-border-radius: 14px;
-background: rgba(255,255,255,0.92);
-backdrop-filter: blur(14px);
-box-shadow: 0 12px 30px rgba(18,63,74,0.14);
-
-Each card contains:
-
-Small thumbnail.
-Destination name.
-Map pin icon.
-Province name.
-
-Add subtle decorative glass spheres and seafoam-colored light ribbons. Keep them behind the content and do not reduce readability.
-
-5. Featured destinations
-
-Section padding:
-
-padding: 72px 0 90px;
-
-Centered label:
-
-ĐIỂM ĐẾN NỔI BẬT
-
-Heading:
-
-Việt Nam – Mỗi điểm đến, một câu chuyện
-
-Desktop layout:
-
-grid-template-columns: repeat(6, 1fr);
-gap: 16px;
-
-Destination cards:
-
-Hạ Long.
-Đà Nẵng.
-Hội An.
-Đà Lạt.
-Phú Quốc.
-Sa Pa.
-
-Each card:
-
-height: 365px;
-border-radius: 18px;
-overflow: hidden;
-background: white;
-border: 1px solid #dce7e5;
-box-shadow: 0 12px 28px rgba(25, 63, 68, 0.08);
-
-Image area:
-
-Approximately 280px high.
-object-fit: cover.
-
-Information area:
-
-White background.
-Centered destination icon.
-Destination name.
-Height around 85px.
-
-Hover effect:
-
-transform: translateY(-6px);
-box-shadow: 0 20px 42px rgba(25, 63, 68, 0.14);
-
-The image should scale slightly on hover.
-
-6. Benefits section
-
-Create a two-column layout:
-
-grid-template-columns: 36% 64%;
-gap: 70px;
-align-items: center;
-
-Heading:
-
-Hành trình trọn vẹn –
-Trải nghiệm khác biệt
-
-Benefit list:
-
-Lịch trình được cá nhân hóa.
-Hướng dẫn viên chuyên nghiệp.
-Dịch vụ chọn lọc.
-Hỗ trợ xuyên suốt hành trình.
-
-Each row contains:
-
-Circular line icon.
-Benefit title.
-Short description.
-Subtle bottom divider.
-
-Use sage green and muted teal for icons.
-
-Right side:
-
-Large image of a traveling couple looking at the coastline.
-Aspect ratio: 16 / 10.
-Border radius: 22px.
-Use object-fit: cover.
-Add a subtle translucent aqua light curve near the lower-right corner.
-7. Statistics and testimonial
-
-Create one large white card:
-
-display: grid;
-grid-template-columns: 48% 52%;
-padding: 26px 30px;
-border-radius: 20px;
-border: 1px solid #dce7e5;
-box-shadow: 0 14px 38px rgba(25, 63, 68, 0.08);
-
-Left side contains three statistics:
-
-500+ Hành trình
-50+ Điểm đến
-98% Khách hàng hài lòng
-
-Each statistic:
-
-Large circular icon.
-Number size: 42px.
-Deep blue-green text.
-Vertical dividers between items.
-
-Right testimonial:
-
-Very pale sage/blue background.
-Large quotation icon.
-Review text.
-Customer avatar.
-Name: Nguyễn Minh Châu.
-Location: Hà Nội.
-Four carousel indicators.
-8. Popular tour section
-
-Two-column layout.
-
-Left:
-
-Tour được
-yêu thích nhất
-
-Add button:
-
-Xem tất cả tour
-
-Right:
-
-Use the transparent travel suitcase image.
-Place it on a white circular platform.
-Show miniature Hạ Long scenery inside the suitcase.
-Include an airplane and small sailboats.
-Add floating compass, location and camera icons.
-Add subtle pale aqua light trails behind the graphic.
-
-Section minimum height: 330px.
-
-Do not use strong glow effects.
-
-9. Newsletter section
-
-Create a wide newsletter card positioned above the footer.
-
-display: grid;
-grid-template-columns: auto 1fr minmax(360px, 480px);
-align-items: center;
-gap: 24px;
-padding: 24px 32px;
-border-radius: 18px;
-background: white;
-border: 1px solid #dce7e5;
-box-shadow: 0 14px 34px rgba(25, 63, 68, 0.08);
-
-Left:
-
-Circular mail icon with pale sage background.
-
-Content:
-
-Nhận cảm hứng cho chuyến đi tiếp theo
-Đăng ký nhận ưu đãi độc quyền và gợi ý hành trình mới nhất.
-
-Right:
-
-Email input with placeholder Nhập email của bạn.
-Button Đăng ký.
-
-Validate email before submission.
-
-10. Footer
-
-Create a five-column footer:
-
-Brand information.
-Khám phá.
-Về VIVU.
-Hỗ trợ.
-Liên hệ.
-
-Brand description:
-
-VIVU mang đến những hành trình tinh tế, đưa bạn khám phá vẻ đẹp Việt Nam và trải nghiệm văn hóa bản địa chân thực.
-
-Footer links:
-
-Khám phá
-- Điểm đến
-- Tour du lịch
-- Trải nghiệm
-- Khuyến mãi
-- Cẩm nang du lịch
-
-Về VIVU
-- Giới thiệu
-- Cam kết chất lượng
-- Tin tức
-- Tuyển dụng
-- Đối tác
-
-Hỗ trợ
-- Câu hỏi thường gặp
-- Chính sách đặt tour
-- Điều khoản sử dụng
-- Chính sách bảo mật
-
-Contact information:
-
-1900 1234
-hello@vivu.vn
-123 Đường Lê Lợi, Quận 1
-TP. Hồ Chí Minh, Việt Nam
-
-Add social media icons and copyright:
-
-© 2026 VIVU. All rights reserved.
-
-Add a circular back-to-top button in the bottom-right corner.
-
-11. Responsive design
-
-Desktop:
-
-Maximum content width: 1280px.
-Six destination columns.
-Two-column hero and content sections.
-
-Tablet below 1024px:
-
-Hide the main navigation and display a menu button.
-Hero becomes two stacked blocks.
-Destination grid becomes three columns.
-Benefit and tour sections become stacked.
-Floating hero cards remain inside the image boundary.
-
-Mobile below 640px:
-
-Horizontal padding: 20px.
-Hero heading: 42–48px.
-Destination grid becomes a horizontal scroll carousel.
-Statistics display vertically or in a two-column arrangement.
-Newsletter elements stack vertically.
-Footer becomes one or two columns.
-Buttons use at least 44px height.
-Do not allow horizontal page overflow.
-12. Interactions
-
-Implement:
-
-Smooth scrolling navigation.
-Sticky header with a soft shadow after scrolling.
-Mobile navigation drawer.
-Destination card hover effects.
-Working testimonial carousel.
-Email validation.
-Scroll-to-top button.
-Buttons with hover and focus states.
-Respect prefers-reduced-motion.
-
-Use subtle transitions:
-
-transition: all 220ms ease;
-
-Animations should be restrained:
-
-Fade and move upward by 16px.
-Duration between 500ms and 700ms.
-Do not use excessive parallax or glowing animations.
-13. Important constraints
-Reproduce the reference layout closely.
-Use the separated local background images in src/assets/images.
-Do not place text directly inside image files.
-Text, cards, buttons and icons must be real HTML elements.
-Keep all Vietnamese text correctly accented.
-Do not use placeholder image services.
-Do not use excessive gold or orange.
-Do not use a dark theme.
-Avoid strong gradients and neon colors.
-Keep the page accessible with readable contrast and keyboard focus states.
-Use reusable components and map destination cards from a data array.
-The final interface must look premium, calm, natural and production-ready.
+```
+
+| Surface | Text / control |
+|---------|----------------|
+| Cream `#faf7f2` | Body teal/gray; kicker = gold |
+| Teal primary CTA | White label |
+| Gold CTA (newsletter) | White label |
+| Outline button | Teal text + gold border |
+| Dark footer | Light logo + muted links |
+
+**Critical:** `.vivu-page a { color: inherit }` — primary buttons need `color: #fff !important`.
+
+---
+
+## 3. TYPOGRAPHY
+
+```text
+Body / UI:  'Be Vietnam Pro', 'Inter', system-ui, sans-serif
+Display:    'Playfair Display', Georgia, serif   ← section titles + hero H1
+```
+
+| Role | Size / weight |
+|------|----------------|
+| Hero H1 | clamp ~34–70px, weight 700, Playfair, line-height ~1.08 |
+| Section title | clamp 28–38px, weight 700, Playfair |
+| Card title | ~16–18px, weight 600–700 |
+| Body | ~14–16px, weight 400, line-height ~1.65 |
+| Kicker | 12px, weight 700, uppercase, letter-spacing 0.14em, gold |
+| Button | 13–15px, weight 600 |
+
+---
+
+## 4. GLOBAL LAYOUT
+
+- Max content width: **1280px** (`.vivu-container`)
+- Horizontal padding: `clamp(20px, 5vw, 72px)`
+- Page background: cream `#faf7f2`
+- Radius: pill buttons (`999px`); cards/panels mostly square (`0`)
+- Transition: `220ms ease`
+- AOS: fade-up ~650ms, staggered delays on cards
+
+Breakpoints:
+- ≤1200px: hero tighter; tours/blog → 2 cols
+- ≤1024px: hamburger nav; hero/why/reviews/newsletter stack; dest → 2 cols
+- ≤640px: dest horizontal scroll; trust 1 col; footer 1 col; newsletter form stack
+
+---
+
+## 5. ASSETS (`public/images/Vivu/`)
+
+| File | Usage |
+|------|--------|
+| `01-hero-ha-long.png` | Hero full-bleed background (default) |
+| `02-ha-long.png` | Dest card · tour · blog · pick-card thumb |
+| `03-da-nang.png` | Dest card Đà Nẵng |
+| `04-hoi-an.png` | Dest · tour · blog · pick-card · video thumb · hero swap |
+| `05-da-lat.png` | Dest card Đà Lạt |
+| `06-phu-quoc.png` | Dest · tour · pick-card · hero swap |
+| `07-sa-pa.png` | Dest · blog · video band background |
+| `08-travel-couple.png` | Why / experiences visual |
+| `09-3d-travel-suitcase.png` | Newsletter right visual |
+| `10-newsletter-nature-bg.png` | Newsletter panel soft nature/grass background |
+| `vivu (1–9).png` | Design reference mockups |
+| `34b86968-….png` | Extra reference |
+
+---
+
+## 6. INFORMATION ARCHITECTURE
+
+Multi-page demo. Shared chrome: `views/partials/demo/vivu/{header,footer,cta,scripts}.hbs`  
+Register subpages in `app.service.ts` → `demoSubpages['vivu']`. Pass `vivuBase` + `vivuActive`.
+
+| Page | Path | `vivuActive` |
+|------|------|----------------|
+| Home | `/du-an/demo/vivu` | `home` |
+| Điểm đến | `…/diem-den` | `destinations` |
+| Tour du lịch | `…/tour-du-lich` | `tours` |
+| Trải nghiệm | `…/trai-nghiem` | `experiences` |
+| Cẩm nang | `…/cam-nang` | `handbook` |
+| Liên hệ | `…/lien-he` | `contact` |
+
+Internal pages use sticky solid header (`.vivu-header.is-solid`) + full-bleed page hero + shared CTA band + footer.
+
+### Internal page sections (summary)
+
+**Điểm đến:** Hero · filter chips · destination cards (tours + rating) · highlight icons · CTA  
+**Tour:** Hero · filter panel · tour grid (6) · benefits · CTA  
+**Trải nghiệm:** Hero · experience grid · gallery + lightbox · video · stories · reviews · CTA  
+**Cẩm nang:** Hero · tabs · article grid + sidebar · newsletter · CTA  
+**Liên hệ:** Hero · contact cards · form + map · FAQ accordion · social
+
+---
+
+## 7. HOME PAGE SECTIONS (top → bottom)
+
+### 1. Header (`.vivu-header`)
+
+- Absolute / overlay on hero; height **76px**
+- Glass: `rgba(255,255,255,0.72)` + `backdrop-filter: blur(18px)`
+- On scroll (`.is-scrolled`): solid white + soft shadow
+- Left: compass SVG logo + **VIVU**
+- Center nav → subpages (see §6)
+- Right: globe + **VN** · primary **Đặt tour** → `/lien-he`
+- ≤1024px: hide primary CTA; show hamburger → drawer nav
+
+### 2. Hero (`#home` · `.vivu-hero`)
+
+**Full-bleed background** (not inset card):
+- Default image: `01-hero-ha-long.png`
+- Overlay gradient for text readability
+- Desktop min-height ~ viewport; two columns: content | sidebar
+
+**Left content**
+- Overline: `KHÁM PHÁ VIỆT NAM` + decorative line
+- H1: **Chạm vào vẻ đẹp Việt Nam**
+- Body: *Hành trình được thiết kế tinh tế, đưa bạn đến những miền đất đẹp nhất và trải nghiệm văn hóa bản địa chân thực.*
+- CTAs:
+  - Primary → `/tour-du-lich`: **Khám phá tour** (+ arrow)
+  - Outline → `/trai-nghiem`: play icon + **Xem hành trình**
+- Social proof: 4 initial avatars (LM, TH, PK, NA) + badge `+10K+` + *10.000+ du khách đã đồng hành*
+
+**Right sidebar**
+1. **Itinerary card** — *Gợi ý hành trình 3N2Đ*
+   - Ngày 1 — Hà Nội – Hạ Long — *Khởi hành & du thuyền ngắm vịnh*
+   - Ngày 2 — Vịnh Hạ Long — *Tham quan hang Sửng Sốt, chèo kayak*
+   - Ngày 3 — Hạ Long – Hà Nội — *Làng chài & trở về*
+   - Link: **Xem chi tiết hành trình** → `/tour-du-lich`
+2. **Pick cards** (swap hero `data-bg`):
+   | Active | Name | Subtitle | Background |
+   |--------|------|----------|------------|
+   | default | Hạ Long | Di sản thiên nhiên | `01-hero-ha-long.png` |
+   | | Hội An | Phố cổ yên bình | `04-hoi-an.png` |
+   | | Phú Quốc | Biển xanh cát trắng | `06-phu-quoc.png` |
+
+### 3. Destinations (`#destinations`)
+
+- Kicker: `ĐIỂM ĐẾN NỔI BẬT`
+- Title: **Việt Nam – Mỗi điểm đến, một câu chuyện**
+- Desktop: 6-column grid; mobile: horizontal snap carousel
+- Data from `getDemoDestinations('vivu')` (includes `tours` + `rating` for list page):
+
+| Name | Category | Desc | Image |
+|------|----------|------|-------|
+| Hạ Long | DI SẢN | Di sản thiên nhiên thế giới | `02-ha-long.png` |
+| Đà Nẵng | BIỂN | Thành phố biển năng động | `03-da-nang.png` |
+| Hội An | DI SẢN | Phố cổ yên bình | `04-hoi-an.png` |
+| Đà Lạt | THIÊN NHIÊN | Thành phố ngàn hoa | `05-da-lat.png` |
+| Phú Quốc | BIỂN | Biển xanh cát trắng | `06-phu-quoc.png` |
+| Sa Pa | THIÊN NHIÊN | Ruộng bậc thang mây trời | `07-sa-pa.png` |
+
+Card: full-bleed photo + gradient overlay · pin + category · name · desc · arrow affordance. Hover: lift + image scale.
+
+### 4. Why / Experiences (`#experiences` · `.vivu-why`)
+
+Two-column shell: visual | panel.
+
+- Visual: `08-travel-couple.png` — *Cặp đôi du lịch ngắm cảnh núi*
+- Kicker: `VÌ SAO CHỌN VIVU`
+- Title: **Hành trình trọn vẹn – Trải nghiệm khác biệt**
+- Feature grid (2×2):
+
+| Title | Description |
+|-------|-------------|
+| Lịch trình cá nhân hóa | Thiết kế riêng theo sở thích, thời gian và ngân sách của bạn. |
+| Hướng dẫn viên chuyên nghiệp | Am hiểu địa phương, đồng hành và truyền cảm hứng. |
+| Dịch vụ chọn lọc | Đối tác uy tín, lưu trú tiện nghi, phương tiện an toàn. |
+| Hỗ trợ 24/7 | Luôn sẵn sàng hỗ trợ bạn trong suốt hành trình. |
+
+- Stats strip (`getDemoStats`):
+
+| Value | Label |
+|-------|-------|
+| 500+ | Hành trình đã tổ chức |
+| 50+ | Điểm đến hấp dẫn |
+| 98% | Khách hàng hài lòng |
+
+### 5. Tours (`#tours`)
+
+- Kicker: `TOUR ĐƯỢC YÊU THÍCH NHẤT`
+- Title: **Lựa chọn hàng đầu cho kỳ nghỉ của bạn**
+- Filter tabs (UI only): Tất cả · Miền Bắc · Miền Trung · Miền Nam · Nghỉ dưỡng · Khám phá
+- Cards from `getDemoTours('vivu')`:
+
+| Title | Duration | Price | Rating | Reviews | Badge | Image | Highlights |
+|-------|----------|-------|--------|---------|-------|-------|------------|
+| Hạ Long – Kỳ quan di sản | 3N2Đ | 4.990.000đ | 4.9 | 128 | Bán chạy | `02-ha-long.png` | Du thuyền 4 sao · Hang Sửng Sốt · Kayak vịnh |
+| Hội An – Phố cổ đêm | 2N1Đ | 3.290.000đ | 4.8 | 96 | Ưu đãi | `04-hoi-an.png` | Phố cổ về đêm · Gión thả đèn hoa đăng · Ẩm thực địa phương |
+| Phú Quốc – Biển xanh | 4N3Đ | 6.490.000đ | 4.9 | 84 | — | `06-phu-quoc.png` | Resort 5 sao · Lặn ngắm san hô · Sunset cocktail |
+
+Card footer: *Từ* **price** */ Khách* + button **Xem chi tiết** → `#contact`
+
+### 6. Video band (`.vivu-video`)
+
+- Full-bleed bg: `07-sa-pa.png` + dark overlay
+- Title: **Mỗi chuyến đi là một câu chuyện đáng nhớ**
+- CTA outline: play + **Xem video trải nghiệm** → `#experiences`
+- Decorative thumb: `04-hoi-an.png`
+- Category nav (UI only): Văn hóa · Ẩm thực · Nghỉ dưỡng · Ngoài trời · Chụp ảnh
+
+### 7. Reviews (`#handbook` · `.vivu-reviews`)
+
+- Kicker: `KHÁCH HÀNG NÓI VỀ VIVU`
+- Testimonial carousel (JSON `#vivu-testimonials-data`, auto-rotate 6s, dots):
+
+| Name | Location | Quote (summary) | Avatar color |
+|------|----------|-----------------|--------------|
+| Nguyễn Linh Anh | Hà Nội | Hội An tuyệt vời — lịch trình, HDV, khách sạn | `#31899a` |
+| Trần Hoài An | TP. Hồ Chí Minh | Phú Quốc — chu đáo, phù hợp trẻ em | `#55a4ae` |
+| Lê Phương Thảo | Đà Nẵng | Sa Pa lúa chín — homestay & văn hóa chân thực | `#718d78` |
+| Phạm Quốc Bảo | Cần Thơ | Hạ Long — báo giá rõ, du thuyền sang | `#236f80` |
+
+- Trust grid (4 cards):
+  - **10.000+** Du khách tin dùng
+  - **4.8/5** Đánh giá trung bình
+  - **98%** Khách hàng hài lòng
+  - **5 năm+** Kinh nghiệm tổ chức tour
+
+### 8. Blog / Handbook (`.vivu-blog`)
+
+- Kicker: `CẨM NANG DU LỊCH`
+- Title: **Khám phá & Lên kế hoạch**
+- Link: **Xem tất cả bài viết →** → `#handbook`
+
+| Date | Category | Title | Excerpt | Image |
+|------|----------|-------|---------|-------|
+| 15/03/2026 | Cẩm nang | Kinh nghiệm du lịch Hạ Long 3 ngày 2 đêm | Lịch trình, khách sạn, món ăn vịnh di sản | `02-ha-long.png` |
+| 08/03/2026 | Ẩm thực | Top 10 món ăn phải thử khi đến Hội An | Cao lầu, mì Quảng, bánh mì Phượng | `04-hoi-an.png` |
+| 28/02/2026 | Khám phá | Sa Pa mùa lúa chín — Thời điểm đẹp nhất | Tháng 9–10, trekking ruộng bậc thang | `07-sa-pa.png` |
+
+### 9. Newsletter (`#contact` · `.vivu-newsletter`)
+
+- Panel background: soft blurry nature/grass photo `10-newsletter-nature-bg.png` + cream gradient overlay (keeps text readable)
+- Kicker: `ĐĂNG KÝ NHẬN TIN`
+- Title: **Nhận cảm hứng cho chuyến đi tiếp theo**
+- Copy: *Đăng ký nhận ưu đãi độc quyền và gợi ý hành trình mới nhất.*
+- Form: email placeholder *Nhập email của bạn* · gold button **Đăng ký ngay**
+- Validation: regex email; success / error messages in Vietnamese
+- Visual: `09-3d-travel-suitcase.png`
+
+### 10. Footer (`.vivu-footer`)
+
+Five columns:
+
+1. **Brand** — logo light · *VIVU mang đến những hành trình tinh tế…* · social: Facebook / Instagram / YouTube
+2. **Về VIVU** — Giới thiệu · Cam kết chất lượng · Tin tức · Tuyển dụng · Đối tác
+3. **Hỗ trợ** — Câu hỏi thường gặp · Chính sách đặt tour · Điều khoản sử dụng · Chính sách bảo mật
+4. **Khám phá** — Điểm đến · Tour du lịch · Trải nghiệm · Cẩm nang du lịch
+5. **Liên hệ** — `1900 1234` · `hello@vivu.vn` · 123 Đường Lê Lợi, Quận 1 · TP. Hồ Chí Minh, Việt Nam
+
+Bottom: `© {{year}} VIVU. All rights reserved.` + circular **back-to-top** button.
+
+---
+
+## 8. INTERACTIONS / JS (inline in `vivu.hbs`)
+
+- Sticky/scrolled header class after `scrollY > 8`
+- Mobile nav drawer (`aria-expanded`)
+- Smooth scroll for `#` anchors (respect `prefers-reduced-motion`)
+- Back-to-top
+- Newsletter email validation
+- Testimonial carousel + dots + 6s interval
+- Tour tabs / video nav: active state only (no filter logic yet)
+- Hero pick-cards: preload + fade-swap background image
+
+---
+
+## 9. RESPONSIVE SUMMARY
+
+| Breakpoint | Behavior |
+|------------|----------|
+| Desktop | 1280 max · 6 dest cols · 2-col hero / why · 3 tour/blog cards |
+| ≤1200 | Tours/blog 2 cols · tighter hero |
+| ≤1024 | Hamburger · stacked sections · dest 2 cols · footer 2 cols |
+| ≤640 | Dest carousel · trust 1 col · form stack · footer 1 col · H1 34–42px |
+
+Buttons ≥44px height. No horizontal page overflow.
+
+---
+
+## 10. CONSTRAINTS
+
+- Reproduce mockup layout closely; keep Vietnamese accents correct
+- Local images only under `public/images/Vivu/`
+- Map destinations / tours / stats / testimonials from `app.service.ts` data arrays
+- Accessible: focus-visible outlines, ARIA on carousels / pick-cards / tabs
+- Final feel: premium, calm, natural, production-ready

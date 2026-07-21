@@ -1,0 +1,230 @@
+<script>
+(function () {
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var header = document.getElementById('vivu-header');
+  var menuBtn = document.getElementById('vivu-menu-btn');
+  var nav = document.getElementById('vivu-nav');
+  var backTop = document.getElementById('vivu-back-top');
+
+  function onScroll() {
+    if (!header || header.classList.contains('is-solid')) return;
+    header.classList.toggle('is-scrolled', window.scrollY > 8);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  if (menuBtn && nav) {
+    menuBtn.addEventListener('click', function () {
+      var open = nav.classList.toggle('is-open');
+      menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    nav.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        nav.classList.remove('is-open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+  document.querySelectorAll('.vivu-page a[href^="#"]').forEach(function (anchor) {
+    anchor.addEventListener('click', function (e) {
+      var id = anchor.getAttribute('href');
+      if (!id || id === '#') return;
+      var target = document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+    });
+  });
+
+  if (backTop) {
+    backTop.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
+    });
+  }
+
+  document.querySelectorAll('.vivu-filter-bar button, .vivu-tour-tabs button, .vivu-video-nav button, .vivu-handbook-tabs button').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var group = btn.parentElement;
+      if (!group) return;
+      group.querySelectorAll('button').forEach(function (b) {
+        b.classList.remove('is-active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('is-active');
+      btn.setAttribute('aria-selected', 'true');
+    });
+  });
+
+  document.querySelectorAll('.vivu-faq-item').forEach(function (item) {
+    var trigger = item.querySelector('.vivu-faq-trigger');
+    if (!trigger) return;
+    trigger.addEventListener('click', function () {
+      var open = item.classList.toggle('is-open');
+      trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
+
+  var form = document.getElementById('vivu-contact-form');
+  var formMsg = document.getElementById('vivu-contact-msg');
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = (form.querySelector('[name="name"]') || {}).value || '';
+      var phone = (form.querySelector('[name="phone"]') || {}).value || '';
+      var email = (form.querySelector('[name="email"]') || {}).value || '';
+      var ok = name.trim().length > 1 && phone.trim().length >= 9;
+      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) ok = false;
+      if (!formMsg) return;
+      if (!ok) {
+        formMsg.textContent = 'Vui lòng điền họ tên và số điện thoại hợp lệ.';
+        formMsg.className = 'vivu-form-msg is-error';
+        return;
+      }
+      formMsg.textContent = 'Cảm ơn bạn! VIVU sẽ liên hệ tư vấn trong thời gian sớm nhất.';
+      formMsg.className = 'vivu-form-msg is-success';
+      form.reset();
+    });
+  }
+
+  var newsletter = document.getElementById('vivu-newsletter-form');
+  var newsMsg = document.getElementById('vivu-form-msg');
+  if (newsletter) {
+    newsletter.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var input = document.getElementById('vivu-email');
+      var email = input && input.value ? input.value.trim() : '';
+      var valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if (!newsMsg) return;
+      if (!valid) {
+        newsMsg.textContent = 'Vui lòng nhập địa chỉ email hợp lệ.';
+        newsMsg.className = 'vivu-form-msg is-error';
+        input && input.focus();
+        return;
+      }
+      newsMsg.textContent = 'Đăng ký thành công! Cảm ơn bạn đã theo dõi VIVU.';
+      newsMsg.className = 'vivu-form-msg is-success';
+      newsletter.reset();
+    });
+  }
+
+  var dataEl = document.getElementById('vivu-testimonials-data');
+  if (dataEl) {
+    var testimonials = [];
+    try {
+      testimonials = JSON.parse(dataEl.textContent || '[]');
+    } catch (err) {
+      testimonials = [];
+    }
+    var quoteEl = document.getElementById('vivu-quote');
+    var nameEl = document.getElementById('vivu-quote-name');
+    var locEl = document.getElementById('vivu-quote-location');
+    var avatarEl = document.getElementById('vivu-quote-avatar');
+    var dotsEl = document.getElementById('vivu-carousel-dots');
+    var activeIndex = 0;
+    var timer;
+
+    function renderTestimonial(index) {
+      if (!testimonials.length) return;
+      var item = testimonials[index];
+      if (quoteEl) quoteEl.textContent = item.quote;
+      if (nameEl) nameEl.textContent = item.name;
+      if (locEl) locEl.textContent = item.location || item.role || '';
+      if (avatarEl) {
+        avatarEl.textContent = (item.name || '?').charAt(0);
+        avatarEl.style.background = item.color || '#31899a';
+      }
+      if (dotsEl) {
+        dotsEl.querySelectorAll('button').forEach(function (btn, i) {
+          btn.classList.toggle('is-active', i === index);
+          btn.setAttribute('aria-selected', i === index ? 'true' : 'false');
+        });
+      }
+      activeIndex = index;
+    }
+
+    if (testimonials.length && dotsEl) {
+      testimonials.forEach(function (_, i) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.setAttribute('role', 'tab');
+        btn.setAttribute('aria-label', 'Đánh giá ' + (i + 1));
+        btn.addEventListener('click', function () {
+          renderTestimonial(i);
+          restartTimer();
+        });
+        dotsEl.appendChild(btn);
+      });
+      renderTestimonial(0);
+
+      function restartTimer() {
+        if (timer) clearInterval(timer);
+        if (reducedMotion || testimonials.length < 2) return;
+        timer = setInterval(function () {
+          renderTestimonial((activeIndex + 1) % testimonials.length);
+        }, 6000);
+      }
+      restartTimer();
+    }
+  }
+
+  document.querySelectorAll('.vivu-pick-card').forEach(function (card) {
+    card.addEventListener('click', function () {
+      var bg = card.getAttribute('data-bg');
+      var heroImg = document.getElementById('vivu-hero-bg-img');
+      if (!bg || !heroImg) return;
+
+      document.querySelectorAll('.vivu-pick-card').forEach(function (c) {
+        c.classList.remove('is-active');
+        c.setAttribute('aria-selected', 'false');
+      });
+      card.classList.add('is-active');
+      card.setAttribute('aria-selected', 'true');
+      if (heroImg.getAttribute('src') === bg) return;
+
+      function applyBg() {
+        heroImg.src = bg;
+        heroImg.removeAttribute('data-loading');
+        heroImg.style.opacity = '1';
+      }
+
+      if (reducedMotion) {
+        applyBg();
+        return;
+      }
+
+      heroImg.setAttribute('data-loading', 'true');
+      heroImg.style.opacity = '0';
+      var preload = new Image();
+      preload.onload = applyBg;
+      preload.onerror = applyBg;
+      preload.src = bg;
+    });
+  });
+
+  var lightbox = document.getElementById('vivu-lightbox');
+  var lightboxImg = document.getElementById('vivu-lightbox-img');
+  if (lightbox && lightboxImg) {
+    document.querySelectorAll('[data-lightbox]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        var src = el.getAttribute('data-lightbox') || el.getAttribute('src');
+        if (!src) return;
+        lightboxImg.src = src;
+        lightbox.classList.add('is-open');
+        lightbox.setAttribute('aria-hidden', 'false');
+      });
+    });
+    function closeLightbox() {
+      lightbox.classList.remove('is-open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      lightboxImg.removeAttribute('src');
+    }
+    lightbox.addEventListener('click', function (e) {
+      if (e.target === lightbox || e.target.closest('[data-lightbox-close]')) closeLightbox();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();
+    });
+  }
+})();
+</script>

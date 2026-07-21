@@ -128,6 +128,8 @@ export class AppService {
       : null;
 
     const tmvBase = slug === 'tham-my-vien' ? `/du-an/demo/${slug}` : null;
+    const novaBase = slug === 'hoc-tieng-anh' ? `/du-an/demo/${slug}` : null;
+    const vivuBase = slug === 'vivu' ? `/du-an/demo/${slug}` : null;
 
     return {
       layout: 'demo',
@@ -135,6 +137,11 @@ export class AppService {
       brand: site.brand,
       tmvBase,
       tmvActive: slug === 'tham-my-vien' ? 'home' : null,
+      novaBase,
+      novaActive: slug === 'hoc-tieng-anh' ? 'home' : null,
+      vivuBase,
+      vivuActive: slug === 'vivu' ? 'home' : null,
+      vivuHeaderSolid: false,
       pageTitle: `Demo ${demo.title} — ${site.brand}`,
       seo: this.articlesService.buildStaticPageSeo(
         `Demo ${demo.title} — ${site.brand}`,
@@ -148,6 +155,7 @@ export class AppService {
       demoView: customView || 'demo/show',
       demoCss,
       products: customView ? this.getDemoProducts(templateSlug) : [],
+      collections: customView ? this.getDemoCollections(templateSlug) : [],
       items: customView ? this.getDemoItems(templateSlug) : [],
       features: customView ? this.getDemoFeatures(templateSlug) : [],
       services: customView ? this.getDemoServices(templateSlug) : [],
@@ -160,6 +168,8 @@ export class AppService {
       teachers: customView ? this.getDemoTeachers(templateSlug) : [],
       campuses: customView ? this.getDemoCampuses(templateSlug) : [],
       news: customView ? this.getDemoNews(templateSlug) : [],
+      ...this.getNovaExtras(templateSlug),
+      ...this.getVivuExtras(templateSlug),
     };
   }
 
@@ -200,6 +210,70 @@ export class AppService {
         heroBg: '/images/ThamMyVien/tmv-bg-lien-he.png',
       },
     },
+    'hoc-tieng-anh': {
+      'phuong-phap': {
+        view: 'demo/pages/hoc-tieng-anh/phuong-phap',
+        nav: 'method',
+        title: 'Phương pháp',
+      },
+      'ket-qua': {
+        view: 'demo/pages/hoc-tieng-anh/ket-qua',
+        nav: 'results',
+        title: 'Kết quả',
+      },
+      'giang-vien': {
+        view: 'demo/pages/hoc-tieng-anh/giang-vien',
+        nav: 'teachers',
+        title: 'Giảng viên',
+      },
+      'hoc-vien': {
+        view: 'demo/pages/hoc-tieng-anh/hoc-vien',
+        nav: 'students',
+        title: 'Học viên',
+      },
+      'tin-tuc': {
+        view: 'demo/pages/hoc-tieng-anh/tin-tuc',
+        nav: 'news',
+        title: 'Tin tức',
+      },
+      've-nova': {
+        view: 'demo/pages/hoc-tieng-anh/ve-nova',
+        nav: 'about',
+        title: 'Về NOVA',
+      },
+    },
+    vivu: {
+      'diem-den': {
+        view: 'demo/pages/vivu/diem-den',
+        nav: 'destinations',
+        title: 'Điểm đến',
+        heroBg: '/images/Vivu/01-hero-ha-long.png',
+      },
+      'tour-du-lich': {
+        view: 'demo/pages/vivu/tour-du-lich',
+        nav: 'tours',
+        title: 'Tour du lịch',
+        heroBg: '/images/Vivu/02-ha-long.png',
+      },
+      'trai-nghiem': {
+        view: 'demo/pages/vivu/trai-nghiem',
+        nav: 'experiences',
+        title: 'Trải nghiệm',
+        heroBg: '/images/Vivu/08-travel-couple.png',
+      },
+      'cam-nang': {
+        view: 'demo/pages/vivu/cam-nang',
+        nav: 'handbook',
+        title: 'Cẩm nang',
+        heroBg: '/images/Vivu/04-hoi-an.png',
+      },
+      'lien-he': {
+        view: 'demo/pages/vivu/lien-he',
+        nav: 'contact',
+        title: 'Liên hệ',
+        heroBg: '/images/Vivu/07-sa-pa.png',
+      },
+    },
   };
 
   getDemoSubpageData(slug: string, subpage: string) {
@@ -223,11 +297,17 @@ export class AppService {
     return {
       ...base,
       demoView: config.view,
-      tmvBase: `/du-an/demo/${slug}`,
-      tmvActive: config.nav,
-      tmvHeaderSolid: true,
+      tmvBase: slug === 'tham-my-vien' ? `/du-an/demo/${slug}` : base.tmvBase,
+      tmvActive: slug === 'tham-my-vien' ? config.nav : base.tmvActive,
+      tmvHeaderSolid: slug === 'tham-my-vien',
       tmvHeroBg:
         config.heroBg ?? `/images/ThamMyVien/tmv-bg-${subpage}.png`,
+      novaBase: slug === 'hoc-tieng-anh' ? `/du-an/demo/${slug}` : base.novaBase,
+      novaActive: slug === 'hoc-tieng-anh' ? config.nav : base.novaActive,
+      vivuBase: slug === 'vivu' ? `/du-an/demo/${slug}` : base.vivuBase,
+      vivuActive: slug === 'vivu' ? config.nav : base.vivuActive,
+      vivuHeaderSolid: slug === 'vivu',
+      vivuHeroBg: slug === 'vivu' ? (config.heroBg ?? '/images/Vivu/01-hero-ha-long.png') : null,
       pageTitle: `${config.title} — ${demoTitle} — ${base.brand}`,
       seo: this.articlesService.buildStaticPageSeo(
         `${config.title} — ${demoTitle}`,
@@ -445,7 +525,7 @@ export class AppService {
           reviews: '96',
           badge: 'Ưu đãi',
           image: '/images/Vivu/04-hoi-an.png',
-          highlights: ['Phố cổ về đêm', 'Gión thả đèn hoa đăng', 'Ẩm thực địa phương'],
+          highlights: ['Phố cổ về đêm', 'Thả đèn hoa đăng', 'Ẩm thực địa phương'],
         },
         {
           title: 'Phú Quốc – Biển xanh',
@@ -456,6 +536,36 @@ export class AppService {
           badge: '',
           image: '/images/Vivu/06-phu-quoc.png',
           highlights: ['Resort 5 sao', 'Lặn ngắm san hô', 'Sunset cocktail'],
+        },
+        {
+          title: 'Sa Pa – Săn mây Tây Bắc',
+          duration: '3N2Đ',
+          price: '4.590.000đ',
+          rating: '4.8',
+          reviews: '112',
+          badge: 'Yêu thích',
+          image: '/images/Vivu/07-sa-pa.png',
+          highlights: ['Fansipan', 'Bản Cát Cát', 'Homestay ấm cúng'],
+        },
+        {
+          title: 'Đà Nẵng – Biển & Bà Nà',
+          duration: '3N2Đ',
+          price: '5.290.000đ',
+          rating: '4.7',
+          reviews: '76',
+          badge: '',
+          image: '/images/Vivu/03-da-nang.png',
+          highlights: ['Cầu Vàng', 'Biển Mỹ Khê', 'Ẩm thực miền Trung'],
+        },
+        {
+          title: 'Đà Lạt – Thành phố ngàn hoa',
+          duration: '2N1Đ',
+          price: '2.990.000đ',
+          rating: '4.8',
+          reviews: '91',
+          badge: 'Cuối tuần',
+          image: '/images/Vivu/05-da-lat.png',
+          highlights: ['Đồi chè', 'Thác Datanla', 'Cafe view đồi'],
         },
       ];
     }
@@ -484,33 +594,31 @@ export class AppService {
 
   private getDemoCourses(slug: string) {
     if (slug === 'hoc-tieng-anh') {
-      const icon = (paths: string) =>
-        `<svg viewBox="0 0 48 48" fill="none" stroke="#E31B23" stroke-width="2">${paths}</svg>`;
       return [
         {
           title: 'IELTS Người lớn',
           desc: 'Lộ trình cá nhân hóa từ 4.0 đến 7.5+ — tập trung kỹ năng thi và chiến lược làm bài.',
-          icon: icon('<path d="M12 38V18l12-8 12 8v20"/><path d="M20 38V26h8v12"/>'),
+          image: '/images/TiengAnh/icon-course-ielts-adult.svg',
         },
         {
           title: 'IELTS THCS & THPT',
           desc: 'Chương trình song song lớp học, giúp học sinh nắm vững ngữ pháp và tư duy tiếng Anh.',
-          icon: icon('<rect x="8" y="10" width="32" height="28" rx="2"/><path d="M16 18h16M16 24h12M16 30h8"/>'),
+          image: '/images/TiengAnh/icon-course-backpack.svg',
         },
         {
           title: 'Kids (6–12 tuổi)',
           desc: 'Học qua trò chơi, phim hoạt hình và hoạt động nhóm — xây nền tảng tự nhiên.',
-          icon: icon('<circle cx="24" cy="16" r="6"/><path d="M10 40c0-8 6-12 14-12s14 4 14 12"/>'),
+          image: '/images/TiengAnh/icon-course-kids.svg',
         },
         {
           title: 'SAT / GMAT / GRE',
           desc: 'Luyện thi chuẩn Mỹ với giáo trình quốc tế và mô phỏng đề thi thực tế.',
-          icon: icon('<path d="M10 38V14l14-6 14 6v24"/><path d="M18 38V22h12v16"/>'),
+          image: '/images/TiengAnh/icon-course-chart.svg',
         },
         {
           title: 'TOEIC & Giao tiếp',
           desc: 'Tăng điểm TOEIC nhanh và tự tin giao tiếp trong môi trường công sở.',
-          icon: icon('<path d="M14 20c0-4 4-8 10-8s10 4 10 8-4 8-10 8"/><path d="M14 28v6c0 4 4 6 10 6"/>'),
+          image: '/images/TiengAnh/icon-course-speak.svg',
         },
       ];
     }
@@ -547,6 +655,8 @@ export class AppService {
         category: 'DI SẢN',
         desc: 'Di sản thiên nhiên thế giới',
         image: '/images/Vivu/02-ha-long.png',
+        tours: '12',
+        rating: '4.9',
         icon: icon('<path d="M3 18l4-6 4 3 5-8 5 11H3z"/>'),
       },
       {
@@ -554,6 +664,8 @@ export class AppService {
         category: 'BIỂN',
         desc: 'Thành phố biển năng động',
         image: '/images/Vivu/03-da-nang.png',
+        tours: '15',
+        rating: '4.8',
         icon: icon('<path d="M4 18h16M8 18V8l4-4 4 4v10"/>'),
       },
       {
@@ -561,6 +673,8 @@ export class AppService {
         category: 'DI SẢN',
         desc: 'Phố cổ yên bình',
         image: '/images/Vivu/04-hoi-an.png',
+        tours: '10',
+        rating: '4.9',
         icon: icon('<rect x="8" y="6" width="8" height="12" rx="1"/><path d="M12 6V4"/>'),
       },
       {
@@ -568,6 +682,8 @@ export class AppService {
         category: 'THIÊN NHIÊN',
         desc: 'Thành phố ngàn hoa',
         image: '/images/Vivu/05-da-lat.png',
+        tours: '9',
+        rating: '4.7',
         icon: icon('<path d="M4 20l6-14 4 8 3-5 3 11H4z"/>'),
       },
       {
@@ -575,6 +691,8 @@ export class AppService {
         category: 'BIỂN',
         desc: 'Biển xanh cát trắng',
         image: '/images/Vivu/06-phu-quoc.png',
+        tours: '14',
+        rating: '4.9',
         icon: icon('<path d="M2 14c3-2 6-2 10 0s7 2 10 0"/><path d="M6 10c2-3 4-4 6-4s4 1 6 4"/>'),
       },
       {
@@ -582,6 +700,8 @@ export class AppService {
         category: 'THIÊN NHIÊN',
         desc: 'Ruộng bậc thang mây trời',
         image: '/images/Vivu/07-sa-pa.png',
+        tours: '11',
+        rating: '4.8',
         icon: icon('<path d="M3 18h18M6 18l3-6 3 4 3-8 3 10"/>'),
       },
     ];
@@ -681,29 +801,27 @@ export class AppService {
 
   private getDemoFeatures(slug: string) {
     if (slug === 'hoc-tieng-anh') {
-      const icon = (paths: string) =>
-        `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">${paths}</svg>`;
       return [
         {
           num: '01',
           variant: 'red',
           title: 'Tư duy Logic',
-          text: 'Rèn luyện tư duy tiếng Anh trực tiếp — không dịch ngữ cảnh, phản xạ nhanh và tự nhiên.',
-          icon: icon('<circle cx="24" cy="20" r="7"/><path d="M14 38c3-8 7-12 10-12s7 4 10 12"/><path d="M20 16l4-4M28 16l-4-4"/>'),
+          text: 'Trang bị tư duy phân tích – logic ngôn ngữ để hiểu bản chất vấn đề và áp dụng linh hoạt trong mọi dạng bài.',
+          image: '/images/TiengAnh/icon-logic-bulb.svg',
         },
         {
           num: '02',
           variant: 'dark',
           title: 'Công nghệ học tập thông minh',
-          text: 'AI phân tích điểm yếu, gợi ý bài luyện cá nhân và theo dõi tiến độ realtime trên LMS.',
-          icon: icon('<rect x="10" y="14" width="28" height="18" rx="2"/><path d="M18 36h12"/><path d="M16 22h16M16 26h10"/>'),
+          text: 'Hệ thống AI cá nhân hóa, tự động điều chỉnh lộ trình, theo dõi tiến độ & nhắc nhở kịp thời.',
+          image: '/images/TiengAnh/icon-tech-devices.svg',
         },
         {
           num: '03',
           variant: 'outline',
           title: 'Chương trình tinh gọn',
-          text: 'Giáo trình tập trung kết quả — loại bỏ kiến thức thừa, tối ưu thời gian đạt mục tiêu.',
-          icon: icon('<path d="M14 12h20v24H14z"/><path d="M20 18h8M20 24h8M20 30h5"/>'),
+          text: 'Giáo trình độc quyền biên soạn dựa trên phân tích dữ liệu hàng nghìn bài thi thực tế.',
+          image: '/images/TiengAnh/icon-curriculum-book.svg',
         },
       ];
     }
@@ -751,62 +869,177 @@ export class AppService {
 
   private getDemoProducts(slug: string) {
     if (slug !== 'shop-thoi-trang') return [];
-    const mk = (title: string, cat: string, bg: string, image: string) => ({
+    return this.getDemoCollections(slug).flatMap((c) => c.products);
+  }
+
+  /** YaMe-style category blocks: title + tagline + chips + 4 products each. */
+  private getDemoCollections(slug: string) {
+    if (slug !== 'shop-thoi-trang') return [];
+    const mk = (
+      title: string,
+      cat: string,
+      price: string,
+      originalPrice: string,
+      image: string,
+    ) => ({
       title,
-      price: '590.000đ',
+      price,
+      originalPrice,
+      sale: true,
       cat,
-      bg,
       image,
     });
     return [
-      mk(
-        'Áo sơ mi linen',
-        'a',
-        '#eceff3',
-        'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&h=600&q=80',
-      ),
-      mk(
-        'Váy hoa mùa hè',
-        'b',
-        '#f7d6de',
-        'https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=600&h=600&q=80',
-      ),
-      mk(
-        'Quần ống rộng',
-        'c',
-        '#e7e1f5',
-        'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=600&h=600&q=80',
-      ),
-      mk(
-        'Túi tote canvas',
-        'd',
-        '#e8f0fa',
-        'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=600&h=600&q=80',
-      ),
-      mk(
-        'Áo khoác nhẹ',
-        'a',
-        '#efe9e2',
-        'https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=600&h=600&q=80',
-      ),
-      mk(
-        'Đầm suông pastel',
-        'b',
-        '#f3e8f5',
-        'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=600&h=600&q=80',
-      ),
-      mk(
-        'Quần jeans ống đứng',
-        'c',
-        '#e6f4ea',
-        'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&h=600&q=80',
-      ),
-      mk(
-        'Khăn lụa họa tiết',
-        'd',
-        '#fdeedc',
-        'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=600&h=600&q=80',
-      ),
+      {
+        id: 'ao',
+        title: 'ÁO LINEN & COTTON',
+        tagline:
+          'Chất liệu mềm mại, thoáng khí — phom dáng tối giản dễ phối mỗi ngày',
+        chips: ['Tất cả', 'Sơ mi', 'Áo thun', 'Áo polo', 'Hàng mới'],
+        seeAll: 'XEM TẤT CẢ ÁO',
+        products: [
+          mk(
+            'Áo sơ mi oversized Trắng',
+            'a',
+            '590.000đ',
+            '890.000đ',
+            '/images/ThoiTrang/09-product-ao-so-mi.png',
+          ),
+          mk(
+            'Áo linen cổ tròn Be',
+            'a',
+            '450.000đ',
+            '690.000đ',
+            '/images/ThoiTrang/17-product-ao-linen.png',
+          ),
+          mk(
+            'Áo polo cotton Trắng',
+            'a',
+            '390.000đ',
+            '590.000đ',
+            '/images/ThoiTrang/21-product-ao-polo.png',
+          ),
+          mk(
+            'Áo blouse linen Kem',
+            'a',
+            '520.000đ',
+            '780.000đ',
+            '/images/ThoiTrang/03-category-ao.png',
+          ),
+        ],
+      },
+      {
+        id: 'vay',
+        title: 'VÁY MÙA HÈ',
+        tagline:
+          'Phom suông, midi & wrap — thanh lịch từ công sở đến dạo phố',
+        chips: ['Tất cả', 'Midi', 'Wrap', 'Hoa', 'Linen'],
+        seeAll: 'XEM TẤT CẢ VÁY',
+        products: [
+          mk(
+            'Váy midi linen Kem',
+            'b',
+            '890.000đ',
+            '1.290.000đ',
+            '/images/ThoiTrang/08-product-vay-midi.png',
+          ),
+          mk(
+            'Váy wrap đen thanh lịch',
+            'b',
+            '990.000đ',
+            '1.490.000đ',
+            '/images/ThoiTrang/18-product-vay-den.png',
+          ),
+          mk(
+            'Váy hoa pastel Hồng',
+            'b',
+            '790.000đ',
+            '1.190.000đ',
+            '/images/ThoiTrang/22-product-vay-hoa.png',
+          ),
+          mk(
+            'Váy suông hoa Kem',
+            'b',
+            '850.000đ',
+            '1.250.000đ',
+            '/images/ThoiTrang/04-category-vay.png',
+          ),
+        ],
+      },
+      {
+        id: 'quan',
+        title: 'QUẦN DÀI KHOE DÁNG',
+        tagline: 'Ống rộng, jeans suông — bền bỉ, đứng form, tôn dáng',
+        chips: ['Tất cả', 'Ống rộng', 'Jeans', 'Linen', 'Bán chạy'],
+        seeAll: 'XEM TẤT CẢ QUẦN',
+        products: [
+          mk(
+            'Quần ống rộng Be',
+            'c',
+            '690.000đ',
+            '990.000đ',
+            '/images/ThoiTrang/10-product-quan-ong-rong.png',
+          ),
+          mk(
+            'Quần jeans ống suông Xanh',
+            'c',
+            '790.000đ',
+            '1.190.000đ',
+            '/images/ThoiTrang/19-product-quan-jeans.png',
+          ),
+          mk(
+            'Quần linen ống rộng Kem',
+            'c',
+            '650.000đ',
+            '950.000đ',
+            '/images/ThoiTrang/05-category-quan.png',
+          ),
+          mk(
+            'Quần jeans ống đứng Xanh nhạt',
+            'c',
+            '750.000đ',
+            '1.090.000đ',
+            '/images/ThoiTrang/19-product-quan-jeans.png',
+          ),
+        ],
+      },
+      {
+        id: 'phukien',
+        title: 'PHỤ KIỆN THỜI TRANG',
+        tagline: 'Túi xách & phụ kiện cao cấp — điểm nhấn hoàn thiện set đồ',
+        chips: ['Tất cả', 'Túi xách', 'Kính', 'Giày', 'Sale'],
+        seeAll: 'XEM TẤT CẢ PHỤ KIỆN',
+        products: [
+          mk(
+            'Túi xách tay Veronica Đen',
+            'd',
+            '899.000đ',
+            '1.798.000đ',
+            '/images/ThoiTrang/07-product-tui-xach.png',
+          ),
+          mk(
+            'Túi mini structured Kem',
+            'd',
+            '749.000đ',
+            '1.498.000đ',
+            '/images/ThoiTrang/20-product-tui-kem.png',
+          ),
+          mk(
+            'Set phụ kiện silk & leather',
+            'd',
+            '599.000đ',
+            '999.000đ',
+            '/images/ThoiTrang/06-category-phukien.png',
+          ),
+          mk(
+            'Túi xách Veronica Be',
+            'd',
+            '899.000đ',
+            '1.798.000đ',
+            '/images/ThoiTrang/20-product-tui-kem.png',
+          ),
+        ],
+      },
     ];
   }
 
@@ -900,6 +1133,7 @@ export class AppService {
         name: 'Thầy Lê Hoàng Long',
         score: '8.5',
         experience: '12 năm kinh nghiệm',
+        specialty: 'IELTS Speaking & Writing',
         image:
           'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&h=480&q=80',
       },
@@ -907,6 +1141,7 @@ export class AppService {
         name: 'Cô Sarah Mitchell',
         score: '8.0',
         experience: '10 năm kinh nghiệm',
+        specialty: 'IELTS Academic',
         image:
           'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&h=480&q=80',
       },
@@ -914,13 +1149,15 @@ export class AppService {
         name: 'Thầy James Anderson',
         score: '8.5',
         experience: '8 năm kinh nghiệm',
+        specialty: 'TOEIC & Business English',
         image:
-          'https://images.unsplash.com/photo-1519081908943-a3d291d596b6?auto=format&fit=crop&w=400&h=480&q=80',
+          'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&h=480&q=80',
       },
       {
         name: 'Cô Emily Chen',
         score: '8.0',
         experience: '9 năm kinh nghiệm',
+        specialty: 'Giao tiếp & Phát âm',
         image:
           'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&h=480&q=80',
       },
@@ -928,6 +1165,7 @@ export class AppService {
         name: 'Cô Nguyễn Thị Lan',
         score: '8.5',
         experience: '7 năm kinh nghiệm',
+        specialty: 'IELTS Foundation',
         image:
           'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?auto=format&fit=crop&w=400&h=480&q=80',
       },
@@ -935,6 +1173,7 @@ export class AppService {
         name: 'Thầy Michael Brown',
         score: '8.0',
         experience: '11 năm kinh nghiệm',
+        specialty: 'SAT & Academic English',
         image:
           'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&h=480&q=80',
       },
@@ -966,7 +1205,7 @@ export class AppService {
         phone: '0243456789',
         phoneDisplay: '024 3456 789',
         image:
-          'https://images.unsplash.com/photo-1497215849620-5603dc546375?auto=format&fit=crop&w=800&h=480&q=80',
+          'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=800&h=480&q=80',
       },
       {
         name: 'NOVA Tây Hồ',
@@ -974,7 +1213,7 @@ export class AppService {
         phone: '0244567890',
         phoneDisplay: '024 4567 890',
         image:
-          'https://images.unsplash.com/photo-1524758631624-e2822e3048f2?auto=format&fit=crop&w=800&h=480&q=80',
+          'https://images.unsplash.com/photo-1497366858526-0766cadbe8fa?auto=format&fit=crop&w=800&h=480&q=80',
       },
       {
         name: 'NOVA Hải Phòng',
@@ -1009,7 +1248,7 @@ export class AppService {
         tag: 'Tin tức',
         date: '05/06/2026',
         image:
-          'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&h=440&q=80',
+          'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&h=440&q=80',
       },
       {
         title: 'NOVA ký kết hợp tác chiến lược với British Council',
@@ -1023,9 +1262,571 @@ export class AppService {
         tag: 'Kiến thức',
         date: '28/05/2026',
         image:
-          'https://images.unsplash.com/photo-1516321318423-f06f85b504e3?auto=format&fit=crop&w=800&h=440&q=80',
+          'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=800&h=440&q=80',
+      },
+      {
+        title: 'Cách xây dựng vốn từ vựng Academic trong 30 ngày',
+        tag: 'Vocabulary',
+        date: '22/05/2026',
+        image:
+          'https://images.unsplash.com/photo-1456513080880-7d93ddd4b2f6?auto=format&fit=crop&w=800&h=440&q=80',
+      },
+      {
+        title: 'TOEIC 900+: Lộ trình luyện đề và quản lý thời gian',
+        tag: 'TOEIC',
+        date: '18/05/2026',
+        image:
+          'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=800&h=440&q=80',
+      },
+      {
+        title: 'English for Kids — Học vui, nhớ lâu, tự tin giao tiếp',
+        tag: 'Kids',
+        date: '12/05/2026',
+        image:
+          'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=800&h=440&q=80',
+      },
+      {
+        title: 'Grammar Lab: 5 lỗi ngữ pháp thường gặp trong Writing Task 2',
+        tag: 'Grammar',
+        date: '05/05/2026',
+        image:
+          'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&h=440&q=80',
+      },
+      {
+        title: 'Study Tips: Lịch học 2 tiếng/ngày vẫn tiến bộ đều',
+        tag: 'Study Tips',
+        date: '28/04/2026',
+        image:
+          'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&h=440&q=80',
       },
     ];
+  }
+
+  /** Deep-page extras for NOVA ENGLISH; empty for other demo slugs. */
+  private getNovaExtras(slug: string) {
+    if (slug !== 'hoc-tieng-anh') return {};
+
+    const teachers = this.getDemoTeachers(slug);
+
+    return {
+      novaPhilosophy: [
+        {
+          title: 'Không học mẹo',
+          text: 'Không dựa vào mẹo thi ngắn hạn. Học viên nắm nguyên tắc ngôn ngữ để xử lý mọi dạng đề và tình huống thực tế.',
+          image: '/images/TiengAnh/icon-logic-bulb.svg',
+        },
+        {
+          title: 'Không học thuộc lòng',
+          text: 'Thay vì thuộc mẫu câu cứng, học viên hiểu cấu trúc và tự tạo câu đúng ngữ cảnh, đúng mục tiêu giao tiếp.',
+          image: '/images/TiengAnh/icon-curriculum-book.svg',
+        },
+        {
+          title: 'Xây nền tảng ngôn ngữ',
+          text: 'Phát âm, ngữ pháp và từ vựng được xây có hệ thống trước khi tăng tốc luyện đề và kỹ năng chuyên sâu.',
+          image: '/images/TiengAnh/icon-course-backpack.svg',
+        },
+        {
+          title: 'Tư duy bằng tiếng Anh',
+          text: 'Luyện phản xạ suy nghĩ bằng tiếng Anh để nói – viết tự nhiên, mạch lạc và thuyết phục hơn.',
+          image: '/images/TiengAnh/icon-course-speak.svg',
+        },
+      ],
+      novaLogicSteps: [
+        {
+          num: '01',
+          title: 'Đánh giá đầu vào',
+          text: 'Kiểm tra toàn diện 4 kỹ năng để xác định điểm mạnh, điểm yếu và mục tiêu đầu ra phù hợp.',
+        },
+        {
+          num: '02',
+          title: 'Lộ trình cá nhân hóa',
+          text: 'Xây lộ trình theo mục tiêu IELTS, TOEIC, SAT hoặc giao tiếp — điều chỉnh theo tiến độ thực tế.',
+        },
+        {
+          num: '03',
+          title: 'Đánh giá tiến độ',
+          text: 'Mock test định kỳ và báo cáo chi tiết giúp học viên thấy rõ mức tiến bộ và bước điều chỉnh tiếp theo.',
+        },
+      ],
+      novaProcess: [
+        { title: 'Kiểm tra đầu vào' },
+        { title: 'Xếp lớp' },
+        { title: 'Học' },
+        { title: 'Luyện tập' },
+        { title: 'Mock Test' },
+        { title: 'Đạt mục tiêu' },
+      ],
+      novaLmsExtras: [
+        {
+          title: 'Video bài giảng',
+          text: 'Xem lại bài giảng mọi lúc, củng cố kiến thức trước và sau giờ học trên lớp.',
+        },
+        {
+          title: 'AI luyện phát âm',
+          text: 'Công cụ AI phân tích âm, trọng âm và ngữ điệu — góp ý tức thì để nói chuẩn hơn.',
+        },
+        {
+          title: 'Theo dõi tiến độ',
+          text: 'Dashboard học tập ghi nhận điểm số, bài tập và mức hoàn thành lộ trình theo tuần.',
+        },
+        {
+          title: 'Học trên điện thoại',
+          text: 'Ứng dụng di động giúp luyện từ vựng, nghe và ôn bài mọi lúc, mọi nơi.',
+        },
+      ],
+      novaWhyMethod: [
+        {
+          title: 'Giáo trình chuẩn',
+          text: 'Nội dung bám sát đề thi thật và khung năng lực quốc tế, cập nhật theo xu hướng đề mới.',
+        },
+        {
+          title: 'Giáo viên giàu kinh nghiệm',
+          text: 'Đội ngũ IELTS 8.0+ và chuyên gia TOEIC/SAT với nhiều năm giảng dạy thực chiến.',
+        },
+        {
+          title: 'AI hỗ trợ',
+          text: 'Luyện phát âm, chấm bài Writing và gợi ý cải thiện cá nhân hóa bằng AI.',
+        },
+        {
+          title: 'Báo cáo tiến độ',
+          text: 'Phụ huynh và học viên nhận báo cáo định kỳ về điểm số, chuyên cần và kế hoạch tiếp theo.',
+        },
+        {
+          title: 'Luyện nói',
+          text: 'Lớp speaking nhỏ, phản xạ thật và feedback chi tiết từng phiên nói.',
+        },
+        {
+          title: 'Mock Test',
+          text: 'Thi thử định kỳ trong điều kiện gần với phòng thi thật để làm quen áp lực thời gian.',
+        },
+      ],
+      novaAchievementsAll: [
+        {
+          name: 'Nguyễn Thu Hà',
+          score: '8.5',
+          course: 'IELTS Intensive',
+          duration: 'Học 5 tháng',
+          category: 'IELTS',
+          image:
+            'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&h=520&q=80',
+        },
+        {
+          name: 'Trần Minh Quân',
+          score: '8.0',
+          course: 'IELTS Advanced',
+          duration: 'Học 4 tháng',
+          category: 'IELTS',
+          image:
+            'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&h=520&q=80',
+        },
+        {
+          name: 'Lê Phương Anh',
+          score: '7.5',
+          course: 'IELTS Foundation',
+          duration: 'Học 6 tháng',
+          category: 'IELTS',
+          image:
+            'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=400&h=520&q=80',
+        },
+        {
+          name: 'Phạm Đức Huy',
+          score: '8.0',
+          course: 'IELTS Intensive',
+          duration: 'Học 4 tháng',
+          category: 'IELTS',
+          image:
+            'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&h=520&q=80',
+        },
+        {
+          name: 'Hoàng Mai Linh',
+          score: '7.5',
+          course: 'IELTS THPT',
+          duration: 'Học 5 tháng',
+          category: 'IELTS',
+          image:
+            'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&h=520&q=80',
+        },
+        {
+          name: 'Vũ Tiến Dũng',
+          score: '8.5',
+          course: 'IELTS Advanced',
+          duration: 'Học 3 tháng',
+          category: 'IELTS',
+          image:
+            'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&h=520&q=80',
+        },
+        {
+          name: 'Đỗ Bảo Ngọc',
+          score: '905',
+          course: 'TOEIC Intensive',
+          duration: 'Học 3 tháng',
+          category: 'TOEIC',
+          image:
+            'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&h=520&q=80',
+        },
+        {
+          name: 'Ngô Quốc Bảo',
+          score: '870',
+          course: 'TOEIC Business',
+          duration: 'Học 4 tháng',
+          category: 'TOEIC',
+          image:
+            'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&h=520&q=80',
+        },
+        {
+          name: 'Mai Thanh Tú',
+          score: '1450',
+          course: 'SAT Prep',
+          duration: 'Học 5 tháng',
+          category: 'SAT',
+          image:
+            'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=400&h=520&q=80',
+        },
+        {
+          name: 'Bùi Anh Khoa',
+          score: '1380',
+          course: 'SAT Advanced',
+          duration: 'Học 4 tháng',
+          category: 'SAT',
+          image:
+            'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&h=520&q=80',
+        },
+        {
+          name: 'Trịnh Khánh My',
+          score: 'B2',
+          course: 'Giao tiếp doanh nghiệp',
+          duration: 'Học 4 tháng',
+          category: 'Giao tiếp',
+          image:
+            'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&h=520&q=80',
+        },
+        {
+          name: 'Lý Hoàng Nam',
+          score: 'C1',
+          course: 'Speaking Mastery',
+          duration: 'Học 6 tháng',
+          category: 'Giao tiếp',
+          image:
+            'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&h=520&q=80',
+        },
+      ],
+      novaCaseStudy: {
+        name: 'Nguyễn Thu Hà',
+        fromScore: '5.5',
+        toScore: '8.5',
+        course: 'IELTS Intensive',
+        duration: '5 tháng',
+        steps: [
+          {
+            title: 'Đánh giá đầu vào',
+            text: 'Xác định điểm yếu Writing Task 2 và Speaking Part 3; đặt mục tiêu 8.0+ trong 5 tháng.',
+          },
+          {
+            title: 'Xây nền tảng',
+            text: 'Ôn ngữ pháp học thuật, mở rộng từ vựng theo chủ đề và chuẩn hóa phát âm từng âm khó.',
+          },
+          {
+            title: 'Luyện kỹ năng chuyên sâu',
+            text: 'Viết bài theo band descriptor, speaking mock hàng tuần và feedback 1-1 với giáo viên.',
+          },
+          {
+            title: 'Mock Test & chốt điểm',
+            text: 'Thi thử full test 4 lần, điều chỉnh chiến lược thời gian và đạt 8.5 Overall.',
+          },
+        ],
+      },
+      novaTeacherProfiles: teachers.map((t, i) => {
+        const bios = [
+          'Chuyên gia IELTS Speaking & Writing với hơn 12 năm đồng hành cùng học viên mục tiêu 7.0–8.5.',
+          'Giảng viên Academic IELTS, từng hỗ trợ hàng trăm học viên đạt band mục tiêu trong 3–6 tháng.',
+          'Chuyên TOEIC và tiếng Anh doanh nghiệp; phương pháp luyện đề rõ ràng, bám sát đề thi thật.',
+          'Thế mạnh phát âm và giao tiếp tự tin; lớp học tương tác cao, phản xạ nhanh.',
+          'Đồng hành học viên Foundation lên Intensive với lộ trình từng bước, dễ theo dõi tiến độ.',
+          'Giảng viên SAT & Academic English; tập trung tư duy đề và chiến lược làm bài hiệu quả.',
+        ];
+        return { ...t, bio: bios[i] ?? '' };
+      }),
+      novaRecruitSteps: [
+        { title: 'CV', text: 'Nộp hồ sơ và chứng chỉ chuyên môn (IELTS/TOEIC/TESOL…).' },
+        { title: 'Interview', text: 'Phỏng vấn năng lực giảng dạy, mindset và văn hóa NOVA.' },
+        { title: 'Teaching Demo', text: 'Demo một buổi dạy thật để đánh giá phương pháp và tương tác.' },
+        { title: 'Training', text: 'Đào tạo giáo trình, quy trình lớp học và công cụ LMS nội bộ.' },
+        { title: 'Official Teacher', text: 'Trở thành giáo viên chính thức và bắt đầu đồng hành cùng học viên.' },
+      ],
+      novaStudentFilters: ['Tất cả', 'IELTS', 'TOEIC', 'SAT', 'Giao tiếp'],
+      novaBeforeAfter: [
+        {
+          name: 'Nguyễn Thu Hà',
+          before: '5.5',
+          after: '8.5',
+          note: 'IELTS Overall sau 5 tháng Intensive',
+        },
+        {
+          name: 'Đỗ Bảo Ngọc',
+          before: '650',
+          after: '905',
+          note: 'TOEIC sau 3 tháng luyện đề có lộ trình',
+        },
+        {
+          name: 'Mai Thanh Tú',
+          before: '1180',
+          after: '1450',
+          note: 'SAT sau 5 tháng Prep chuyên sâu',
+        },
+      ],
+      novaActivities: [
+        {
+          title: 'Workshop IELTS Speaking',
+          image:
+            'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&h=520&q=80',
+        },
+        {
+          title: 'Speaking Club cuối tuần',
+          image:
+            'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&h=520&q=80',
+        },
+        {
+          title: 'Lễ tốt nghiệp & vinh danh',
+          image:
+            'https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=800&h=520&q=80',
+        },
+        {
+          title: 'Orientation cho học viên mới',
+          image:
+            'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&h=520&q=80',
+        },
+        {
+          title: 'Contest Speaking Challenge',
+          image:
+            'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=800&h=520&q=80',
+        },
+      ],
+      novaNewsFeatured: {
+        title: 'Workshop IELTS Speaking — Bí quyết đạt 7.0+',
+        tag: 'Workshop',
+        date: '15/06/2026',
+        excerpt:
+          'Buổi workshop thực chiến giúp học viên nắm tiêu chí band descriptor, cấu trúc câu trả lời và cách mở rộng ý trong Part 2–3.',
+        image:
+          'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1200&h=640&q=80',
+      },
+      novaNewsCategories: [
+        'IELTS',
+        'TOEIC',
+        'Grammar',
+        'Vocabulary',
+        'Kids',
+        'Study Tips',
+      ],
+      novaNewsPopular: [
+        { title: 'Tips luyện Listening IELTS hiệu quả tại nhà', date: '28/05/2026' },
+        { title: 'Cách xây dựng vốn từ vựng Academic trong 30 ngày', date: '22/05/2026' },
+        { title: 'TOEIC 900+: Lộ trình luyện đề và quản lý thời gian', date: '18/05/2026' },
+        { title: 'Grammar Lab: 5 lỗi ngữ pháp thường gặp trong Writing Task 2', date: '05/05/2026' },
+        { title: 'Study Tips: Lịch học 2 tiếng/ngày vẫn tiến bộ đều', date: '28/04/2026' },
+      ],
+      novaAboutValues: [
+        {
+          title: 'Sứ mệnh',
+          text: 'Giúp người học Việt Nam tư duy bằng tiếng Anh và đạt mục tiêu học tập – nghề nghiệp rõ ràng.',
+        },
+        {
+          title: 'Tầm nhìn',
+          text: 'Trở thành trung tâm tiếng Anh kết quả cao, nơi lộ trình cá nhân hóa là tiêu chuẩn cho mọi học viên.',
+        },
+        {
+          title: 'Giá trị',
+          text: 'Thật thà với tiến độ, kỷ luật với quy trình và luôn đặt chất lượng đầu ra lên trước.',
+        },
+        {
+          title: 'Cam kết',
+          text: 'Đồng hành đến mục tiêu với giáo viên chuyên môn, công cụ LMS và báo cáo tiến độ minh bạch.',
+        },
+      ],
+      novaHistory: [
+        { year: '2016', text: 'Thành lập NOVA ENGLISH với lớp IELTS đầu tiên tại Hà Nội.' },
+        { year: '2018', text: 'Mở rộng chương trình TOEIC và giao tiếp doanh nghiệp.' },
+        { year: '2020', text: 'Ra mắt LMS nội bộ hỗ trợ học online kết hợp offline.' },
+        { year: '2023', text: 'Triển khai AI luyện phát âm và chấm Writing hỗ trợ học viên.' },
+        { year: '2026', text: 'Hệ thống 5 cơ sở và hàng nghìn học viên đạt mục tiêu điểm số.' },
+      ],
+      novaCulture: [
+        {
+          title: 'Lấy học viên làm trung tâm',
+          text: 'Mọi lộ trình, lớp học và công cụ đều hướng tới tiến bộ đo được của từng học viên.',
+          image:
+            'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&h=520&q=80',
+        },
+        {
+          title: 'Đội ngũ chuyên môn cao',
+          text: 'Giáo viên được đào tạo liên tục về giáo trình, phương pháp và tiêu chuẩn chấm điểm quốc tế.',
+          image:
+            'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&h=520&q=80',
+        },
+        {
+          title: 'Văn hóa kết quả',
+          text: 'Theo dõi mock test, phản hồi trung thực và điều chỉnh lộ trình cho đến khi đạt mục tiêu.',
+          image:
+            'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&h=520&q=80',
+        },
+      ],
+    };
+  }
+
+  /** Deep-page extras for VIVU travel; empty for other demo slugs. */
+  private getVivuExtras(slug: string) {
+    if (slug !== 'vivu') return {};
+
+    return {
+      vivuHighlights: [
+        {
+          title: 'Thiên nhiên',
+          text: 'Vịnh, núi, rừng và biển cả Việt Nam trong những hành trình chọn lọc.',
+        },
+        {
+          title: 'Văn hóa',
+          text: 'Di sản, làng nghề và phong tục bản địa được kể bằng trải nghiệm chân thực.',
+        },
+        {
+          title: 'Ẩm thực',
+          text: 'Món đặc sản từng vùng — từ hải sản vịnh đến cao lầu phố cổ.',
+        },
+        {
+          title: 'Nghỉ dưỡng',
+          text: 'Resort, du thuyền và không gian thư giãn chuẩn luxury travel.',
+        },
+        {
+          title: 'Trải nghiệm địa phương',
+          text: 'Homestay, workshop và hoạt động cùng cộng đồng nơi bạn đến.',
+        },
+        {
+          title: 'Check-in nổi tiếng',
+          text: 'Góc ảnh đẹp nhất được gợi ý trong lịch trình tối ưu.',
+        },
+      ],
+      vivuTourBenefits: [
+        {
+          title: 'Giá minh bạch',
+          text: 'Báo giá rõ ràng, không phát sinh ẩn — bạn biết trước mọi hạng mục.',
+        },
+        {
+          title: 'Hướng dẫn viên chuyên nghiệp',
+          text: 'Am hiểu địa phương, đồng hành nhiệt tình và truyền cảm hứng.',
+        },
+        {
+          title: 'Hỗ trợ 24/7',
+          text: 'Đội ngũ VIVU luôn sẵn sàng hỗ trợ trước và trong chuyến đi.',
+        },
+        {
+          title: 'Thanh toán linh hoạt',
+          text: 'Nhiều hình thức thanh toán, đặt cọc giữ chỗ và hỗ trợ doanh nghiệp.',
+        },
+      ],
+      vivuExperiences: [
+        { title: 'Văn hóa', text: 'Phố cổ, di sản và nghi lễ truyền thống', image: '/images/Vivu/04-hoi-an.png' },
+        { title: 'Ẩm thực', text: 'Tour ăn uống cùng đầu bếp địa phương', image: '/images/Vivu/03-da-nang.png' },
+        { title: 'Nghỉ dưỡng', text: 'Resort biển và spa thư giãn', image: '/images/Vivu/06-phu-quoc.png' },
+        { title: 'Trekking', text: 'Đường mòn Tây Bắc và ruộng bậc thang', image: '/images/Vivu/07-sa-pa.png' },
+        { title: 'Camping', text: 'Cắm trại dưới bầu trời cao nguyên', image: '/images/Vivu/05-da-lat.png' },
+        { title: 'Diving', text: 'Lặn ngắm san hô biển đảo', image: '/images/Vivu/06-phu-quoc.png' },
+        { title: 'Chèo Kayak', text: 'Khám phá vịnh bằng kayak', image: '/images/Vivu/02-ha-long.png' },
+        { title: 'Photography', text: 'Tour chụp ảnh bình minh & hoàng hôn', image: '/images/Vivu/01-hero-ha-long.png' },
+      ],
+      vivuStories: [
+        {
+          title: 'Một ngày ở Hội An',
+          excerpt: 'Từ phố cổ ban ngày đến thả đèn hoa đăng về đêm.',
+          image: '/images/Vivu/04-hoi-an.png',
+          date: '12/03/2026',
+        },
+        {
+          title: 'Săn mây Sa Pa',
+          excerpt: 'Bình minh trên đỉnh Fansipan và biển mây bồng bềnh.',
+          image: '/images/Vivu/07-sa-pa.png',
+          date: '05/03/2026',
+        },
+        {
+          title: 'Bình minh Phú Quốc',
+          excerpt: 'Cát trắng, nước trong và cocktail hoàng hôn trên bãi Sao.',
+          image: '/images/Vivu/06-phu-quoc.png',
+          date: '28/02/2026',
+        },
+        {
+          title: 'Ẩm thực miền Trung',
+          excerpt: 'Hành trình vị giác từ Đà Nẵng đến phố cổ Hội An.',
+          image: '/images/Vivu/03-da-nang.png',
+          date: '20/02/2026',
+        },
+      ],
+      vivuArticles: [
+        {
+          title: 'Kinh nghiệm du lịch Hạ Long 3 ngày 2 đêm',
+          category: 'Kinh nghiệm',
+          date: '15/03/2026',
+          datetime: '2026-03-15',
+          excerpt: 'Gợi ý lịch trình, khách sạn và món ăn không thể bỏ qua khi khám phá vịnh di sản.',
+          image: '/images/Vivu/02-ha-long.png',
+        },
+        {
+          title: 'Top 10 món ăn phải thử khi đến Hội An',
+          category: 'Ăn gì',
+          date: '08/03/2026',
+          datetime: '2026-03-08',
+          excerpt: 'Từ cao lầu, mì Quảng đến bánh mì Phượng — hành trình ẩm thực phố cổ.',
+          image: '/images/Vivu/04-hoi-an.png',
+        },
+        {
+          title: 'Nên đi Phú Quốc tháng mấy?',
+          category: 'Mẹo',
+          date: '02/03/2026',
+          datetime: '2026-03-02',
+          excerpt: 'Thời tiết, giá vé và hoạt động theo mùa để chọn kỳ nghỉ lý tưởng.',
+          image: '/images/Vivu/06-phu-quoc.png',
+        },
+        {
+          title: 'Chi phí du lịch Đà Lạt tự túc 2026',
+          category: 'Lịch trình',
+          date: '22/02/2026',
+          datetime: '2026-02-22',
+          excerpt: 'Ngân sách tham khảo cho cặp đôi và gia đình — từ lưu trú đến ăn uống.',
+          image: '/images/Vivu/05-da-lat.png',
+        },
+        {
+          title: 'Sa Pa mùa lúa chín — Thời điểm đẹp nhất',
+          category: 'Chơi gì',
+          date: '28/02/2026',
+          datetime: '2026-02-28',
+          excerpt: 'Tháng 9–10 là lúc ruộng bậc thang chuyển vàng rực, lý tưởng cho trekking.',
+          image: '/images/Vivu/07-sa-pa.png',
+        },
+        {
+          title: 'Review du thuyền Hạ Long 4 sao',
+          category: 'Review',
+          date: '18/02/2026',
+          datetime: '2026-02-18',
+          excerpt: 'Không gian cabin, ẩm thực onboard và lịch trình tham quan hang động.',
+          image: '/images/Vivu/01-hero-ha-long.png',
+        },
+      ],
+      vivuFaq: [
+        {
+          q: 'Đặt tour trước bao lâu?',
+          a: 'Nên đặt trước 2–4 tuần với tour thường. Mùa cao điểm (lễ, Tết, hè) nên đặt trước 1–2 tháng để giữ chỗ tốt nhất.',
+        },
+        {
+          q: 'Có hoàn tiền không?',
+          a: 'VIVU hỗ trợ hoàn/hủy theo chính sách từng tour. Hủy sớm thường được hoàn một phần hoặc đổi lịch miễn phí tùy điều kiện.',
+        },
+        {
+          q: 'Có tour riêng không?',
+          a: 'Có. Chúng tôi thiết kế tour riêng theo nhóm gia đình, cặp đôi hoặc doanh nghiệp — lịch trình và ngân sách linh hoạt.',
+        },
+        {
+          q: 'Có hỗ trợ doanh nghiệp không?',
+          a: 'Có. VIVU tổ chức teambuilding, incentive trip và hội nghị kết hợp tham quan với báo giá và hợp đồng rõ ràng.',
+        },
+      ],
+    };
   }
 
   private buildStaticPage(
@@ -1045,7 +1846,7 @@ export class AppService {
       year: new Date().getFullYear(),
       pageTitle: `${seoTitle} — ${site.brand}`,
       seo: this.articlesService.buildStaticPageSeo(
-        `${seoTitle} — ${site.brand}`,
+        seoTitle,
         description,
         path,
         site.brand,

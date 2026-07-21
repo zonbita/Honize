@@ -1,0 +1,122 @@
+<div class="nova-page">
+  <div class="nova-promo-bar">
+    <div class="nova-container nova-promo-inner">
+      <p>Ưu đãi học phí lên đến <strong>20%</strong> — Đăng ký trước 30/06/2026</p>
+      <a href="{{novaBase}}#contact" class="nova-promo-link">Đăng ký ngay →</a>
+    </div>
+  </div>
+
+  {{> demo/nova/header }}
+
+  <section class="nova-page-hero nova-page-hero--red">
+    <div class="nova-container">
+      <nav class="nova-breadcrumb nova-breadcrumb--light" aria-label="Breadcrumb">
+        <a href="{{novaBase}}">Trang chủ</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Kết quả</span>
+      </nav>
+      <h1 class="nova-page-hero-title">Bảng vàng thành tích</h1>
+      <p class="nova-page-hero-desc">Hàng nghìn học viên đã đạt mục tiêu IELTS, TOEIC, SAT và giao tiếp cùng NOVA ENGLISH.</p>
+    </div>
+  </section>
+
+  <section class="nova-block nova-block--cream">
+    <div class="nova-container">
+      <div class="nova-section-head" data-aos="fade-up">
+        <h2 class="nova-section-title">Học viên xuất sắc</h2>
+      </div>
+      <div class="nova-filter" data-aos="fade-up" role="group" aria-label="Lọc theo chương trình">
+        {{#each novaStudentFilters}}
+        <button type="button" class="nova-filter-chip{{#if @first}} is-active{{/if}}">{{this}}</button>
+        {{/each}}
+      </div>
+      <div class="nova-achievement-grid" style="margin-top:1.5rem">
+        {{#each novaAchievementsAll}}
+        <article class="nova-achievement-card" data-aos="fade-up" data-aos-delay="{{multiply @index 40}}" data-category="{{this.category}}">
+          <div class="nova-achievement-photo">
+            <img src="{{this.image}}" alt="{{this.name}}" loading="lazy" width="200" height="260" />
+            <span class="nova-achievement-score">
+              <em>{{this.category}}</em>
+              <strong>{{this.score}}</strong>
+            </span>
+          </div>
+          <div class="nova-achievement-body">
+            <h3 class="nova-achievement-name">{{this.name}}</h3>
+            <p class="nova-achievement-meta">{{this.course}}</p>
+            <p class="nova-achievement-time">{{this.duration}}</p>
+          </div>
+        </article>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <section class="nova-block">
+    <div class="nova-container">
+      <div class="nova-section-head" data-aos="fade-up">
+        <p class="nova-kicker">Case study</p>
+        <h2 class="nova-section-title">Hành trình bứt phá điển hình</h2>
+      </div>
+      <div class="nova-case" data-aos="fade-up">
+        <div class="nova-case-narrative">
+          <p class="nova-kicker">{{novaCaseStudy.course}}</p>
+          <h3>{{novaCaseStudy.name}}</h3>
+          <p>Đầu vào <strong>{{novaCaseStudy.fromScore}}</strong> → Đầu ra <strong class="nova-text-red">{{novaCaseStudy.toScore}}</strong> · {{novaCaseStudy.duration}}</p>
+          <p>Từ nền tảng trung bình, học viên được đánh giá đầu vào, xếp lộ trình cá nhân và luyện mock test định kỳ đến khi đạt mục tiêu.</p>
+        </div>
+        <ol class="nova-timeline">
+          {{#each novaCaseStudy.steps}}
+          <li class="nova-timeline-item">
+            <span class="nova-timeline-dot" aria-hidden="true"></span>
+            <h4>{{this.title}}</h4>
+            <p>{{this.text}}</p>
+          </li>
+          {{/each}}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <div class="nova-stats-bar" aria-label="Thống kê NOVA ENGLISH">
+    <div class="nova-container nova-stats-grid">
+      {{#each stats}}
+      <div class="nova-stat" data-aos="fade-up" data-aos-delay="{{multiply @index 80}}">
+        <div class="nova-stat-icon" aria-hidden="true">{{{this.icon}}}</div>
+        <strong class="nova-stat-value">{{this.value}}</strong>
+        <span class="nova-stat-label">{{this.label}}</span>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+
+  <section class="nova-block nova-block--gray">
+    <div class="nova-container">
+      <div class="nova-section-head" data-aos="fade-up">
+        <p class="nova-kicker">Video review</p>
+        <h2 class="nova-section-title">Học viên kể lại hành trình</h2>
+      </div>
+      <div class="nova-video-grid">
+        {{#each novaBeforeAfter}}
+        <article class="nova-video-card" data-aos="fade-up" data-aos-delay="{{multiply @index 70}}">
+          <div class="nova-video-thumb" aria-hidden="true">
+            <span class="nova-video-play"></span>
+          </div>
+          <h3>{{this.name}}</h3>
+          <p>{{this.before}} → {{this.after}} · {{this.note}}</p>
+        </article>
+        {{/each}}
+        <article class="nova-video-card" data-aos="fade-up" data-aos-delay="210">
+          <div class="nova-video-thumb" aria-hidden="true">
+            <span class="nova-video-play"></span>
+          </div>
+          <h3>Speaking Club chia sẻ</h3>
+          <p>Clip tổng hợp phản hồi học viên sau 3 tháng luyện nói.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  {{> demo/nova/cta }}
+  {{> demo/nova/footer }}
+</div>
+{{> demo/nova/scripts }}

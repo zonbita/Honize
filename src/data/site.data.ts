@@ -373,6 +373,14 @@ export const defaultProjectsData: Pick<SiteLayoutData, 'projectCategories' | 'pr
       url: '/du-an/demo/nha-hang-sai-gon',
     },
     {
+      title: 'KAZE — Nhà hàng Nhật Bản',
+      slug: 'nhahang',
+      categorySlug: 'an-uong',
+      categoryName: 'Ăn uống',
+      image: '/images/NhaHang/00-landingpage-concept.png',
+      url: '/du-an/demo/nhahang',
+    },
+    {
       title: 'Shop thời trang online',
       slug: 'shop-thoi-trang',
       categorySlug: 'ban-hang',

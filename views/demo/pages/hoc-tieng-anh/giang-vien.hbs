@@ -1,0 +1,130 @@
+<div class="nova-page">
+  <div class="nova-promo-bar">
+    <div class="nova-container nova-promo-inner">
+      <p>Ưu đãi học phí lên đến <strong>20%</strong> — Đăng ký trước 30/06/2026</p>
+      <a href="{{novaBase}}#contact" class="nova-promo-link">Đăng ký ngay →</a>
+    </div>
+  </div>
+
+  {{> demo/nova/header }}
+
+  <section class="nova-page-hero nova-page-hero--dark">
+    <div class="nova-container">
+      <nav class="nova-breadcrumb nova-breadcrumb--light" aria-label="Breadcrumb">
+        <a href="{{novaBase}}">Trang chủ</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Giảng viên</span>
+      </nav>
+      <h1 class="nova-page-hero-title">Đội ngũ giảng viên xuất sắc</h1>
+      <p class="nova-page-hero-desc">Giáo viên bản ngữ và Việt Nam IELTS 8.0+, giàu kinh nghiệm thi thật và đồng hành sát sao cùng học viên.</p>
+    </div>
+  </section>
+
+  <section class="nova-block">
+    <div class="nova-container nova-about-grid">
+      <div data-aos="fade-up">
+        <p class="nova-kicker">Đội ngũ</p>
+        <h2 class="nova-section-title nova-section-title--left">Chuyên gia đồng hành đến mục tiêu</h2>
+        <p class="nova-about-text">
+          Mỗi giảng viên NOVA đều trải qua quy trình tuyển chọn khắt khe: CV, interview, teaching demo và đào tạo nội bộ. Chúng tôi đề cao năng lực chuyên môn, kỹ năng truyền đạt và tinh thần đồng hành cùng học viên.
+        </p>
+      </div>
+      <div class="nova-about-media" data-aos="fade-up" data-aos-delay="80">
+        <img src="/images/TiengAnh/nova-teachers-grid.png" alt="Đội ngũ giảng viên NOVA" width="640" height="420" loading="lazy" onerror="this.style.display='none'" />
+      </div>
+    </div>
+  </section>
+
+  <section class="nova-teachers" id="teachers">
+    <div class="nova-container">
+      <div class="nova-section-head" data-aos="fade-up">
+        <h2 class="nova-section-title nova-section-title--white">Giảng viên tiêu biểu</h2>
+      </div>
+      <div class="nova-teacher-grid">
+        {{#each novaTeacherProfiles}}
+        <article class="nova-teacher-card nova-teacher-card--page" data-aos="fade-up" data-aos-delay="{{multiply @index 60}}">
+          <div class="nova-teacher-frame">
+            <div class="nova-teacher-photo">
+              <img src="{{this.image}}" alt="{{this.name}}" loading="lazy" width="200" height="240" />
+            </div>
+          </div>
+          <div class="nova-teacher-info">
+            <h3 class="nova-teacher-name">{{this.name}}</h3>
+            <span class="nova-teacher-score">IELTS {{this.score}}</span>
+            <p class="nova-teacher-exp">{{this.experience}}</p>
+            <p class="nova-teacher-specialty">{{this.specialty}}</p>
+            <a href="#profile" class="nova-btn nova-btn-outline" style="margin-top:0.65rem;padding:0.4rem 0.75rem;font-size:0.62rem">Xem hồ sơ</a>
+          </div>
+        </article>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <section class="nova-block" id="profile">
+    <div class="nova-container">
+      <div class="nova-section-head" data-aos="fade-up">
+        <p class="nova-kicker">Hồ sơ mẫu</p>
+        <h2 class="nova-section-title">Chân dung giảng viên</h2>
+      </div>
+      {{#each novaTeacherProfiles}}
+      {{#if @first}}
+      <div class="nova-profile" data-aos="fade-up">
+        <div class="nova-profile-photo">
+          <img src="{{this.image}}" alt="{{this.name}}" width="360" height="420" loading="lazy" />
+        </div>
+        <div class="nova-profile-body">
+          <h3>{{this.name}}</h3>
+          <p class="nova-kicker">IELTS {{this.score}} · {{this.specialty}}</p>
+          <p>{{this.bio}}</p>
+          <ul class="nova-about-list">
+            <li><strong>Học vấn:</strong> Cử nhân Ngôn ngữ Anh / TESOL</li>
+            <li><strong>Chứng chỉ:</strong> IELTS {{this.score}}, CELTA/TESOL</li>
+            <li><strong>Kinh nghiệm:</strong> {{this.experience}} giảng dạy và luyện thi</li>
+            <li><strong>Phong cách:</strong> Phân tích rõ ràng, phản hồi sát bài, khuyến khích tư duy bằng tiếng Anh</li>
+          </ul>
+        </div>
+      </div>
+      {{/if}}
+      {{/each}}
+    </div>
+  </section>
+
+  <section class="nova-block nova-block--cream nova-recruit-section">
+    <div class="nova-container">
+      <div class="nova-section-head" data-aos="fade-up">
+        <p class="nova-kicker">Tuyển dụng</p>
+        <h2 class="nova-section-title">Quy trình trở thành giảng viên NOVA</h2>
+      </div>
+      <ol class="nova-recruit-row" data-aos="fade-up" aria-label="Quy trình tuyển dụng giảng viên">
+        {{#each novaRecruitSteps}}
+        <li class="nova-recruit-row-item{{#if @last}} is-last{{/if}}">
+          <span class="nova-recruit-row-mark" aria-hidden="true"></span>
+          <strong class="nova-recruit-row-label">{{this.title}}</strong>
+        </li>
+        {{/each}}
+      </ol>
+    </div>
+  </section>
+
+  <section class="nova-block nova-block--gray">
+    <div class="nova-container">
+      <div class="nova-section-head" data-aos="fade-up">
+        <p class="nova-kicker">Đào tạo nội bộ</p>
+        <h2 class="nova-section-title">Workshop nâng cao năng lực giảng dạy</h2>
+      </div>
+      <div class="nova-album">
+        {{#each novaActivities}}
+        <figure data-aos="fade-up" data-aos-delay="{{multiply @index 60}}">
+          <img src="{{this.image}}" alt="{{this.title}}" loading="lazy" width="480" height="320" />
+          <figcaption>{{this.title}}</figcaption>
+        </figure>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  {{> demo/nova/cta }}
+  {{> demo/nova/footer }}
+</div>
+{{> demo/nova/scripts }}
