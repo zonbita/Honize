@@ -10,7 +10,7 @@ Tài liệu này dành cho **Cursor Agent** khi implement tính năng demo `aure
 | `audit.mjs` | Script audit — chạy trong terminal |
 | `views/demo/pages/aurelia-estates.hbs` | Template HTML |
 | `public/demo/aurelia-estates.css` | Styles |
-| `public/images/House/Design.MD` | Design spec |
+| `public/images/Demo/House/Design.MD` | Design spec |
 
 ## Quy ước
 

@@ -178,7 +178,7 @@
   align-items: center;
   isolation: isolate;
   overflow: hidden;
-  background: var(--nh-black) url('/images/NhaHang/01-hero-table.png') center / cover no-repeat;
+  background: var(--nh-black) url('/images/Demo/NhaHang/01-hero-table.png') center / cover no-repeat;
   color: #fff;
 }
 

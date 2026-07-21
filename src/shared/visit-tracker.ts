@@ -24,6 +24,8 @@ const SKIP_PREFIXES = [
   '/js/',
   '/images/',
   '/uploads/',
+  '/images/upload/',
+  '/images/Demo/',
   '/dev/',
   '/favicon',
   '/robots.txt',

@@ -377,7 +377,7 @@ export const defaultProjectsData: Pick<SiteLayoutData, 'projectCategories' | 'pr
       slug: 'nhahang',
       categorySlug: 'an-uong',
       categoryName: 'Ăn uống',
-      image: '/images/NhaHang/00-landingpage-concept.png',
+      image: '/images/Demo/NhaHang/00-landingpage-concept.png',
       url: '/du-an/demo/nhahang',
     },
     {
@@ -401,7 +401,7 @@ export const defaultProjectsData: Pick<SiteLayoutData, 'projectCategories' | 'pr
       slug: 'aurelia-estates',
       categorySlug: 'bat-dong-san',
       categoryName: 'Bất động sản',
-      image: '/images/House/house%20(1).png',
+      image: '/images/Demo/House/house%20(1).png',
       url: '/du-an/demo/aurelia-estates',
     },
     {
@@ -425,8 +425,16 @@ export const defaultProjectsData: Pick<SiteLayoutData, 'projectCategories' | 'pr
       slug: 'tham-my-vien',
       categorySlug: 'dich-vu',
       categoryName: 'Dịch vụ',
-      image: '/images/ThamMyVien/thammyvien%20(4).png',
+      image: '/images/Demo/ThamMyVien/thammyvien%20(4).png',
       url: '/du-an/demo/tham-my-vien',
+    },
+    {
+      title: 'ORIS — Nha Khoa',
+      slug: 'nha-khoa',
+      categorySlug: 'dich-vu',
+      categoryName: 'Dịch vụ',
+      image: '/images/Demo/NhaKhoa/07-clinic-space.png',
+      url: '/du-an/demo/nha-khoa',
     },
     {
       title: 'Corporate landing page',

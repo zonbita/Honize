@@ -1,0 +1,109 @@
+<script>
+(function () {
+  var header = document.getElementById('oris-header');
+  var menuBtn = document.getElementById('oris-menu-btn');
+  var nav = document.getElementById('oris-nav');
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function onScroll() {
+    if (!header) return;
+    header.classList.toggle('is-scrolled', window.scrollY > 24);
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  if (menuBtn && nav) {
+    menuBtn.addEventListener('click', function () {
+      var open = nav.classList.toggle('is-open');
+      menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      menuBtn.setAttribute('aria-label', open ? 'Đóng menu' : 'Mở menu');
+      menuBtn.classList.toggle('is-open', open);
+    });
+
+    nav.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        nav.classList.remove('is-open');
+        menuBtn.classList.remove('is-open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        menuBtn.setAttribute('aria-label', 'Mở menu');
+      });
+    });
+  }
+
+  document.querySelectorAll('.oris-faq-item button').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var item = btn.closest('.oris-faq-item');
+      var open = item.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
+
+  document.querySelectorAll('.oris-book-form').forEach(function (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var note = form.querySelector('.oris-form-note');
+      if (note) {
+        note.textContent = 'Đã nhận yêu cầu (demo) — cảm ơn bạn đã quan tâm ORIS.';
+        note.style.color = '#0b4f7c';
+      }
+    });
+  });
+
+  if (!reducedMotion) {
+    document.querySelectorAll('.oris-float').forEach(function (el) {
+      el.classList.add('is-animating');
+    });
+  }
+
+  var counters = document.querySelectorAll('.oris-count');
+  if (counters.length) {
+    function formatCount(value, separator) {
+      var str = Math.round(value).toString();
+      if (!separator) return str;
+      return str.replace(/\B(?=(\d{3})+(?!\d))/g, separator);
+    }
+
+    function setFinalValue(el) {
+      el.textContent =
+        formatCount(Number(el.dataset.count || 0), el.dataset.separator || '') +
+        (el.dataset.suffix || '');
+    }
+
+    function animateCounter(el) {
+      var target = Number(el.dataset.count || 0);
+      var suffix = el.dataset.suffix || '';
+      var separator = el.dataset.separator || '';
+      var duration = 1600;
+      var start = performance.now();
+
+      function tick(now) {
+        var progress = Math.min((now - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = formatCount(target * eased, separator) + suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+
+      requestAnimationFrame(tick);
+    }
+
+    if (reducedMotion) {
+      counters.forEach(setFinalValue);
+    } else {
+      var counterObserver = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            animateCounter(entry.target);
+            counterObserver.unobserve(entry.target);
+          });
+        },
+        { threshold: 0.35 }
+      );
+      counters.forEach(function (el) {
+        counterObserver.observe(el);
+      });
+    }
+  }
+})();
+</script>

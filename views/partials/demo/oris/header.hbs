@@ -1,0 +1,38 @@
+<header class="oris-header{{#if orisHeaderSolid}} oris-header--solid{{/if}}" id="oris-header">
+  <div class="oris-wrap oris-header-inner">
+    <a href="{{orisBase}}" class="oris-logo" aria-label="ORIS — Trang chủ">
+      <svg class="oris-logo-mark" viewBox="0 0 36 36" width="36" height="36" aria-hidden="true">
+        <circle cx="18" cy="18" r="15" fill="none" stroke="currentColor" stroke-width="1.4"/>
+        <path d="M12 20c1.2-4 3.2-7 6-9 2.8 2 4.8 5 6 9-1.8 3.2-4 4.8-6 4.8S13.8 23.2 12 20z" fill="none" stroke="currentColor" stroke-width="1.4"/>
+        <circle cx="18" cy="18" r="2" fill="currentColor"/>
+      </svg>
+      <span class="oris-logo-text">
+        <span class="oris-logo-name">ORIS</span>
+        <span class="oris-logo-sub">NHA KHOA THẨM MỸ</span>
+      </span>
+    </a>
+
+    <nav class="oris-nav" id="oris-nav" aria-label="Menu chính">
+      <a href="{{orisBase}}" class="{{#if (eq orisActive 'home')}}is-active{{/if}}">Trang chủ</a>
+      <a href="{{orisBase}}/gioi-thieu" class="{{#if (eq orisActive 'about')}}is-active{{/if}}">Giới thiệu</a>
+      <a href="{{orisBase}}/dich-vu" class="{{#if (eq orisActive 'services')}}is-active{{/if}}">Dịch vụ</a>
+      <a href="{{orisBase}}/bac-si" class="{{#if (eq orisActive 'doctors')}}is-active{{/if}}">Bác sĩ</a>
+      <a href="{{orisBase}}/cong-nghe" class="{{#if (eq orisActive 'technology')}}is-active{{/if}}">Công nghệ</a>
+      <a href="{{orisBase}}/kien-thuc" class="{{#if (eq orisActive 'knowledge')}}is-active{{/if}}">Kiến thức</a>
+      <a href="{{orisBase}}/lien-he" class="{{#if (eq orisActive 'contact')}}is-active{{/if}}">Liên hệ</a>
+      <div class="oris-nav-actions">
+        <a href="tel:19002888" class="oris-header-phone">1900 2888</a>
+        <a href="{{orisBase}}#booking" class="oris-btn oris-btn-primary oris-nav-cta">Đặt hẹn</a>
+      </div>
+    </nav>
+
+    <div class="oris-header-actions">
+      <a href="tel:19002888" class="oris-header-phone">1900 2888</a>
+      <a href="{{orisBase}}#booking" class="oris-btn oris-btn-primary oris-header-cta">Đặt hẹn</a>
+    </div>
+
+    <button type="button" class="oris-menu-btn" id="oris-menu-btn" aria-label="Mở menu" aria-expanded="false" aria-controls="oris-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>

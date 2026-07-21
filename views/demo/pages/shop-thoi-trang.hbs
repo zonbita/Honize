@@ -1,49 +1,9 @@
-{{> demo/toolbar }}
-
 <div class="el-page">
-  <div class="el-promo" role="region" aria-label="Khuyến mãi">
-    <p>Giảm đến 50% BST Xuân Hè — Miễn phí vận chuyển đơn từ 599.000đ</p>
-  </div>
-
-  <header class="el-header">
-    <div class="el-wrap el-header-inner">
-      <button type="button" class="el-menu-toggle" aria-expanded="false" aria-controls="el-nav">
-        <span></span><span></span><span></span>
-        <span class="sr-only">Mở menu</span>
-      </button>
-
-      <a href="/du-an/demo/shop-thoi-trang" class="el-logo" aria-label="ÉLARA - Trang chủ">
-        <span class="el-logo-mark" aria-hidden="true">É</span>
-        <span class="el-logo-text">ÉLARA</span>
-      </a>
-
-      <nav class="el-nav" id="el-nav" aria-label="Điều hướng chính">
-        <a href="#ao">Áo</a>
-        <a href="#vay">Váy</a>
-        <a href="#quan">Quần</a>
-        <a href="#phukien">Phụ kiện</a>
-        <a href="#collection">BST mới</a>
-        <a href="#phukien">Sale</a>
-      </nav>
-
-      <div class="el-actions">
-        <button type="button" class="el-icon-btn" aria-label="Tìm kiếm">
-          <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
-        </button>
-        <button type="button" class="el-icon-btn" aria-label="Yêu thích">
-          <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 20.5l-1.1-1C5.5 14.8 2 11.6 2 7.8 2 5 4.2 3 6.8 3c1.6 0 3.1.8 4.2 2.1C12.1 3.8 13.6 3 15.2 3 17.8 3 20 5 20 7.8c0 3.8-3.5 7-8.9 11.7L12 20.5z"/></svg>
-        </button>
-        <button type="button" class="el-icon-btn el-icon-btn-cart" aria-label="Giỏ hàng">
-          <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M6 7h15l-1.5 9H8L6 7z"/><path d="M6 7L5 3H2"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg>
-          <span class="el-badge">2</span>
-        </button>
-      </div>
-    </div>
-  </header>
+  {{> demo/elara/header }}
 
   <section class="el-hero" aria-label="Banner chính">
     <div class="el-hero-bg" aria-hidden="true">
-      <img src="/images/ThoiTrang/01-hero-bg.png" alt="" width="1920" height="900" loading="eager" />
+      <img src="/images/Demo/ThoiTrang/01-hero-bg.png" alt="" width="1920" height="900" loading="eager" />
       <div class="el-hero-overlay"></div>
     </div>
     <div class="el-wrap el-hero-inner">
@@ -52,14 +12,14 @@
         <h1 class="el-hero-title">Thời trang nữ<br />thanh lịch mỗi ngày</h1>
         <p class="el-hero-text">Chất liệu linen mềm mại, phom dáng tinh tế — thiết kế cho phong cách hiện đại và thoải mái suốt cả ngày.</p>
         <div class="el-hero-actions">
-          <a href="#ao" class="el-btn el-btn-primary">Mua ngay</a>
-          <a href="#collection" class="el-btn el-btn-outline">Xem bộ sưu tập</a>
+          <a href="{{elaraBase}}/ao" class="el-btn el-btn-primary">Mua ngay</a>
+          <a href="{{elaraBase}}/bst" class="el-btn el-btn-outline">Xem bộ sưu tập</a>
         </div>
       </div>
       <div class="el-hero-visual" data-aos="fade-left" data-aos-delay="100" data-aos-duration="800">
-        <img class="el-hero-model" src="/images/ThoiTrang/02-hero-model.png" alt="Người mẫu thời trang ÉLARA" width="560" height="700" loading="eager" />
-        <img class="el-hero-3d el-hero-3d-bag" src="/images/ThoiTrang/13-3d-handbag.png" alt="" aria-hidden="true" width="200" height="200" />
-        <img class="el-hero-3d el-hero-3d-glasses" src="/images/ThoiTrang/14-3d-sunglasses.png" alt="" aria-hidden="true" width="140" height="140" />
+        <img class="el-hero-model" src="/images/Demo/ThoiTrang/02-hero-model.png" alt="Người mẫu thời trang ÉLARA" width="560" height="700" loading="eager" />
+        <img class="el-hero-3d el-hero-3d-bag" src="/images/Demo/ThoiTrang/13-3d-handbag.png" alt="" aria-hidden="true" width="200" height="200" />
+        <img class="el-hero-3d el-hero-3d-glasses" src="/images/Demo/ThoiTrang/14-3d-sunglasses.png" alt="" aria-hidden="true" width="140" height="140" />
       </div>
     </div>
   </section>
@@ -71,20 +31,20 @@
         <h2 id="el-cat-title" class="el-section-title">Khám phá theo thể loại</h2>
       </div>
       <div class="el-cat-grid">
-        <a href="#ao" class="el-cat-card" data-aos="fade-up" data-aos-delay="0">
-          <img src="/images/ThoiTrang/03-category-ao.png" alt="" width="400" height="400" loading="lazy" />
+        <a href="{{elaraBase}}/ao" class="el-cat-card" data-aos="fade-up" data-aos-delay="0">
+          <img src="/images/Demo/ThoiTrang/03-category-ao.png" alt="" width="400" height="400" loading="lazy" />
           <span class="el-cat-label">Áo</span>
         </a>
-        <a href="#vay" class="el-cat-card" data-aos="fade-up" data-aos-delay="60">
-          <img src="/images/ThoiTrang/04-category-vay.png" alt="" width="400" height="400" loading="lazy" />
+        <a href="{{elaraBase}}/vay" class="el-cat-card" data-aos="fade-up" data-aos-delay="60">
+          <img src="/images/Demo/ThoiTrang/04-category-vay.png" alt="" width="400" height="400" loading="lazy" />
           <span class="el-cat-label">Váy</span>
         </a>
-        <a href="#quan" class="el-cat-card" data-aos="fade-up" data-aos-delay="120">
-          <img src="/images/ThoiTrang/05-category-quan.png" alt="" width="400" height="400" loading="lazy" />
+        <a href="{{elaraBase}}/quan" class="el-cat-card" data-aos="fade-up" data-aos-delay="120">
+          <img src="/images/Demo/ThoiTrang/05-category-quan.png" alt="" width="400" height="400" loading="lazy" />
           <span class="el-cat-label">Quần</span>
         </a>
-        <a href="#phukien" class="el-cat-card" data-aos="fade-up" data-aos-delay="180">
-          <img src="/images/ThoiTrang/06-category-phukien.png" alt="" width="400" height="400" loading="lazy" />
+        <a href="{{elaraBase}}/phu-kien" class="el-cat-card" data-aos="fade-up" data-aos-delay="180">
+          <img src="/images/Demo/ThoiTrang/06-category-phukien.png" alt="" width="400" height="400" loading="lazy" />
           <span class="el-cat-label">Phụ kiện</span>
         </a>
       </div>
@@ -101,7 +61,7 @@
         <ul class="el-block-chips" aria-label="Lọc {{this.title}}">
           {{#each this.chips}}
           <li>
-            <button type="button" class="el-chip{{#if @first}} is-active{{/if}}">{{this}}</button>
+            <button type="button" class="el-chip{{#if @first}} is-active{{/if}}" data-filter="{{this.key}}">{{this.label}}</button>
           </li>
           {{/each}}
         </ul>
@@ -110,7 +70,7 @@
 
       <div class="el-product-grid">
         {{#each this.products}}
-        <a href="#" class="el-product-card" data-aos="fade-up" data-aos-delay="{{multiply @index 80}}">
+        <a href="{{this.href}}" class="el-product-card" data-tags="{{#each this.tags}}{{this}} {{/each}}" data-aos="fade-up" data-aos-delay="{{multiply @index 80}}">
           <div class="el-product-media">
             {{#if this.sale}}<span class="el-sale-badge">SALE</span>{{/if}}
             <img src="{{{this.image}}}" alt="{{this.title}}" loading="lazy" width="400" height="400" />
@@ -125,7 +85,7 @@
       </div>
 
       <div class="el-block-footer" data-aos="fade-up">
-        <a href="#{{this.id}}" class="el-see-all">{{this.seeAll}}</a>
+        <a href="{{this.seeAllHref}}" class="el-see-all">{{this.seeAll}}</a>
       </div>
     </div>
   </section>
@@ -133,22 +93,22 @@
 
   <section class="el-collection" id="collection" aria-labelledby="el-col-title">
     <div class="el-collection-bg" aria-hidden="true">
-      <img src="/images/ThoiTrang/11-collection-banner-bg.png" alt="" width="1920" height="600" loading="lazy" />
+      <img src="/images/Demo/ThoiTrang/11-collection-banner-bg.png" alt="" width="1920" height="600" loading="lazy" />
       <div class="el-collection-overlay"></div>
     </div>
     <div class="el-wrap el-collection-inner" data-aos="fade-up">
       <p class="el-kicker el-kicker-light">Bộ sưu tập mới</p>
       <h2 id="el-col-title" class="el-collection-title">Linen Essentials — Mềm mại &amp; bền bỉ</h2>
       <p class="el-collection-text">Chất liệu linen cao cấp, phom dáng thoải mái cho mọi dịp — từ công sở đến dạo phố cuối tuần.</p>
-      <a href="#ao" class="el-btn el-btn-light">Khám phá ngay</a>
+      <a href="{{elaraBase}}/bst" class="el-btn el-btn-light">Khám phá ngay</a>
     </div>
-    <img class="el-collection-3d" src="/images/ThoiTrang/15-3d-heels.png" alt="" aria-hidden="true" width="280" height="280" loading="lazy" />
+    <img class="el-collection-3d" src="/images/Demo/ThoiTrang/15-3d-heels.png" alt="" aria-hidden="true" width="280" height="280" loading="lazy" />
   </section>
 
   <section class="el-about" id="about" aria-labelledby="el-about-title">
     <div class="el-wrap el-about-grid">
       <div class="el-about-media" data-aos="fade-right">
-        <img src="/images/ThoiTrang/16-lifestyle-editorial.png" alt="Phong cách thời trang ÉLARA" width="1024" height="768" loading="lazy" />
+        <img src="/images/Demo/ThoiTrang/16-lifestyle-editorial.png" alt="Phong cách thời trang ÉLARA" width="1024" height="768" loading="lazy" />
       </div>
       <div class="el-about-copy" data-aos="fade-left">
         <p class="el-kicker">Về ÉLARA</p>
@@ -160,14 +120,14 @@
           <li>Giao hàng toàn quốc trong 2–3 ngày</li>
           <li>Đổi trả miễn phí trong 30 ngày</li>
         </ul>
-        <a href="#contact" class="el-btn el-btn-primary">Liên hệ tư vấn</a>
+        <a href="{{elaraBase}}/lien-he" class="el-btn el-btn-primary">Liên hệ tư vấn</a>
       </div>
     </div>
   </section>
 
-  <section class="el-newsletter" id="contact" aria-labelledby="el-news-title">
+  <section class="el-newsletter" id="newsletter" aria-labelledby="el-news-title">
     <div class="el-newsletter-bg" aria-hidden="true">
-      <img src="/images/ThoiTrang/12-newsletter-bg.png" alt="" width="1920" height="600" loading="lazy" />
+      <img src="/images/Demo/ThoiTrang/12-newsletter-bg.png" alt="" width="1920" height="600" loading="lazy" />
       <div class="el-newsletter-overlay"></div>
     </div>
     <div class="el-wrap el-newsletter-inner" data-aos="fade-up">
@@ -175,69 +135,17 @@
         <p class="el-kicker">Ưu đãi độc quyền</p>
         <h2 id="el-news-title" class="el-section-title">Nhận 15% cho đơn hàng đầu tiên</h2>
         <p>Đăng ký email để cập nhật bộ sưu tập mới và ưu đãi hấp dẫn mỗi tuần.</p>
-        <form class="el-newsletter-form" action="#" onsubmit="return false">
+        <form class="el-newsletter-form" action="#" method="post">
           <input type="email" name="email" placeholder="Email của bạn" aria-label="Email của bạn" required />
           <button type="submit" class="el-btn el-btn-primary">Đăng ký</button>
+          <p class="el-form-msg" hidden></p>
         </form>
       </div>
-      <img class="el-newsletter-3d" src="/images/ThoiTrang/13-3d-handbag.png" alt="" aria-hidden="true" width="320" height="320" loading="lazy" />
+      <img class="el-newsletter-3d" src="/images/Demo/ThoiTrang/13-3d-handbag.png" alt="" aria-hidden="true" width="320" height="320" loading="lazy" />
     </div>
   </section>
 
-  <footer class="el-footer">
-    <div class="el-wrap el-footer-grid">
-      <div class="el-footer-brand">
-        <a href="/du-an/demo/shop-thoi-trang" class="el-logo el-logo-footer">
-          <span class="el-logo-mark" aria-hidden="true">É</span>
-          <span class="el-logo-text">ÉLARA</span>
-        </a>
-        <p>Thời trang nữ thanh lịch — phong cách mỗi ngày.</p>
-      </div>
-      <nav class="el-footer-nav" aria-label="Liên kết chân trang">
-        <div>
-          <strong>Mua sắm</strong>
-          <a href="#ao">Áo</a>
-          <a href="#vay">Váy</a>
-          <a href="#quan">Quần</a>
-          <a href="#phukien">Phụ kiện</a>
-          <a href="#collection">Bộ sưu tập</a>
-        </div>
-        <div>
-          <strong>Hỗ trợ</strong>
-          <a href="#contact">Liên hệ</a>
-          <a href="#">Chính sách đổi trả</a>
-          <a href="#">Hướng dẫn size</a>
-        </div>
-        <div>
-          <strong>Liên hệ</strong>
-          <a href="tel:19001234">1900 1234</a>
-          <a href="mailto:hello@elara.vn">hello@elara.vn</a>
-          <span>123 Nguyễn Huệ, Q.1, TP.HCM</span>
-        </div>
-      </nav>
-    </div>
-    <p class="el-footer-copy">© {{year}} ÉLARA. Bản demo thiết kế bởi Honize.</p>
-  </footer>
+  {{> demo/elara/footer }}
 </div>
 
-<script>
-(function () {
-  var toggle = document.querySelector('.el-menu-toggle');
-  var nav = document.getElementById('el-nav');
-  if (toggle && nav) {
-    toggle.addEventListener('click', function () {
-      var open = nav.classList.toggle('is-open');
-      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-  }
-
-  document.querySelectorAll('.el-block-chips').forEach(function (chips) {
-    chips.addEventListener('click', function (e) {
-      var btn = e.target.closest('.el-chip');
-      if (!btn) return;
-      chips.querySelectorAll('.el-chip').forEach(function (b) { b.classList.remove('is-active'); });
-      btn.classList.add('is-active');
-    });
-  });
-})();
-</script>
+{{> demo/elara/scripts }}

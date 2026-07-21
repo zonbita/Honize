@@ -1488,7 +1488,7 @@
       rgba(250, 247, 242, 0.72) 42%,
       rgba(243, 239, 232, 0.55) 100%
     ),
-    url('/images/Vivu/10-newsletter-nature-bg.png') center / cover no-repeat;
+    url('/images/Demo/Vivu/10-newsletter-nature-bg.png') center / cover no-repeat;
   border: 1px solid var(--border);
   overflow: hidden;
 }
@@ -1965,7 +1965,7 @@ html.demo-screenshot-mode [data-aos] {
 }
 
 /* ==========================================================================
-   Internal pages — hero, filters, lists, contact, gallery
+   Internal pages ï¿½ hero, filters, lists, contact, gallery
    ========================================================================== */
 
 .vivu-header.is-solid {

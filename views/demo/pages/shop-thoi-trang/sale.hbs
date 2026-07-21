@@ -1,0 +1,69 @@
+<div class="el-page el-page--inner">
+  {{> demo/elara/header }}
+
+  <section class="el-page-hero" aria-labelledby="el-sale-title">
+    <div class="el-page-hero-bg" aria-hidden="true">
+      <img src="{{elaraHeroBg}}" alt="" width="1920" height="720" loading="eager" />
+      <div class="el-page-hero-overlay"></div>
+    </div>
+    <div class="el-wrap el-page-hero-inner" data-aos="fade-up">
+      <nav class="el-breadcrumb" aria-label="Breadcrumb">
+        <a href="{{elaraBase}}">Trang chủ</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Sale</span>
+      </nav>
+      <h1 id="el-sale-title" class="el-page-hero-title">Sale Xuân Hè</h1>
+      <p class="el-page-hero-desc">Giảm đến 50% — tất cả sản phẩm đang có giá ưu đãi. Miễn phí vận chuyển đơn từ 599.000đ.</p>
+    </div>
+  </section>
+
+  <section class="el-collection-block el-collection-block--page" aria-label="Sản phẩm sale">
+    <div class="el-wrap">
+      <ul class="el-filter-chips el-block-chips" aria-label="Lọc theo danh mục" data-aos="fade-up">
+        <li><button type="button" class="el-chip is-active" data-filter="all">Tất cả</button></li>
+        <li><button type="button" class="el-chip" data-filter="a">Áo</button></li>
+        <li><button type="button" class="el-chip" data-filter="b">Váy</button></li>
+        <li><button type="button" class="el-chip" data-filter="c">Quần</button></li>
+        <li><button type="button" class="el-chip" data-filter="d">Phụ kiện</button></li>
+      </ul>
+
+      <div class="el-product-grid">
+        {{#each products}}
+        <a href="{{this.href}}" class="el-product-card" data-tags="{{this.cat}} {{#each this.tags}}{{this}} {{/each}}" data-aos="fade-up" data-aos-delay="{{multiply @index 50}}">
+          <div class="el-product-media">
+            <span class="el-sale-badge">SALE</span>
+            <img src="{{{this.image}}}" alt="{{this.title}}" loading="lazy" width="400" height="400" />
+          </div>
+          <h3 class="el-product-title">{{this.title}}</h3>
+          <div class="el-product-prices">
+            <span class="el-price-sale">{{this.price}}</span>
+            {{#if this.originalPrice}}<span class="el-price-original">{{this.originalPrice}}</span>{{/if}}
+          </div>
+        </a>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <section class="el-newsletter" aria-labelledby="el-sale-news">
+    <div class="el-newsletter-bg" aria-hidden="true">
+      <img src="/images/Demo/ThoiTrang/12-newsletter-bg.png" alt="" width="1920" height="600" loading="lazy" />
+      <div class="el-newsletter-overlay"></div>
+    </div>
+    <div class="el-wrap el-newsletter-inner" data-aos="fade-up">
+      <div class="el-newsletter-copy">
+        <p class="el-kicker">Ưu đãi thêm</p>
+        <h2 id="el-sale-news" class="el-section-title">Nhận mã giảm 15% đơn đầu</h2>
+        <form class="el-newsletter-form" action="#" method="post">
+          <input type="email" name="email" placeholder="Email của bạn" required aria-label="Email" />
+          <button type="submit" class="el-btn el-btn-primary">Nhận mã</button>
+          <p class="el-form-msg" hidden></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  {{> demo/elara/footer }}
+</div>
+
+{{> demo/elara/scripts }}

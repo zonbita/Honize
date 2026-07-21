@@ -1,0 +1,129 @@
+<div class="oris-page">
+  {{> demo/oris/header }}
+
+  <main>
+    <section class="oris-page-hero">
+      <div class="oris-page-hero-bg" aria-hidden="true">
+        <img src="{{orisHeroBg}}" alt="" width="1600" height="900" />
+      </div>
+      <div class="oris-page-hero-overlay" aria-hidden="true"></div>
+      <div class="oris-wrap oris-page-hero-inner">
+        <nav class="oris-breadcrumb" aria-label="Breadcrumb">
+          <a href="{{orisBase}}">Trang chủ</a>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">Liên hệ</span>
+        </nav>
+        <h1>Liên hệ</h1>
+        <p class="oris-page-hero-text">
+          Kết nối với ORIS để được tư vấn miễn phí và đặt lịch thăm khám thuận tiện.
+        </p>
+      </div>
+    </section>
+
+    <section class="oris-section">
+      <div class="oris-wrap oris-contact-grid">
+        <div data-aos="fade-up">
+          <p class="oris-label">Kênh liên hệ</p>
+          <h2>Chúng tôi luôn sẵn sàng hỗ trợ</h2>
+          <ul class="oris-contact-cards">
+            <li>
+              <strong>Hotline</strong>
+              <a href="tel:19002888">1900 2888</a>
+            </li>
+            <li>
+              <strong>Email</strong>
+              <a href="mailto:hello@oris.vn">hello@oris.vn</a>
+            </li>
+            <li>
+              <strong>Giờ làm việc</strong>
+              <span>08:00 – 20:00 | Thứ 2 – Chủ nhật</span>
+            </li>
+            <li>
+              <strong>Địa chỉ</strong>
+              <span>88 Nguyễn Đình Chiểu, Quận 3, TP. Hồ Chí Minh</span>
+            </li>
+          </ul>
+          <ul class="oris-checklist">
+            <li>Tư vấn trực tiếp cùng bác sĩ</li>
+            <li>Báo phí rõ ràng trước điều trị</li>
+            <li>Đặt lịch nhanh, ưu tiên hỗ trợ</li>
+          </ul>
+        </div>
+
+        <div data-aos="fade-up" data-aos-delay="80">
+          <form class="oris-form" action="#" method="post" onsubmit="return false;">
+            <h3>Để lại thông tin tư vấn</h3>
+            <label>
+              <span>Họ và tên</span>
+              <input type="text" name="name" placeholder="Nguyễn Văn A" autocomplete="name" />
+            </label>
+            <label>
+              <span>Số điện thoại</span>
+              <input type="tel" name="phone" placeholder="090x xxx xxx" autocomplete="tel" />
+            </label>
+            <label>
+              <span>Email</span>
+              <input type="email" name="email" placeholder="email@example.com" autocomplete="email" />
+            </label>
+            <label>
+              <span>Nhu cầu tư vấn</span>
+              <select name="service">
+                <option value="">— Chọn dịch vụ —</option>
+                <option>Implant nha khoa</option>
+                <option>Niềng răng trong suốt</option>
+                <option>Tẩy trắng răng</option>
+                <option>Nha khoa tổng quát</option>
+                <option>Khác</option>
+              </select>
+            </label>
+            <label>
+              <span>Ghi chú</span>
+              <textarea name="message" rows="4" placeholder="Mô tả nhu cầu hoặc thời gian muốn đặt lịch..."></textarea>
+            </label>
+            <button type="submit" class="oris-btn oris-btn-primary">Gửi yêu cầu</button>
+            <p class="oris-form-note">* Đây là trang demo — form không gửi dữ liệu thật.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="oris-section" style="padding-top:0">
+      <div class="oris-wrap">
+        <div class="oris-section-head" data-aos="fade-up">
+          <p class="oris-label">Câu hỏi thường gặp</p>
+          <h2>FAQ</h2>
+        </div>
+        <div class="oris-faq" data-aos="fade-up">
+          <div class="oris-faq-item">
+            <button type="button" aria-expanded="false">Đặt lịch có mất phí không?<span aria-hidden="true">+</span></button>
+            <div>Buổi thăm khám tư vấn đầu tiên tại ORIS hoàn toàn miễn phí. Chi phí điều trị chỉ phát sinh sau khi bạn đồng ý lộ trình.</div>
+          </div>
+          <div class="oris-faq-item">
+            <button type="button" aria-expanded="false">Thời gian một buổi khám bao lâu?<span aria-hidden="true">+</span></button>
+            <div>Thông thường 30–45 phút bao gồm thăm khám, chụp/quét hình ảnh và tư vấn sơ bộ với bác sĩ.</div>
+          </div>
+          <div class="oris-faq-item">
+            <button type="button" aria-expanded="false">Có hỗ trợ trả góp không?<span aria-hidden="true">+</span></button>
+            <div>ORIS hỗ trợ nhiều gói thanh toán linh hoạt cho các liệu trình dài ngày như chỉnh nha và implant.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="oris-section" style="padding-top:0">
+      <div class="oris-wrap">
+        <iframe
+          class="oris-map"
+          title="Bản đồ ORIS"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=Nguyen%20Dinh%20Chieu%20District%203%20Ho%20Chi%20Minh&t=&z=15&ie=UTF8&iwloc=&output=embed"
+        ></iframe>
+      </div>
+    </section>
+  </main>
+
+  {{> demo/oris/footer }}
+</div>
+
+{{> demo/oris/scripts }}

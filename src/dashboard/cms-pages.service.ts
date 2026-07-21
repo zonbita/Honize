@@ -81,64 +81,70 @@ export class CmsPagesService {
     return categories;
   }
 
+  /** Media page + picker: public/images/Demo and public/uploads */
   getMediaFiles() {
-    const dir = getUploadsDir();
-    return readdirSync(dir)
-      .filter((f) => IMAGE_EXTENSIONS.some((ext) => f.toLowerCase().endsWith(ext)))
-      .map((f) => ({
-        name: f,
-        url: `/uploads/${f}`,
-        path: join(dir, f),
-      }));
+    return this.getPublicImages().map((img) => ({
+      name: img.name,
+      folder: img.folder,
+      relativePath: img.relativePath,
+      url: img.url,
+      canDelete:
+        img.folder === 'uploads' || img.relativePath.startsWith('uploads/'),
+    }));
   }
 
-  /** List images under public/images and public/uploads for the dashboard picker. */
+  /** List images under public/images/Demo and public/uploads. */
   getPublicImages(): LibraryImage[] {
-    const imagesRoot = join(resolveProjectRoot(), 'public', 'images');
     const results: LibraryImage[] = [];
+    const root = resolveProjectRoot();
 
-    if (existsSync(imagesRoot)) {
-      this.collectLibraryImages(imagesRoot, '', '/images', results);
+    const demoDir = join(root, 'public', 'images', 'Demo');
+    if (existsSync(demoDir)) {
+      this.collectLibraryImages(demoDir, 'Demo', '/images', results);
     }
 
     const uploadsDir = getUploadsDir();
     if (existsSync(uploadsDir)) {
-      let entries: Dirent[] = [];
-      try {
-        entries = readdirSync(uploadsDir, { withFileTypes: true });
-      } catch {
-        entries = [];
-      }
-
-      for (const entry of entries) {
-        if (!entry.isFile() || entry.name.startsWith('.')) continue;
-        const ext = extname(entry.name).toLowerCase();
-        if (!IMAGE_EXTENSIONS.includes(ext)) continue;
-
-        const abs = join(uploadsDir, entry.name);
-        let size = 0;
-        let mtime = 0;
-        try {
-          const fileStat = statSync(abs);
-          size = fileStat.size;
-          mtime = fileStat.mtimeMs;
-        } catch {
-          size = 0;
-          mtime = 0;
-        }
-
-        results.push({
-          name: entry.name,
-          folder: 'uploads',
-          relativePath: `uploads/${entry.name}`,
-          url: `/uploads/${encodeURIComponent(entry.name)}`,
-          size,
-          mtime,
-        });
-      }
+      this.collectUploadImages(uploadsDir, results);
     }
 
     return results;
+  }
+
+  private collectUploadImages(dir: string, results: LibraryImage[]) {
+    let entries: Dirent[];
+    try {
+      entries = readdirSync(dir, { withFileTypes: true });
+    } catch {
+      return;
+    }
+
+    for (const entry of entries) {
+      if (entry.name.startsWith('.') || !entry.isFile()) continue;
+      const ext = extname(entry.name).toLowerCase();
+      if (!IMAGE_EXTENSIONS.includes(ext)) continue;
+
+      const abs = join(dir, entry.name);
+      let size = 0;
+      let mtime = 0;
+      try {
+        const fileStat = statSync(abs);
+        size = fileStat.size;
+        mtime = fileStat.mtimeMs;
+      } catch {
+        size = 0;
+        mtime = 0;
+      }
+
+      results.push({
+        name: entry.name,
+        folder: 'uploads',
+        relativePath: `uploads/${entry.name}`,
+        url: `/uploads/${encodeURIComponent(entry.name)}`,
+        size,
+        mtime,
+      });
+    }
   }
 
   private collectLibraryImages(
@@ -183,9 +189,14 @@ export class CmsPagesService {
         .map((segment) => encodeURIComponent(segment))
         .join('/');
 
+      const topFolder = nextRel.split('/')[0] || '/';
+      const subFolder = nextRel.includes('/')
+        ? nextRel.split('/').slice(0, -1).join('/')
+        : topFolder;
+
       results.push({
         name: entry.name,
-        folder: rel ? rel.split('/')[0] : '/',
+        folder: subFolder,
         relativePath: nextRel,
         url: `${urlPrefix}/${encoded}`,
         size,
@@ -204,9 +215,10 @@ export class CmsPagesService {
       throw new NotFoundException('Chỉ được xóa file ảnh');
     }
 
+    // Only allow deleting CMS uploads, not curated Demo assets
     const filePath = join(getUploadsDir(), safeName);
     if (!existsSync(filePath)) {
-      throw new NotFoundException(`Không tìm thấy file "${safeName}"`);
+      throw new NotFoundException(`Không tìm thấy file "${safeName}" trong uploads`);
     }
 
     unlinkSync(filePath);

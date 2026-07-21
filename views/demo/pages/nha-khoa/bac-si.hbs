@@ -1,0 +1,68 @@
+<div class="oris-page">
+  {{> demo/oris/header }}
+
+  <main>
+    <section class="oris-page-hero">
+      <div class="oris-page-hero-bg" aria-hidden="true">
+        <img src="{{orisHeroBg}}" alt="" width="1600" height="900" />
+      </div>
+      <div class="oris-page-hero-overlay" aria-hidden="true"></div>
+      <div class="oris-wrap oris-page-hero-inner">
+        <nav class="oris-breadcrumb" aria-label="Breadcrumb">
+          <a href="{{orisBase}}">Trang chủ</a>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">Bác sĩ</span>
+        </nav>
+        <h1>Đội ngũ bác sĩ</h1>
+        <p class="oris-page-hero-text">
+          Chuyên môn sâu, tận tâm đồng hành — mỗi bác sĩ ORIS được đào tạo bài bản và cập nhật kỹ thuật liên tục.
+        </p>
+      </div>
+    </section>
+
+    <section class="oris-section">
+      <div class="oris-wrap">
+        <div class="oris-doc-grid">
+          <article class="oris-doc" data-aos="fade-up">
+            <img src="/images/Demo/NhaKhoa/19-doctor-1.png" alt="BS. Nguyễn Minh Khoa" width="400" height="520" loading="lazy" />
+            <div>
+              <h3>BS. Nguyễn Minh Khoa</h3>
+              <span>Trưởng khoa Implant · 15 năm kinh nghiệm</span>
+              <p style="margin-top:10px;color:var(--oris-text-secondary);font-size:14px">Chuyên sâu phục hình trên implant, phục hồi hàm mất răng toàn phần và thẩm mỹ nụ cười.</p>
+            </div>
+          </article>
+          <article class="oris-doc" data-aos="fade-up" data-aos-delay="60">
+            <img src="/images/Demo/NhaKhoa/20-doctor-2.png" alt="BS. Trần Thu Hà" width="400" height="520" loading="lazy" />
+            <div>
+              <h3>BS. Trần Thu Hà</h3>
+              <span>Chỉnh nha &amp; thẩm mỹ · 12 năm kinh nghiệm</span>
+              <p style="margin-top:10px;color:var(--oris-text-secondary);font-size:14px">Chuyên khí cụ trong suốt, chỉnh khớp cắn và thiết kế nụ cười số hóa.</p>
+            </div>
+          </article>
+          <article class="oris-doc" data-aos="fade-up" data-aos-delay="120">
+            <img src="/images/Demo/NhaKhoa/21-doctor-3.png" alt="BS. Lê Hoàng Nam" width="400" height="520" loading="lazy" />
+            <div>
+              <h3>BS. Lê Hoàng Nam</h3>
+              <span>Nha khoa tổng quát · 10 năm kinh nghiệm</span>
+              <p style="margin-top:10px;color:var(--oris-text-secondary);font-size:14px">Chăm sóc định kỳ, điều trị nội nha và bảo tồn răng gốc cho mọi lứa tuổi.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="oris-cta-band">
+      <div class="oris-wrap oris-cta-band-inner">
+        <div>
+          <h2>Muốn được bác sĩ tư vấn trực tiếp?</h2>
+          <p>Đặt lịch thăm khám — nhận phác đồ cá nhân hóa.</p>
+        </div>
+        <a href="{{orisBase}}/lien-he" class="oris-btn oris-btn-light">Liên hệ đặt lịch</a>
+      </div>
+    </section>
+  </main>
+
+  {{> demo/oris/footer }}
+</div>
+
+{{> demo/oris/scripts }}

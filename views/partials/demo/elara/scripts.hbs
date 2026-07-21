@@ -1,0 +1,241 @@
+<script>
+(function () {
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var toggle = document.getElementById('el-menu-toggle');
+  var nav = document.getElementById('el-nav');
+  var searchBtn = document.getElementById('el-search-btn');
+  var searchPanel = document.getElementById('el-search-panel');
+  var searchInput = document.getElementById('el-search-input');
+  var searchGo = document.getElementById('el-search-go');
+  var cartBtn = document.getElementById('el-cart-btn');
+  var cartPanel = document.getElementById('el-cart-panel');
+  var cartBackdrop = document.getElementById('el-cart-backdrop');
+  var cartClose = document.getElementById('el-cart-close');
+  var cartBody = document.getElementById('el-cart-body');
+  var cartCount = document.getElementById('el-cart-count');
+  var cartTotal = document.getElementById('el-cart-total');
+  var wishBtn = document.getElementById('el-wish-btn');
+  var wishBadge = document.querySelector('.el-badge-wish');
+  var toast = document.getElementById('el-toast');
+  var cart = [];
+  var wishes = 0;
+
+  function showToast(msg) {
+    if (!toast) return;
+    toast.textContent = msg;
+    toast.hidden = false;
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(function () { toast.hidden = true; }, 2200);
+  }
+
+  function parsePrice(text) {
+    var n = String(text || '').replace(/[^\d]/g, '');
+    return n ? parseInt(n, 10) : 0;
+  }
+
+  function formatPrice(n) {
+    return n.toLocaleString('vi-VN') + 'đ';
+  }
+
+  function renderCart() {
+    if (!cartBody || !cartCount || !cartTotal) return;
+    cartCount.textContent = String(cart.length);
+    if (!cart.length) {
+      cartBody.innerHTML = '<p class="el-cart-empty">Chưa có sản phẩm nào.</p>';
+      cartTotal.textContent = '0đ';
+      return;
+    }
+    var total = 0;
+    cartBody.innerHTML = cart.map(function (item, i) {
+      total += item.price;
+      return '<div class="el-cart-row"><span>' + item.title + '</span><strong>' + formatPrice(item.price) + '</strong><button type="button" data-remove="' + i + '" aria-label="Xóa">×</button></div>';
+    }).join('');
+    cartTotal.textContent = formatPrice(total);
+  }
+
+  function openCart(open) {
+    if (!cartPanel || !cartBackdrop || !cartBtn) return;
+    cartBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    document.body.classList.toggle('el-cart-open', open);
+
+    if (open) {
+      cartPanel.hidden = false;
+      cartBackdrop.hidden = false;
+      requestAnimationFrame(function () {
+        cartPanel.classList.add('is-open');
+        cartBackdrop.classList.add('is-open');
+      });
+      return;
+    }
+
+    cartPanel.classList.remove('is-open');
+    cartBackdrop.classList.remove('is-open');
+    window.setTimeout(function () {
+      if (!cartPanel.classList.contains('is-open')) {
+        cartPanel.hidden = true;
+        cartBackdrop.hidden = true;
+      }
+    }, 280);
+  }
+
+  if (toggle && nav) {
+    toggle.addEventListener('click', function () {
+      var open = nav.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    nav.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        nav.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+  if (searchBtn && searchPanel) {
+    searchBtn.addEventListener('click', function () {
+      var open = searchPanel.hidden;
+      searchPanel.hidden = !open;
+      searchBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (open && searchInput) searchInput.focus();
+    });
+  }
+
+  function runSearch() {
+    var q = (searchInput && searchInput.value || '').trim().toLowerCase();
+    if (!q) {
+      showToast('Nhập từ khóa để tìm sản phẩm');
+      return;
+    }
+    var map = [
+      { k: ['ao', 'sơ mi', 'so mi', 'polo', 'linen'], url: '/ao' },
+      { k: ['váy', 'vay', 'midi', 'wrap', 'hoa'], url: '/vay' },
+      { k: ['quần', 'quan', 'jeans', 'ống'], url: '/quan' },
+      { k: ['túi', 'tui', 'phụ kiện', 'phu kien', 'kính', 'giày'], url: '/phu-kien' },
+      { k: ['sale', 'giảm'], url: '/sale' },
+      { k: ['bst', 'bộ sưu tập', 'bo suu tap'], url: '/bst' }
+    ];
+    var base = document.querySelector('.el-logo')?.getAttribute('href') || '/du-an/demo/shop-thoi-trang';
+    for (var i = 0; i < map.length; i++) {
+      if (map[i].k.some(function (w) { return q.indexOf(w) !== -1; })) {
+        window.location.href = base + map[i].url;
+        return;
+      }
+    }
+    window.location.href = base + '/sale';
+  }
+
+  if (searchGo) searchGo.addEventListener('click', runSearch);
+  if (searchInput) {
+    searchInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); runSearch(); }
+    });
+  }
+
+  if (wishBtn) {
+    wishBtn.addEventListener('click', function () {
+      wishes += 1;
+      if (wishBadge) {
+        wishBadge.hidden = false;
+        wishBadge.textContent = String(wishes);
+      }
+      showToast('Đã thêm vào yêu thích (demo)');
+    });
+  }
+
+  if (cartBtn) {
+    cartBtn.addEventListener('click', function () {
+      openCart(cartPanel && cartPanel.hidden);
+    });
+  }
+  if (cartClose) cartClose.addEventListener('click', function () { openCart(false); });
+  if (cartBackdrop) cartBackdrop.addEventListener('click', function () { openCart(false); });
+
+  if (cartBody) {
+    cartBody.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-remove]');
+      if (!btn) return;
+      cart.splice(parseInt(btn.getAttribute('data-remove'), 10), 1);
+      renderCart();
+    });
+  }
+
+  document.querySelectorAll('.el-product-card').forEach(function (card) {
+    card.addEventListener('click', function (e) {
+      if (e.metaKey || e.ctrlKey) return;
+      e.preventDefault();
+      var title = (card.querySelector('.el-product-title') || {}).textContent || 'Sản phẩm';
+      var priceEl = card.querySelector('.el-price-sale');
+      var price = parsePrice(priceEl && priceEl.textContent);
+      cart.push({ title: title.trim(), price: price });
+      renderCart();
+      showToast('Đã thêm vào giỏ: ' + title.trim());
+    });
+  });
+
+  document.querySelectorAll('.el-block-chips, .el-filter-chips').forEach(function (chips) {
+    chips.addEventListener('click', function (e) {
+      var btn = e.target.closest('.el-chip');
+      if (!btn) return;
+      chips.querySelectorAll('.el-chip').forEach(function (b) { b.classList.remove('is-active'); });
+      btn.classList.add('is-active');
+      var key = btn.getAttribute('data-filter') || 'all';
+      var root = chips.closest('section') || document;
+      root.querySelectorAll('.el-product-card').forEach(function (card) {
+        var tags = (card.getAttribute('data-tags') || '').split(/\s+/);
+        card.style.display = (key === 'all' || tags.indexOf(key) !== -1) ? '' : 'none';
+      });
+    });
+  });
+
+  document.querySelectorAll('.el-newsletter-form').forEach(function (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = (form.querySelector('[type="email"]') || {}).value || '';
+      var msg = form.querySelector('.el-form-msg');
+      var ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+      if (msg) {
+        msg.hidden = false;
+        msg.textContent = ok ? 'Đăng ký thành công! Kiểm tra email của bạn.' : 'Vui lòng nhập email hợp lệ.';
+        msg.className = 'el-form-msg ' + (ok ? 'is-ok' : 'is-err');
+      } else {
+        showToast(ok ? 'Đăng ký thành công!' : 'Email không hợp lệ');
+      }
+      if (ok) form.reset();
+    });
+  });
+
+  var contactForm = document.getElementById('el-contact-form');
+  var contactMsg = document.getElementById('el-contact-msg');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = (contactForm.querySelector('[name="name"]') || {}).value || '';
+      var phone = (contactForm.querySelector('[name="phone"]') || {}).value || '';
+      var email = (contactForm.querySelector('[name="email"]') || {}).value || '';
+      var ok = name.trim().length > 1 && phone.trim().replace(/\s/g, '').length >= 9;
+      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) ok = false;
+      if (!contactMsg) return;
+      contactMsg.hidden = false;
+      if (!ok) {
+        contactMsg.textContent = 'Vui lòng điền họ tên và số điện thoại hợp lệ.';
+        contactMsg.className = 'el-form-msg is-err';
+        return;
+      }
+      contactMsg.textContent = 'Đã gửi yêu cầu! ÉLARA sẽ liên hệ trong 24 giờ.';
+      contactMsg.className = 'el-form-msg is-ok';
+      contactForm.reset();
+    });
+  }
+
+  document.querySelectorAll('.el-faq-item').forEach(function (item) {
+    var trigger = item.querySelector('.el-faq-trigger');
+    if (!trigger) return;
+    trigger.addEventListener('click', function () {
+      var open = item.classList.toggle('is-open');
+      trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
+
+  renderCart();
+})();
+</script>

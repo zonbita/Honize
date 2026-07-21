@@ -427,7 +427,7 @@
       rgba(255, 255, 255, 0.45) 45%,
       rgba(255, 255, 255, 0.15) 100%
     ),
-    url('/images/HRM/d3cc6832-854a-42ee-b7a1-0aded5eca1d3.png');
+    url('/images/Demo/HRM/d3cc6832-854a-42ee-b7a1-0aded5eca1d3.png');
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
@@ -946,7 +946,7 @@
   inset: 0;
   background:
     linear-gradient(90deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.55) 42%, transparent 68%),
-    url('/images/HRM/f6f64dd8-d83b-47f6-8b70-3aaf3735c1b1.png') right center / cover no-repeat;
+    url('/images/Demo/HRM/f6f64dd8-d83b-47f6-8b70-3aaf3735c1b1.png') right center / cover no-repeat;
   pointer-events: none;
   z-index: 0;
 }
@@ -1182,7 +1182,7 @@
       rgba(255, 255, 255, 0.55) 50%,
       rgba(255, 255, 255, 0.25) 100%
     ),
-    url('/images/HRM/f6f64dd8-d83b-47f6-8b70-3aaf3735c1b1.png');
+    url('/images/Demo/HRM/f6f64dd8-d83b-47f6-8b70-3aaf3735c1b1.png');
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;

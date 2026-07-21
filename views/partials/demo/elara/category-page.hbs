@@ -1,0 +1,59 @@
+{{!-- Shared category listing used by ao / vay / quan / phu-kien --}}
+<div class="el-page el-page--inner">
+  {{> demo/elara/header }}
+
+  <section class="el-page-hero" aria-labelledby="el-inner-hero-title">
+    <div class="el-page-hero-bg" aria-hidden="true">
+      <img src="{{elaraHeroBg}}" alt="" width="1920" height="720" loading="eager" />
+      <div class="el-page-hero-overlay"></div>
+    </div>
+    <div class="el-wrap el-page-hero-inner" data-aos="fade-up">
+      <nav class="el-breadcrumb" aria-label="Breadcrumb">
+        <a href="{{elaraBase}}">Trang chủ</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">{{elaraCollection.title}}</span>
+      </nav>
+      <h1 id="el-inner-hero-title" class="el-page-hero-title">{{elaraCollection.title}}</h1>
+      <p class="el-page-hero-desc">{{elaraCollection.tagline}}</p>
+    </div>
+  </section>
+
+  <section class="el-collection-block el-collection-block--page" aria-label="{{elaraCollection.title}}">
+    <div class="el-wrap">
+      {{#if elaraCollection.chips}}
+      <ul class="el-filter-chips el-block-chips" aria-label="Lọc sản phẩm" data-aos="fade-up">
+        {{#each elaraCollection.chips}}
+        <li>
+          <button type="button" class="el-chip{{#if @first}} is-active{{/if}}" data-filter="{{this.key}}">{{this.label}}</button>
+        </li>
+        {{/each}}
+      </ul>
+      {{/if}}
+
+      <div class="el-product-grid">
+        {{#each elaraCollection.products}}
+        <a href="{{this.href}}" class="el-product-card" data-tags="{{#each this.tags}}{{this}} {{/each}}" data-aos="fade-up" data-aos-delay="{{multiply @index 80}}">
+          <div class="el-product-media">
+            {{#if this.sale}}<span class="el-sale-badge">SALE</span>{{/if}}
+            <img src="{{{this.image}}}" alt="{{this.title}}" loading="lazy" width="400" height="400" />
+          </div>
+          <h3 class="el-product-title">{{this.title}}</h3>
+          <div class="el-product-prices">
+            <span class="el-price-sale">{{this.price}}</span>
+            {{#if this.originalPrice}}<span class="el-price-original">{{this.originalPrice}}</span>{{/if}}
+          </div>
+        </a>
+        {{/each}}
+      </div>
+
+      <div class="el-block-footer" data-aos="fade-up">
+        <a href="{{elaraBase}}/sale" class="el-see-all">Xem thêm ưu đãi</a>
+        <a href="{{elaraBase}}/lien-he" class="el-btn el-btn-primary">Tư vấn chọn size</a>
+      </div>
+    </div>
+  </section>
+
+  {{> demo/elara/footer }}
+</div>
+
+{{> demo/elara/scripts }}

@@ -1,0 +1,92 @@
+<div class="el-page el-page--inner">
+  {{> demo/elara/header }}
+
+  <section class="el-page-hero" aria-labelledby="el-contact-hero">
+    <div class="el-page-hero-bg" aria-hidden="true">
+      <img src="{{elaraHeroBg}}" alt="" width="1920" height="720" loading="eager" />
+      <div class="el-page-hero-overlay"></div>
+    </div>
+    <div class="el-wrap el-page-hero-inner" data-aos="fade-up">
+      <nav class="el-breadcrumb" aria-label="Breadcrumb">
+        <a href="{{elaraBase}}">Trang chủ</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Liên hệ</span>
+      </nav>
+      <h1 id="el-contact-hero" class="el-page-hero-title">Liên hệ ÉLARA</h1>
+      <p class="el-page-hero-desc">Tư vấn chọn size, đổi trả và hỗ trợ đơn hàng trong vòng 24 giờ.</p>
+    </div>
+  </section>
+
+  <section class="el-contact-section">
+    <div class="el-wrap el-contact-grid">
+      <div data-aos="fade-right">
+        <p class="el-kicker">Thông tin</p>
+        <h2 class="el-section-title">Chúng tôi sẵn sàng hỗ trợ</h2>
+        <ul class="el-contact-list">
+          <li><strong>Hotline</strong><a href="tel:19001234">1900 1234</a></li>
+          <li><strong>Email</strong><a href="mailto:hello@elara.vn">hello@elara.vn</a></li>
+          <li><strong>Địa chỉ</strong><span>123 Nguyễn Huệ, Q.1, TP.HCM</span></li>
+          <li><strong>Giờ làm việc</strong><span>9:00 – 21:00 (T2–CN)</span></li>
+        </ul>
+        <div class="el-contact-quick">
+          <a href="{{elaraBase}}/ao" class="el-btn el-btn-outline">Xem Áo</a>
+          <a href="{{elaraBase}}/sale" class="el-btn el-btn-outline">Xem Sale</a>
+        </div>
+      </div>
+
+      <form class="el-contact-form" id="el-contact-form" data-aos="fade-left" action="#" method="post">
+        <label>
+          <span>Họ tên</span>
+          <input type="text" name="name" required placeholder="Nguyễn Thị A" />
+        </label>
+        <label>
+          <span>Số điện thoại</span>
+          <input type="tel" name="phone" required placeholder="0901 234 567" />
+        </label>
+        <label>
+          <span>Email</span>
+          <input type="email" name="email" placeholder="ban@email.com" />
+        </label>
+        <label class="el-field-full">
+          <span>Nội dung</span>
+          <textarea name="message" rows="4" placeholder="Tôi cần tư vấn size / đơn hàng…"></textarea>
+        </label>
+        <button type="submit" class="el-btn el-btn-primary">Gửi yêu cầu</button>
+        <p class="el-form-msg" id="el-contact-msg" hidden></p>
+      </form>
+    </div>
+  </section>
+
+  <section class="el-faq" id="faq" aria-labelledby="el-faq-title">
+    <div class="el-wrap">
+      <div class="el-section-head" data-aos="fade-up">
+        <p class="el-kicker">Hỗ trợ</p>
+        <h2 id="el-faq-title" class="el-section-title">Câu hỏi thường gặp</h2>
+      </div>
+      <div class="el-faq-list">
+        <div class="el-faq-item" data-aos="fade-up">
+          <button type="button" class="el-faq-trigger" aria-expanded="false">Chính sách đổi trả như thế nào?</button>
+          <div class="el-faq-body">
+            <p>Đổi trả miễn phí trong 30 ngày với sản phẩm còn tem, chưa qua sử dụng. Liên hệ hotline để được hướng dẫn.</p>
+          </div>
+        </div>
+        <div class="el-faq-item" data-aos="fade-up">
+          <button type="button" class="el-faq-trigger" aria-expanded="false">Làm sao chọn đúng size?</button>
+          <div class="el-faq-body">
+            <p>Gửi số đo hoặc ảnh tham khảo qua form liên hệ — đội ngũ ÉLARA sẽ gợi ý size phù hợp trong 24 giờ.</p>
+          </div>
+        </div>
+        <div class="el-faq-item" data-aos="fade-up">
+          <button type="button" class="el-faq-trigger" aria-expanded="false">Thời gian giao hàng?</button>
+          <div class="el-faq-body">
+            <p>Nội thành 1–2 ngày, toàn quốc 2–3 ngày làm việc. Miễn phí ship đơn từ 599.000đ.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {{> demo/elara/footer }}
+</div>
+
+{{> demo/elara/scripts }}

@@ -1,0 +1,71 @@
+<div class="el-page el-page--inner">
+  {{> demo/elara/header }}
+
+  <section class="el-page-hero" aria-labelledby="el-bst-title">
+    <div class="el-page-hero-bg" aria-hidden="true">
+      <img src="{{elaraHeroBg}}" alt="" width="1920" height="720" loading="eager" />
+      <div class="el-page-hero-overlay"></div>
+    </div>
+    <div class="el-wrap el-page-hero-inner" data-aos="fade-up">
+      <nav class="el-breadcrumb" aria-label="Breadcrumb">
+        <a href="{{elaraBase}}">Trang chủ</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Bộ sưu tập</span>
+      </nav>
+      <h1 id="el-bst-title" class="el-page-hero-title">Linen Essentials 2026</h1>
+      <p class="el-page-hero-desc">Bộ sưu tập linen mềm mại, bền bỉ — lựa chọn curated từ áo, váy đến phụ kiện.</p>
+      <div class="el-page-hero-actions">
+        <a href="{{elaraBase}}/ao" class="el-btn el-btn-light">Mua Áo</a>
+        <a href="{{elaraBase}}/sale" class="el-btn el-btn-outline el-btn-outline-light">Xem Sale</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="el-about el-about--tight">
+    <div class="el-wrap el-about-grid">
+      <div class="el-about-media" data-aos="fade-right">
+        <img src="/images/Demo/ThoiTrang/16-lifestyle-editorial.png" alt="BST Linen Essentials" width="1024" height="768" loading="lazy" />
+      </div>
+      <div class="el-about-copy" data-aos="fade-left">
+        <p class="el-kicker">Câu chuyện BST</p>
+        <h2 class="el-section-title">Mềm mại mỗi ngày, thanh lịch mọi dịp</h2>
+        <p class="el-about-lead">Linen Essentials kết hợp chất liệu linen cao cấp với phom dáng tối giản, dễ phối cho công sở và cuối tuần.</p>
+        <a href="{{elaraBase}}/lien-he" class="el-btn el-btn-primary">Nhận tư vấn phối đồ</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="el-collection-block" aria-label="Sản phẩm trong bộ sưu tập">
+    <div class="el-wrap">
+      <div class="el-section-head" data-aos="fade-up">
+        <p class="el-kicker">Trong bộ sưu tập</p>
+        <h2 class="el-section-title">Lựa chọn nổi bật</h2>
+      </div>
+      <div class="el-product-grid">
+        {{#each products}}
+        <a href="{{this.href}}" class="el-product-card" data-tags="{{#each this.tags}}{{this}} {{/each}}" data-aos="fade-up" data-aos-delay="{{multiply @index 60}}">
+          <div class="el-product-media">
+            {{#if this.sale}}<span class="el-sale-badge">SALE</span>{{/if}}
+            <img src="{{{this.image}}}" alt="{{this.title}}" loading="lazy" width="400" height="400" />
+          </div>
+          <h3 class="el-product-title">{{this.title}}</h3>
+          <div class="el-product-prices">
+            <span class="el-price-sale">{{this.price}}</span>
+            {{#if this.originalPrice}}<span class="el-price-original">{{this.originalPrice}}</span>{{/if}}
+          </div>
+        </a>
+        {{/each}}
+      </div>
+      <div class="el-block-footer">
+        <a href="{{elaraBase}}/ao" class="el-see-all">Xem Áo</a>
+        <a href="{{elaraBase}}/vay" class="el-see-all">Xem Váy</a>
+        <a href="{{elaraBase}}/quan" class="el-see-all">Xem Quần</a>
+        <a href="{{elaraBase}}/phu-kien" class="el-see-all">Xem Phụ kiện</a>
+      </div>
+    </div>
+  </section>
+
+  {{> demo/elara/footer }}
+</div>
+
+{{> demo/elara/scripts }}

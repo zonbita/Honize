@@ -63,7 +63,7 @@
       "slug": "shop-thoi-trang",
       "categorySlug": "ban-hang",
       "categoryName": "Bán hàng",
-      "image": "/images/02.jpg",
+      "image": "/uploads/1784639257529-206502679.jpg",
       "url": "/du-an/demo/shop-thoi-trang"
     },
     {
@@ -71,7 +71,7 @@
       "slug": "aurelia-estates",
       "categorySlug": "bat-dong-san",
       "categoryName": "Bất động sản",
-      "image": "/images/House/house%20(1).png",
+      "image": "/images/Demo/House/house%20(1).png",
       "url": "/du-an/demo/aurelia-estates"
     },
     {
@@ -79,7 +79,7 @@
       "slug": "hoc-tieng-anh",
       "categorySlug": "dao-tao",
       "categoryName": "Đào tạo",
-      "image": "/images/TiengAnh/dcdee458-b319-4cec-ac51-067b6a294cac.png",
+      "image": "/images/Demo/TiengAnh/dcdee458-b319-4cec-ac51-067b6a294cac.png",
       "url": "/du-an/demo/hoc-tieng-anh"
     },
     {
@@ -87,8 +87,16 @@
       "slug": "tham-my-vien",
       "categorySlug": "dich-vu",
       "categoryName": "Dịch vụ",
-      "image": "/images/ThamMyVien/thumnail.jpg",
+      "image": "/images/Demo/ThamMyVien/thumnail.jpg",
       "url": "/du-an/demo/tham-my-vien"
+    },
+    {
+      "title": "ORIS — Nha Khoa",
+      "slug": "nha-khoa",
+      "categorySlug": "dich-vu",
+      "categoryName": "Dịch vụ",
+      "image": "/images/Demo/NhaKhoa/07-clinic-space.png",
+      "url": "/du-an/demo/nha-khoa"
     },
     {
       "title": "Tư vấn du học",
@@ -111,7 +119,7 @@
       "slug": "giai-phap-so",
       "categorySlug": "giai-phap",
       "categoryName": "Giải pháp",
-      "image": "/images/HRM/hrm-laptop.png",
+      "image": "/images/Demo/HRM/hrm-laptop.png",
       "url": "/du-an/demo/giai-phap-so"
     },
     {

@@ -130,6 +130,11 @@ export class AppService {
     const tmvBase = slug === 'tham-my-vien' ? `/du-an/demo/${slug}` : null;
     const novaBase = slug === 'hoc-tieng-anh' ? `/du-an/demo/${slug}` : null;
     const vivuBase = slug === 'vivu' ? `/du-an/demo/${slug}` : null;
+    const orisBase = slug === 'nha-khoa' ? `/du-an/demo/${slug}` : null;
+    const elaraBase =
+      slug === 'shop-thoi-trang' || templateSlug === 'shop-thoi-trang'
+        ? `/du-an/demo/${slug}`
+        : null;
 
     return {
       layout: 'demo',
@@ -142,6 +147,15 @@ export class AppService {
       vivuBase,
       vivuActive: slug === 'vivu' ? 'home' : null,
       vivuHeaderSolid: false,
+      orisBase,
+      orisActive: slug === 'nha-khoa' ? 'home' : null,
+      orisHeaderSolid: false,
+      orisHeroBg: null,
+      elaraBase,
+      elaraActive: elaraBase ? 'home' : null,
+      elaraHeaderSolid: false,
+      elaraHeroBg: null,
+      elaraCollection: null,
       pageTitle: `Demo ${demo.title} — ${site.brand}`,
       seo: this.articlesService.buildStaticPageSeo(
         `Demo ${demo.title} — ${site.brand}`,
@@ -183,31 +197,31 @@ export class AppService {
         view: 'demo/pages/tham-my-vien/gioi-thieu',
         nav: 'about',
         title: 'Giới thiệu',
-        heroBg: '/images/ThamMyVien/ssskfdfkdfdfk.png',
+        heroBg: '/images/Demo/ThamMyVien/ssskfdfkdfdfk.png',
       },
       'dich-vu': {
         view: 'demo/pages/tham-my-vien/dich-vu',
         nav: 'services',
         title: 'Dịch vụ',
-        heroBg: '/images/ThamMyVien/tmv-bg-dich-vu.png',
+        heroBg: '/images/Demo/ThamMyVien/tmv-bg-dich-vu.png',
       },
       'cong-nghe': {
         view: 'demo/pages/tham-my-vien/cong-nghe',
         nav: 'technology',
         title: 'Công nghệ',
-        heroBg: '/images/ThamMyVien/tmv-bg-cong-nghe.png',
+        heroBg: '/images/Demo/ThamMyVien/tmv-bg-cong-nghe.png',
       },
       'kien-thuc': {
         view: 'demo/pages/tham-my-vien/kien-thuc',
         nav: 'knowledge',
         title: 'Kiến thức',
-        heroBg: '/images/ThamMyVien/tmv-bg-kien-thuc.png',
+        heroBg: '/images/Demo/ThamMyVien/tmv-bg-kien-thuc.png',
       },
       'lien-he': {
         view: 'demo/pages/tham-my-vien/lien-he',
         nav: 'contact',
         title: 'Liên hệ',
-        heroBg: '/images/ThamMyVien/tmv-bg-lien-he.png',
+        heroBg: '/images/Demo/ThamMyVien/tmv-bg-lien-he.png',
       },
     },
     'hoc-tieng-anh': {
@@ -247,31 +261,113 @@ export class AppService {
         view: 'demo/pages/vivu/diem-den',
         nav: 'destinations',
         title: 'Điểm đến',
-        heroBg: '/images/Vivu/01-hero-ha-long.png',
+        heroBg: '/images/Demo/Vivu/01-hero-ha-long.png',
       },
       'tour-du-lich': {
         view: 'demo/pages/vivu/tour-du-lich',
         nav: 'tours',
         title: 'Tour du lịch',
-        heroBg: '/images/Vivu/02-ha-long.png',
+        heroBg: '/images/Demo/Vivu/02-ha-long.png',
       },
       'trai-nghiem': {
         view: 'demo/pages/vivu/trai-nghiem',
         nav: 'experiences',
         title: 'Trải nghiệm',
-        heroBg: '/images/Vivu/08-travel-couple.png',
+        heroBg: '/images/Demo/Vivu/08-travel-couple.png',
       },
       'cam-nang': {
         view: 'demo/pages/vivu/cam-nang',
         nav: 'handbook',
         title: 'Cẩm nang',
-        heroBg: '/images/Vivu/04-hoi-an.png',
+        heroBg: '/images/Demo/Vivu/04-hoi-an.png',
       },
       'lien-he': {
         view: 'demo/pages/vivu/lien-he',
         nav: 'contact',
         title: 'Liên hệ',
-        heroBg: '/images/Vivu/07-sa-pa.png',
+        heroBg: '/images/Demo/Vivu/07-sa-pa.png',
+      },
+    },
+    'shop-thoi-trang': {
+      ao: {
+        view: 'demo/pages/shop-thoi-trang/ao',
+        nav: 'ao',
+        title: 'Áo',
+        heroBg: '/images/Demo/ThoiTrang/03-category-ao.png',
+      },
+      vay: {
+        view: 'demo/pages/shop-thoi-trang/vay',
+        nav: 'vay',
+        title: 'Váy',
+        heroBg: '/images/Demo/ThoiTrang/04-category-vay.png',
+      },
+      quan: {
+        view: 'demo/pages/shop-thoi-trang/quan',
+        nav: 'quan',
+        title: 'Quần',
+        heroBg: '/images/Demo/ThoiTrang/05-category-quan.png',
+      },
+      'phu-kien': {
+        view: 'demo/pages/shop-thoi-trang/phu-kien',
+        nav: 'phu-kien',
+        title: 'Phụ kiện',
+        heroBg: '/images/Demo/ThoiTrang/06-category-phukien.png',
+      },
+      bst: {
+        view: 'demo/pages/shop-thoi-trang/bst',
+        nav: 'bst',
+        title: 'Bộ sưu tập',
+        heroBg: '/images/Demo/ThoiTrang/11-collection-banner-bg.png',
+      },
+      sale: {
+        view: 'demo/pages/shop-thoi-trang/sale',
+        nav: 'sale',
+        title: 'Sale',
+        heroBg: '/images/Demo/ThoiTrang/12-newsletter-bg.png',
+      },
+      'lien-he': {
+        view: 'demo/pages/shop-thoi-trang/lien-he',
+        nav: 'contact',
+        title: 'Liên hệ',
+        heroBg: '/images/Demo/ThoiTrang/16-lifestyle-editorial.png',
+      },
+    },
+    'nha-khoa': {
+      'gioi-thieu': {
+        view: 'demo/pages/nha-khoa/gioi-thieu',
+        nav: 'about',
+        title: 'Giới thiệu',
+        heroBg: '/images/Demo/NhaKhoa/13-bg-gioi-thieu.png',
+      },
+      'dich-vu': {
+        view: 'demo/pages/nha-khoa/dich-vu',
+        nav: 'services',
+        title: 'Dịch vụ',
+        heroBg: '/images/Demo/NhaKhoa/14-bg-dich-vu.png',
+      },
+      'bac-si': {
+        view: 'demo/pages/nha-khoa/bac-si',
+        nav: 'doctors',
+        title: 'Bác sĩ',
+        heroBg: '/images/Demo/NhaKhoa/15-bg-bac-si.png',
+      },
+      'cong-nghe': {
+        view: 'demo/pages/nha-khoa/cong-nghe',
+        nav: 'technology',
+        title: 'Công nghệ',
+        heroBg: '/images/Demo/NhaKhoa/16-bg-cong-nghe.png',
+      },
+      'kien-thuc': {
+        view: 'demo/pages/nha-khoa/kien-thuc',
+        nav: 'knowledge',
+        title: 'Kiến thức',
+        heroBg: '/images/Demo/NhaKhoa/17-bg-kien-thuc.png',
+      },
+      'lien-he': {
+        view: 'demo/pages/nha-khoa/lien-he',
+        nav: 'contact',
+        title: 'Liên hệ',
+        heroBg: '/images/Demo/NhaKhoa/18-bg-lien-he.png',
       },
     },
   };
@@ -301,13 +397,32 @@ export class AppService {
       tmvActive: slug === 'tham-my-vien' ? config.nav : base.tmvActive,
       tmvHeaderSolid: slug === 'tham-my-vien',
       tmvHeroBg:
-        config.heroBg ?? `/images/ThamMyVien/tmv-bg-${subpage}.png`,
+        config.heroBg ?? `/images/Demo/ThamMyVien/tmv-bg-${subpage}.png`,
       novaBase: slug === 'hoc-tieng-anh' ? `/du-an/demo/${slug}` : base.novaBase,
       novaActive: slug === 'hoc-tieng-anh' ? config.nav : base.novaActive,
       vivuBase: slug === 'vivu' ? `/du-an/demo/${slug}` : base.vivuBase,
       vivuActive: slug === 'vivu' ? config.nav : base.vivuActive,
       vivuHeaderSolid: slug === 'vivu',
-      vivuHeroBg: slug === 'vivu' ? (config.heroBg ?? '/images/Vivu/01-hero-ha-long.png') : null,
+      vivuHeroBg: slug === 'vivu' ? (config.heroBg ?? '/images/Demo/Vivu/01-hero-ha-long.png') : null,
+      orisBase: slug === 'nha-khoa' ? `/du-an/demo/${slug}` : base.orisBase,
+      orisActive: slug === 'nha-khoa' ? config.nav : base.orisActive,
+      orisHeaderSolid: slug === 'nha-khoa',
+      orisHeroBg:
+        slug === 'nha-khoa'
+          ? (config.heroBg ?? '/images/Demo/NhaKhoa/13-bg-gioi-thieu.png')
+          : null,
+      elaraBase:
+        slug === 'shop-thoi-trang' ? `/du-an/demo/${slug}` : base.elaraBase,
+      elaraActive: slug === 'shop-thoi-trang' ? config.nav : base.elaraActive,
+      elaraHeaderSolid: slug === 'shop-thoi-trang',
+      elaraHeroBg:
+        slug === 'shop-thoi-trang'
+          ? (config.heroBg ?? '/images/Demo/ThoiTrang/01-hero-bg.png')
+          : null,
+      elaraCollection:
+        slug === 'shop-thoi-trang'
+          ? this.getElaraCollectionForSubpage(subpage)
+          : null,
       pageTitle: `${config.title} — ${demoTitle} — ${base.brand}`,
       seo: this.articlesService.buildStaticPageSeo(
         `${config.title} — ${demoTitle}`,
@@ -514,7 +629,7 @@ export class AppService {
           rating: '4.9',
           reviews: '128',
           badge: 'Bán chạy',
-          image: '/images/Vivu/02-ha-long.png',
+          image: '/images/Demo/Vivu/02-ha-long.png',
           highlights: ['Du thuyền 4 sao', 'Hang Sửng Sốt', 'Kayak vịnh'],
         },
         {
@@ -524,7 +639,7 @@ export class AppService {
           rating: '4.8',
           reviews: '96',
           badge: 'Ưu đãi',
-          image: '/images/Vivu/04-hoi-an.png',
+          image: '/images/Demo/Vivu/04-hoi-an.png',
           highlights: ['Phố cổ về đêm', 'Thả đèn hoa đăng', 'Ẩm thực địa phương'],
         },
         {
@@ -534,7 +649,7 @@ export class AppService {
           rating: '4.9',
           reviews: '84',
           badge: '',
-          image: '/images/Vivu/06-phu-quoc.png',
+          image: '/images/Demo/Vivu/06-phu-quoc.png',
           highlights: ['Resort 5 sao', 'Lặn ngắm san hô', 'Sunset cocktail'],
         },
         {
@@ -544,7 +659,7 @@ export class AppService {
           rating: '4.8',
           reviews: '112',
           badge: 'Yêu thích',
-          image: '/images/Vivu/07-sa-pa.png',
+          image: '/images/Demo/Vivu/07-sa-pa.png',
           highlights: ['Fansipan', 'Bản Cát Cát', 'Homestay ấm cúng'],
         },
         {
@@ -554,7 +669,7 @@ export class AppService {
           rating: '4.7',
           reviews: '76',
           badge: '',
-          image: '/images/Vivu/03-da-nang.png',
+          image: '/images/Demo/Vivu/03-da-nang.png',
           highlights: ['Cầu Vàng', 'Biển Mỹ Khê', 'Ẩm thực miền Trung'],
         },
         {
@@ -564,7 +679,7 @@ export class AppService {
           rating: '4.8',
           reviews: '91',
           badge: 'Cuối tuần',
-          image: '/images/Vivu/05-da-lat.png',
+          image: '/images/Demo/Vivu/05-da-lat.png',
           highlights: ['Đồi chè', 'Thác Datanla', 'Cafe view đồi'],
         },
       ];
@@ -598,27 +713,27 @@ export class AppService {
         {
           title: 'IELTS Người lớn',
           desc: 'Lộ trình cá nhân hóa từ 4.0 đến 7.5+ — tập trung kỹ năng thi và chiến lược làm bài.',
-          image: '/images/TiengAnh/icon-course-ielts-adult.svg',
+          image: '/images/Demo/TiengAnh/icon-course-ielts-adult.svg',
         },
         {
           title: 'IELTS THCS & THPT',
           desc: 'Chương trình song song lớp học, giúp học sinh nắm vững ngữ pháp và tư duy tiếng Anh.',
-          image: '/images/TiengAnh/icon-course-backpack.svg',
+          image: '/images/Demo/TiengAnh/icon-course-backpack.svg',
         },
         {
           title: 'Kids (6–12 tuổi)',
           desc: 'Học qua trò chơi, phim hoạt hình và hoạt động nhóm — xây nền tảng tự nhiên.',
-          image: '/images/TiengAnh/icon-course-kids.svg',
+          image: '/images/Demo/TiengAnh/icon-course-kids.svg',
         },
         {
           title: 'SAT / GMAT / GRE',
           desc: 'Luyện thi chuẩn Mỹ với giáo trình quốc tế và mô phỏng đề thi thực tế.',
-          image: '/images/TiengAnh/icon-course-chart.svg',
+          image: '/images/Demo/TiengAnh/icon-course-chart.svg',
         },
         {
           title: 'TOEIC & Giao tiếp',
           desc: 'Tăng điểm TOEIC nhanh và tự tin giao tiếp trong môi trường công sở.',
-          image: '/images/TiengAnh/icon-course-speak.svg',
+          image: '/images/Demo/TiengAnh/icon-course-speak.svg',
         },
       ];
     }
@@ -654,7 +769,7 @@ export class AppService {
         name: 'Hạ Long',
         category: 'DI SẢN',
         desc: 'Di sản thiên nhiên thế giới',
-        image: '/images/Vivu/02-ha-long.png',
+        image: '/images/Demo/Vivu/02-ha-long.png',
         tours: '12',
         rating: '4.9',
         icon: icon('<path d="M3 18l4-6 4 3 5-8 5 11H3z"/>'),
@@ -663,7 +778,7 @@ export class AppService {
         name: 'Đà Nẵng',
         category: 'BIỂN',
         desc: 'Thành phố biển năng động',
-        image: '/images/Vivu/03-da-nang.png',
+        image: '/images/Demo/Vivu/03-da-nang.png',
         tours: '15',
         rating: '4.8',
         icon: icon('<path d="M4 18h16M8 18V8l4-4 4 4v10"/>'),
@@ -672,7 +787,7 @@ export class AppService {
         name: 'Hội An',
         category: 'DI SẢN',
         desc: 'Phố cổ yên bình',
-        image: '/images/Vivu/04-hoi-an.png',
+        image: '/images/Demo/Vivu/04-hoi-an.png',
         tours: '10',
         rating: '4.9',
         icon: icon('<rect x="8" y="6" width="8" height="12" rx="1"/><path d="M12 6V4"/>'),
@@ -681,7 +796,7 @@ export class AppService {
         name: 'Đà Lạt',
         category: 'THIÊN NHIÊN',
         desc: 'Thành phố ngàn hoa',
-        image: '/images/Vivu/05-da-lat.png',
+        image: '/images/Demo/Vivu/05-da-lat.png',
         tours: '9',
         rating: '4.7',
         icon: icon('<path d="M4 20l6-14 4 8 3-5 3 11H4z"/>'),
@@ -690,7 +805,7 @@ export class AppService {
         name: 'Phú Quốc',
         category: 'BIỂN',
         desc: 'Biển xanh cát trắng',
-        image: '/images/Vivu/06-phu-quoc.png',
+        image: '/images/Demo/Vivu/06-phu-quoc.png',
         tours: '14',
         rating: '4.9',
         icon: icon('<path d="M2 14c3-2 6-2 10 0s7 2 10 0"/><path d="M6 10c2-3 4-4 6-4s4 1 6 4"/>'),
@@ -699,7 +814,7 @@ export class AppService {
         name: 'Sa Pa',
         category: 'THIÊN NHIÊN',
         desc: 'Ruộng bậc thang mây trời',
-        image: '/images/Vivu/07-sa-pa.png',
+        image: '/images/Demo/Vivu/07-sa-pa.png',
         tours: '11',
         rating: '4.8',
         icon: icon('<path d="M3 18h18M6 18l3-6 3 4 3-8 3 10"/>'),
@@ -807,21 +922,21 @@ export class AppService {
           variant: 'red',
           title: 'Tư duy Logic',
           text: 'Trang bị tư duy phân tích – logic ngôn ngữ để hiểu bản chất vấn đề và áp dụng linh hoạt trong mọi dạng bài.',
-          image: '/images/TiengAnh/icon-logic-bulb.svg',
+          image: '/images/Demo/TiengAnh/icon-logic-bulb.svg',
         },
         {
           num: '02',
           variant: 'dark',
           title: 'Công nghệ học tập thông minh',
           text: 'Hệ thống AI cá nhân hóa, tự động điều chỉnh lộ trình, theo dõi tiến độ & nhắc nhở kịp thời.',
-          image: '/images/TiengAnh/icon-tech-devices.svg',
+          image: '/images/Demo/TiengAnh/icon-tech-devices.svg',
         },
         {
           num: '03',
           variant: 'outline',
           title: 'Chương trình tinh gọn',
           text: 'Giáo trình độc quyền biên soạn dựa trên phân tích dữ liệu hàng nghìn bài thi thực tế.',
-          image: '/images/TiengAnh/icon-curriculum-book.svg',
+          image: '/images/Demo/TiengAnh/icon-curriculum-book.svg',
         },
       ];
     }
@@ -872,15 +987,33 @@ export class AppService {
     return this.getDemoCollections(slug).flatMap((c) => c.products);
   }
 
+  private getElaraCollectionForSubpage(subpage: string) {
+    const map: Record<string, string> = {
+      ao: 'ao',
+      vay: 'vay',
+      quan: 'quan',
+      'phu-kien': 'phukien',
+    };
+    const id = map[subpage];
+    if (!id) return null;
+    return (
+      this.getDemoCollections('shop-thoi-trang').find((c) => c.id === id) ??
+      null
+    );
+  }
+
   /** YaMe-style category blocks: title + tagline + chips + 4 products each. */
   private getDemoCollections(slug: string) {
     if (slug !== 'shop-thoi-trang') return [];
+    const base = '/du-an/demo/shop-thoi-trang';
     const mk = (
       title: string,
       cat: string,
       price: string,
       originalPrice: string,
       image: string,
+      tags: string[],
+      href: string,
     ) => ({
       title,
       price,
@@ -888,6 +1021,8 @@ export class AppService {
       sale: true,
       cat,
       image,
+      tags,
+      href,
     });
     return [
       {
@@ -895,36 +1030,51 @@ export class AppService {
         title: 'ÁO LINEN & COTTON',
         tagline:
           'Chất liệu mềm mại, thoáng khí — phom dáng tối giản dễ phối mỗi ngày',
-        chips: ['Tất cả', 'Sơ mi', 'Áo thun', 'Áo polo', 'Hàng mới'],
+        chips: [
+          { label: 'Tất cả', key: 'all' },
+          { label: 'Sơ mi', key: 'so-mi' },
+          { label: 'Áo thun', key: 'ao-thun' },
+          { label: 'Áo polo', key: 'ao-polo' },
+          { label: 'Hàng mới', key: 'hang-moi' },
+        ],
         seeAll: 'XEM TẤT CẢ ÁO',
+        seeAllHref: `${base}/ao`,
         products: [
           mk(
             'Áo sơ mi oversized Trắng',
             'a',
             '590.000đ',
             '890.000đ',
-            '/images/ThoiTrang/09-product-ao-so-mi.png',
+            '/images/Demo/ThoiTrang/09-product-ao-so-mi.png',
+            ['so-mi', 'hang-moi'],
+            `${base}/ao`,
           ),
           mk(
             'Áo linen cổ tròn Be',
             'a',
             '450.000đ',
             '690.000đ',
-            '/images/ThoiTrang/17-product-ao-linen.png',
+            '/images/Demo/ThoiTrang/17-product-ao-linen.png',
+            ['ao-thun', 'hang-moi'],
+            `${base}/ao`,
           ),
           mk(
             'Áo polo cotton Trắng',
             'a',
             '390.000đ',
             '590.000đ',
-            '/images/ThoiTrang/21-product-ao-polo.png',
+            '/images/Demo/ThoiTrang/21-product-ao-polo.png',
+            ['ao-polo'],
+            `${base}/ao`,
           ),
           mk(
             'Áo blouse linen Kem',
             'a',
             '520.000đ',
             '780.000đ',
-            '/images/ThoiTrang/03-category-ao.png',
+            '/images/Demo/ThoiTrang/03-category-ao.png',
+            ['so-mi'],
+            `${base}/ao`,
           ),
         ],
       },
@@ -933,36 +1083,51 @@ export class AppService {
         title: 'VÁY MÙA HÈ',
         tagline:
           'Phom suông, midi & wrap — thanh lịch từ công sở đến dạo phố',
-        chips: ['Tất cả', 'Midi', 'Wrap', 'Hoa', 'Linen'],
+        chips: [
+          { label: 'Tất cả', key: 'all' },
+          { label: 'Midi', key: 'midi' },
+          { label: 'Wrap', key: 'wrap' },
+          { label: 'Hoa', key: 'hoa' },
+          { label: 'Linen', key: 'linen' },
+        ],
         seeAll: 'XEM TẤT CẢ VÁY',
+        seeAllHref: `${base}/vay`,
         products: [
           mk(
             'Váy midi linen Kem',
             'b',
             '890.000đ',
             '1.290.000đ',
-            '/images/ThoiTrang/08-product-vay-midi.png',
+            '/images/Demo/ThoiTrang/08-product-vay-midi.png',
+            ['midi', 'linen'],
+            `${base}/vay`,
           ),
           mk(
             'Váy wrap đen thanh lịch',
             'b',
             '990.000đ',
             '1.490.000đ',
-            '/images/ThoiTrang/18-product-vay-den.png',
+            '/images/Demo/ThoiTrang/18-product-vay-den.png',
+            ['wrap'],
+            `${base}/vay`,
           ),
           mk(
             'Váy hoa pastel Hồng',
             'b',
             '790.000đ',
             '1.190.000đ',
-            '/images/ThoiTrang/22-product-vay-hoa.png',
+            '/images/Demo/ThoiTrang/22-product-vay-hoa.png',
+            ['hoa', 'midi'],
+            `${base}/vay`,
           ),
           mk(
             'Váy suông hoa Kem',
             'b',
             '850.000đ',
             '1.250.000đ',
-            '/images/ThoiTrang/04-category-vay.png',
+            '/images/Demo/ThoiTrang/04-category-vay.png',
+            ['hoa', 'linen'],
+            `${base}/vay`,
           ),
         ],
       },
@@ -970,36 +1135,51 @@ export class AppService {
         id: 'quan',
         title: 'QUẦN DÀI KHOE DÁNG',
         tagline: 'Ống rộng, jeans suông — bền bỉ, đứng form, tôn dáng',
-        chips: ['Tất cả', 'Ống rộng', 'Jeans', 'Linen', 'Bán chạy'],
+        chips: [
+          { label: 'Tất cả', key: 'all' },
+          { label: 'Ống rộng', key: 'ong-rong' },
+          { label: 'Jeans', key: 'jeans' },
+          { label: 'Linen', key: 'linen' },
+          { label: 'Bán chạy', key: 'ban-chay' },
+        ],
         seeAll: 'XEM TẤT CẢ QUẦN',
+        seeAllHref: `${base}/quan`,
         products: [
           mk(
             'Quần ống rộng Be',
             'c',
             '690.000đ',
             '990.000đ',
-            '/images/ThoiTrang/10-product-quan-ong-rong.png',
+            '/images/Demo/ThoiTrang/10-product-quan-ong-rong.png',
+            ['ong-rong', 'ban-chay'],
+            `${base}/quan`,
           ),
           mk(
             'Quần jeans ống suông Xanh',
             'c',
             '790.000đ',
             '1.190.000đ',
-            '/images/ThoiTrang/19-product-quan-jeans.png',
+            '/images/Demo/ThoiTrang/19-product-quan-jeans.png',
+            ['jeans', 'ban-chay'],
+            `${base}/quan`,
           ),
           mk(
             'Quần linen ống rộng Kem',
             'c',
             '650.000đ',
             '950.000đ',
-            '/images/ThoiTrang/05-category-quan.png',
+            '/images/Demo/ThoiTrang/05-category-quan.png',
+            ['ong-rong', 'linen'],
+            `${base}/quan`,
           ),
           mk(
             'Quần jeans ống đứng Xanh nhạt',
             'c',
             '750.000đ',
             '1.090.000đ',
-            '/images/ThoiTrang/19-product-quan-jeans.png',
+            '/images/Demo/ThoiTrang/19-product-quan-jeans.png',
+            ['jeans'],
+            `${base}/quan`,
           ),
         ],
       },
@@ -1007,36 +1187,51 @@ export class AppService {
         id: 'phukien',
         title: 'PHỤ KIỆN THỜI TRANG',
         tagline: 'Túi xách & phụ kiện cao cấp — điểm nhấn hoàn thiện set đồ',
-        chips: ['Tất cả', 'Túi xách', 'Kính', 'Giày', 'Sale'],
+        chips: [
+          { label: 'Tất cả', key: 'all' },
+          { label: 'Túi xách', key: 'tui-xach' },
+          { label: 'Kính', key: 'kinh' },
+          { label: 'Giày', key: 'giay' },
+          { label: 'Sale', key: 'sale' },
+        ],
         seeAll: 'XEM TẤT CẢ PHỤ KIỆN',
+        seeAllHref: `${base}/phu-kien`,
         products: [
           mk(
             'Túi xách tay Veronica Đen',
             'd',
             '899.000đ',
             '1.798.000đ',
-            '/images/ThoiTrang/07-product-tui-xach.png',
+            '/images/Demo/ThoiTrang/07-product-tui-xach.png',
+            ['tui-xach', 'sale'],
+            `${base}/phu-kien`,
           ),
           mk(
             'Túi mini structured Kem',
             'd',
             '749.000đ',
             '1.498.000đ',
-            '/images/ThoiTrang/20-product-tui-kem.png',
+            '/images/Demo/ThoiTrang/20-product-tui-kem.png',
+            ['tui-xach', 'sale'],
+            `${base}/phu-kien`,
           ),
           mk(
             'Set phụ kiện silk & leather',
             'd',
             '599.000đ',
             '999.000đ',
-            '/images/ThoiTrang/06-category-phukien.png',
+            '/images/Demo/ThoiTrang/06-category-phukien.png',
+            ['kinh', 'sale'],
+            `${base}/phu-kien`,
           ),
           mk(
             'Túi xách Veronica Be',
             'd',
             '899.000đ',
             '1.798.000đ',
-            '/images/ThoiTrang/20-product-tui-kem.png',
+            '/images/Demo/ThoiTrang/20-product-tui-kem.png',
+            ['tui-xach', 'giay', 'sale'],
+            `${base}/phu-kien`,
           ),
         ],
       },
@@ -1313,22 +1508,22 @@ export class AppService {
         {
           title: 'Không học mẹo',
           text: 'Không dựa vào mẹo thi ngắn hạn. Học viên nắm nguyên tắc ngôn ngữ để xử lý mọi dạng đề và tình huống thực tế.',
-          image: '/images/TiengAnh/icon-logic-bulb.svg',
+          image: '/images/Demo/TiengAnh/icon-logic-bulb.svg',
         },
         {
           title: 'Không học thuộc lòng',
           text: 'Thay vì thuộc mẫu câu cứng, học viên hiểu cấu trúc và tự tạo câu đúng ngữ cảnh, đúng mục tiêu giao tiếp.',
-          image: '/images/TiengAnh/icon-curriculum-book.svg',
+          image: '/images/Demo/TiengAnh/icon-curriculum-book.svg',
         },
         {
           title: 'Xây nền tảng ngôn ngữ',
           text: 'Phát âm, ngữ pháp và từ vựng được xây có hệ thống trước khi tăng tốc luyện đề và kỹ năng chuyên sâu.',
-          image: '/images/TiengAnh/icon-course-backpack.svg',
+          image: '/images/Demo/TiengAnh/icon-course-backpack.svg',
         },
         {
           title: 'Tư duy bằng tiếng Anh',
           text: 'Luyện phản xạ suy nghĩ bằng tiếng Anh để nói – viết tự nhiên, mạch lạc và thuyết phục hơn.',
-          image: '/images/TiengAnh/icon-course-speak.svg',
+          image: '/images/Demo/TiengAnh/icon-course-speak.svg',
         },
       ],
       novaLogicSteps: [
@@ -1723,38 +1918,38 @@ export class AppService {
         },
       ],
       vivuExperiences: [
-        { title: 'Văn hóa', text: 'Phố cổ, di sản và nghi lễ truyền thống', image: '/images/Vivu/04-hoi-an.png' },
-        { title: 'Ẩm thực', text: 'Tour ăn uống cùng đầu bếp địa phương', image: '/images/Vivu/03-da-nang.png' },
-        { title: 'Nghỉ dưỡng', text: 'Resort biển và spa thư giãn', image: '/images/Vivu/06-phu-quoc.png' },
-        { title: 'Trekking', text: 'Đường mòn Tây Bắc và ruộng bậc thang', image: '/images/Vivu/07-sa-pa.png' },
-        { title: 'Camping', text: 'Cắm trại dưới bầu trời cao nguyên', image: '/images/Vivu/05-da-lat.png' },
-        { title: 'Diving', text: 'Lặn ngắm san hô biển đảo', image: '/images/Vivu/06-phu-quoc.png' },
-        { title: 'Chèo Kayak', text: 'Khám phá vịnh bằng kayak', image: '/images/Vivu/02-ha-long.png' },
-        { title: 'Photography', text: 'Tour chụp ảnh bình minh & hoàng hôn', image: '/images/Vivu/01-hero-ha-long.png' },
+        { title: 'Văn hóa', text: 'Phố cổ, di sản và nghi lễ truyền thống', image: '/images/Demo/Vivu/04-hoi-an.png' },
+        { title: 'Ẩm thực', text: 'Tour ăn uống cùng đầu bếp địa phương', image: '/images/Demo/Vivu/03-da-nang.png' },
+        { title: 'Nghỉ dưỡng', text: 'Resort biển và spa thư giãn', image: '/images/Demo/Vivu/06-phu-quoc.png' },
+        { title: 'Trekking', text: 'Đường mòn Tây Bắc và ruộng bậc thang', image: '/images/Demo/Vivu/07-sa-pa.png' },
+        { title: 'Camping', text: 'Cắm trại dưới bầu trời cao nguyên', image: '/images/Demo/Vivu/05-da-lat.png' },
+        { title: 'Diving', text: 'Lặn ngắm san hô biển đảo', image: '/images/Demo/Vivu/06-phu-quoc.png' },
+        { title: 'Chèo Kayak', text: 'Khám phá vịnh bằng kayak', image: '/images/Demo/Vivu/02-ha-long.png' },
+        { title: 'Photography', text: 'Tour chụp ảnh bình minh & hoàng hôn', image: '/images/Demo/Vivu/01-hero-ha-long.png' },
       ],
       vivuStories: [
         {
           title: 'Một ngày ở Hội An',
           excerpt: 'Từ phố cổ ban ngày đến thả đèn hoa đăng về đêm.',
-          image: '/images/Vivu/04-hoi-an.png',
+          image: '/images/Demo/Vivu/04-hoi-an.png',
           date: '12/03/2026',
         },
         {
           title: 'Săn mây Sa Pa',
           excerpt: 'Bình minh trên đỉnh Fansipan và biển mây bồng bềnh.',
-          image: '/images/Vivu/07-sa-pa.png',
+          image: '/images/Demo/Vivu/07-sa-pa.png',
           date: '05/03/2026',
         },
         {
           title: 'Bình minh Phú Quốc',
           excerpt: 'Cát trắng, nước trong và cocktail hoàng hôn trên bãi Sao.',
-          image: '/images/Vivu/06-phu-quoc.png',
+          image: '/images/Demo/Vivu/06-phu-quoc.png',
           date: '28/02/2026',
         },
         {
           title: 'Ẩm thực miền Trung',
           excerpt: 'Hành trình vị giác từ Đà Nẵng đến phố cổ Hội An.',
-          image: '/images/Vivu/03-da-nang.png',
+          image: '/images/Demo/Vivu/03-da-nang.png',
           date: '20/02/2026',
         },
       ],
@@ -1765,7 +1960,7 @@ export class AppService {
           date: '15/03/2026',
           datetime: '2026-03-15',
           excerpt: 'Gợi ý lịch trình, khách sạn và món ăn không thể bỏ qua khi khám phá vịnh di sản.',
-          image: '/images/Vivu/02-ha-long.png',
+          image: '/images/Demo/Vivu/02-ha-long.png',
         },
         {
           title: 'Top 10 món ăn phải thử khi đến Hội An',
@@ -1773,7 +1968,7 @@ export class AppService {
           date: '08/03/2026',
           datetime: '2026-03-08',
           excerpt: 'Từ cao lầu, mì Quảng đến bánh mì Phượng — hành trình ẩm thực phố cổ.',
-          image: '/images/Vivu/04-hoi-an.png',
+          image: '/images/Demo/Vivu/04-hoi-an.png',
         },
         {
           title: 'Nên đi Phú Quốc tháng mấy?',
@@ -1781,7 +1976,7 @@ export class AppService {
           date: '02/03/2026',
           datetime: '2026-03-02',
           excerpt: 'Thời tiết, giá vé và hoạt động theo mùa để chọn kỳ nghỉ lý tưởng.',
-          image: '/images/Vivu/06-phu-quoc.png',
+          image: '/images/Demo/Vivu/06-phu-quoc.png',
         },
         {
           title: 'Chi phí du lịch Đà Lạt tự túc 2026',
@@ -1789,7 +1984,7 @@ export class AppService {
           date: '22/02/2026',
           datetime: '2026-02-22',
           excerpt: 'Ngân sách tham khảo cho cặp đôi và gia đình — từ lưu trú đến ăn uống.',
-          image: '/images/Vivu/05-da-lat.png',
+          image: '/images/Demo/Vivu/05-da-lat.png',
         },
         {
           title: 'Sa Pa mùa lúa chín — Thời điểm đẹp nhất',
@@ -1797,7 +1992,7 @@ export class AppService {
           date: '28/02/2026',
           datetime: '2026-02-28',
           excerpt: 'Tháng 9–10 là lúc ruộng bậc thang chuyển vàng rực, lý tưởng cho trekking.',
-          image: '/images/Vivu/07-sa-pa.png',
+          image: '/images/Demo/Vivu/07-sa-pa.png',
         },
         {
           title: 'Review du thuyền Hạ Long 4 sao',
@@ -1805,7 +2000,7 @@ export class AppService {
           date: '18/02/2026',
           datetime: '2026-02-18',
           excerpt: 'Không gian cabin, ẩm thực onboard và lịch trình tham quan hang động.',
-          image: '/images/Vivu/01-hero-ha-long.png',
+          image: '/images/Demo/Vivu/01-hero-ha-long.png',
         },
       ],
       vivuFaq: [

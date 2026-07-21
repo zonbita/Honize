@@ -4,7 +4,7 @@
   "files": {
     "template": "views/demo/pages/aurelia-estates.hbs",
     "styles": "public/demo/aurelia-estates.css",
-    "design": "public/images/House/Design.MD"
+    "design": "public/images/Demo/House/Design.MD"
   },
   "convention": {
     "pending": "Thành phần tương tác chưa có logic — không có data-demo-live",

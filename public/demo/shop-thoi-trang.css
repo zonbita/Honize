@@ -951,3 +951,377 @@
     font-size: 0.72rem;
   }
 }
+
+/* Inner page hero */
+.el-page--inner .el-header {
+  position: relative;
+}
+
+.el-page-hero {
+  position: relative;
+  min-height: 280px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.el-page-hero-bg {
+  position: absolute;
+  inset: 0;
+}
+
+.el-page-hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.el-page-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(26, 26, 26, 0.35) 0%, rgba(26, 26, 26, 0.72) 100%);
+}
+
+.el-page-hero-inner {
+  position: relative;
+  z-index: 2;
+  padding: 3.5rem 0 2.5rem;
+  color: #fff;
+  max-width: 40rem;
+}
+
+.el-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
+  opacity: 0.85;
+}
+
+.el-breadcrumb a {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.el-page-hero-title {
+  margin: 0;
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1.15;
+}
+
+.el-page-hero-desc {
+  margin: 0.85rem 0 0;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  opacity: 0.9;
+}
+
+.el-page-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.el-btn-outline-light {
+  border-color: #fff !important;
+  color: #fff !important;
+}
+
+.el-btn-outline-light:hover {
+  background: #fff;
+  color: var(--el-ink) !important;
+}
+
+.el-collection-block--page {
+  border-top: 0;
+  padding-top: 2.5rem;
+}
+
+.el-block-footer {
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.el-about--tight {
+  padding-top: 3rem;
+  padding-bottom: 2rem;
+}
+
+/* Search panel */
+.el-search-panel {
+  border-top: 1px solid var(--el-border);
+  background: var(--el-cream);
+  padding: 0.85rem 0;
+}
+
+.el-search-inner {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.el-search-inner input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--el-border);
+  background: #fff;
+  font-size: 0.9rem;
+}
+
+.el-btn-sm {
+  padding: 0.75rem 1.25rem;
+  margin-top: 0;
+}
+
+/* Cart drawer — chỉ hiện khi mở */
+.el-cart-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 220ms ease, visibility 220ms ease;
+}
+
+.el-cart-backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.el-cart-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  width: min(380px, 100%);
+  height: 100%;
+  background: #fff;
+  box-shadow: -12px 0 40px rgba(0, 0, 0, 0.12);
+  transform: translateX(100%);
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform 280ms ease, visibility 280ms ease;
+}
+
+.el-cart-panel.is-open {
+  transform: translateX(0);
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.el-cart-panel[hidden],
+.el-cart-backdrop[hidden] {
+  display: none !important;
+}
+
+.el-cart-panel-head,
+.el-cart-panel-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--el-border);
+}
+
+.el-cart-panel-foot {
+  border-bottom: 0;
+  border-top: 1px solid var(--el-border);
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.el-cart-panel-body {
+  flex: 1;
+  overflow: auto;
+  padding: 1rem 1.25rem;
+}
+
+.el-cart-empty {
+  margin: 0;
+  color: var(--el-muted);
+  font-size: 0.9rem;
+}
+
+.el-cart-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--el-border);
+  font-size: 0.85rem;
+}
+
+.el-cart-row button {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--el-muted);
+}
+
+.el-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 1.5rem;
+  z-index: 100;
+  transform: translateX(-50%);
+  padding: 0.75rem 1.25rem;
+  background: var(--el-ink);
+  color: #fff;
+  font-size: 0.85rem;
+  box-shadow: var(--el-shadow);
+}
+
+.el-toast[hidden] {
+  display: none !important;
+}
+
+/* Contact + FAQ */
+.el-contact-section {
+  padding: 4rem 0;
+}
+
+.el-contact-grid {
+  display: grid;
+  gap: 2.5rem;
+}
+
+.el-contact-list {
+  margin: 1.5rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.el-contact-list li {
+  display: grid;
+  gap: 0.2rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.el-contact-list strong {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--el-muted);
+}
+
+.el-contact-quick {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.el-contact-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 1.75rem;
+  background: var(--el-cream);
+}
+
+.el-contact-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.el-contact-form .el-field-full,
+.el-contact-form .el-btn,
+.el-contact-form .el-form-msg {
+  grid-column: 1 / -1;
+}
+
+.el-contact-form input,
+.el-contact-form textarea {
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--el-border);
+  background: #fff;
+  font: inherit;
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+.el-form-msg {
+  margin: 0.5rem 0 0;
+  font-size: 0.85rem;
+}
+
+.el-form-msg.is-ok {
+  color: #1a7f4b;
+}
+
+.el-form-msg.is-err {
+  color: var(--el-red);
+}
+
+.el-faq {
+  padding: 0 0 4.5rem;
+}
+
+.el-faq-list {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.el-faq-item {
+  border-bottom: 1px solid var(--el-border);
+}
+
+.el-faq-trigger {
+  width: 100%;
+  padding: 1.1rem 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.el-faq-body {
+  display: none;
+  padding: 0 0 1.1rem;
+  color: var(--el-muted);
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.el-faq-item.is-open .el-faq-body {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .el-contact-grid {
+    grid-template-columns: 1fr 1.1fr;
+    gap: 3.5rem;
+    align-items: start;
+  }
+
+  .el-page-hero {
+    min-height: 340px;
+  }
+}
+
+@media (max-width: 640px) {
+  .el-contact-form {
+    grid-template-columns: 1fr;
+  }
+}

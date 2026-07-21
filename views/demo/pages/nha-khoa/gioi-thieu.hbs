@@ -1,0 +1,98 @@
+<div class="oris-page">
+  {{> demo/oris/header }}
+
+  <main>
+    <section class="oris-page-hero">
+      <div class="oris-page-hero-bg" aria-hidden="true">
+        <img src="{{orisHeroBg}}" alt="" width="1600" height="900" />
+      </div>
+      <div class="oris-page-hero-overlay" aria-hidden="true"></div>
+      <div class="oris-wrap oris-page-hero-inner">
+        <nav class="oris-breadcrumb" aria-label="Breadcrumb">
+          <a href="{{orisBase}}">Trang chủ</a>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">Giới thiệu</span>
+        </nav>
+        <h1>Về ORIS</h1>
+        <p class="oris-page-hero-text">
+          Phòng khám nha khoa thẩm mỹ chuẩn y khoa — nơi chuyên môn, công nghệ và sự tận tâm tạo nên nụ cười bền vững.
+        </p>
+      </div>
+    </section>
+
+    <section class="oris-section">
+      <div class="oris-wrap oris-split">
+        <div data-aos="fade-up">
+          <p class="oris-label">Câu chuyện thương hiệu</p>
+          <h2>Kiến tạo nụ cười khỏe đẹp từ sự thấu hiểu</h2>
+          <p style="margin-top:16px;color:var(--oris-text-secondary)">
+            ORIS ra đời từ mong muốn mang trải nghiệm nha khoa hiện đại, minh bạch và nhẹ nhàng đến gần hơn với mọi người. Mỗi liệu trình đều bắt đầu bằng lắng nghe — rồi mới đến chẩn đoán và điều trị.
+          </p>
+        </div>
+        <div data-aos="fade-up" data-aos-delay="80">
+          <img src="/images/Demo/NhaKhoa/07-clinic-space.png" alt="Không gian phòng khám ORIS" width="800" height="600" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
+    <section class="oris-section oris-stats-band" aria-label="Số liệu nổi bật">
+      <div class="oris-wrap">
+        <div class="oris-stats-grid">
+          <article>
+            <strong><span class="oris-count" data-count="10" data-suffix="+">0</span></strong>
+            <span>Năm kinh nghiệm</span>
+          </article>
+          <article>
+            <strong><span class="oris-count" data-count="12000" data-separator="." data-suffix="+">0</span></strong>
+            <span>Khách hàng tin tưởng</span>
+          </article>
+          <article>
+            <strong><span class="oris-count" data-count="98" data-suffix="%">0</span></strong>
+            <span>Mức hài lòng</span>
+          </article>
+          <article>
+            <strong><span class="oris-count" data-count="15" data-suffix="+">0</span></strong>
+            <span>Bác sĩ chuyên khoa</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="oris-section">
+      <div class="oris-wrap">
+        <div class="oris-section-head" data-aos="fade-up">
+          <p class="oris-label">Tầm nhìn — Sứ mệnh — Giá trị</p>
+          <h2>Kim chỉ nam phát triển</h2>
+        </div>
+        <div class="oris-values" data-aos="fade-up">
+          <article class="oris-value">
+            <h3>Tầm nhìn</h3>
+            <p>Trở thành địa chỉ nha khoa thẩm mỹ tin cậy, nơi mỗi nụ cười được chăm sóc theo chuẩn mực quốc tế.</p>
+          </article>
+          <article class="oris-value">
+            <h3>Sứ mệnh</h3>
+            <p>Mang đến giải pháp điều trị an toàn, hiệu quả và dễ hiểu — giúp khách hàng tự tin với nụ cười của mình.</p>
+          </article>
+          <article class="oris-value">
+            <h3>Giá trị cốt lõi</h3>
+            <p>An toàn là số một — Minh bạch từng bước — Chuyên môn sâu — Đồng hành dài lâu.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="oris-cta-band">
+      <div class="oris-wrap oris-cta-band-inner">
+        <div>
+          <h2>Sẵn sàng thăm khám?</h2>
+          <p>Đội ngũ ORIS luôn sẵn sàng tư vấn lộ trình phù hợp với bạn.</p>
+        </div>
+        <a href="{{orisBase}}#booking" class="oris-btn oris-btn-light">Đặt lịch ngay</a>
+      </div>
+    </section>
+  </main>
+
+  {{> demo/oris/footer }}
+</div>
+
+{{> demo/oris/scripts }}
