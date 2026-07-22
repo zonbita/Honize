@@ -1,56 +1,112 @@
-{{!-- Hero Section --}}
-<section class="hero-section relative overflow-hidden">
-  <div class="hero-section-bg" aria-hidden="true"></div>
+{{!-- Hero Section — match reference (black/gold agency) --}}
+<section class="hero-section" id="hero">
+  <div class="hero-atmosphere" aria-hidden="true">
+    <div class="hero-atmosphere-photo"></div>
+    <div class="hero-atmosphere-left"></div>
+    <div class="hero-atmosphere-glow" data-hero-parallax="0.04"></div>
+    <div class="hero-atmosphere-rays" data-hero-parallax="0.02"></div>
+    <div class="hero-particles">
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </div>
 
-  <div class="container-main relative z-10">
+  <div class="hero-shell">
     <div class="hero-grid">
-      <div class="hero-content" data-aos="fade-right" data-aos-duration="900">
-        <p class="hero-kicker">{{hero.kicker}}</p>
+      <div class="hero-content" data-aos="fade-up" data-aos-duration="900">
+        <p class="hero-kicker">
+          <span class="hero-kicker-line" aria-hidden="true"></span>
+          {{hero.kicker}}
+        </p>
         <h1 class="hero-title">
-          {{hero.title}}
-          <span class="text-gold block">{{hero.titleHighlight}}</span>
+          {{hero.title}} <span class="hero-title-accent">{{hero.titleHighlight}}</span>
         </h1>
         <p class="hero-tagline">{{hero.tagline}}</p>
-        <p class="hero-desc">
-          {{hero.description}}
-        </p>
-        <div class="mt-8 flex flex-wrap items-center gap-4">
-          <a href="#banggia" class="btn-primary">
+        <p class="hero-desc">{{hero.description}}</p>
+
+        <div class="hero-actions">
+          <a href="#banggia" class="btn-primary hero-btn-primary">
             {{hero.ctaPrimary}}
-            <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
           </a>
-          <a href="#contact" class="btn-outline-gold">
+          <a href="#contact" class="hero-btn-secondary">
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M8 10h8M8 14h5M21 12c0 4.418-4.03 8-9 8a9.86 9.86 0 01-4.255-.947L3 20l1.105-3.695A7.72 7.72 0 013 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+            </svg>
             {{hero.ctaSecondary}}
-            <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
           </a>
+        </div>
+
+        <div class="hero-trust" data-aos="fade-up" data-aos-delay="140">
+          <div class="hero-trust-avatars" aria-hidden="true">
+            <span class="hero-trust-avatar" style="--avatar-from:#4a5568;--avatar-to:#1a202c">A</span>
+            <span class="hero-trust-avatar" style="--avatar-from:#744210;--avatar-to:#2d1f08">B</span>
+            <span class="hero-trust-avatar" style="--avatar-from:#2d3748;--avatar-to:#111827">C</span>
+            <span class="hero-trust-avatar" style="--avatar-from:#8a6a1f;--avatar-to:#3a2e10">D</span>
+            <span class="hero-trust-more">+</span>
+          </div>
+          <p class="hero-trust-copy"><strong>500+</strong> Khách hàng tin tưởng</p>
         </div>
       </div>
 
-      <div class="hero-mockup" data-aos="fade-left" data-aos-duration="900" data-aos-delay="120">
-        <img
-          src="/images/hero-mockup.png"
-          alt="Giao diện website trên laptop và điện thoại"
-          class="hero-mockup-img"
-          width="1536"
-          height="1024"
-          loading="eager"
-        />
+      <div class="hero-stage" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="120">
+        <div class="hero-devices-parallax" data-hero-parallax="0.03">
+          <div class="hero-devices">
+            <img
+              src="/images/hero-mockup.png"
+              alt="MacBook và iPhone hiển thị website Honize"
+              class="hero-devices-img"
+              width="1536"
+              height="1024"
+              loading="eager"
+            />
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="hero-features" data-aos="fade-up" data-aos-delay="200">
-      <div class="hero-feature-item">
-        <img src="/images/icon1.png" alt="" class="hero-feature-icon" width="40" height="40" />
-        <span>Giá rẻ</span>
-      </div>
-      <div class="hero-feature-item">
-        <img src="/images/icon2.png" alt="" class="hero-feature-icon" width="40" height="40" />
-        <span>Chất lượng</span>
-      </div>
-      <div class="hero-feature-item">
-        <img src="/images/icon3.png" alt="" class="hero-feature-icon" width="40" height="40" />
-        <span>Tăng lượng khách hàng</span>
-      </div>
+    <div class="hero-features" data-aos="fade-up" data-aos-delay="220">
+      <article class="hero-feature-item">
+        <span class="hero-feature-icon" aria-hidden="true">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M12 3l7.5 3v5.25c0 4.556-3.086 8.71-7.5 9.75-4.414-1.04-7.5-5.194-7.5-9.75V6L12 3z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M9.2 12.1l1.9 1.9 3.8-3.9"/>
+          </svg>
+        </span>
+        <div>
+          <h3 class="hero-feature-title">Giá cả hợp lý</h3>
+          <p class="hero-feature-desc">Tối ưu chi phí, hiệu quả cao</p>
+        </div>
+      </article>
+      <article class="hero-feature-item">
+        <span class="hero-feature-icon" aria-hidden="true">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M12 3.5l1.55 3.14 3.46.5-2.5 2.44.59 3.44L12 11.9l-3.1 1.62.59-3.44-2.5-2.44 3.46-.5L12 3.5z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M8.2 14.2c.9 1.55 2.2 2.45 3.8 2.45s2.9-.9 3.8-2.45"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M9.4 20.5h5.2M10.2 16.65v3.85M13.8 16.65v3.85"/>
+          </svg>
+        </span>
+        <div>
+          <h3 class="hero-feature-title">Chất lượng đảm bảo</h3>
+          <p class="hero-feature-desc">Chuẩn SEO, bảo mật, tốc độ cao</p>
+        </div>
+      </article>
+      <article class="hero-feature-item">
+        <span class="hero-feature-icon" aria-hidden="true">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M4 19.5V5.5"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M4 19.5h16"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M7.5 15.2v4.3M11.5 11.8v7.7M15.5 8.8v10.7"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M8.2 9.8l4.1-3.4 3 2.2 4.5-4.1"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M17.2 4.5h2.6v2.6"/>
+          </svg>
+        </span>
+        <div>
+          <h3 class="hero-feature-title">Tăng trưởng bền vững</h3>
+          <p class="hero-feature-desc">Đồng hành dài hạn cùng doanh nghiệp</p>
+        </div>
+      </article>
     </div>
   </div>
 </section>

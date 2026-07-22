@@ -29,13 +29,13 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ['"Be Vietnam Pro"', 'system-ui', 'sans-serif'],
-        display: ['"Be Vietnam Pro"', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'Manrope', 'system-ui', 'sans-serif'],
+        display: ['Manrope', 'Inter', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
         card: '0 4px 24px rgba(15, 23, 42, 0.08)',
         'card-hover': '0 12px 40px rgba(168, 130, 50, 0.18)',
-        nav: '0 2px 20px rgba(15, 23, 42, 0.06)',
+        nav: '0 10px 40px rgba(0, 0, 0, 0.35)',
       },
       backgroundImage: {
         'brand-gold':

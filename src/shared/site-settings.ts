@@ -41,14 +41,14 @@ const DEFAULT_SETTINGS: SiteSettings = {
   postsPerPage: 6,
   enableComments: false,
   maintenanceMode: false,
-  heroKicker: 'Dịch vụ —',
+  heroKicker: 'DỊCH VỤ',
   heroTitle: 'Thiết kế website',
   heroTitleHighlight: 'chuyên nghiệp',
-  heroTagline: '→ mở rộng cơ hội kinh doanh',
+  heroTagline: '— Mở rộng cơ hội kinh doanh',
   heroDescription:
     'Honize sẽ sát cánh cùng quý khách xây dựng website nhằm nâng cao chất lượng dịch vụ và tăng cơ hội quảng bá, bán hàng. Hãy liên hệ để trải nghiệm sự am hiểu, nhiệt tình, sáng tạo và chuyên nghiệp của chúng tôi.',
-  heroCtaPrimary: 'Báo Giá',
-  heroCtaSecondary: 'Liên Hệ Ngay',
+  heroCtaPrimary: 'Báo giá ngay',
+  heroCtaSecondary: 'Liên hệ tư vấn',
   footerDescription:
     'Cung cấp cho quý khách hệ thống thông tin hoạt động hiệu quả 24/7, từ website giới thiệu công ty, sản phẩm và dịch vụ tới hệ thống email, chăm sóc khách hàng, nhân sự, kế toán và các sản phẩm CNTT khác.',
 };

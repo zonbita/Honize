@@ -72,6 +72,7 @@ function configureViewEngine(app: NestExpressApplication, root: string): void {
     }
 
     const path = req.path || '';
+    res.locals.currentPath = path;
     const isStaticAsset =
       /\.(css|js|map|png|jpe?g|gif|webp|svg|ico|woff2?|ttf|eot|mp4|webm)$/i.test(path) ||
       path.startsWith('/css/') ||
