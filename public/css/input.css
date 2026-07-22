@@ -787,18 +787,34 @@
 
   .hero-section {
     @apply relative flex flex-col justify-center overflow-hidden pb-8 pt-10 md:pb-12 md:pt-14;
-    min-height: 919px;
-    background-color: #f7f4ef;
+    min-height: 790px;
+    background-color: #0f1420;
   }
 
   .hero-section-bg {
     @apply pointer-events-none absolute inset-0 bg-cover bg-no-repeat;
-    background-image: url('/images/bg-tech.png');
-    background-position: right center;
+    background-image: url('/images/hero-bg.png');
+    background-position: center center;
+  }
+
+  /* Soft left veil so copy stays readable over cinematic gold light */
+  .hero-section::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+      105deg,
+      rgba(10, 14, 24, 0.55) 0%,
+      rgba(10, 14, 24, 0.28) 38%,
+      rgba(10, 14, 24, 0.12) 58%,
+      rgba(10, 14, 24, 0.35) 100%
+    );
   }
 
   .hero-grid {
-    @apply grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-6 xl:gap-10;
+    @apply relative z-10 grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-6 xl:gap-10;
   }
 
   .hero-content {
@@ -810,7 +826,7 @@
   }
 
   .hero-title {
-    @apply text-4xl font-extrabold leading-[1.1] text-slate-900 md:text-5xl lg:text-[3.35rem];
+    @apply text-4xl font-extrabold leading-[1.1] text-white md:text-5xl lg:text-[3.35rem];
   }
 
   .hero-tagline {
@@ -818,46 +834,21 @@
   }
 
   .hero-desc {
-    @apply mt-6 max-w-lg text-base leading-relaxed text-slate-600 md:text-[17px];
+    @apply mt-6 max-w-lg text-base leading-relaxed text-slate-200 md:text-[17px];
   }
 
-  /* Mobile: bg-tech phủ toàn hero → chữ sáng để đọc được */
   @media (max-width: 1023px) {
-    .hero-section {
-      background-color: #1a2035;
-    }
-
     .hero-section-bg {
-      background-position: center top;
-      opacity: 1;
+      background-position: 65% center;
     }
 
     .hero-section::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
       background: linear-gradient(
         180deg,
-        rgba(15, 23, 42, 0.25) 0%,
-        rgba(15, 23, 42, 0.5) 55%,
-        rgba(15, 23, 42, 0.72) 100%
+        rgba(10, 14, 24, 0.35) 0%,
+        rgba(10, 14, 24, 0.55) 50%,
+        rgba(10, 14, 24, 0.78) 100%
       );
-    }
-
-    .hero-grid,
-    .hero-features {
-      position: relative;
-      z-index: 10;
-    }
-
-    .hero-title {
-      color: #fff;
-    }
-
-    .hero-desc {
-      color: rgba(226, 232, 240, 0.92);
     }
   }
 
