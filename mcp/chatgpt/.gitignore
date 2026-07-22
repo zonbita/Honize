@@ -1,0 +1,5 @@
+# Private ChatGPT local-coder runtime (do not commit)
+mcp/chatgpt/.env
+mcp/chatgpt/.runtime/
+mcp/chatgpt/tunnel-url.txt
+mcp/chatgpt/*.log

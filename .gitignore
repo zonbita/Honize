@@ -7,3 +7,6 @@ public/css/styles.css
 .vercel
 content/.session-secret
 content/auth.json
+mcp/chatgpt/.env
+mcp/chatgpt/.runtime/
+mcp/chatgpt/tunnel-url.txt

@@ -95,16 +95,8 @@
       "slug": "nha-khoa",
       "categorySlug": "dich-vu",
       "categoryName": "Dịch vụ",
-      "image": "/images/Demo/NhaKhoa/07-clinic-space.png",
+      "image": "/uploads/1784693717255-407828750.jpg",
       "url": "/du-an/demo/nha-khoa"
-    },
-    {
-      "title": "Tư vấn du học",
-      "slug": "tu-van-du-hoc",
-      "categorySlug": "du-hoc",
-      "categoryName": "Du học",
-      "image": "/images/07.jpg",
-      "url": "/du-an/demo/tu-van-du-hoc"
     },
     {
       "title": "VIVU — Du lịch Việt Nam",
@@ -119,40 +111,40 @@
       "slug": "giai-phap-so",
       "categorySlug": "giai-phap",
       "categoryName": "Giải pháp",
-      "image": "/images/Demo/HRM/hrm-laptop.png",
+      "image": "/uploads/1784694625885-737275001.jpg",
       "url": "/du-an/demo/giai-phap-so"
-    },
-    {
-      "title": "Corporate landing page",
-      "slug": "corporate-landing",
-      "categorySlug": "gioi-thieu-cong-ty",
-      "categoryName": "Giới thiệu công ty",
-      "image": "/images/exterior.jpg",
-      "url": "/du-an/demo/corporate-landing"
     },
     {
       "title": "Showroom nội thất",
       "slug": "showroom-noi-that",
       "categorySlug": "noi-that",
       "categoryName": "Nội thất",
-      "image": "/images/04.jpg",
+      "image": "/uploads/1784716246512-398817979.jpg",
       "url": "/du-an/demo/showroom-noi-that"
     },
     {
-      "title": "Quán cà phê specialty",
+      "title": "ORIA — Cà phê specialty",
       "slug": "cafe-specialty",
       "categorySlug": "an-uong",
       "categoryName": "Ăn uống",
-      "image": "/images/05.jpg",
+      "image": "/uploads/1784717042524-164084211.jpg",
       "url": "/du-an/demo/cafe-specialty"
     },
     {
       "title": "Cửa hàng điện tử",
-      "slug": "cua-hang-dien-tu",
+      "slug": "du-an-demo-cua-hang-dien-tu",
       "categorySlug": "ban-hang",
       "categoryName": "Bán hàng",
-      "image": "/images/06.jpg",
+      "image": "/uploads/1784711313401-621482683.jpg",
       "url": "/du-an/demo/cua-hang-dien-tu"
+    },
+    {
+      "title": "Nông sản sạch",
+      "slug": "nong-san",
+      "categorySlug": "ban-hang",
+      "categoryName": "Bán hàng",
+      "image": "/uploads/1784713658726-69065379.jpg",
+      "url": "/du-an/demo/nong-san"
     }
   ]
 }

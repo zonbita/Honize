@@ -1,0 +1,16 @@
+<section class="oris-section oris-services" id="services" aria-labelledby="oris-svc-title">
+  <div class="oris-wrap">
+    {{> demo/oris/section-header
+      centered=true
+      label="Dịch vụ nha khoa"
+      title="Dịch vụ nha khoa nổi bật"
+      titleId="oris-svc-title"
+      lead="Từ khám định kỳ đến thẩm mỹ nâng cao — mỗi liệu trình được thiết kế riêng theo nhu cầu của bạn."
+    }}
+    <div class="oris-svc-grid">
+      {{#each orisServices}}
+        {{> demo/oris/service-card }}
+      {{/each}}
+    </div>
+  </div>
+</section>

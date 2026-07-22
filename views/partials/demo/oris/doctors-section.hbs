@@ -1,0 +1,19 @@
+<section class="oris-section oris-doctors" id="doctors" aria-labelledby="oris-doc-title">
+  <div class="oris-wrap">
+    {{> demo/oris/section-header
+      centered=true
+      label="Đội ngũ chuyên gia"
+      title="Bác sĩ tận tâm, chuyên môn vững vàng"
+      titleId="oris-doc-title"
+      lead="Đội ngũ bác sĩ ORIS được đào tạo liên tục, đồng hành cùng bạn trong từng liệu trình."
+    }}
+    <div class="oris-doc-grid">
+      {{#each orisDoctors}}
+        {{> demo/oris/doctor-card }}
+      {{/each}}
+    </div>
+    <div class="oris-section-cta">
+      <a href="{{orisBase}}/bac-si" class="oris-btn oris-btn-outline">Xem thêm đội ngũ bác sĩ</a>
+    </div>
+  </div>
+</section>

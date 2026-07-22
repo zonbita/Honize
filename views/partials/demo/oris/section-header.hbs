@@ -1,0 +1,14 @@
+{{#if centered}}
+<div class="oris-section-head oris-section-head--center">
+{{else}}
+<div class="oris-section-head{{#if row}} oris-section-head--row{{/if}}">
+{{/if}}
+  <div>
+    {{#if label}}<p class="oris-label">{{label}}</p>{{/if}}
+    <h2{{#if titleId}} id="{{titleId}}"{{/if}}>{{{title}}}</h2>
+    {{#if lead}}<p class="oris-section-lead">{{lead}}</p>{{/if}}
+  </div>
+  {{#if linkHref}}
+    <a href="{{linkHref}}" class="oris-text-link">{{linkLabel}} <span aria-hidden="true">→</span></a>
+  {{/if}}
+</div>

@@ -182,14 +182,18 @@
   })();
 
   (function initDemoCapture() {
+    const CAPTURE_TIMEOUT_MS = 60000;
     const captureBtn = document.getElementById('demo-capture-btn');
     const iframe = document.getElementById('demo-preview-frame');
     const status = document.getElementById('demo-capture-status');
     const urlInput = document.getElementById('thumbnail-input');
     const preview = document.getElementById('thumb-preview');
     const previewImg = document.getElementById('thumb-preview-img');
-    const dropzone = document.getElementById('thumb-dropzone');
     if (!captureBtn || !iframe || !urlInput || !previewImg) return;
+
+    let iframeReady = false;
+    let captureInFlight = false;
+    let captureTimeoutId = null;
 
     function setPreview(url) {
       previewImg.src = url;
@@ -207,6 +211,16 @@
       status.classList.remove('hidden');
     }
 
+    function resetCaptureBtn() {
+      captureInFlight = false;
+      if (captureTimeoutId) {
+        clearTimeout(captureTimeoutId);
+        captureTimeoutId = null;
+      }
+      captureBtn.disabled = false;
+      captureBtn.textContent = 'Chụp làm thumbnail';
+    }
+
     function dataUrlToBlob(dataUrl) {
       const parts = dataUrl.split(',');
       const mime = parts[0].match(/:(.*?);/)[1];
@@ -217,23 +231,89 @@
       return new Blob([buffer], { type: mime });
     }
 
+    function pingIframeReady() {
+      try {
+        if (iframe.contentWindow) {
+          iframe.contentWindow.postMessage(
+            { type: 'demo-capture-ping' },
+            window.location.origin,
+          );
+        }
+      } catch (err) {
+        /* ignore cross-origin / not ready */
+      }
+    }
+
+    iframe.addEventListener('load', function () {
+      // Wait for demo-capture-ready from the iframe script (may load after this event).
+      iframeReady = false;
+      setTimeout(pingIframeReady, 0);
+      setTimeout(pingIframeReady, 300);
+    });
+
+    // Iframe may already be loaded before this script runs.
+    pingIframeReady();
+    setTimeout(pingIframeReady, 300);
+
+    function armCaptureTimeout() {
+      if (captureTimeoutId) clearTimeout(captureTimeoutId);
+      captureTimeoutId = setTimeout(function () {
+        if (!captureInFlight) return;
+        resetCaptureBtn();
+        showCaptureStatus('Chụp quá lâu / không nhận được phản hồi. Thử lại.', true);
+      }, CAPTURE_TIMEOUT_MS);
+    }
+
     window.addEventListener('message', async function (event) {
       if (event.origin !== window.location.origin) return;
       const data = event.data;
-      if (!data || data.type !== 'demo-capture-result') return;
+      if (!data) return;
 
-      captureBtn.disabled = false;
-      captureBtn.textContent = 'Chụp làm thumbnail';
+      if (data.type === 'demo-capture-ready') {
+        iframeReady = true;
+        return;
+      }
 
-      if (!data.ok || !data.dataUrl) {
+      if (data.type === 'demo-capture-progress') {
+        if (!captureInFlight) return;
+        armCaptureTimeout();
+        if (data.stage === 'started') {
+          showCaptureStatus('Đã nhận lệnh, đang chuẩn bị ảnh...', false);
+        } else if (data.stage === 'rendering') {
+          showCaptureStatus('Đang render trang demo...', false);
+        }
+        return;
+      }
+
+      if (data.type !== 'demo-capture-result') return;
+      if (!captureInFlight) return;
+
+      resetCaptureBtn();
+
+      if (!data.ok) {
         showCaptureStatus(data.error || 'Chụp ảnh thất bại', true);
         return;
       }
 
-      showCaptureStatus('Đang tải ảnh lên...', false);
-
       try {
-        const blob = dataUrlToBlob(data.dataUrl);
+        // Prefer URL already uploaded from the demo iframe (avoids huge postMessage payloads).
+        if (data.url) {
+          setPreview(data.url);
+          showCaptureStatus('Đã chụp và gán làm thumbnail dự án', false);
+          window.dispatchEvent(new CustomEvent('thumb-library:reload'));
+          return;
+        }
+
+        showCaptureStatus('Đang tải ảnh lên...', false);
+
+        let blob = data.blob || null;
+        if (!blob && data.dataUrl) {
+          blob = dataUrlToBlob(data.dataUrl);
+        }
+        if (!blob) {
+          throw new Error('Không nhận được ảnh từ demo');
+        }
+
         const formData = new FormData();
         const extension = blob.type === 'image/jpeg' ? 'jpg' : 'png';
         formData.append('file', blob, `demo-thumbnail.${extension}`);
@@ -249,29 +329,46 @@
     });
 
     captureBtn.addEventListener('click', function () {
+      if (captureInFlight) return;
+
       if (!iframe.contentWindow) {
         showCaptureStatus('Iframe demo chưa sẵn sàng', true);
+        return;
+      }
+
+      if (!iframeReady) {
+        showCaptureStatus('Demo đang tải, đợi vài giây rồi bấm lại', true);
         return;
       }
 
       const viewportWidth = Math.max(1, Math.round(iframe.clientWidth));
       const viewportHeight = Math.max(1, Math.round(iframe.clientHeight));
 
+      captureInFlight = true;
       captureBtn.disabled = true;
       captureBtn.textContent = 'Đang chụp...';
       showCaptureStatus('Đang chụp toàn bộ chiều cao của trang demo...', false);
+      armCaptureTimeout();
 
-      iframe.contentWindow.postMessage(
-        {
-          type: 'demo-capture',
-          fullPage: true,
-          viewportWidth,
-          viewportHeight,
-          outputWidth: viewportWidth,
-          pixelRatio: 1,
-        },
-        window.location.origin,
-      );
+      try {
+        iframe.contentWindow.postMessage(
+          {
+            type: 'demo-capture',
+            fullPage: true,
+            viewportWidth,
+            viewportHeight,
+            outputWidth: Math.min(viewportWidth, 1280),
+            pixelRatio: 1,
+            maxOutputWidth: 1280,
+            maxOutputHeight: 2400,
+            maxCaptureHeight: 8000,
+          },
+          window.location.origin,
+        );
+      } catch (err) {
+        resetCaptureBtn();
+        showCaptureStatus(err.message || 'Không gửi được lệnh chụp sang demo', true);
+      }
     });
   })();
 </script>

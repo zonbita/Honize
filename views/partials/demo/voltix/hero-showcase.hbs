@@ -1,0 +1,138 @@
+<section class="vx-showcase" id="showcase" aria-label="Khuyến mãi và danh mục nổi bật">
+  <div class="vx-wrap vx-showcase-grid">
+    <aside class="vx-showcase-sidebar vx-desktop-only" aria-label="Danh mục nhanh">
+      <div class="vx-showcase-sidebar-inner">
+        {{> demo/voltix/category-menu-list }}
+      </div>
+    </aside>
+
+    <div class="vx-showcase-center">
+      <div class="vx-showcase-card">
+        <div class="vx-showcase-tabs" role="tablist" aria-label="Chương trình khuyến mãi">
+          <button type="button" class="vx-showcase-tab" role="tab" aria-selected="false">MỪNG KHAI TRƯƠNG</button>
+          <button type="button" class="vx-showcase-tab" role="tab" aria-selected="false">GALAXY MỚI</button>
+          <button type="button" class="vx-showcase-tab is-active" role="tab" aria-selected="true">IPHONE 15 PRO MAX</button>
+          <button type="button" class="vx-showcase-tab" role="tab" aria-selected="false">LAPTOP M3</button>
+          <button type="button" class="vx-showcase-tab" role="tab" aria-selected="false">TAI NGHE ANC</button>
+        </div>
+
+        <div class="vx-showcase-carousel">
+          <article class="vx-showcase-slide">
+            <div class="vx-showcase-slide-bg" aria-hidden="true"></div>
+            <div class="vx-showcase-slide-inner">
+              <div class="vx-showcase-slide-copy">
+                <p class="vx-showcase-slide-kicker">#<em>LƯỚT MƯỢT</em> Ghê! LÊN ĐỜI DỄ</p>
+                <p class="vx-showcase-slide-sub">iPhone 15 Pro Max. Thiết kế cho tương lai.</p>
+                <div class="vx-showcase-price-box">
+                  <div class="vx-showcase-price-col">
+                    <span class="vx-showcase-price-label">Lên đời chỉ từ</span>
+                    <strong class="vx-showcase-price-value">32,99 Triệu</strong>
+                  </div>
+                  <div class="vx-showcase-price-divider" aria-hidden="true"></div>
+                  <div class="vx-showcase-price-col">
+                    <span class="vx-showcase-price-label">Hoặc trả góp từ</span>
+                    <strong class="vx-showcase-price-value">90K / Ngày</strong>
+                  </div>
+                </div>
+                <div class="vx-showcase-mini-tags">
+                  <span>0% Lãi suất</span>
+                  <span>Thời hạn 12 tháng</span>
+                </div>
+                <a href="#products" class="vx-showcase-cta">Mua ngay</a>
+              </div>
+              <div class="vx-showcase-slide-visual">
+                <img src="/images/Demo/DienTu/hero-products-transparent.png" alt="iPhone 15 Pro Max" width="420" height="300" loading="lazy" />
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="vx-showcase-subbanners">
+          <a href="#category-laptop" class="vx-showcase-sub vx-showcase-sub--mac">
+            <div class="vx-showcase-sub-copy">
+              <span class="vx-showcase-sub-apple" aria-hidden="true"></span>
+              <strong>MacBook Pro</strong>
+              <span>Nay với M3, M3 Pro và M3 Max</span>
+              <span class="vx-showcase-sub-btn">Mua ngay</span>
+            </div>
+            <img src="/images/Demo/DienTu/product-laptop.png" alt="" width="100" height="72" loading="lazy" aria-hidden="true" />
+          </a>
+
+          <a href="#category-phone" class="vx-showcase-sub vx-showcase-sub--samsung">
+            <div class="vx-showcase-sub-copy">
+              <span class="vx-showcase-sub-brand">SAMSUNG</span>
+              <strong>Galaxy S24 | A55 5G</strong>
+              <ul class="vx-showcase-sub-deals">
+                <li><strong>28,99 Triệu</strong></li>
+                <li>Giảm sạc <strong>50%</strong></li>
+                <li>Thu cũ thêm <strong>2 Triệu</strong></li>
+              </ul>
+              <span class="vx-showcase-sub-note">Ưu đãi thêm cho HSSV, giáo viên</span>
+              <span class="vx-showcase-sub-link">MUA NGAY</span>
+            </div>
+          </a>
+
+          <a href="#category-laptop" class="vx-showcase-sub vx-showcase-sub--laptop">
+            <div class="vx-showcase-sub-copy">
+              <strong class="vx-showcase-sub-headline">LAPTOP</strong>
+              <span class="vx-showcase-sub-highlight">Giảm thêm đến 1 Triệu</span>
+              <span class="vx-showcase-sub-link vx-showcase-sub-link--red">Mua ngay</span>
+            </div>
+            <img src="/images/Demo/DienTu/laptop-3d.webp" alt="" width="100" height="80" loading="lazy" aria-hidden="true" />
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <aside class="vx-showcase-side vx-desktop-only" aria-label="Thông tin thành viên">
+      <div class="vx-showcase-side-panel">
+        <div class="vx-showcase-side-welcome">
+          {{> demo/voltix/ui-icon name="bolt" large=true class="vx-showcase-side-mascot" size="24" }}
+          <p>Chào mừng bạn đến với <strong>VOLTIX</strong></p>
+          <div class="vx-showcase-side-links">
+            <a href="#contact">Đăng nhập</a>
+            <span aria-hidden="true">|</span>
+            <a href="#contact">Đăng ký</a>
+          </div>
+          <a href="#newsletter" class="vx-showcase-side-member">Xem ưu đãi thành viên</a>
+        </div>
+
+        <div class="vx-showcase-side-block">
+          <h3>Ưu đãi cho giáo dục</h3>
+          <ul>
+            <li>{{> demo/voltix/ui-icon name="graduation" }} Đăng ký nhận ưu đãi</li>
+            <li>{{> demo/voltix/ui-icon name="flame" }} Deal hot học sinh sinh viên</li>
+            <li>{{> demo/voltix/ui-icon name="laptop" }} Laptop ưu đãi khủng</li>
+          </ul>
+        </div>
+
+        <div class="vx-showcase-side-block">
+          <h3>Thu cũ lên đời giá hời</h3>
+          <ul class="vx-showcase-side-plain">
+            <li>iPhone trợ giá đến <strong>3 Triệu</strong></li>
+            <li>Samsung trợ giá đến <strong>4 Triệu</strong></li>
+          </ul>
+        </div>
+
+        <div class="vx-showcase-side-foot">
+          <a href="#contact">Khách hàng doanh nghiệp (B2B)</a>
+          <a href="#promotion" class="vx-showcase-side-tag">Giảm đến 50%</a>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="vx-wrap">
+    <a href="#promotion" class="vx-showcase-ribbon" aria-label="Chương trình đổi điểm lấy ưu đãi">
+      <span class="vx-showcase-ribbon-mascot" aria-hidden="true">
+        <img src="/images/Demo/DienTu/icons/icon-gift-white.svg" alt="" width="24" height="24" loading="lazy" />
+      </span>
+      <span class="vx-showcase-ribbon-main">ĐỔI ĐIỂM LÊN DEAL</span>
+      <span class="vx-showcase-ribbon-seg">Quà tặng giới hạn</span>
+      <span class="vx-showcase-ribbon-seg">Voucher đến 3 Triệu</span>
+      <span class="vx-showcase-ribbon-seg">Sinh viên thêm 10%</span>
+      <span class="vx-showcase-ribbon-date">1.7 – 31.10</span>
+      <span class="vx-showcase-ribbon-action">Đổi điểm ngay</span>
+    </a>
+  </div>
+</section>

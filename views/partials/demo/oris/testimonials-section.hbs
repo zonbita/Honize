@@ -1,0 +1,28 @@
+<section class="oris-section oris-testimonials" id="testimonials" aria-labelledby="oris-quote-title">
+  <div class="oris-wrap">
+    {{> demo/oris/section-header
+      centered=true
+      label="Cảm nhận khách hàng"
+      title="Khách hàng nói về ORIS"
+      titleId="oris-quote-title"
+    }}
+    <div class="oris-quote-grid">
+      {{#each orisTestimonials}}
+        <blockquote class="oris-quote-card{{#if featured}} is-featured{{/if}}">
+          <span class="oris-quote-mark" aria-hidden="true">“</span>
+          <p>{{text}}</p>
+          <div class="oris-quote-stars" aria-label="5 trên 5 sao">
+            <span aria-hidden="true">★★★★★</span>
+          </div>
+          <footer>
+            <span class="oris-quote-avatar" aria-hidden="true">{{initials}}</span>
+            <span>
+              <strong>{{name}}</strong>
+              <span class="oris-quote-tag">{{treatment}}</span>
+            </span>
+          </footer>
+        </blockquote>
+      {{/each}}
+    </div>
+  </div>
+</section>

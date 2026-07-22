@@ -1,0 +1,17 @@
+<article class="oris-stat-card{{#if isRating}} oris-stat-card--rating{{/if}}">
+  {{#if isRating}}
+    <div class="oris-stat-stars" aria-label="Đánh giá 4.9 trên 5 sao">
+      {{#each stars}}
+        <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true">
+          <path fill="currentColor" d="M10 1.8l2.4 4.9 5.4.8-3.9 3.8.9 5.4L10 14.2 5.2 16.7l.9-5.4L2.2 7.5l5.4-.8L10 1.8z"/>
+        </svg>
+      {{/each}}
+    </div>
+  {{else}}
+    <span class="oris-stat-icon" aria-hidden="true">
+      {{{icon}}}
+    </span>
+  {{/if}}
+  <strong class="oris-stat-value">{{{value}}}</strong>
+  <span class="oris-stat-label">{{label}}</span>
+</article>

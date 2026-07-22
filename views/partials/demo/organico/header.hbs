@@ -1,0 +1,54 @@
+<div class="org-topbar">
+  <div class="org-wrap org-topbar-inner">
+    <p>Miễn phí giao hàng đơn từ 300.000đ nội thành</p>
+    <div class="org-topbar-links">
+      <a href="tel:19006868">1900 6868</a>
+      <a href="mailto:hello@organico.vn">hello@organico.vn</a>
+    </div>
+  </div>
+</div>
+
+<header class="org-header">
+  <div class="org-wrap org-header-inner">
+    <a href="{{orgBase}}" class="org-logo">
+      <span class="org-logo-icon" aria-hidden="true">
+        <img src="/images/Demo/NongSan/icons/logo-leaf.svg" alt="" width="40" height="40" />
+      </span>
+      <span>
+        <strong>Organico</strong>
+        <small>Thực phẩm hữu cơ</small>
+      </span>
+    </a>
+
+    <nav class="org-nav" aria-label="Điều hướng chính">
+      <a href="{{orgBase}}#trang-chu" {{#if (eq orgActive 'home')}}aria-current="page"{{/if}}>Trang chủ</a>
+      <a href="{{orgBase}}#danh-muc">Danh mục</a>
+      <a href="{{orgBase}}#san-pham">Sản phẩm</a>
+      <a href="{{orgBase}}/gioi-thieu" {{#if (eq orgActive 'about')}}aria-current="page"{{/if}}>Về chúng tôi</a>
+      <a href="{{orgBase}}#tin-tuc">Tin tức</a>
+    </nav>
+
+    <div class="org-header-actions">
+      <button type="button" class="org-icon-btn" id="org-search-toggle" aria-label="Tìm kiếm" aria-expanded="false" aria-controls="org-search-modal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+      </button>
+      <button type="button" class="org-icon-btn org-cart-btn" id="org-cart-btn" aria-label="Giỏ hàng" aria-expanded="false" aria-controls="org-cart-drawer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="20" r="1"/><circle cx="17" cy="20" r="1"/><path d="M2 3h2l2.4 12.4a1 1 0 001 .8h9.7a1 1 0 00.98-.8L20 7H6"/></svg>
+        <span class="org-cart-badge" id="org-cart-count" hidden>0</span>
+      </button>
+      <a href="{{orgBase}}/lien-he" class="org-btn org-btn-sm">Đặt hàng</a>
+      <button type="button" class="org-menu-btn" id="org-menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="org-drawer">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <nav class="org-drawer" id="org-drawer" aria-label="Menu di động" hidden>
+    <a href="{{orgBase}}#trang-chu">Trang chủ</a>
+    <a href="{{orgBase}}#danh-muc">Danh mục</a>
+    <a href="{{orgBase}}#san-pham">Sản phẩm</a>
+    <a href="{{orgBase}}/gioi-thieu">Về chúng tôi</a>
+    <a href="{{orgBase}}#tin-tuc">Tin tức</a>
+    <a href="{{orgBase}}/lien-he">Liên hệ</a>
+  </nav>
+</header>

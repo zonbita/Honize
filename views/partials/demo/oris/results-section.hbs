@@ -1,0 +1,28 @@
+<section class="oris-section oris-results" id="results" aria-labelledby="oris-ba-title">
+  <div class="oris-wrap">
+    {{> demo/oris/section-header
+      centered=true
+      label="Kết quả điều trị"
+      title="Thay đổi nụ cười, nâng tầm tự tin"
+      titleId="oris-ba-title"
+      lead="Kết quả thực tế tại ORIS — tự nhiên, hài hòa và bền vững theo thời gian."
+    }}
+    <div class="oris-results-grid">
+      {{#each orisResults}}
+        <figure class="oris-result-card">
+          <div class="oris-result-media">
+            <img src="{{image}}" alt="{{alt}}" width="900" height="520" loading="lazy" />
+            <div class="oris-result-labels" aria-hidden="true">
+              <span>Trước</span>
+              <span>Sau</span>
+            </div>
+          </div>
+          <figcaption>
+            <h3>{{title}}</h3>
+            <p>{{text}}</p>
+          </figcaption>
+        </figure>
+      {{/each}}
+    </div>
+  </div>
+</section>

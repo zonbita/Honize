@@ -1,0 +1,504 @@
+<script>
+
+(function () {
+
+  var cart = [];
+
+
+
+  var menuToggle = document.getElementById('vx-menu-toggle');
+
+  var mobileNav = document.getElementById('vx-mobile-nav');
+
+  var mobileBackdrop = document.getElementById('vx-mobile-backdrop');
+
+  var searchToggle = document.getElementById('vx-search-toggle');
+
+  var mobileSearch = document.getElementById('vx-mobile-search');
+
+  var searchForm = document.getElementById('vx-search-form');
+
+  var searchInput = document.getElementById('vx-search-input');
+
+  var mobileSearchInput = document.getElementById('vx-mobile-search-input');
+
+  var cartBtn = document.getElementById('vx-cart-btn');
+
+  var cartDrawer = document.getElementById('vx-cart-drawer');
+
+  var cartBackdrop = document.getElementById('vx-cart-backdrop');
+
+  var cartClose = document.getElementById('vx-cart-close');
+
+  var cartBody = document.getElementById('vx-cart-body');
+
+  var cartCount = document.getElementById('vx-cart-count');
+
+  var cartTotal = document.getElementById('vx-cart-total');
+
+  var noResults = document.getElementById('vx-no-results');
+
+  var newsletterForm = document.getElementById('vx-newsletter-form');
+
+  var newsletterMsg = document.getElementById('vx-newsletter-msg');
+
+  var toast = document.getElementById('vx-toast');
+  var categoryBtn = document.getElementById('vx-category-btn');
+  var categoryDropdown = document.getElementById('vx-category-dropdown');
+  var categoryBackdrop = document.getElementById('vx-category-backdrop');
+
+
+
+  function formatPrice(n) {
+
+    return n.toLocaleString('vi-VN') + ' ₫';
+
+  }
+
+
+
+  function showToast(msg) {
+
+    if (!toast) return;
+
+    toast.textContent = msg;
+
+    toast.hidden = false;
+
+    clearTimeout(showToast._t);
+
+    showToast._t = setTimeout(function () { toast.hidden = true; }, 2400);
+
+  }
+
+
+
+  function getSearchQuery() {
+
+    if (searchInput && searchInput.value.trim()) return searchInput.value.trim().toLowerCase();
+
+    if (mobileSearchInput && mobileSearchInput.value.trim()) return mobileSearchInput.value.trim().toLowerCase();
+
+    return '';
+
+  }
+
+
+
+  function openMobileNav(open) {
+
+    if (!mobileNav || !mobileBackdrop || !menuToggle) return;
+
+    mobileNav.hidden = !open;
+
+    mobileBackdrop.hidden = !open;
+
+    menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+
+    document.body.classList.toggle('vx-nav-open', open);
+
+    mobileNav.classList.toggle('is-open', open);
+
+  }
+
+
+
+  function openCart(open) {
+
+    if (!cartDrawer || !cartBackdrop || !cartBtn) return;
+
+    cartBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+
+    document.body.classList.toggle('vx-cart-open', open);
+
+    if (open) {
+
+      cartDrawer.hidden = false;
+
+      cartBackdrop.hidden = false;
+
+      requestAnimationFrame(function () {
+
+        cartDrawer.classList.add('is-open');
+
+        cartBackdrop.classList.add('is-open');
+
+      });
+
+      return;
+
+    }
+
+    cartDrawer.classList.remove('is-open');
+
+    cartBackdrop.classList.remove('is-open');
+
+    window.setTimeout(function () {
+
+      if (!cartDrawer.classList.contains('is-open')) {
+
+        cartDrawer.hidden = true;
+
+        cartBackdrop.hidden = true;
+
+      }
+
+    }, 220);
+
+  }
+
+
+
+  function renderCart() {
+
+    if (!cartBody || !cartCount || !cartTotal) return;
+
+    cartCount.textContent = String(cart.length);
+
+    if (!cart.length) {
+
+      cartBody.innerHTML = '<p class="vx-cart-empty">Chưa có sản phẩm nào.</p>';
+
+      cartTotal.textContent = '0 ₫';
+
+      return;
+
+    }
+
+    var total = 0;
+
+    cartBody.innerHTML = cart.map(function (item, i) {
+
+      total += item.price;
+
+      return '<div class="vx-cart-row">' +
+
+        '<div><strong>' + item.name + '</strong><span>' + formatPrice(item.price) + '</span></div>' +
+
+        '<button type="button" data-remove="' + i + '" aria-label="Xóa ' + item.name + '">×</button>' +
+
+      '</div>';
+
+    }).join('');
+
+    cartTotal.textContent = formatPrice(total);
+
+  }
+
+
+
+  function filterProducts() {
+
+    var query = getSearchQuery();
+
+    var allCards = document.querySelectorAll('.vx-product-card');
+
+    var featuredVisible = 0;
+
+
+
+    allCards.forEach(function (card) {
+
+      var name = (card.getAttribute('data-name') || '').toLowerCase();
+
+      var show = !query || name.indexOf(query) !== -1;
+
+      card.hidden = !show;
+
+    });
+
+
+
+    document.querySelectorAll('[data-category-section]').forEach(function (section) {
+
+      var visible = section.querySelectorAll('.vx-product-card:not([hidden])').length;
+
+      section.hidden = query.length > 0 && visible === 0;
+
+    });
+
+
+
+    var featuredSection = document.getElementById('products');
+
+    if (featuredSection) {
+
+      featuredVisible = featuredSection.querySelectorAll('.vx-product-card:not([hidden])').length;
+
+      if (query.length > 0) featuredSection.hidden = featuredVisible === 0;
+
+      else featuredSection.hidden = false;
+
+    }
+
+
+
+    if (noResults) {
+
+      var anyVisible = document.querySelectorAll('.vx-product-card:not([hidden])').length;
+
+      noResults.hidden = anyVisible > 0 || !query;
+
+    }
+
+  }
+
+
+
+  function scrollToCategory(category) {
+
+    var target = document.getElementById('category-' + category);
+
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    document.querySelectorAll('.vx-category-item').forEach(function (btn) {
+
+      btn.classList.toggle('is-active', btn.getAttribute('data-category') === category);
+
+    });
+
+  }
+
+
+
+  if (menuToggle) {
+
+    menuToggle.addEventListener('click', function () {
+
+      openMobileNav(mobileNav && mobileNav.hidden);
+
+    });
+
+  }
+
+  if (mobileBackdrop) {
+
+    mobileBackdrop.addEventListener('click', function () { openMobileNav(false); });
+
+  }
+
+  if (mobileNav) {
+
+    mobileNav.querySelectorAll('a').forEach(function (link) {
+
+      link.addEventListener('click', function () { openMobileNav(false); });
+
+    });
+
+  }
+
+
+
+  if (searchToggle && mobileSearch) {
+
+    searchToggle.addEventListener('click', function () {
+
+      var open = mobileSearch.hidden;
+
+      mobileSearch.hidden = !open;
+
+      searchToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+
+      if (open && mobileSearchInput) mobileSearchInput.focus();
+
+    });
+
+  }
+
+
+
+  function handleSearch(e) {
+
+    if (e) e.preventDefault();
+
+    filterProducts();
+
+    document.getElementById('products').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  }
+
+
+
+  if (searchForm) searchForm.addEventListener('submit', handleSearch);
+
+  if (mobileSearch) mobileSearch.addEventListener('submit', handleSearch);
+
+  if (searchInput) searchInput.addEventListener('input', filterProducts);
+
+  if (mobileSearchInput) mobileSearchInput.addEventListener('input', filterProducts);
+
+
+
+  document.querySelectorAll('.vx-category-item').forEach(function (btn) {
+
+    btn.addEventListener('click', function () {
+
+      scrollToCategory(btn.getAttribute('data-category'));
+
+    });
+
+  });
+
+
+
+  document.body.addEventListener('click', function (e) {
+
+    var btn = e.target.closest('.vx-product-cart-btn');
+
+    if (!btn) return;
+
+    var card = btn.closest('.vx-product-card');
+
+    if (!card) return;
+
+    cart.push({
+
+      id: card.getAttribute('data-id'),
+
+      name: card.getAttribute('data-name'),
+
+      price: parseInt(card.getAttribute('data-price'), 10) || 0
+
+    });
+
+    renderCart();
+
+    showToast('Đã thêm vào giỏ: ' + card.getAttribute('data-name'));
+
+  });
+
+
+
+  if (cartBtn) cartBtn.addEventListener('click', function () { openCart(cartDrawer && cartDrawer.hidden); });
+
+  if (cartClose) cartClose.addEventListener('click', function () { openCart(false); });
+
+  if (cartBackdrop) cartBackdrop.addEventListener('click', function () { openCart(false); });
+
+
+
+  if (cartBody) {
+
+    cartBody.addEventListener('click', function (e) {
+
+      var btn = e.target.closest('[data-remove]');
+
+      if (!btn) return;
+
+      cart.splice(parseInt(btn.getAttribute('data-remove'), 10), 1);
+
+      renderCart();
+
+    });
+
+  }
+
+
+
+  if (newsletterForm) {
+
+    newsletterForm.addEventListener('submit', function (e) {
+
+      e.preventDefault();
+
+      var emailInput = document.getElementById('vx-newsletter-email');
+
+      var email = (emailInput && emailInput.value || '').trim();
+
+      var ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+      if (newsletterMsg) {
+
+        newsletterMsg.hidden = false;
+
+        newsletterMsg.textContent = ok
+
+          ? 'Đăng ký thành công! Kiểm tra email của bạn.'
+
+          : 'Vui lòng nhập email hợp lệ.';
+
+        newsletterMsg.className = 'vx-form-msg ' + (ok ? 'is-ok' : 'is-err');
+
+      }
+
+      if (ok) {
+
+        newsletterForm.reset();
+
+        showToast('Đăng ký nhận ưu đãi thành công!');
+
+      }
+
+    });
+
+  }
+
+
+
+  function openCategoryDropdown(open) {
+    if (!categoryBtn || !categoryDropdown || !categoryBackdrop) return;
+    categoryBtn.classList.toggle('is-open', open);
+    categoryBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    categoryDropdown.hidden = !open;
+    categoryBackdrop.hidden = !open;
+    document.body.classList.toggle('vx-category-open', open);
+  }
+
+  if (categoryBtn) {
+    categoryBtn.addEventListener('click', function () {
+      openCategoryDropdown(categoryDropdown && categoryDropdown.hidden);
+    });
+  }
+  if (categoryBackdrop) {
+    categoryBackdrop.addEventListener('click', function () { openCategoryDropdown(false); });
+  }
+  if (categoryDropdown) {
+    categoryDropdown.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () { openCategoryDropdown(false); });
+    });
+  }
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && categoryDropdown && !categoryDropdown.hidden) {
+      openCategoryDropdown(false);
+    }
+  });
+
+  document.querySelectorAll('.vx-showcase-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.vx-showcase-tab').forEach(function (t) {
+        t.classList.remove('is-active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      tab.classList.add('is-active');
+      tab.setAttribute('aria-selected', 'true');
+    });
+  });
+
+  document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+
+    link.addEventListener('click', function (e) {
+
+      var id = link.getAttribute('href');
+
+      if (!id || id === '#') return;
+
+      var target = document.querySelector(id);
+
+      if (!target) return;
+
+      e.preventDefault();
+
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    });
+
+  });
+
+
+
+  renderCart();
+
+})();
+
+</script>
+

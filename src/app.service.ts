@@ -135,6 +135,12 @@ export class AppService {
       slug === 'shop-thoi-trang' || templateSlug === 'shop-thoi-trang'
         ? `/du-an/demo/${slug}`
         : null;
+    const voltixBase =
+      slug === 'cua-hang-dien-tu' || templateSlug === 'cua-hang-dien-tu'
+        ? `/du-an/demo/${slug}`
+        : null;
+    const orgBase = slug === 'nong-san' ? `/du-an/demo/${slug}` : null;
+    const snBase = slug === 'showroom-noi-that' ? `/du-an/demo/${slug}` : null;
 
     return {
       layout: 'demo',
@@ -151,11 +157,36 @@ export class AppService {
       orisActive: slug === 'nha-khoa' ? 'home' : null,
       orisHeaderSolid: false,
       orisHeroBg: null,
+      ...this.getOrisHomeData(slug),
       elaraBase,
       elaraActive: elaraBase ? 'home' : null,
       elaraHeaderSolid: false,
       elaraHeroBg: null,
       elaraCollection: null,
+      voltixBase,
+      voltixFeatured:
+        slug === 'cua-hang-dien-tu' ? this.getVoltixFeatured() : null,
+      voltixCategories:
+        slug === 'cua-hang-dien-tu' ? this.getVoltixCategories() : null,
+      orgBase,
+      orgActive: slug === 'nong-san' ? 'home' : null,
+      orgCategories:
+        slug === 'nong-san' ? this.getNongSanCategories() : null,
+      orgIconCategories:
+        slug === 'nong-san' ? this.getNongSanIconCategories() : null,
+      snBase,
+      snCategories:
+        slug === 'showroom-noi-that' ? this.getShowroomCategories() : null,
+      snNewProducts:
+        slug === 'showroom-noi-that' ? this.getShowroomNewProducts() : null,
+      snFeaturedProducts:
+        slug === 'showroom-noi-that' ? this.getShowroomFeaturedProducts() : null,
+      snProjects:
+        slug === 'showroom-noi-that' ? this.getShowroomProjects() : null,
+      snHeroSlides:
+        slug === 'showroom-noi-that' ? this.getShowroomHeroSlides() : null,
+      snHeroCategories:
+        slug === 'showroom-noi-that' ? this.getShowroomHeroCategories() : null,
       pageTitle: `Demo ${demo.title} — ${site.brand}`,
       seo: this.articlesService.buildStaticPageSeo(
         `Demo ${demo.title} — ${site.brand}`,
@@ -370,6 +401,26 @@ export class AppService {
         heroBg: '/images/Demo/NhaKhoa/18-bg-lien-he.png',
       },
     },
+    'nong-san': {
+      'gioi-thieu': {
+        view: 'demo/pages/nong-san/gioi-thieu',
+        nav: 'about',
+        title: 'Giới thiệu',
+        heroBg: '/images/Demo/NongSan/about-farm.jpg',
+      },
+      'lien-he': {
+        view: 'demo/pages/nong-san/lien-he',
+        nav: 'contact',
+        title: 'Liên hệ',
+        heroBg: '/images/Demo/NongSan/hero.jpg',
+      },
+      'chinh-sach-doi-tra': {
+        view: 'demo/pages/nong-san/chinh-sach-doi-tra',
+        nav: 'policy',
+        title: 'Chính sách đổi trả',
+        heroBg: '/images/Demo/NongSan/promo-farm.jpg',
+      },
+    },
   };
 
   getDemoSubpageData(slug: string, subpage: string) {
@@ -423,6 +474,8 @@ export class AppService {
         slug === 'shop-thoi-trang'
           ? this.getElaraCollectionForSubpage(subpage)
           : null,
+      orgBase: slug === 'nong-san' ? `/du-an/demo/${slug}` : base.orgBase,
+      orgActive: slug === 'nong-san' ? config.nav : base.orgActive,
       pageTitle: `${config.title} — ${demoTitle} — ${base.brand}`,
       seo: this.articlesService.buildStaticPageSeo(
         `${config.title} — ${demoTitle}`,
@@ -441,9 +494,6 @@ export class AppService {
     const aliases: Record<string, string> = {
       'thiet-ke-ngoai-that': 'shop-thoi-trang',
       'cong-ty-kien-truc': 'nha-hang-sai-gon',
-      'showroom-noi-that': 'can-ho-cao-cap',
-      'cafe-specialty': 'trung-tam-dao-tao',
-      'cua-hang-dien-tu': 'spa-wellness',
       'du-an-dat-nen': 'tu-van-du-hoc',
     };
     return aliases[slug] || slug;
@@ -539,6 +589,22 @@ export class AppService {
           label: 'Giảng viên & chuyên gia',
           icon: icon('<path d="M4 19V5M4 19h16M8 17v-4M12 17V9M16 17v-6"/>'),
         },
+      ];
+    }
+    if (slug === 'nong-san') {
+      return [
+        { value: '120+', label: 'Hộ nông dân đối tác' },
+        { value: '5.000+', label: 'Khách hàng tin dùng' },
+        { value: '2h', label: 'Giao hàng nội thành' },
+        { value: '98%', label: 'Hài lòng dịch vụ' },
+      ];
+    }
+    if (slug === 'showroom-noi-that') {
+      return [
+        { value: '350+', label: 'Mẫu nội thất' },
+        { value: '12', label: 'Năm kinh nghiệm' },
+        { value: '2.800+', label: 'Khách hàng tin tưởng' },
+        { value: '98%', label: 'Hài lòng dịch vụ' },
       ];
     }
     if (slug !== 'corporate-landing') return [];
@@ -891,6 +957,28 @@ export class AppService {
         },
       ];
     }
+    if (slug === 'nong-san') {
+      return [
+        {
+          quote:
+            'Rau củ tươi, giao đúng giờ. Combo tuần tiết kiệm thời gian nấu ăn cho cả gia đình.',
+          name: 'Chị Minh Thu',
+          role: 'Quận 7, TP.HCM',
+        },
+        {
+          quote:
+            'Thích nhất phần truy xuất nguồn gốc — biết rõ nông trại nào cung cấp, ăn yên tâm hơn.',
+          name: 'Anh Quốc Bảo',
+          role: 'Quận 3, TP.HCM',
+        },
+        {
+          quote:
+            'Gạo ST25 hữu cơ thơm, dẻo. Đặt định kỳ mỗi tháng, giá ổn định và ship nhanh.',
+          name: 'Chị Lan Anh',
+          role: 'Quận Bình Thạnh, TP.HCM',
+        },
+      ];
+    }
     if (slug !== 'trung-tam-dao-tao') return [];
     return [
       {
@@ -915,6 +1003,32 @@ export class AppService {
   }
 
   private getDemoFeatures(slug: string) {
+    if (slug === 'nong-san') {
+      const icon = (paths: string) =>
+        `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">${paths}</svg>`;
+      return [
+        {
+          icon: icon('<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9.5 12l1.8 1.8L15 10"/>'),
+          title: 'An toàn tuyệt đối',
+          text: 'Kiểm định 3 lớp trước khi xuất kho, đảm bảo không vượt ngưỡng hóa chất.',
+        },
+        {
+          icon: icon('<circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/>'),
+          title: 'Giao trong 2 giờ',
+          text: 'Đơn nội thành được xử lý ưu tiên, giữ độ tươi tối đa đến tay khách.',
+        },
+        {
+          icon: icon('<path d="M4 19V5M4 19h16M8 17v-4M12 17V9M16 17v-6"/>'),
+          title: 'Truy xuất QR',
+          text: 'Quét mã trên bao bì để xem nông trại, ngày thu hoạch và chứng nhận.',
+        },
+        {
+          icon: icon('<path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/>'),
+          title: 'Hỗ trợ tận tâm',
+          text: 'Tư vấn combo theo nhu cầu gia đình, đổi trả trong 24h nếu không hài lòng.',
+        },
+      ];
+    }
     if (slug === 'hoc-tieng-anh') {
       return [
         {
@@ -982,7 +1096,590 @@ export class AppService {
     ];
   }
 
+  private formatVnd(amount: number): string {
+    return `${amount.toLocaleString('vi-VN')} ₫`;
+  }
+
+  private voltixDefaultDiscount(id: string, price: number): number {
+    if (price < 1000000) return 0;
+    const hash = id.split('').reduce((sum, ch) => sum + ch.charCodeAt(0), 0);
+    const rates = [8, 10, 12, 15, 18, 20, 23, 25];
+    return rates[hash % rates.length];
+  }
+
+  private voltixImageFor(category: string, id: string): string {
+    const byCategory: Record<string, string[]> = {
+      laptop: [
+        '/images/Demo/DienTu/laptop-3d.webp',
+        '/images/Demo/DienTu/hero-products-transparent.png',
+      ],
+      phone: [
+        '/images/Demo/DienTu/mobile-3d.webp',
+        '/images/Demo/DienTu/hero-products-transparent.png',
+      ],
+      audio: [
+        '/images/Demo/DienTu/audio-3d.webp',
+        '/images/Demo/DienTu/promotion-products-transparent.png',
+      ],
+      smartwatch: [
+        '/images/Demo/DienTu/mobile-3d.webp',
+        '/images/Demo/DienTu/hero-products-transparent.png',
+      ],
+      tablet: [
+        '/images/Demo/DienTu/laptop-3d.webp',
+        '/images/Demo/DienTu/mobile-3d.webp',
+      ],
+      accessories: [
+        '/images/Demo/DienTu/audio-3d.webp',
+        '/images/Demo/DienTu/smart-home-3d.webp',
+      ],
+      monitor: [
+        '/images/Demo/DienTu/laptop-3d.webp',
+        '/images/Demo/DienTu/promotion-products-transparent.png',
+      ],
+      'smart-home': [
+        '/images/Demo/DienTu/smart-home-3d.webp',
+        '/images/Demo/DienTu/promotion-products-transparent.png',
+      ],
+    };
+    const pool = byCategory[category] ?? byCategory.laptop;
+    const hash = id.split('').reduce((sum, ch) => sum + ch.charCodeAt(0), 0);
+    return pool[hash % pool.length];
+  }
+
+  private voltixResolveImage(image: string, category: string, id: string): string {
+    if (/\/product-[^/]+\.png$/.test(image) || /\/category-[^/]+\.png$/.test(image)) {
+      return this.voltixImageFor(category, id);
+    }
+    return image;
+  }
+
+  private voltixProduct(
+    id: string,
+    name: string,
+    spec: string,
+    price: number,
+    image: string,
+    category: string,
+    options?: { discount?: number; installment?: boolean },
+  ) {
+    const discount =
+      options?.discount ?? this.voltixDefaultDiscount(id, price);
+    const installment = options?.installment ?? price >= 3000000;
+    return {
+      id,
+      name,
+      spec,
+      price,
+      priceDisplay: this.formatVnd(price),
+      image: this.voltixResolveImage(image, category, id),
+      category,
+      discount,
+      discountLabel: discount > 0 ? `Giảm ${discount}%` : null,
+      installment,
+      installmentLabel: installment ? 'Trả góp 0%' : null,
+    };
+  }
+
+  private getVoltixFeatured() {
+    const p = this.voltixProduct.bind(this);
+    return [
+      p('macbook-air-m3', 'MacBook Air M3 13 inch', '16GB / 512GB', 28990000, '/images/Demo/DienTu/product-laptop.png', 'laptop'),
+      p('macbook-pro-m3', 'MacBook Pro M3 Pro 14 inch', '18GB / 512GB', 52990000, '/images/Demo/DienTu/laptop-3d.webp', 'laptop'),
+      p('dell-xps-15', 'Dell XPS 15 OLED', '32GB / 1TB SSD', 41990000, '/images/Demo/DienTu/product-laptop.png', 'laptop'),
+      p('iphone-15-pro-max', 'iPhone 15 Pro Max 256GB', 'Titan Tự Nhiên', 32990000, '/images/Demo/DienTu/product-phone.png', 'phone'),
+      p('samsung-s24-ultra', 'Samsung Galaxy S24 Ultra', '256GB / Titanium Gray', 28990000, '/images/Demo/DienTu/mobile-3d.webp', 'phone'),
+      p('google-pixel-8-pro', 'Google Pixel 8 Pro', '128GB / Obsidian', 22990000, '/images/Demo/DienTu/product-phone.png', 'phone'),
+      p('sony-wh1000xm5', 'Sony WH-1000XM5', 'Tai nghe chống ồn', 7990000, '/images/Demo/DienTu/product-headphones.png', 'audio'),
+      p('airpods-pro-2', 'AirPods Pro 2', 'USB-C / ANC', 5990000, '/images/Demo/DienTu/audio-3d.webp', 'audio'),
+      p('apple-watch-s9', 'Apple Watch Series 9', 'GPS 45mm', 10990000, '/images/Demo/DienTu/product-smartwatch.png', 'smartwatch'),
+      p('galaxy-watch-6', 'Samsung Galaxy Watch 6', '44mm Bluetooth', 7490000, '/images/Demo/DienTu/product-smartwatch.png', 'smartwatch'),
+      p('ipad-air-m2', 'iPad Air M2 11 inch', '128GB Wi-Fi', 16990000, '/images/Demo/DienTu/product-tablet.png', 'tablet'),
+      p('galaxy-tab-s9', 'Samsung Galaxy Tab S9', '256GB Wi-Fi', 14990000, '/images/Demo/DienTu/product-tablet.png', 'tablet'),
+      p('logitech-mx-master', 'Logitech MX Master 3S', 'Chuột không dây', 2490000, '/images/Demo/DienTu/category-accessories.png', 'accessories'),
+      p('lg-ultragear-27', 'LG UltraGear 27 inch', 'QHD 165Hz IPS', 8990000, '/images/Demo/DienTu/category-monitor.png', 'monitor'),
+      p('google-nest-hub', 'Google Nest Hub Max', 'Màn hình thông minh 10"', 6990000, '/images/Demo/DienTu/smart-home-3d.webp', 'smart-home'),
+    ];
+  }
+
+  private getVoltixCategories() {
+    const p = this.voltixProduct.bind(this);
+    return [
+      {
+        id: 'laptop',
+        title: 'Laptop',
+        sectionTitleId: 'vx-cat-laptop-title',
+        linkHref: '#category-laptop',
+        products: [
+          p('macbook-air-m3', 'MacBook Air M3 13 inch', '16GB / 512GB', 28990000, '/images/Demo/DienTu/product-laptop.png', 'laptop'),
+          p('macbook-pro-m3', 'MacBook Pro M3 Pro 14 inch', '18GB / 512GB', 52990000, '/images/Demo/DienTu/laptop-3d.webp', 'laptop'),
+          p('dell-xps-15', 'Dell XPS 15 OLED', '32GB / 1TB SSD', 41990000, '/images/Demo/DienTu/product-laptop.png', 'laptop'),
+          p('asus-rog-zephyrus', 'ASUS ROG Zephyrus G14', 'Ryzen 9 / RTX 4060', 38990000, '/images/Demo/DienTu/laptop-3d.webp', 'laptop'),
+          p('lenovo-thinkpad-x1', 'Lenovo ThinkPad X1 Carbon', '32GB / 1TB', 44990000, '/images/Demo/DienTu/product-laptop.png', 'laptop'),
+        ],
+      },
+      {
+        id: 'phone',
+        title: 'Điện thoại',
+        sectionTitleId: 'vx-cat-phone-title',
+        linkHref: '#category-phone',
+        products: [
+          p('iphone-15-pro-max', 'iPhone 15 Pro Max 256GB', 'Titan Tự Nhiên', 32990000, '/images/Demo/DienTu/product-phone.png', 'phone'),
+          p('samsung-s24-ultra', 'Samsung Galaxy S24 Ultra', '256GB / Titanium Gray', 28990000, '/images/Demo/DienTu/mobile-3d.webp', 'phone'),
+          p('google-pixel-8-pro', 'Google Pixel 8 Pro', '128GB / Obsidian', 22990000, '/images/Demo/DienTu/product-phone.png', 'phone'),
+          p('xiaomi-14-pro', 'Xiaomi 14 Pro', '512GB / Titanium', 19990000, '/images/Demo/DienTu/mobile-3d.webp', 'phone'),
+          p('oppo-find-x7', 'OPPO Find X7 Ultra', '256GB / 5G', 24990000, '/images/Demo/DienTu/product-phone.png', 'phone'),
+        ],
+      },
+      {
+        id: 'audio',
+        title: 'Âm thanh',
+        sectionTitleId: 'vx-cat-audio-title',
+        linkHref: '#category-audio',
+        products: [
+          p('sony-wh1000xm5', 'Sony WH-1000XM5', 'Tai nghe chống ồn', 7990000, '/images/Demo/DienTu/product-headphones.png', 'audio'),
+          p('airpods-pro-2', 'AirPods Pro 2', 'USB-C / ANC', 5990000, '/images/Demo/DienTu/audio-3d.webp', 'audio'),
+          p('bose-qc-ultra', 'Bose QuietComfort Ultra', 'Headphones cao cấp', 8990000, '/images/Demo/DienTu/product-headphones.png', 'audio'),
+          p('jbl-flip-6', 'JBL Flip 6', 'Loa Bluetooth chống nước', 2790000, '/images/Demo/DienTu/audio-3d.webp', 'audio'),
+          p('marshall-acton-3', 'Marshall Acton III', 'Loa Bluetooth cổ điển', 6490000, '/images/Demo/DienTu/product-headphones.png', 'audio'),
+        ],
+      },
+      {
+        id: 'smartwatch',
+        title: 'Smartwatch',
+        sectionTitleId: 'vx-cat-smartwatch-title',
+        linkHref: '#category-smartwatch',
+        products: [
+          p('apple-watch-s9', 'Apple Watch Series 9', 'GPS 45mm', 10990000, '/images/Demo/DienTu/product-smartwatch.png', 'smartwatch'),
+          p('galaxy-watch-6', 'Samsung Galaxy Watch 6', '44mm Bluetooth', 7490000, '/images/Demo/DienTu/product-smartwatch.png', 'smartwatch'),
+          p('garmin-fenix-7', 'Garmin Fenix 7', 'Đa môn thể thao', 15990000, '/images/Demo/DienTu/product-smartwatch.png', 'smartwatch'),
+          p('huawei-watch-gt4', 'Huawei Watch GT 4', 'Pin 14 ngày', 5990000, '/images/Demo/DienTu/product-smartwatch.png', 'smartwatch'),
+          p('amazfit-gtr-4', 'Amazfit GTR 4', 'Theo dõi sức khỏe', 4490000, '/images/Demo/DienTu/product-smartwatch.png', 'smartwatch'),
+        ],
+      },
+      {
+        id: 'accessories',
+        title: 'Phụ kiện',
+        sectionTitleId: 'vx-cat-accessories-title',
+        linkHref: '#category-accessories',
+        products: [
+          p('logitech-mx-master', 'Logitech MX Master 3S', 'Chuột không dây', 2490000, '/images/Demo/DienTu/category-accessories.png', 'accessories'),
+          p('anker-powercore', 'Anker PowerCore 20K', 'Sạc dự phòng 65W', 1290000, '/images/Demo/DienTu/category-accessories.png', 'accessories'),
+          p('baseus-gan-charger', 'Baseus GaN Charger 100W', 'Sạc nhanh 3 cổng', 890000, '/images/Demo/DienTu/category-accessories.png', 'accessories'),
+          p('ugreen-usb-hub', 'Ugreen USB-C Hub 7-in-1', 'Hub đa năng', 990000, '/images/Demo/DienTu/category-accessories.png', 'accessories'),
+          p('apple-pencil-pro', 'Apple Pencil Pro', 'Bút cảm ứng thế hệ mới', 3990000, '/images/Demo/DienTu/category-accessories.png', 'accessories'),
+        ],
+      },
+      {
+        id: 'tablet',
+        title: 'Máy tính bảng',
+        sectionTitleId: 'vx-cat-tablet-title',
+        linkHref: '#category-tablet',
+        products: [
+          p('ipad-air-m2', 'iPad Air M2 11 inch', '128GB Wi-Fi', 16990000, '/images/Demo/DienTu/product-tablet.png', 'tablet'),
+          p('galaxy-tab-s9', 'Samsung Galaxy Tab S9', '256GB Wi-Fi', 14990000, '/images/Demo/DienTu/product-tablet.png', 'tablet'),
+          p('ipad-pro-m2', 'iPad Pro M2 12.9 inch', '256GB Wi-Fi', 28990000, '/images/Demo/DienTu/product-tablet.png', 'tablet'),
+          p('lenovo-tab-p12', 'Lenovo Tab P12 Pro', '128GB / OLED', 11990000, '/images/Demo/DienTu/product-tablet.png', 'tablet'),
+          p('surface-pro-9', 'Microsoft Surface Pro 9', 'i7 / 16GB / 256GB', 32990000, '/images/Demo/DienTu/product-tablet.png', 'tablet'),
+        ],
+      },
+      {
+        id: 'monitor',
+        title: 'Màn hình',
+        sectionTitleId: 'vx-cat-monitor-title',
+        linkHref: '#category-monitor',
+        products: [
+          p('lg-ultragear-27', 'LG UltraGear 27 inch', 'QHD 165Hz IPS', 8990000, '/images/Demo/DienTu/category-monitor.png', 'monitor'),
+          p('samsung-odyssey-g9', 'Samsung Odyssey G9', '49 inch Curved DQHD', 24990000, '/images/Demo/DienTu/category-monitor.png', 'monitor'),
+          p('dell-ultrasharp-32', 'Dell UltraSharp 32 inch', '4K IPS Black', 18990000, '/images/Demo/DienTu/category-monitor.png', 'monitor'),
+          p('asus-proart-27', 'ASUS ProArt PA279CRV', '4K chuyên đồ họa', 15990000, '/images/Demo/DienTu/category-monitor.png', 'monitor'),
+          p('benq-mobiuz-32', 'BenQ MOBIUZ EX321UX', '4K 144Hz Mini LED', 21990000, '/images/Demo/DienTu/category-monitor.png', 'monitor'),
+        ],
+      },
+      {
+        id: 'smart-home',
+        title: 'Thiết bị thông minh',
+        sectionTitleId: 'vx-cat-smart-home-title',
+        linkHref: '#category-smart-home',
+        products: [
+          p('google-nest-hub', 'Google Nest Hub Max', 'Màn hình thông minh 10"', 6990000, '/images/Demo/DienTu/smart-home-3d.webp', 'smart-home'),
+          p('amazon-echo-show', 'Amazon Echo Show 10', 'Loa thông minh xoay', 5990000, '/images/Demo/DienTu/category-smart-home.png', 'smart-home'),
+          p('philips-hue-starter', 'Philips Hue Starter Kit', 'Bộ đèn thông minh', 3490000, '/images/Demo/DienTu/smart-home-3d.webp', 'smart-home'),
+          p('xiaomi-smart-camera', 'Xiaomi Smart Camera 2K', 'Camera an ninh Wi-Fi', 890000, '/images/Demo/DienTu/category-smart-home.png', 'smart-home'),
+          p('apple-homepod-mini', 'Apple HomePod mini', 'Loa thông minh Siri', 2290000, '/images/Demo/DienTu/smart-home-3d.webp', 'smart-home'),
+        ],
+      },
+    ];
+  }
+
+  private getNongSanCategories() {
+    return [
+      {
+        id: 'hai-san-nhap-khau',
+        name: 'Hải sản nhập khẩu',
+        icon: '/images/Demo/NongSan/categories/hai-san.jpg',
+      },
+      {
+        id: 'hai-san-tuoi',
+        name: 'Hải sản tươi',
+        icon: '/images/Demo/NongSan/categories/hai-san.jpg',
+      },
+      {
+        id: 'hoa-qua-nhap-khau',
+        name: 'Hoa quả nhập khẩu',
+        icon: '/images/Demo/NongSan/categories/trai-cay.jpg',
+      },
+      {
+        id: 'rau-cu',
+        name: 'Rau, củ sạch',
+        icon: '/images/Demo/NongSan/categories/rau-cu.jpg',
+      },
+      {
+        id: 'thit-tuoi',
+        name: 'Thịt tươi',
+        icon: '/images/Demo/NongSan/categories/thit-sach.jpg',
+      },
+      {
+        id: 'dong-lanh',
+        name: 'Thực phẩm đông lạnh',
+        icon: '/images/Demo/NongSan/categories/dong-lanh.jpg',
+      },
+      {
+        id: 'trai-cay',
+        name: 'Trái cây tươi',
+        icon: '/images/Demo/NongSan/categories/trai-cay.jpg',
+      },
+      {
+        id: 'do-uong',
+        name: 'Đồ uống',
+        icon: '/images/Demo/NongSan/categories/do-uong.jpg',
+      },
+    ];
+  }
+
+  /** 6 icon-grid categories mapped to sidebar category ids (comma-separated filter). */
+  private getNongSanIconCategories() {
+    return [
+      {
+        id: 'rau-cu',
+        name: 'Rau củ',
+        icon: '/images/Demo/NongSan/categories/rau-cu.jpg',
+        filter: 'rau-cu',
+        count: 5,
+      },
+      {
+        id: 'trai-cay',
+        name: 'Trái cây',
+        icon: '/images/Demo/NongSan/categories/trai-cay.jpg',
+        filter: 'trai-cay,hoa-qua-nhap-khau',
+        count: 10,
+      },
+      {
+        id: 'gao-ngu-coc',
+        name: 'Gạo & ngũ cốc',
+        icon: '/images/Demo/NongSan/categories/gao-ngu-coc.jpg',
+        filter: 'dong-lanh',
+        tag: 'gao',
+        count: 3,
+      },
+      {
+        id: 'thit-sach',
+        name: 'Thịt sạch',
+        icon: '/images/Demo/NongSan/categories/thit-sach.jpg',
+        filter: 'thit-tuoi',
+        count: 5,
+      },
+      {
+        id: 'sua-trung',
+        name: 'Sữa & trứng',
+        icon: '/images/Demo/NongSan/categories/sua-trung.jpg',
+        filter: 'do-uong',
+        tag: 'sua-trung',
+        count: 3,
+      },
+      {
+        id: 'dac-san',
+        name: 'Đặc sản',
+        icon: '/images/Demo/NongSan/categories/dac-san.jpg',
+        filter: 'hai-san-nhap-khau,hai-san-tuoi,dong-lanh',
+        tag: 'dac-san',
+        count: 11,
+      },
+    ];
+  }
+
+  private getShowroomHeroSlides() {
+    return [
+      {
+        headline: 'KHÔNG GIAN SỐNG',
+        scriptLine: 'Đẳng cấp & Tinh tế',
+        tagline: 'Kiến tạo không gian sống hoàn hảo cho bạn',
+        image: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1920&h=900&q=85',
+        cta: 'XEM MẪU',
+        href: '#san-pham-moi',
+      },
+      {
+        headline: 'PHÒNG KHÁCH',
+        scriptLine: 'Sang trọng & Ấm áp',
+        tagline: 'Sofa, kệ tivi và bàn trà — phối màu tinh tế cho không gian sum vầy',
+        image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1920&h=900&q=85',
+        cta: 'XEM MẪU',
+        href: '#danh-muc',
+      },
+      {
+        headline: 'PHÒNG NGỦ',
+        scriptLine: 'Thư giãn & Bình yên',
+        tagline: 'Giường ngủ, tủ quần áo và ánh sáng dịu — nghỉ ngơi trọn vẹn mỗi đêm',
+        image: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1920&h=900&q=85',
+        cta: 'XEM MẪU',
+        href: '#san-pham-moi',
+      },
+    ];
+  }
+
+  private getShowroomHeroCategories() {
+    return [
+      {
+        name: 'Phòng khách',
+        image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=480&h=360&q=80',
+        href: '#san-pham-moi',
+      },
+      {
+        name: 'Phòng ngủ',
+        image: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=480&h=360&q=80',
+        href: '#san-pham-moi',
+      },
+      {
+        name: 'Phòng bếp',
+        image: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=480&h=360&q=80',
+        href: '#san-pham-moi',
+      },
+      {
+        name: 'Bàn ghế',
+        image: 'https://images.unsplash.com/photo-1615066390971-03e4e1c36ddf?auto=format&fit=crop&w=480&h=360&q=80',
+        href: '#san-pham-moi',
+      },
+      {
+        name: 'Phụ kiện',
+        image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=480&h=360&q=80',
+        href: '#san-pham-moi',
+      },
+    ];
+  }
+
+  private getShowroomCategories() {
+    const icon = (d: string) =>
+      `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">${d}</svg>`;
+    return [
+      {
+        id: 'phong-khach',
+        name: 'Nội thất phòng khách',
+        icon: icon('<path d="M4 19V5M4 19h16M8 17v-4M12 17V9M16 17v-6"/>'),
+        image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=400&h=300&q=80',
+      },
+      {
+        id: 'phong-ngu',
+        name: 'Nội thất phòng ngủ',
+        icon: icon('<path d="M3 7h18v10H3zM7 7V5h10v2"/>'),
+        image: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=400&h=300&q=80',
+      },
+      {
+        id: 'phong-bep',
+        name: 'Nội thất phòng bếp',
+        icon: icon('<rect x="3" y="8" width="18" height="12" rx="1"/><path d="M8 8V5M16 8V5"/>'),
+        image: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=400&h=300&q=80',
+      },
+      {
+        id: 'phong-tam',
+        name: 'Nội thất phòng tắm',
+        icon: icon('<path d="M4 12h16M6 12v6M18 12v6M8 6h8v6H8z"/>'),
+        image: 'https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=400&h=300&q=80',
+      },
+      {
+        id: 'van-phong',
+        name: 'Nội thất văn phòng',
+        icon: icon('<rect x="3" y="4" width="18" height="16" rx="1"/><path d="M7 8h4M7 12h10M7 16h6"/>'),
+        image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=400&h=300&q=80',
+      },
+      {
+        id: 'truong-hoc',
+        name: 'Nội thất trường học',
+        icon: icon('<path d="M12 3L2 8l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>'),
+        image: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=400&h=300&q=80',
+      },
+      {
+        id: 'nhua',
+        name: 'Nội thất nhựa',
+        icon: icon('<path d="M12 2l8 4v12l-8 4-8-4V6l8-4z"/>'),
+        image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=400&h=300&q=80',
+      },
+      {
+        id: 'chan-ga',
+        name: 'Chăn ga gối đệm',
+        icon: icon('<path d="M4 10h16v8H4zM8 10V7h8v3"/>'),
+        image: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=400&h=300&q=80',
+      },
+    ];
+  }
+
+  private getShowroomNewProducts() {
+    const p = (
+      title: string,
+      priceOld: string,
+      price: string,
+      sale: string,
+      image: string,
+    ) => ({ title, priceOld, price, sale, image });
+    return [
+      p('Tủ bếp — 002', '2.500.000₫', '1.800.000₫', '-28%', 'https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=600&h=600&q=80'),
+      p('Tủ bếp — 001', '2.300.000₫', '1.700.000₫', '-26%', 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=600&h=600&q=80'),
+      p('Bàn ăn — BA002', '2.700.000₫', '1.600.000₫', '-41%', 'https://images.unsplash.com/photo-1615066390971-03e4e1c36ddf?auto=format&fit=crop&w=600&h=600&q=80'),
+      p('Bàn ăn — BA001', '3.000.000₫', '1.800.000₫', '-40%', 'https://images.unsplash.com/photo-1604578762246-41134e37f9cc?auto=format&fit=crop&w=600&h=600&q=80'),
+      p('Bộ giường ngủ 03', '3.000.000₫', '1.700.000₫', '-43%', 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=600&h=600&q=80'),
+      p('Bộ phòng ngủ 02', '3.000.000₫', '1.700.000₫', '-43%', 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=600&h=600&q=80'),
+      p('Bộ giường ngủ 01', '2.500.000₫', '1.700.000₫', '-32%', 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=600&h=600&q=80'),
+      p('Kệ tivi 003', '2.000.000₫', '1.700.000₫', '-15%', 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=600&h=600&q=80'),
+    ];
+  }
+
+  private getShowroomFeaturedProducts() {
+    return [
+      {
+        title: 'Bộ giường ngủ 01',
+        priceOld: '2.500.000₫',
+        price: '1.700.000₫',
+        sale: '-32%',
+        image: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=600&h=600&q=80',
+      },
+      {
+        title: 'Bàn ăn — BA002',
+        priceOld: '2.700.000₫',
+        price: '1.600.000₫',
+        sale: '-41%',
+        image: 'https://images.unsplash.com/photo-1615066390971-03e4e1c36ddf?auto=format&fit=crop&w=600&h=600&q=80',
+      },
+      {
+        title: 'Bộ giường ngủ 03',
+        priceOld: '3.000.000₫',
+        price: '1.700.000₫',
+        sale: '-43%',
+        image: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=600&h=600&q=80',
+      },
+      {
+        title: 'Sofa 001',
+        priceOld: '2.000.000₫',
+        price: '1.700.000₫',
+        sale: '-15%',
+        image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&h=600&q=80',
+      },
+      {
+        title: 'Tủ bếp — 002',
+        priceOld: '2.500.000₫',
+        price: '1.800.000₫',
+        sale: '-28%',
+        image: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=600&h=600&q=80',
+      },
+    ];
+  }
+
+  private getShowroomProjects() {
+    return [
+      {
+        title: 'Thi công nội thất nhà Anh Bình — Phong Nha',
+        image: '/images/Demo/House/house%20(2).png',
+      },
+      {
+        title: 'Trọn bộ nội thất phòng ngủ Anh Nam — Đồng Hới',
+        image: '/images/Demo/House/house%20(3).png',
+      },
+      {
+        title: 'Trọn bộ phòng bếp chung cư Anh Đạt — Hoàn Lão',
+        image: '/images/Demo/House/house%20(5).png',
+      },
+    ];
+  }
+
+  private getNongSanProducts() {
+    const img = (file: string) => `/images/Demo/NongSan/products/${file}`;
+    const p = (
+      id: string,
+      title: string,
+      categoryId: string,
+      category: string,
+      priceNum: number,
+      image: string,
+      extra: Record<string, unknown> = {},
+    ) => ({
+      id,
+      title,
+      categoryId,
+      category,
+      priceNum,
+      price: `${priceNum.toLocaleString('vi-VN')}đ`,
+      rating: '4.8',
+      reviews: '50',
+      badge: '',
+      originalPrice: null as string | null,
+      image,
+      ...extra,
+    });
+
+    return [
+      // Hải sản nhập khẩu ×5
+      p('ns-001', 'Cá hồi Na Uy fillet', 'hai-san-nhap-khau', 'Hải sản nhập khẩu', 389000, img('ca-hoi.jpg'), { rating: '4.9', reviews: '72', badge: 'Nhập khẩu' }),
+      p('ns-002', 'Tôm hùm Canada size L', 'hai-san-nhap-khau', 'Hải sản nhập khẩu', 890000, img('tom-hum.jpg'), { rating: '5.0', reviews: '28', badge: 'Premium' }),
+      p('ns-003', 'Bạch tuộc Hàn Quốc', 'hai-san-nhap-khau', 'Hải sản nhập khẩu', 245000, img('bach-tuoc.jpg'), { reviews: '41' }),
+      p('ns-004', 'Sò điệp Nhật Bản', 'hai-san-nhap-khau', 'Hải sản nhập khẩu', 320000, img('so-diep.jpg'), { reviews: '35' }),
+      p('ns-005', 'Cua hoàng đế Alaska', 'hai-san-nhap-khau', 'Hải sản nhập khẩu', 1250000, img('cua-hoang-de.jpg'), { badge: 'HOT' }),
+      // Hải sản tươi ×5
+      p('ns-006', 'Tôm sú tươi sống', 'hai-san-tuoi', 'Hải sản tươi', 285000, img('tom-su.jpg'), { rating: '4.9', reviews: '96' }),
+      p('ns-007', 'Cá lóc tươi làm sạch', 'hai-san-tuoi', 'Hải sản tươi', 98000, img('ca-loc.jpg'), { reviews: '54' }),
+      p('ns-008', 'Mực ống tươi', 'hai-san-tuoi', 'Hải sản tươi', 165000, img('muc-ong.jpg'), { reviews: '63' }),
+      p('ns-009', 'Nghêu lụa tươi', 'hai-san-tuoi', 'Hải sản tươi', 45000, img('ngheu.jpg'), { reviews: '88' }),
+      p('ns-010', 'Cá thu tươi cắt khúc', 'hai-san-tuoi', 'Hải sản tươi', 125000, img('ca-thu.jpg'), { badge: 'Mới' }),
+      // Hoa quả nhập khẩu ×5
+      p('ns-011', 'Táo Envy New Zealand', 'hoa-qua-nhap-khau', 'Hoa quả nhập khẩu', 95000, img('tao.jpg'), { rating: '4.8', reviews: '86', badge: '-20%', originalPrice: '120.000đ' }),
+      p('ns-012', 'Nho xanh Mỹ không hạt', 'hoa-qua-nhap-khau', 'Hoa quả nhập khẩu', 145000, img('nho-xanh.jpg'), { reviews: '67' }),
+      p('ns-013', 'Cherry Mỹ size Jumbo', 'hoa-qua-nhap-khau', 'Hoa quả nhập khẩu', 420000, img('cherry.jpg'), { badge: 'Theo mùa' }),
+      p('ns-014', 'Kiwi vàng Zespri', 'hoa-qua-nhap-khau', 'Hoa quả nhập khẩu', 78000, img('kiwi.jpg'), { reviews: '112' }),
+      p('ns-015', 'Lê Nam Phi', 'hoa-qua-nhap-khau', 'Hoa quả nhập khẩu', 68000, img('le.jpg'), { reviews: '45' }),
+      // Rau củ ×5
+      p('ns-016', 'Combo rau hữu cơ tuần', 'rau-cu', 'Rau, củ sạch', 189000, img('combo-rau.jpg'), { rating: '4.9', reviews: '128', badge: 'Bán chạy', originalPrice: '249.000đ' }),
+      p('ns-017', 'Cà chua bi Đà Lạt', 'rau-cu', 'Rau, củ sạch', 35000, img('ca-chua.jpg'), { reviews: '63' }),
+      p('ns-018', 'Xà lách xoong hữu cơ', 'rau-cu', 'Rau, củ sạch', 28000, img('xa-lach.jpg'), { reviews: '71' }),
+      p('ns-019', 'Cải ngọt baby', 'rau-cu', 'Rau, củ sạch', 32000, img('cai-ngot.jpg'), { reviews: '58' }),
+      p('ns-020', 'Bí đao non', 'rau-cu', 'Rau, củ sạch', 22000, img('bi-dao.jpg'), { reviews: '42' }),
+      // Thịt tươi ×5
+      p('ns-021', 'Thịt heo sạch đùi', 'thit-tuoi', 'Thịt tươi', 145000, img('thit-heo.jpg'), { rating: '4.7', reviews: '52', badge: 'Mới', originalPrice: '165.000đ' }),
+      p('ns-022', 'Thịt bò Úc thăn ngoại', 'thit-tuoi', 'Thịt tươi', 385000, img('thit-bo.jpg'), { reviews: '38' }),
+      p('ns-023', 'Thịt gà ta nguyên con', 'thit-tuoi', 'Thịt tươi', 195000, img('thit-ga.jpg'), { reviews: '77' }),
+      p('ns-024', 'Sườn non heo sạch', 'thit-tuoi', 'Thịt tươi', 175000, img('suon-heo.jpg'), { reviews: '44' }),
+      p('ns-025', 'Ba chỉ bò Mỹ slice', 'thit-tuoi', 'Thịt tươi', 265000, img('ba-chi-bo.jpg'), { badge: 'Sale' }),
+      // Đông lạnh ×5 (gạo/ngũ cốc + đặc sản đông)
+      p('ns-026', 'Gạo hữu cơ ST25', 'dong-lanh', 'Thực phẩm đông lạnh', 58000, img('gao.jpg'), { rating: '5.0', reviews: '214', badge: 'Hữu cơ', tag: 'gao' }),
+      p('ns-027', 'Yến mạch Úc hữu cơ', 'dong-lanh', 'Thực phẩm đông lạnh', 89000, img('yen-mach.jpg'), { reviews: '89', tag: 'gao' }),
+      p('ns-028', 'Mật ong rừng U Minh', 'dong-lanh', 'Thực phẩm đông lạnh', 320000, img('mat-ong.jpg'), { rating: '4.8', reviews: '41', badge: 'Sale', originalPrice: '380.000đ', tag: 'dac-san' }),
+      p('ns-029', 'Rau củ đông lạnh mix', 'dong-lanh', 'Thực phẩm đông lạnh', 65000, img('rau-dong-lanh.jpg'), { reviews: '56' }),
+      p('ns-030', 'Ngũ cốc ăn sáng hữu cơ', 'dong-lanh', 'Thực phẩm đông lạnh', 72000, img('ngu-coc.jpg'), { reviews: '33', tag: 'gao' }),
+      // Trái cây tươi ×5
+      p('ns-031', 'Cam sành Cao Phong', 'trai-cay', 'Trái cây tươi', 68000, img('cam.jpg'), { rating: '4.9', reviews: '118', badge: 'Theo mùa', originalPrice: '85.000đ' }),
+      p('ns-032', 'Thanh long ruột đỏ', 'trai-cay', 'Trái cây tươi', 42000, img('thanh-long.jpg'), { reviews: '91' }),
+      p('ns-033', 'Xoài cát Hòa Lộc', 'trai-cay', 'Trái cây tươi', 55000, img('xoai.jpg'), { reviews: '105' }),
+      p('ns-034', 'Dưa hấu không hạt', 'trai-cay', 'Trái cây tươi', 38000, img('dua-hau.jpg'), { reviews: '76' }),
+      p('ns-035', 'Chuối sáp già', 'trai-cay', 'Trái cây tươi', 28000, img('chuoi.jpg'), { reviews: '64' }),
+      // Đồ uống ×5 (sữa/trứng + nước)
+      p('ns-036', 'Trứng gà ta hữu cơ', 'do-uong', 'Đồ uống', 42000, img('trung.jpg'), { rating: '4.9', reviews: '97', tag: 'sua-trung' }),
+      p('ns-037', 'Sữa tươi nguyên chất 1L', 'do-uong', 'Đồ uống', 38000, img('sua-tuoi.jpg'), { reviews: '82', tag: 'sua-trung' }),
+      p('ns-038', 'Nước ép cam cold-press', 'do-uong', 'Đồ uống', 45000, img('nuoc-ep-cam.jpg'), { reviews: '59' }),
+      p('ns-039', 'Sữa hạt óc chó', 'do-uong', 'Đồ uống', 52000, img('sua-hat.jpg'), { reviews: '47', tag: 'sua-trung' }),
+      p('ns-040', 'Trà xanh matcha Nhật', 'do-uong', 'Đồ uống', 125000, img('matcha.jpg'), { reviews: '31' }),
+    ];
+  }
+
   private getDemoProducts(slug: string) {
+    if (slug === 'nong-san') {
+      return this.getNongSanProducts();
+    }
     if (slug !== 'shop-thoi-trang') return [];
     return this.getDemoCollections(slug).flatMap((c) => c.products);
   }
@@ -1422,6 +2119,86 @@ export class AppService {
   }
 
   private getDemoNews(slug: string) {
+    if (slug === 'showroom-noi-that') {
+      return [
+        {
+          title: 'Cách sử dụng vách ngăn phòng trong không gian nhỏ',
+          date: '03/11/2025',
+          datetime: '2025-11-03',
+          excerpt: 'Nếu bạn có một không gian nhỏ, vách ngăn thông minh giúp phân tách khu vực mà không làm chật phòng.',
+          image: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=600&h=380&q=80',
+        },
+        {
+          title: '5 Cách làm ấm không gian nhà bạn vào mùa thu',
+          date: '03/11/2025',
+          datetime: '2025-11-03',
+          excerpt: 'Mùa thu len lỏi vào từng góc nhà — thêm gối, thảm và ánh sáng vàng ấm để không gian ấm áp hơn.',
+          image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&h=380&q=80',
+        },
+        {
+          title: '4 Thủ thuật sắp xếp đồ đạc như một chuyên gia',
+          date: '03/11/2025',
+          datetime: '2025-11-03',
+          excerpt: 'Bắt tay dọn dẹp có thể khó hơn dự tính — bắt đầu từ khu vực nhỏ và phân loại theo tần suất sử dụng.',
+          image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=600&h=380&q=80',
+        },
+        {
+          title: 'Bí mật tối đa hóa diện tích phòng khách nhỏ',
+          date: '03/11/2025',
+          datetime: '2025-11-03',
+          excerpt: 'Với căn hộ một phòng, phòng khách phải đảm nhiệm nhiều chức năng — chọn nội thất đa năng là chìa khóa.',
+          image: 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=600&h=380&q=80',
+        },
+        {
+          title: 'Hướng dẫn vệ sinh ghế sofa vải đơn giản',
+          date: '03/11/2025',
+          datetime: '2025-11-03',
+          excerpt: 'Trong mỗi phòng khách đều có ghế sofa — bảo quản đúng cách giúp kéo dài tuổi thọ và vẻ đẹp ban đầu.',
+          image: 'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=600&h=380&q=80',
+        },
+        {
+          title: 'Thi công nội thất chung cư 70m² tông trắng',
+          date: '03/11/2025',
+          datetime: '2025-11-03',
+          excerpt: 'Gam trắng làm tông chủ đạo từ phòng khách đến phòng ngủ — tạo cảm giác rộng rãi và sáng sủa.',
+          image: '/images/Demo/House/house%20(4).png',
+        },
+      ];
+    }
+    if (slug === 'nong-san') {
+      return [
+        {
+          id: 'blog-1',
+          title: '5 cách bảo quản rau xanh tươi lâu hơn',
+          date: '18/06/2026',
+          datetime: '2026-06-18',
+          excerpt: 'Mẹo đơn giản giúp rau củ giữ độ tươi 5–7 ngày trong tủ lạnh gia đình.',
+          image: '/images/Demo/NongSan/news/bao-quan-rau.jpg',
+          body:
+            'Rau xanh thường bị héo sau 2–3 ngày nếu bảo quản không đúng cách. Hãy rửa sạch, lau khô hoàn toàn rồi bọc khăn ẩm trước khi cho vào hộp kín. Nhiệt độ tủ lạnh nên duy trì 2–4°C, tách riêng rau lá mềm và củ quả. Organico giao rau trong túi thở có lỗ thoát khí giúp kéo dài độ tươi thêm 2 ngày so với bao thường.',
+        },
+        {
+          id: 'blog-2',
+          title: 'Lợi ích của thực phẩm hữu cơ với trẻ em',
+          date: '12/06/2026',
+          datetime: '2026-06-12',
+          excerpt: 'Tại sao nhiều phụ huynh chọn combo rau hữu cơ cho bữa ăn hàng ngày của con.',
+          image: '/images/Demo/NongSan/news/huu-co-tre-em.jpg',
+          body:
+            'Thực phẩm hữu cơ hạn chế tiếp xúc hóa chất bảo vệ thực vật, phù hợp hệ tiêu hóa còn non của trẻ. Combo rau Organico được kiểm định 3 lớp, có mã QR truy xuất nguồn gốc để phụ huynh yên tâm. Nhiều gia đình chọn gói combo tuần để đa dạng rau củ mà không cần lo kế hoạch mua sắm.',
+        },
+        {
+          id: 'blog-3',
+          title: 'Tour tham quan nông trại Organico cuối tuần',
+          date: '05/06/2026',
+          datetime: '2026-06-05',
+          excerpt: 'Trải nghiệm thu hoạch và tìm hiểu quy trình canh tác hữu cơ tại Đà Lạt.',
+          image: '/images/Demo/NongSan/news/tour-nong-trai.jpg',
+          body:
+            'Cuối tuần này, Organico mở tour tham quan nông trại tại Đà Lạt dành cho khách hàng đặt combo lần đầu. Bạn sẽ được trải nghiệm thu hoạch rau, tìm hiểu quy trình VietGAP và thưởng thức bữa trưa farm-to-table. Đăng ký trước qua hotline 1900 6868 — miễn phí cho 2 người/đơn combo tuần.',
+        },
+      ];
+    }
     if (slug !== 'hoc-tieng-anh') return [];
     return [
       {
@@ -2047,6 +2824,204 @@ export class AppService {
         site.brand,
       ),
       heading: pageTitle,
+    };
+  }
+
+  private getOrisHomeData(slug: string) {
+    if (slug !== 'nha-khoa') {
+      return {
+        orisNav: null,
+        orisStats: null,
+        orisServices: null,
+        orisAboutBenefits: null,
+        orisTechnologies: null,
+        orisResults: null,
+        orisDoctors: null,
+        orisTestimonials: null,
+      };
+    }
+
+    const base = `/du-an/demo/${slug}`;
+    const icon = (paths: string) =>
+      `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.7">${paths}</svg>`;
+
+    return {
+      orisNav: [
+        { key: 'home', label: 'Trang chủ', href: base },
+        { key: 'about', label: 'Giới thiệu', href: `${base}/gioi-thieu` },
+        { key: 'services', label: 'Dịch vụ', href: `${base}/dich-vu` },
+        { key: 'technology', label: 'Công nghệ', href: `${base}/cong-nghe` },
+        { key: 'doctors', label: 'Bác sĩ', href: `${base}/bac-si` },
+        { key: 'knowledge', label: 'Kiến thức', href: `${base}/kien-thuc` },
+        { key: 'contact', label: 'Liên hệ', href: `${base}/lien-he` },
+      ],
+      orisStats: [
+        {
+          isRating: true,
+          stars: [1, 2, 3, 4, 5],
+          value: '4.9 / 5',
+          label: '2.400+ đánh giá Google',
+        },
+        {
+          isRating: false,
+          value:
+            '<span class="oris-count" data-count="12000" data-separator="." data-suffix="+">0</span>',
+          label: 'Khách hàng tin tưởng',
+          icon: icon(
+            '<path d="M16 19v-1.2A3.8 3.8 0 0012.2 14H7.8A3.8 3.8 0 004 17.8V19"/><circle cx="10" cy="8" r="3.2"/><path d="M19.5 19v-1a3 3 0 00-2.2-2.9"/><path d="M15.5 5.2a3.2 3.2 0 010 5.6"/>',
+          ),
+        },
+        {
+          isRating: false,
+          value:
+            '<span class="oris-count" data-count="10" data-suffix="+ năm">0</span>',
+          label: 'Kinh nghiệm lâm sàng',
+          icon: icon(
+            '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9.5 12l1.8 1.8L15 10"/>',
+          ),
+        },
+        {
+          isRating: false,
+          value: 'ISO',
+          label: 'Quy trình vô khuẩn chuẩn',
+          icon: icon(
+            '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v5l3 1.8"/><path d="M8.2 4.2l1.2 2.2M15.8 4.2l-1.2 2.2"/>',
+          ),
+        },
+      ],
+      orisServices: [
+        {
+          title: 'Trồng răng Implant',
+          text: 'Phục hồi răng mất bằng trụ titanium chuẩn quốc tế — ăn nhai chắc chắn, thẩm mỹ tự nhiên.',
+          image: '/images/Demo/NhaKhoa/03-service-implant.png',
+          alt: 'Trồng răng Implant tại ORIS',
+          href: `${base}/dich-vu`,
+        },
+        {
+          title: 'Niềng răng thẩm mỹ',
+          text: 'Khí cụ trong suốt kín đáo, điều chỉnh khớp cắn nhẹ nhàng với kế hoạch số hóa rõ ràng.',
+          image: '/images/Demo/NhaKhoa/04-service-ortho.png',
+          alt: 'Niềng răng thẩm mỹ tại ORIS',
+          href: `${base}/dich-vu`,
+        },
+        {
+          title: 'Răng sứ thẩm mỹ',
+          text: 'Phục hình sứ cao cấp giúp nụ cười đều, sáng và hài hòa với khuôn mặt.',
+          image: '/images/Demo/NhaKhoa/05-service-whitening.png',
+          alt: 'Răng sứ thẩm mỹ tại ORIS',
+          href: `${base}/dich-vu`,
+        },
+        {
+          title: 'Nha khoa tổng quát',
+          text: 'Khám, lấy cao răng, điều trị sâu răng và chăm sóc định kỳ cho cả gia đình.',
+          image: '/images/Demo/NhaKhoa/06-service-checkup.png',
+          alt: 'Nha khoa tổng quát tại ORIS',
+          href: `${base}/dich-vu`,
+        },
+      ],
+      orisAboutBenefits: [
+        'Quy trình vô khuẩn nghiêm ngặt theo tiêu chuẩn lâm sàng',
+        'Trang thiết bị số hóa hỗ trợ chẩn đoán chính xác',
+        'Tư vấn minh bạch — kế hoạch điều trị cá nhân hóa',
+      ],
+      orisTechnologies: [
+        {
+          featured: true,
+          title: 'Công nghệ CT Cone Beam 3D',
+          text: 'Hình ảnh 3D chi tiết hỗ trợ lập kế hoạch implant và phẫu thuật an toàn.',
+          image: '/images/Demo/NhaKhoa/08-tech-digital.png',
+          alt: 'Công nghệ CT Cone Beam 3D tại ORIS',
+          href: `${base}/cong-nghe`,
+        },
+        {
+          featured: false,
+          title: 'Máy quét dấu răng kỹ thuật số',
+          text: 'Quét intraoral nhanh, chính xác — không khó chịu như lấy dấu truyền thống.',
+          image: '/images/Demo/NhaKhoa/01-hero-bg.png',
+          alt: 'Máy quét dấu răng kỹ thuật số',
+          href: `${base}/cong-nghe`,
+        },
+        {
+          featured: false,
+          title: 'Công nghệ thiết kế nụ cười',
+          text: 'Mô phỏng kết quả thẩm mỹ trước điều trị để bạn chủ động quyết định.',
+          image: '/images/Demo/NhaKhoa/16-bg-cong-nghe.png',
+          alt: 'Thiết kế nụ cười số tại ORIS',
+          href: `${base}/cong-nghe`,
+        },
+        {
+          featured: false,
+          title: 'Quy trình vô khuẩn tiêu chuẩn',
+          text: 'Kiểm soát nhiễm khuẩn nghiêm ngặt trong toàn bộ quy trình lâm sàng.',
+          image: '/images/Demo/NhaKhoa/07-clinic-space.png',
+          alt: 'Quy trình vô khuẩn tại phòng khám ORIS',
+          href: `${base}/cong-nghe`,
+        },
+      ],
+      orisResults: [
+        {
+          title: 'Niềng răng thẩm mỹ',
+          text: 'Răng đều đẹp, khớp cắn chuẩn và tự nhiên.',
+          image: '/images/Demo/NhaKhoa/25-ba-ortho.png',
+          alt: 'Kết quả trước và sau niềng răng thẩm mỹ',
+        },
+        {
+          title: 'Trồng răng Implant',
+          text: 'Phục hồi răng mất — ăn nhai chắc chắn.',
+          image: '/images/Demo/NhaKhoa/26-ba-implant.png',
+          alt: 'Kết quả trước và sau trồng răng Implant',
+        },
+        {
+          title: 'Răng sứ thẩm mỹ',
+          text: 'Nụ cười sáng khỏe, hài hòa khuôn mặt.',
+          image: '/images/Demo/NhaKhoa/24-ba-whitening.png',
+          alt: 'Kết quả trước và sau răng sứ thẩm mỹ',
+        },
+      ],
+      orisDoctors: [
+        {
+          name: 'BS. Nguyễn Minh Khoa',
+          role: 'Trưởng khoa Implant',
+          image: '/images/Demo/NhaKhoa/19-doctor-1.png',
+          href: `${base}/bac-si`,
+          points: ['10+ năm kinh nghiệm', 'Chuyên sâu Implant', '2.000+ ca thành công'],
+        },
+        {
+          name: 'BS. Trần Thu Hà',
+          role: 'Chỉnh nha & thẩm mỹ',
+          image: '/images/Demo/NhaKhoa/20-doctor-2.png',
+          href: `${base}/bac-si`,
+          points: ['Chuyên gia chỉnh nha', 'Niềng trong suốt', 'Thẩm mỹ nụ cười'],
+        },
+        {
+          name: 'BS. Lê Hoàng Nam',
+          role: 'Nha khoa tổng quát',
+          image: '/images/Demo/NhaKhoa/21-doctor-3.png',
+          href: `${base}/bac-si`,
+          points: ['Điều trị toàn diện', 'Chăm sóc gia đình', 'Tư vấn tận tâm'],
+        },
+      ],
+      orisTestimonials: [
+        {
+          name: 'Lan Anh',
+          treatment: 'Implant',
+          text: 'Quy trình rõ ràng, bác sĩ giải thích kỹ từng bước. Tôi hoàn toàn yên tâm khi điều trị tại ORIS.',
+          initials: 'LA',
+        },
+        {
+          name: 'Minh Tú',
+          treatment: 'Niềng răng',
+          text: 'Niềng trong suốt rất kín đáo, kết quả khớp cắn đẹp hơn mong đợi sau liệu trình.',
+          initials: 'MT',
+          featured: true,
+        },
+        {
+          name: 'Hoài Phương',
+          treatment: 'Thẩm mỹ',
+          text: 'Không gian sạch sẽ, đội ngũ chuyên nghiệp. Nụ cười sáng khỏe chỉ sau một liệu trình.',
+          initials: 'HP',
+        },
+      ],
     };
   }
 }

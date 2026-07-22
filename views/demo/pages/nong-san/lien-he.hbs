@@ -1,0 +1,88 @@
+<div class="org-page">
+  {{> demo/organico/header }}
+
+  <main>
+    <section class="org-page-hero">
+      <div class="org-page-hero-bg" aria-hidden="true">
+        <img src="/images/Demo/NongSan/hero.jpg" alt="" width="1600" height="900" />
+      </div>
+      <div class="org-page-hero-overlay" aria-hidden="true"></div>
+      <div class="org-wrap org-page-hero-inner">
+        <nav class="org-breadcrumb" aria-label="Breadcrumb">
+          <a href="{{orgBase}}">Trang chủ</a>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">Liên hệ</span>
+        </nav>
+        <h1>Liên hệ &amp; đặt hàng</h1>
+        <p class="org-page-hero-text">
+          Đặt combo tuần, gọi hotline hoặc để lại thông tin — Organico phản hồi trong vòng 30 phút.
+        </p>
+      </div>
+    </section>
+
+    <section class="org-section">
+      <div class="org-wrap org-contact-grid">
+        <div data-aos="fade-up">
+          <p class="org-kicker">Kênh liên hệ</p>
+          <h2>Chúng tôi luôn sẵn sàng hỗ trợ</h2>
+          <ul class="org-contact-cards">
+            <li>
+              <strong>Hotline</strong>
+              <a href="tel:19006868">1900 6868</a>
+            </li>
+            <li>
+              <strong>Email</strong>
+              <a href="mailto:hello@organico.vn">hello@organico.vn</a>
+            </li>
+            <li>
+              <strong>Giờ giao hàng</strong>
+              <span>07:00 – 21:00 | Thứ 2 – Chủ nhật</span>
+            </li>
+            <li>
+              <strong>Địa chỉ</strong>
+              <span>123 Đường Nông Trại, Quận 7, TP.HCM</span>
+            </li>
+          </ul>
+        </div>
+
+        <div data-aos="fade-up" data-aos-delay="80">
+          <form class="org-contact-form org-form-demo" data-success="Đặt hàng thành công! Organico sẽ liên hệ xác nhận trong 30 phút.">
+            <h3>Form đặt hàng demo</h3>
+            <label>
+              <span>Họ và tên</span>
+              <input type="text" name="name" placeholder="Nguyễn Văn A" autocomplete="name" required />
+            </label>
+            <label>
+              <span>Số điện thoại</span>
+              <input type="tel" name="phone" placeholder="090x xxx xxx" autocomplete="tel" required />
+            </label>
+            <label>
+              <span>Email</span>
+              <input type="email" name="email" placeholder="email@example.com" autocomplete="email" />
+            </label>
+            <label>
+              <span>Loại đơn hàng</span>
+              <select name="order-type">
+                <option value="">— Chọn loại —</option>
+                <option>Combo rau tuần</option>
+                <option>Đơn lẻ theo danh mục</option>
+                <option>Đặt sỉ / doanh nghiệp</option>
+                <option>Khác</option>
+              </select>
+            </label>
+            <label>
+              <span>Ghi chú</span>
+              <textarea name="note" rows="4" placeholder="Địa chỉ giao, thời gian mong muốn..."></textarea>
+            </label>
+            <button type="submit" class="org-btn org-btn-block">Gửi yêu cầu đặt hàng</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  {{> demo/organico/footer }}
+  {{> demo/organico/overlays }}
+</div>
+
+{{> demo/organico/scripts }}

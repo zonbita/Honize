@@ -1,0 +1,31 @@
+<section class="oris-section oris-about" id="about" aria-labelledby="oris-about-title">
+  <div class="oris-wrap oris-about-grid">
+    <div class="oris-about-media">
+      <img
+        src="/images/Demo/NhaKhoa/07-clinic-space.png"
+        alt="Không gian phòng khám nha khoa thẩm mỹ ORIS"
+        width="1000"
+        height="750"
+        loading="lazy"
+      />
+      <div class="oris-about-badge" aria-label="Hơn 10 năm kinh nghiệm">
+        <strong>10+</strong>
+        <span>năm kinh nghiệm</span>
+      </div>
+    </div>
+    <div class="oris-about-copy">
+      <p class="oris-label">Về nha khoa ORIS</p>
+      <h2 id="oris-about-title">Chăm sóc nụ cười bằng chuyên môn và sự tận tâm</h2>
+      <p class="oris-about-lead">
+        ORIS kết hợp chuyên môn lâm sàng với sự tận tâm — nơi mỗi khách hàng được lắng nghe,
+        tư vấn rõ ràng và đồng hành đến kết quả bền vững.
+      </p>
+      <ul class="oris-checklist">
+        {{#each orisAboutBenefits}}
+          <li>{{this}}</li>
+        {{/each}}
+      </ul>
+      <a href="{{orisBase}}/gioi-thieu" class="oris-btn oris-btn-primary">Khám phá về ORIS</a>
+    </div>
+  </div>
+</section>

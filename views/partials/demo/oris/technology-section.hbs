@@ -1,0 +1,25 @@
+<section class="oris-section oris-tech" id="technology" aria-labelledby="oris-tech-title">
+  <div class="oris-wrap">
+    {{> demo/oris/section-header
+      centered=true
+      label="Công nghệ hiện đại"
+      title="Điều trị chính xác, trải nghiệm nhẹ nhàng"
+      titleId="oris-tech-title"
+      lead="Ứng dụng công nghệ số giúp ORIS mang đến kết quả tối ưu, an toàn và thoải mái hơn."
+    }}
+    <div class="oris-tech-grid">
+      {{#each orisTechnologies}}
+        <a href="{{href}}" class="oris-tech-card{{#if featured}} oris-tech-card--featured{{/if}}">
+          <div class="oris-tech-card-media">
+            <img src="{{image}}" alt="{{alt}}" width="900" height="680" loading="lazy" />
+          </div>
+          <div class="oris-tech-card-body">
+            <h3>{{title}}</h3>
+            <p>{{text}}</p>
+            <span class="oris-tech-card-link" aria-hidden="true">→</span>
+          </div>
+        </a>
+      {{/each}}
+    </div>
+  </div>
+</section>

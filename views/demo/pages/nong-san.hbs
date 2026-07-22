@@ -1,0 +1,298 @@
+<div class="org-page">
+  {{> demo/organico/header }}
+
+  <main>
+    <section class="org-hero" id="trang-chu">
+      <div class="org-wrap org-hero-catalog" data-aos="fade-up">
+        <aside class="org-hero-catalog-menu" aria-label="Danh mục sản phẩm">
+          <p class="org-hero-catalog-title">Danh mục sản phẩm</p>
+          <ul>
+            {{#each orgCategories}}
+            <li>
+              <a href="#san-pham" class="org-cat-filter" data-category="{{this.id}}" data-label="{{this.name}}">
+                <img src="{{this.icon}}" alt="" width="28" height="28" />
+                {{this.name}}
+              </a>
+            </li>
+            {{/each}}
+          </ul>
+        </aside>
+        <div class="org-hero-catalog-banner" aria-label="Banner rau củ quả">
+          <div class="org-hero-banner-wood"></div>
+          <div class="org-hero-banner-leaf org-hero-banner-leaf-left" aria-hidden="true"></div>
+          <div class="org-hero-banner-leaf org-hero-banner-leaf-right" aria-hidden="true"></div>
+          <div class="org-hero-banner-copy">
+            <h2><span>Rau củ</span> <em>quả</em></h2>
+            <p>Thực phẩm an toàn — tốt cho sức khỏe</p>
+            <strong class="org-hero-banner-brand">Organico</strong>
+          </div>
+          <div class="org-hero-banner-fruits" aria-hidden="true">
+            <img src="/images/Demo/NongSan/products/cam.jpg" alt="" width="88" height="88" />
+            <img src="/images/Demo/NongSan/products/tao.jpg" alt="" width="88" height="88" />
+            <img src="/images/Demo/NongSan/products/ca-chua.jpg" alt="" width="72" height="72" />
+            <img src="/images/Demo/NongSan/categories/trai-cay.jpg" alt="" width="80" height="80" />
+          </div>
+        </div>
+      </div>
+
+      <div class="org-wrap org-hero-grid">
+        <div class="org-hero-copy" data-aos="fade-right">
+          <p class="org-kicker">100% hữu cơ · Thu hoạch trong ngày</p>
+          <h1>Thực phẩm sạch từ nông trại đến bàn ăn</h1>
+          <p class="org-hero-text">
+            Organico kết nối trực tiếp hơn 120 hộ nông dân địa phương, mang đến rau củ quả tươi,
+            gạo hữu cơ và thực phẩm an toàn — truy xuất nguồn gốc minh bạch.
+          </p>
+          <div class="org-hero-actions">
+            <a href="#san-pham" class="org-btn">Mua ngay</a>
+            <a href="{{orgBase}}/gioi-thieu" class="org-btn org-btn-outline">Khám phá nông trại</a>
+          </div>
+          <ul class="org-trust-list">
+            <li>Chứng nhận VietGAP</li>
+            <li>Giao trong 2 giờ</li>
+            <li>Đổi trả trong 24h</li>
+          </ul>
+        </div>
+        <div class="org-hero-visual" data-aos="fade-left" data-aos-delay="100">
+          <img
+            src="/images/Demo/NongSan/hero.jpg"
+            alt="Rau củ hữu cơ tươi sắc"
+            width="640"
+            height="560"
+          />
+          <div class="org-hero-badge">
+            <span>Giảm 20%</span>
+            <small>Combo tuần mới</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="org-categories" id="danh-muc">
+      <div class="org-wrap">
+        <div class="org-section-head org-section-head-center">
+          <p class="org-kicker">Danh mục sản phẩm</p>
+          <h2>Mua sắm theo nhu cầu</h2>
+        </div>
+        <div class="org-category-grid">
+          {{#each orgIconCategories}}
+          <a href="#san-pham" class="org-category-card org-cat-filter" data-icon-filter="{{this.id}}" data-filter="{{this.filter}}" data-tag="{{this.tag}}" data-label="{{this.name}}">
+            <span class="org-category-icon">
+              <img src="{{this.icon}}" alt="{{this.name}}" width="72" height="72" />
+            </span>
+            <strong>{{this.name}}</strong>
+            <small>{{this.count}} sản phẩm</small>
+          </a>
+          {{/each}}
+        </div>
+      </div>
+    </section>
+
+    <section class="org-products" id="san-pham">
+      <div class="org-wrap">
+        <div class="org-section-head">
+          <div>
+            <p class="org-kicker">Sản phẩm nổi bật</p>
+            <h2 id="org-filter-label">Tất cả sản phẩm</h2>
+          </div>
+          <a href="#" class="org-link" id="org-clear-filter">Xem tất cả →</a>
+        </div>
+
+        <p class="org-no-products" id="org-no-products" hidden>Không có sản phẩm trong danh mục này.</p>
+
+        <div class="org-product-grid">
+          {{#each products}}
+          <article
+            class="org-product-card"
+            data-id="{{this.id}}"
+            data-name="{{this.title}}"
+            data-category-id="{{this.categoryId}}"
+            data-price="{{this.priceNum}}"
+            data-price-label="{{this.price}}"
+            {{#if this.tag}}data-tag="{{this.tag}}"{{/if}}
+          >
+            <div class="org-product-media">
+              {{#if this.badge}}<span class="org-product-badge">{{this.badge}}</span>{{/if}}
+              <img src="{{this.image}}" alt="{{this.title}}" loading="lazy" width="320" height="320" />
+              <button type="button" class="org-product-cart" aria-label="Thêm vào giỏ">+</button>
+            </div>
+            <div class="org-product-body">
+              <p class="org-product-cat">{{this.category}}</p>
+              <h3>{{this.title}}</h3>
+              <div class="org-product-rating">
+                <span>★ {{this.rating}}</span>
+                <small>({{this.reviews}} đánh giá)</small>
+              </div>
+              <div class="org-product-price">
+                <strong>{{this.price}}</strong>
+                {{#if this.originalPrice}}<s>{{this.originalPrice}}</s>{{/if}}
+              </div>
+            </div>
+          </article>
+          {{/each}}
+        </div>
+      </div>
+    </section>
+
+    <section class="org-promo">
+      <div class="org-wrap org-promo-grid">
+        <article class="org-promo-card org-promo-sale">
+          <p class="org-kicker">Flash sale</p>
+          <h3>Combo rau tuần giảm 25%</h3>
+          <p>Đặt trước thứ Hai — giao tận nhà cả tuần.</p>
+          <button type="button" class="org-btn org-btn-light org-form-demo" data-success="Đặt combo thành công! Organico sẽ giao theo lịch tuần.">Đặt combo ngay</button>
+        </article>
+        <article class="org-promo-card org-promo-farm">
+          <p class="org-kicker">Thăm nông trại</p>
+          <h3>Trải nghiệm thu hoạch cuối tuần</h3>
+          <p>Tour miễn phí cho khách hàng đặt combo lần đầu.</p>
+          <a href="{{orgBase}}/gioi-thieu" class="org-btn org-btn-outline-light">Tìm hiểu thêm</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="org-about" id="ve-chung-toi">
+      <div class="org-wrap org-about-grid">
+        <div class="org-about-visual">
+          <img
+            src="/images/Demo/NongSan/about-farm.jpg"
+            alt="Nông dân thu hoạch rau hữu cơ"
+            loading="lazy"
+            width="560"
+            height="480"
+          />
+          <div class="org-about-float">
+            <strong>12+</strong>
+            <span>Năm canh tác hữu cơ</span>
+          </div>
+        </div>
+        <div class="org-about-copy">
+          <p class="org-kicker">Về Organico</p>
+          <h2>Nông trại xanh — Bữa ăn lành</h2>
+          <p>
+            Organico bắt đầu từ một trang trại nhỏ tại Đà Lạt với sứ mệnh mang thực phẩm sạch
+            đến gần hơn với mỗi gia đình Việt. Chúng tôi kiểm soát toàn bộ chuỗi từ gieo trồng,
+            thu hoạch đến đóng gói và giao hàng.
+          </p>
+          <ul class="org-checklist">
+            <li>Hơn 120 hộ nông dân đối tác</li>
+            <li>Quy trình kiểm định 3 lớp trước khi xuất kho</li>
+            <li>Đóng gói thân thiện môi trường</li>
+          </ul>
+          <a href="{{orgBase}}/gioi-thieu" class="org-link">Xem thêm về Organico →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="org-features" id="quy-trinh">
+      <div class="org-wrap">
+        <div class="org-section-head org-section-head-center">
+          <p class="org-kicker">Tại sao chọn Organico</p>
+          <h2>Cam kết chất lượng từng sản phẩm</h2>
+        </div>
+        <div class="org-feature-grid">
+          {{#each features}}
+          <article class="org-feature-card">
+            <div class="org-feature-icon">{{{this.icon}}}</div>
+            <h3>{{this.title}}</h3>
+            <p>{{this.text}}</p>
+          </article>
+          {{/each}}
+        </div>
+      </div>
+    </section>
+
+    <section class="org-stats">
+      <div class="org-wrap org-stats-grid">
+        {{#each stats}}
+        <div class="org-stat">
+          <span class="org-stat-value">{{this.value}}</span>
+          <span class="org-stat-label">{{this.label}}</span>
+        </div>
+        {{/each}}
+      </div>
+    </section>
+
+    <section class="org-cert">
+      <div class="org-wrap org-cert-inner">
+        <p>Được chứng nhận bởi</p>
+        <div class="org-cert-logos">
+          <span>VietGAP</span>
+          <span>Organic EU</span>
+          <span>HACCP</span>
+          <span>ISO 22000</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="org-testimonials" id="phan-hoi">
+      <div class="org-wrap">
+        <div class="org-section-head org-section-head-center">
+          <p class="org-kicker">Khách hàng nói gì</p>
+          <h2>Hơn 5.000 gia đình tin dùng</h2>
+        </div>
+        <div class="org-testimonial-grid">
+          {{#each testimonials}}
+          <blockquote class="org-testimonial-card">
+            <div class="org-testimonial-stars">★★★★★</div>
+            <p>"{{this.quote}}"</p>
+            <footer>
+              <strong>{{this.name}}</strong>
+              <span>{{this.role}}</span>
+            </footer>
+          </blockquote>
+          {{/each}}
+        </div>
+      </div>
+    </section>
+
+    <section class="org-news" id="tin-tuc">
+      <div class="org-wrap">
+        <div class="org-section-head">
+          <div>
+            <p class="org-kicker">Kiến thức dinh dưỡng</p>
+            <h2>Blog &amp; tin tức</h2>
+          </div>
+          <a href="#tin-tuc" class="org-link">Xem thêm →</a>
+        </div>
+        <div class="org-news-grid">
+          {{#each news}}
+          <article
+            class="org-news-card"
+            data-title="{{this.title}}"
+            data-date="{{this.date}}"
+            data-datetime="{{this.datetime}}"
+            data-body="{{this.body}}"
+          >
+            <img src="{{this.image}}" alt="{{this.title}}" loading="lazy" width="400" height="240" />
+            <div class="org-news-body">
+              <time datetime="{{this.datetime}}">{{this.date}}</time>
+              <h3>{{this.title}}</h3>
+              <p>{{this.excerpt}}</p>
+            </div>
+          </article>
+          {{/each}}
+        </div>
+      </div>
+    </section>
+
+    <section class="org-newsletter" id="lien-he">
+      <div class="org-wrap org-newsletter-inner">
+        <div>
+          <p class="org-kicker">Nhận ưu đãi 15%</p>
+          <h2>Đăng ký nhận combo tuần &amp; bảng giá mới</h2>
+          <p>Chúng tôi gửi menu theo mùa và mã giảm giá dành riêng cho thành viên.</p>
+        </div>
+        <form class="org-newsletter-form org-form-demo" id="org-newsletter-form" data-success="Đăng ký thành công! Kiểm tra email để nhận mã giảm 15%.">
+          <input type="email" name="email" placeholder="Email của bạn" required />
+          <button type="submit" class="org-btn">Đăng ký ngay</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  {{> demo/organico/footer }}
+  {{> demo/organico/overlays }}
+</div>
+
+{{> demo/organico/scripts }}

@@ -1,0 +1,12 @@
+{
+  "name": "Honize Local Coder",
+  "description": "Private local coding agent for the Honize repo only. First call agent_status + project_context. Use glob/grep to explore, apply_patch to edit, run_command for shell/tests. Not for public distribution.",
+  "mcp_endpoint_path": "/mcp",
+  "authentication": "none",
+  "visibility": "private",
+  "notes": [
+    "Developer Mode only — do not publish as a ChatGPT App/Plugin.",
+    "Paste the HTTPS tunnel URL (must end with /mcp) into ChatGPT connector URL.",
+    "Always @-tag this connector in each chat before asking it to code."
+  ]
+}

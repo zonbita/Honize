@@ -1,0 +1,382 @@
+<script>
+(function () {
+  var cart = [];
+  var activeCategory = null;
+  var activeIconTag = null;
+
+  var menuBtn = document.getElementById('org-menu-btn');
+  var drawer = document.getElementById('org-drawer');
+  var searchToggle = document.getElementById('org-search-toggle');
+  var searchModal = document.getElementById('org-search-modal');
+  var searchBackdrop = document.getElementById('org-search-backdrop');
+  var searchClose = document.getElementById('org-search-close');
+  var searchForm = document.getElementById('org-search-form');
+  var searchInput = document.getElementById('org-search-input');
+  var searchResults = document.getElementById('org-search-results');
+  var cartBtn = document.getElementById('org-cart-btn');
+  var cartDrawer = document.getElementById('org-cart-drawer');
+  var cartBackdrop = document.getElementById('org-cart-backdrop');
+  var cartClose = document.getElementById('org-cart-close');
+  var cartBody = document.getElementById('org-cart-body');
+  var cartCount = document.getElementById('org-cart-count');
+  var cartTotal = document.getElementById('org-cart-total');
+  var checkoutBtn = document.getElementById('org-checkout-btn');
+  var toast = document.getElementById('org-toast');
+  var blogModal = document.getElementById('org-blog-modal');
+  var blogBackdrop = document.getElementById('org-blog-backdrop');
+  var blogClose = document.getElementById('org-blog-close');
+  var blogTitle = document.getElementById('org-blog-title');
+  var blogBody = document.getElementById('org-blog-body');
+  var filterLabel = document.getElementById('org-filter-label');
+  var noProducts = document.getElementById('org-no-products');
+
+  function formatPrice(n) {
+    return n.toLocaleString('vi-VN') + ' ₫';
+  }
+
+  function showToast(msg) {
+    if (!toast) return;
+    toast.textContent = msg;
+    toast.hidden = false;
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(function () { toast.hidden = true; }, 2600);
+  }
+
+  function closeDrawer() {
+    if (!drawer || !menuBtn) return;
+    drawer.hidden = true;
+    menuBtn.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('org-drawer-open');
+  }
+
+  if (menuBtn && drawer) {
+    menuBtn.addEventListener('click', function () {
+      var open = drawer.hidden;
+      drawer.hidden = !open;
+      menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      document.body.classList.toggle('org-drawer-open', open);
+    });
+    drawer.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', closeDrawer);
+    });
+  }
+
+  function openModal(modal, backdrop, open) {
+    if (!modal || !backdrop) return;
+    modal.hidden = !open;
+    backdrop.hidden = !open;
+    document.body.classList.toggle('org-modal-open', open);
+    if (open) {
+      requestAnimationFrame(function () {
+        modal.classList.add('is-open');
+        backdrop.classList.add('is-open');
+      });
+    } else {
+      modal.classList.remove('is-open');
+      backdrop.classList.remove('is-open');
+    }
+  }
+
+  function openSearch(open) {
+    openModal(searchModal, searchBackdrop, open);
+    if (searchToggle) searchToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open && searchInput) {
+      searchInput.focus();
+      renderSearchResults(searchInput.value.trim());
+    }
+  }
+
+  function openCart(open) {
+    if (!cartDrawer || !cartBackdrop || !cartBtn) return;
+    cartBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    document.body.classList.toggle('org-cart-open', open);
+    if (open) {
+      cartDrawer.hidden = false;
+      cartBackdrop.hidden = false;
+      requestAnimationFrame(function () {
+        cartDrawer.classList.add('is-open');
+        cartBackdrop.classList.add('is-open');
+      });
+      return;
+    }
+    cartDrawer.classList.remove('is-open');
+    cartBackdrop.classList.remove('is-open');
+    window.setTimeout(function () {
+      if (!cartDrawer.classList.contains('is-open')) {
+        cartDrawer.hidden = true;
+        cartBackdrop.hidden = true;
+      }
+    }, 220);
+  }
+
+  function openBlog(card) {
+    if (!blogModal || !blogBackdrop || !blogTitle || !blogBody) return;
+    blogTitle.textContent = card.getAttribute('data-title') || '';
+    var date = card.getAttribute('data-date') || '';
+    var body = card.getAttribute('data-body') || '';
+    blogBody.innerHTML = '<time datetime="' + (card.getAttribute('data-datetime') || '') + '">' + date + '</time><p>' + body + '</p>';
+    openModal(blogModal, blogBackdrop, true);
+  }
+
+  function getProductCards() {
+    return document.querySelectorAll('.org-product-card');
+  }
+
+  function matchesFilter(card) {
+    var catId = card.getAttribute('data-category-id') || '';
+    var tag = card.getAttribute('data-tag') || '';
+
+    if (activeCategory) {
+      return catId === activeCategory;
+    }
+    if (activeIconTag) {
+      var filterIds = (activeIconTag.getAttribute('data-filter') || '')
+        .split(',')
+        .map(function (s) { return s.trim(); })
+        .filter(Boolean);
+      var tagFilter = activeIconTag.getAttribute('data-tag') || '';
+      if (tagFilter) {
+        if (tag && tag === tagFilter && filterIds.indexOf(catId) !== -1) return true;
+        if (tagFilter === 'dac-san' && catId.indexOf('hai-san') === 0) return true;
+        return false;
+      }
+      return filterIds.indexOf(catId) !== -1;
+    }
+    return true;
+  }
+
+  function applyProductFilter() {
+    var visible = 0;
+    getProductCards().forEach(function (card) {
+      var show = matchesFilter(card);
+      card.hidden = !show;
+      if (show) visible++;
+    });
+    if (noProducts) noProducts.hidden = visible > 0;
+    document.querySelectorAll('.org-cat-filter').forEach(function (el) {
+      var cat = el.getAttribute('data-category');
+      var iconFilter = el.getAttribute('data-icon-filter');
+      var isActive = false;
+      if (activeCategory && cat === activeCategory) isActive = true;
+      if (activeIconTag && iconFilter === activeIconTag.getAttribute('data-icon-filter')) isActive = true;
+      el.classList.toggle('is-active', isActive);
+    });
+  }
+
+  function setCategoryFilter(categoryId, label) {
+    activeCategory = categoryId || null;
+    activeIconTag = null;
+    if (filterLabel) {
+      filterLabel.textContent = categoryId ? label : 'Tất cả sản phẩm';
+    }
+    applyProductFilter();
+    var section = document.getElementById('san-pham');
+    if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function setIconFilter(el) {
+    activeCategory = null;
+    activeIconTag = el;
+    if (filterLabel) {
+      filterLabel.textContent = el.getAttribute('data-label') || 'Danh mục';
+    }
+    applyProductFilter();
+    var section = document.getElementById('san-pham');
+    if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  document.querySelectorAll('.org-cat-filter[data-category]').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      e.preventDefault();
+      var cat = el.getAttribute('data-category');
+      setCategoryFilter(cat, el.getAttribute('data-label') || cat);
+    });
+  });
+
+  document.querySelectorAll('.org-cat-filter[data-icon-filter]').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      e.preventDefault();
+      setIconFilter(el);
+    });
+  });
+
+  var clearFilterBtn = document.getElementById('org-clear-filter');
+  if (clearFilterBtn) {
+    clearFilterBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      setCategoryFilter(null, null);
+    });
+  }
+
+  function renderCart() {
+    if (!cartBody || !cartCount || !cartTotal) return;
+    cartCount.textContent = String(cart.length);
+    cartCount.hidden = cart.length === 0;
+    if (!cart.length) {
+      cartBody.innerHTML = '<p class="org-cart-empty">Chưa có sản phẩm nào.</p>';
+      cartTotal.textContent = '0 ₫';
+      return;
+    }
+    var total = 0;
+    cartBody.innerHTML = cart.map(function (item, i) {
+      total += item.price;
+      return '<div class="org-cart-row">' +
+        '<div><strong>' + item.name + '</strong><span>' + formatPrice(item.price) + '</span></div>' +
+        '<button type="button" data-remove="' + i + '" aria-label="Xóa ' + item.name + '">×</button>' +
+      '</div>';
+    }).join('');
+    cartTotal.textContent = formatPrice(total);
+  }
+
+  function renderSearchResults(query) {
+    if (!searchResults) return;
+    query = (query || '').toLowerCase();
+    if (!query) {
+      searchResults.hidden = true;
+      searchResults.innerHTML = '';
+      return;
+    }
+    var matches = [];
+    getProductCards().forEach(function (card) {
+      var name = (card.getAttribute('data-name') || '').toLowerCase();
+      if (name.indexOf(query) !== -1) {
+        matches.push({
+          name: card.getAttribute('data-name'),
+          price: card.getAttribute('data-price-label'),
+          id: card.getAttribute('data-id')
+        });
+      }
+    });
+    if (!matches.length) {
+      searchResults.hidden = false;
+      searchResults.innerHTML = '<p class="org-search-empty">Không tìm thấy sản phẩm phù hợp.</p>';
+      return;
+    }
+    searchResults.hidden = false;
+    searchResults.innerHTML = matches.slice(0, 8).map(function (item) {
+      return '<button type="button" class="org-search-item" data-goto="' + item.id + '">' +
+        '<strong>' + item.name + '</strong><span>' + item.price + '</span></button>';
+    }).join('');
+  }
+
+  if (searchToggle) searchToggle.addEventListener('click', function () { openSearch(searchModal && searchModal.hidden); });
+  if (searchClose) searchClose.addEventListener('click', function () { openSearch(false); });
+  if (searchBackdrop) searchBackdrop.addEventListener('click', function () { openSearch(false); });
+  if (searchForm) {
+    searchForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      renderSearchResults(searchInput ? searchInput.value.trim() : '');
+    });
+  }
+  if (searchInput) searchInput.addEventListener('input', function () { renderSearchResults(searchInput.value.trim()); });
+  if (searchResults) {
+    searchResults.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-goto]');
+      if (!btn) return;
+      openSearch(false);
+      var id = btn.getAttribute('data-goto');
+      var card = document.querySelector('.org-product-card[data-id="' + id + '"]');
+      if (card) {
+        setCategoryFilter(null, null);
+        card.hidden = false;
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        card.classList.add('is-highlight');
+        setTimeout(function () { card.classList.remove('is-highlight'); }, 1400);
+      }
+    });
+  }
+
+  if (cartBtn) cartBtn.addEventListener('click', function () { openCart(cartDrawer && cartDrawer.hidden); });
+  if (cartClose) cartClose.addEventListener('click', function () { openCart(false); });
+  if (cartBackdrop) cartBackdrop.addEventListener('click', function () { openCart(false); });
+  if (checkoutBtn) {
+    checkoutBtn.addEventListener('click', function () {
+      if (!cart.length) {
+        showToast('Giỏ hàng đang trống — hãy thêm sản phẩm trước.');
+        return;
+      }
+      openCart(false);
+      showToast('Đặt hàng demo thành công! Organico sẽ liên hệ xác nhận.');
+      cart = [];
+      renderCart();
+    });
+  }
+  if (cartBody) {
+    cartBody.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-remove]');
+      if (!btn) return;
+      cart.splice(parseInt(btn.getAttribute('data-remove'), 10), 1);
+      renderCart();
+    });
+  }
+
+  document.body.addEventListener('click', function (e) {
+    var addBtn = e.target.closest('.org-product-cart');
+    if (addBtn) {
+      var card = addBtn.closest('.org-product-card');
+      if (!card) return;
+      cart.push({
+        id: card.getAttribute('data-id'),
+        name: card.getAttribute('data-name'),
+        price: parseInt(card.getAttribute('data-price'), 10) || 0
+      });
+      renderCart();
+      showToast('Đã thêm vào giỏ: ' + card.getAttribute('data-name'));
+      return;
+    }
+    var blogCard = e.target.closest('.org-news-card[data-body]');
+    if (blogCard) openBlog(blogCard);
+  });
+
+  document.querySelectorAll('.org-news-card[data-body]').forEach(function (card) {
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'button');
+    card.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openBlog(card);
+      }
+    });
+  });
+
+  if (blogClose) blogClose.addEventListener('click', function () { openModal(blogModal, blogBackdrop, false); });
+  if (blogBackdrop) blogBackdrop.addEventListener('click', function () { openModal(blogModal, blogBackdrop, false); });
+
+  document.querySelectorAll('.org-form-demo').forEach(function (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var msg = form.getAttribute('data-success') || 'Gửi thành công!';
+      showToast(msg);
+      form.reset();
+    });
+  });
+
+  document.querySelectorAll('button.org-form-demo[data-success]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      showToast(btn.getAttribute('data-success') || 'Gửi thành công!');
+    });
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    openSearch(false);
+    openCart(false);
+    openModal(blogModal, blogBackdrop, false);
+    closeDrawer();
+  });
+
+  document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      var id = link.getAttribute('href');
+      if (!id || id === '#') return;
+      var target = document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  renderCart();
+  applyProductFilter();
+})();
+</script>

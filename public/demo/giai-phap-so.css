@@ -120,6 +120,15 @@
   color: transparent;
 }
 
+/* html2canvas cannot clip gradients to glyphs — solid gold for screenshots */
+html.demo-screenshot-mode .hrm-gold-text {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  color: #c9a227;
+  -webkit-text-fill-color: #c9a227;
+}
+
 .hrm-gold-btn {
   display: inline-flex;
   align-items: center;

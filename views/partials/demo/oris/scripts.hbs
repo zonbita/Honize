@@ -3,11 +3,13 @@
   var header = document.getElementById('oris-header');
   var menuBtn = document.getElementById('oris-menu-btn');
   var nav = document.getElementById('oris-nav');
+  var hero = document.getElementById('oris-hero');
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function onScroll() {
     if (!header) return;
-    header.classList.toggle('is-scrolled', window.scrollY > 24);
+    var threshold = hero ? hero.offsetHeight - 80 : 24;
+    header.classList.toggle('is-scrolled', window.scrollY > threshold);
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
@@ -31,6 +33,17 @@
     });
   }
 
+  document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+    anchor.addEventListener('click', function (e) {
+      var id = anchor.getAttribute('href');
+      if (!id || id === '#') return;
+      var target = document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+    });
+  });
+
   document.querySelectorAll('.oris-faq-item button').forEach(function (btn) {
     btn.addEventListener('click', function () {
       var item = btn.closest('.oris-faq-item');
@@ -39,20 +52,39 @@
     });
   });
 
-  document.querySelectorAll('.oris-book-form').forEach(function (form) {
+  var form = document.getElementById('oris-book-form');
+  if (form) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var note = form.querySelector('.oris-form-note');
-      if (note) {
-        note.textContent = 'Đã nhận yêu cầu (demo) — cảm ơn bạn đã quan tâm ORIS.';
-        note.style.color = '#0b4f7c';
+      var valid = true;
+      form.querySelectorAll('[required]').forEach(function (field) {
+        var empty = !field.value || !String(field.value).trim();
+        field.classList.toggle('is-invalid', empty);
+        if (empty) valid = false;
+        if (field.type === 'tel' && field.value && !field.checkValidity()) {
+          field.classList.add('is-invalid');
+          valid = false;
+        }
+      });
+      if (!note) return;
+      if (!valid) {
+        note.textContent = 'Vui lòng điền đầy đủ các trường bắt buộc.';
+        note.style.color = '#b42318';
+        return;
       }
+      note.textContent = 'Đã nhận yêu cầu (demo) — cảm ơn bạn đã quan tâm ORIS.';
+      note.style.color = '#082f5b';
+      form.reset();
+      form.querySelectorAll('.is-invalid').forEach(function (el) {
+        el.classList.remove('is-invalid');
+      });
     });
-  });
 
-  if (!reducedMotion) {
-    document.querySelectorAll('.oris-float').forEach(function (el) {
-      el.classList.add('is-animating');
+    form.querySelectorAll('[required]').forEach(function (field) {
+      field.addEventListener('input', function () {
+        field.classList.remove('is-invalid');
+      });
     });
   }
 

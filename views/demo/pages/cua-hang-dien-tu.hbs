@@ -1,0 +1,76 @@
+<div class="vx-page">
+
+  {{> demo/voltix/header }}
+
+  {{> demo/voltix/mobile-navigation }}
+
+  {{> demo/voltix/hero-showcase }}
+
+  {{> demo/voltix/category-menu }}
+
+
+
+  <section class="vx-section vx-products" id="products" aria-labelledby="vx-products-title">
+
+    <div class="vx-wrap">
+
+      {{> demo/voltix/section-header
+
+        id="vx-products-title"
+
+        title="Sản phẩm nổi bật"
+
+        linkText="Xem tất cả"
+
+        linkHref="#products"
+
+      }}
+
+      {{> demo/voltix/product-grid products=voltixFeatured gridId="vx-product-grid" }}
+
+      <p class="vx-no-results" id="vx-no-results" hidden>Không tìm thấy sản phẩm phù hợp.</p>
+
+    </div>
+
+  </section>
+
+
+
+  {{#each voltixCategories}}
+
+  {{> demo/voltix/category-section
+
+    id=this.id
+
+    title=this.title
+
+    sectionTitleId=this.sectionTitleId
+
+    linkHref=this.linkHref
+
+    products=this.products
+
+    altBg=@odd
+
+  }}
+
+  {{/each}}
+
+
+
+  {{> demo/voltix/promotion-banner }}
+
+  {{> demo/voltix/service-benefits }}
+
+  {{> demo/voltix/newsletter }}
+
+  {{> demo/voltix/footer }}
+
+  {{> demo/voltix/cart-drawer }}
+
+</div>
+
+
+
+{{> demo/voltix/scripts }}
+

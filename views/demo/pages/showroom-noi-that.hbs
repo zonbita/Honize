@@ -1,0 +1,364 @@
+<div class="sn-page">
+
+  <div class="sn-hero-shell">
+
+    <header class="sn-header sn-header--overlay" id="trang-chu">
+      <div class="sn-wrap sn-header-inner">
+        <a href="{{snBase}}" class="sn-logo sn-logo-hero" aria-label="Origami Home">
+          <span class="sn-logo-line">Origami</span>
+          <span class="sn-logo-line sn-logo-line-sub">Home</span>
+        </a>
+
+        <nav class="sn-nav sn-nav-hero" aria-label="Điều hướng chính">
+          <a href="#trang-chu" class="is-active">Trang chủ</a>
+          <a href="#gioi-thieu">Giới thiệu</a>
+          <a href="#danh-muc">Sản phẩm</a>
+          <a href="#du-an">Dự án</a>
+          <a href="#tu-van">Tin tức</a>
+          <a href="#lien-he">Liên hệ</a>
+        </nav>
+
+        <button type="button" class="sn-menu" id="sn-menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="sn-drawer">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+      <nav class="sn-drawer" id="sn-drawer" aria-label="Menu di động" hidden>
+        <a href="#trang-chu">Trang chủ</a>
+        <a href="#gioi-thieu">Giới thiệu</a>
+        <a href="#danh-muc">Sản phẩm</a>
+        <a href="#du-an">Dự án</a>
+        <a href="#tu-van">Tin tức</a>
+        <a href="#lien-he">Liên hệ</a>
+      </nav>
+    </header>
+
+    <section class="sn-hero" aria-label="Banner giới thiệu">
+      <div class="sn-hero-track" id="sn-hero-track">
+        {{#each snHeroSlides}}
+        <article class="sn-hero-slide{{#if @first}} is-active{{/if}}">
+          <img src="{{{this.image}}}" alt="{{this.headline}}" width="1920" height="900" />
+          <div class="sn-hero-overlay" aria-hidden="true"></div>
+          <div class="sn-wrap sn-hero-content" data-aos="fade-right" data-aos-duration="900">
+            <p class="sn-hero-headline">{{this.headline}}</p>
+            <h1 class="sn-hero-script">{{this.scriptLine}}</h1>
+            <p class="sn-hero-tagline">{{this.tagline}}</p>
+            <a href="{{this.href}}" class="sn-btn sn-btn-hero">{{this.cta}}</a>
+          </div>
+        </article>
+        {{/each}}
+      </div>
+
+      <button type="button" class="sn-hero-arrow sn-hero-arrow-prev" id="sn-hero-prev" aria-label="Slide trước">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button type="button" class="sn-hero-arrow sn-hero-arrow-next" id="sn-hero-next" aria-label="Slide sau">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </section>
+
+    <section class="sn-hero-cats" id="danh-muc" aria-labelledby="sn-hero-cats-title">
+      <div class="sn-wrap">
+        <h2 class="sn-hero-cats-title" id="sn-hero-cats-title">Danh mục sản phẩm</h2>
+        <div class="sn-hero-cats-grid">
+          {{#each snHeroCategories}}
+          <a href="{{this.href}}" class="sn-hero-cat" data-aos="fade-up" data-aos-delay="{{multiply @index 50}}">
+            <div class="sn-hero-cat-media">
+              <img src="{{{this.image}}}" alt="{{this.name}}" loading="lazy" width="320" height="240" />
+            </div>
+            <span class="sn-hero-cat-label">{{this.name}}</span>
+          </a>
+          {{/each}}
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <section class="sn-categories sn-categories-extended" id="danh-muc-chi-tiet">
+    <div class="sn-wrap">
+      <div class="sn-section-head sn-section-head-center" data-aos="fade-up">
+        <h2>Bạn đang cần tìm?</h2>
+        <p>Danh mục sản phẩm showroom Origami Home đang cung cấp</p>
+      </div>
+      <div class="sn-cat-grid">
+        {{#each snCategories}}
+        <a href="#san-pham-moi" class="sn-cat-card" data-aos="fade-up" data-aos-delay="{{multiply @index 40}}">
+          <div class="sn-cat-icon">{{{this.icon}}}</div>
+          <div class="sn-cat-media">
+            <img src="{{{this.image}}}" alt="{{this.name}}" loading="lazy" width="320" height="220" />
+          </div>
+          <h3>{{this.name}}</h3>
+        </a>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <section class="sn-products" id="san-pham-moi">
+    <div class="sn-wrap">
+      <div class="sn-section-head" data-aos="fade-up">
+        <div>
+          <h2>Sản phẩm mới</h2>
+          <p>Những mẫu sản phẩm mới nhất của chúng tôi</p>
+        </div>
+      </div>
+      <div class="sn-product-grid">
+        {{#each snNewProducts}}
+        <article class="sn-product-card" data-aos="fade-up" data-aos-delay="{{multiply @index 50}}">
+          <a href="#" class="sn-product-link">
+            <div class="sn-product-media">
+              <span class="sn-sale-badge">{{this.sale}}</span>
+              <img src="{{{this.image}}}" alt="{{this.title}}" loading="lazy" width="400" height="400" />
+              <div class="sn-product-actions">
+                <span class="sn-product-action">Xem nhanh</span>
+              </div>
+            </div>
+            <div class="sn-product-body">
+              <h3>{{this.title}}</h3>
+              <p class="sn-product-prices">
+                <span class="sn-price-old">{{this.priceOld}}</span>
+                <span class="sn-price">{{this.price}}</span>
+              </p>
+            </div>
+          </a>
+        </article>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <section class="sn-products sn-products-alt" id="noi-bat">
+    <div class="sn-wrap">
+      <div class="sn-section-head" data-aos="fade-up">
+        <div>
+          <h2>Sản phẩm nổi bật</h2>
+          <p>Được khách hàng yêu thích nhất</p>
+        </div>
+        <a href="#san-pham-moi" class="sn-link">Xem tất cả →</a>
+      </div>
+      <div class="sn-product-grid sn-product-grid-featured">
+        {{#each snFeaturedProducts}}
+        <article class="sn-product-card" data-aos="fade-up" data-aos-delay="{{multiply @index 60}}">
+          <a href="#" class="sn-product-link">
+            <div class="sn-product-media">
+              <span class="sn-sale-badge">{{this.sale}}</span>
+              <img src="{{{this.image}}}" alt="{{this.title}}" loading="lazy" width="400" height="400" />
+            </div>
+            <div class="sn-product-body">
+              <h3>{{this.title}}</h3>
+              <p class="sn-product-prices">
+                <span class="sn-price-old">{{this.priceOld}}</span>
+                <span class="sn-price">{{this.price}}</span>
+              </p>
+            </div>
+          </a>
+        </article>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <section class="sn-projects" id="du-an">
+    <div class="sn-wrap">
+      <div class="sn-section-head sn-section-head-center" data-aos="fade-up">
+        <h2>Dự án khách hàng</h2>
+        <p>Những dự án công ty đã hoàn thành mới nhất</p>
+      </div>
+      <div class="sn-project-grid">
+        {{#each snProjects}}
+        <article class="sn-project-card" data-aos="fade-up" data-aos-delay="{{multiply @index 80}}">
+          <a href="#du-an" class="sn-project-link">
+            <div class="sn-project-media">
+              <img src="{{{this.image}}}" alt="{{this.title}}" loading="lazy" width="640" height="420" />
+              <div class="sn-project-overlay">
+                <span>Xem chi tiết</span>
+              </div>
+            </div>
+            <h3>{{this.title}}</h3>
+          </a>
+        </article>
+        {{/each}}
+      </div>
+      <div class="sn-section-cta" data-aos="fade-up">
+        <a href="#du-an" class="sn-btn sn-btn-outline">Xem thêm dự án</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sn-about-band" id="gioi-thieu" data-aos="fade-up">
+    <div class="sn-wrap sn-about-band-inner">
+      <div class="sn-about-band-copy">
+        <p class="sn-kicker">Về Origami Home</p>
+        <h2>Thiết kế &amp; thi công nội thất trọn gói</h2>
+        <p>Hơn 12 năm kinh nghiệm, đội ngũ kiến trúc sư và thợ mộc lành nghề — mang đến không gian sống ấm áp, bền vững và đúng gu của gia chủ.</p>
+        <ul class="sn-about-list">
+          <li>Bảo hành 5 năm</li>
+          <li>Thi công đúng tiến độ</li>
+          <li>Tư vấn miễn phí</li>
+        </ul>
+      </div>
+      <div class="sn-stats-inline">
+        {{#each stats}}
+        <div class="sn-stat-inline">
+          <strong>{{this.value}}</strong>
+          <span>{{this.label}}</span>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <section class="sn-news" id="tu-van">
+    <div class="sn-wrap">
+      <div class="sn-section-head" data-aos="fade-up">
+        <div>
+          <h2>Góc tư vấn</h2>
+          <p>Kiến thức trang trí và chăm sóc nội thất</p>
+        </div>
+        <a href="#tu-van" class="sn-link">Xem thêm →</a>
+      </div>
+      <div class="sn-news-grid">
+        {{#each news}}
+        <article class="sn-news-card" data-aos="fade-up" data-aos-delay="{{multiply @index 50}}">
+          <a href="#tu-van" class="sn-news-link">
+            <div class="sn-news-media">
+              <img src="{{{this.image}}}" alt="{{this.title}}" loading="lazy" width="480" height="300" />
+            </div>
+            <div class="sn-news-body">
+              <h3>{{this.title}}</h3>
+              <p>{{this.excerpt}}</p>
+              <time datetime="{{this.datetime}}">{{this.date}}</time>
+            </div>
+          </a>
+        </article>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+
+  <section class="sn-cta" id="lien-he">
+    <div class="sn-wrap sn-cta-inner" data-aos="fade-up">
+      <div class="sn-cta-copy">
+        <h2>Đặt lịch tư vấn thiết kế miễn phí</h2>
+        <p>Gửi yêu cầu — đội ngũ Origami Home liên hệ trong 24 giờ.</p>
+      </div>
+      <form class="sn-cta-form" action="#" onsubmit="return false">
+        <input type="text" name="name" placeholder="Họ tên" required />
+        <input type="tel" name="phone" placeholder="Số điện thoại" required />
+        <button type="submit" class="sn-btn sn-btn-primary">Gửi yêu cầu</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="sn-footer">
+    <div class="sn-wrap sn-footer-grid">
+      <div class="sn-footer-brand">
+        <a href="{{snBase}}" class="sn-logo">
+          <span class="sn-logo-mark">O</span>
+          <span class="sn-logo-text">Origami Home</span>
+        </a>
+        <p>Showroom nội thất — thiết kế, thi công và cung cấp sản phẩm cho mọi không gian sống.</p>
+      </div>
+      <div class="sn-footer-col">
+        <h4>Sản phẩm</h4>
+        <ul>
+          {{#each snCategories}}
+          <li><a href="#danh-muc">{{this.name}}</a></li>
+          {{/each}}
+        </ul>
+      </div>
+      <div class="sn-footer-col">
+        <h4>Liên kết</h4>
+        <ul>
+          <li><a href="#gioi-thieu">Giới thiệu</a></li>
+          <li><a href="#du-an">Dự án đã thi công</a></li>
+          <li><a href="#tu-van">Góc tư vấn</a></li>
+          <li><a href="#lien-he">Liên hệ</a></li>
+        </ul>
+      </div>
+      <div class="sn-footer-col">
+        <h4>Liên hệ</h4>
+        <ul class="sn-footer-contact">
+          <li><a href="tel:0984966806">0984 966 806</a></li>
+          <li>hello@origamihome.vn</li>
+          <li>45 Nguyễn Huệ, Q.1, TP.HCM</li>
+        </ul>
+      </div>
+    </div>
+    <p class="sn-footer-copy">© {{year}} Origami Home. Bản demo thiết kế bởi Honize.</p>
+  </footer>
+
+</div>
+
+<script>
+  (function () {
+    var menuBtn = document.getElementById('sn-menu-btn');
+    var drawer = document.getElementById('sn-drawer');
+    var heroTrack = document.getElementById('sn-hero-track');
+    var heroPrev = document.getElementById('sn-hero-prev');
+    var heroNext = document.getElementById('sn-hero-next');
+    var slides = heroTrack ? heroTrack.querySelectorAll('.sn-hero-slide') : [];
+    var current = 0;
+    var timer;
+
+    if (menuBtn && drawer) {
+      function closeDrawer() {
+        drawer.hidden = true;
+        menuBtn.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('sn-drawer-open');
+      }
+      menuBtn.addEventListener('click', function () {
+        var open = drawer.hidden;
+        drawer.hidden = !open;
+        menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        document.body.classList.toggle('sn-drawer-open', open);
+      });
+      drawer.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', closeDrawer);
+      });
+    }
+
+    function goToSlide(index) {
+      if (!slides.length) return;
+      slides[current].classList.remove('is-active');
+      current = (index + slides.length) % slides.length;
+      slides[current].classList.add('is-active');
+    }
+
+    function resetTimer() {
+      clearInterval(timer);
+      if (slides.length > 1) {
+        timer = setInterval(function () { goToSlide(current + 1); }, 6500);
+      }
+    }
+
+    if (slides.length > 1) {
+      if (heroPrev) {
+        heroPrev.addEventListener('click', function () {
+          goToSlide(current - 1);
+          resetTimer();
+        });
+      }
+      if (heroNext) {
+        heroNext.addEventListener('click', function () {
+          goToSlide(current + 1);
+          resetTimer();
+        });
+      }
+      resetTimer();
+    }
+
+    var header = document.querySelector('.sn-header');
+    var heroShell = document.querySelector('.sn-hero-shell');
+    if (header && heroShell) {
+      function updateHeader() {
+        var passed = window.scrollY > heroShell.offsetHeight - 80;
+        header.classList.toggle('is-scrolled', passed);
+        header.classList.toggle('is-solid', passed);
+      }
+      updateHeader();
+      window.addEventListener('scroll', updateHeader, { passive: true });
+    }
+  })();
+</script>

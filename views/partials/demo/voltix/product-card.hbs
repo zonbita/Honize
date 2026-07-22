@@ -1,0 +1,22 @@
+<article class="vx-product-card" data-id="{{id}}" data-name="{{name}}" data-category="{{category}}" data-price="{{price}}">
+  <div class="vx-product-badges">
+    {{#if discountLabel}}
+    <span class="vx-badge vx-badge-sale">{{discountLabel}}</span>
+    {{/if}}
+    {{#if installmentLabel}}
+    <span class="vx-badge vx-badge-installment">Trả góp <strong>0%</strong></span>
+    {{/if}}
+  </div>
+  <div class="vx-product-media">
+    <img src="{{image}}" alt="{{name}}" width="280" height="210" loading="lazy" decoding="async" />
+  </div>
+  <h3 class="vx-product-name">{{name}}</h3>
+  <p class="vx-product-spec">{{spec}}</p>
+  <p class="vx-product-price">{{priceDisplay}}</p>
+  <button type="button" class="vx-product-cart-btn" aria-label="Thêm {{name}} vào giỏ hàng">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+      <path d="M6 7h15l-1.5 9H8L6 7z"/><path d="M6 7L5 3H2"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/>
+    </svg>
+    <span>Thêm vào giỏ</span>
+  </button>
+</article>

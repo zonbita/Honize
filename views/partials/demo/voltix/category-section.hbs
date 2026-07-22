@@ -1,0 +1,16 @@
+<section
+  class="vx-section vx-category-products{{#if altBg}} vx-section--soft{{/if}}"
+  id="category-{{id}}"
+  aria-labelledby="{{sectionTitleId}}"
+  data-category-section="{{id}}"
+>
+  <div class="vx-wrap">
+    {{> demo/voltix/section-header
+      id=sectionTitleId
+      title=title
+      linkText="Xem tất cả"
+      linkHref=linkHref
+    }}
+    {{> demo/voltix/product-grid products=products }}
+  </div>
+</section>

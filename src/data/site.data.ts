@@ -461,11 +461,11 @@ export const defaultProjectsData: Pick<SiteLayoutData, 'projectCategories' | 'pr
       url: '/du-an/demo/portfolio-thiet-ke',
     },
     {
-      title: 'Quán cà phê specialty',
+      title: 'ORIA — Cà phê specialty',
       slug: 'cafe-specialty',
       categorySlug: 'an-uong',
       categoryName: 'Ăn uống',
-      image: 'https://images.unsplash.com/photo-1501339847302-ac724a563a6a?w=800&h=600&fit=crop',
+      image: '/images/Demo/Cafe/00-landingpage-concept.png',
       url: '/du-an/demo/cafe-specialty',
     },
   ],

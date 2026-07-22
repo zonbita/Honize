@@ -1,0 +1,38 @@
+<div class="org-modal-backdrop" id="org-search-backdrop" hidden></div>
+<div class="org-modal org-search-modal" id="org-search-modal" role="dialog" aria-modal="true" aria-labelledby="org-search-title" hidden>
+  <div class="org-modal-head">
+    <h2 id="org-search-title">Tìm sản phẩm</h2>
+    <button type="button" class="org-modal-close" id="org-search-close" aria-label="Đóng">×</button>
+  </div>
+  <form class="org-search-form" id="org-search-form">
+    <input type="search" id="org-search-input" placeholder="Nhập tên sản phẩm..." autocomplete="off" />
+    <button type="submit" class="org-btn">Tìm kiếm</button>
+  </form>
+  <div class="org-search-results" id="org-search-results" hidden></div>
+</div>
+
+<aside class="org-cart-drawer" id="org-cart-drawer" aria-label="Giỏ hàng" hidden>
+  <div class="org-cart-drawer-head">
+    <strong>Giỏ hàng</strong>
+    <button type="button" class="org-cart-close" id="org-cart-close" aria-label="Đóng giỏ hàng">×</button>
+  </div>
+  <div class="org-cart-drawer-body" id="org-cart-body">
+    <p class="org-cart-empty">Chưa có sản phẩm nào.</p>
+  </div>
+  <div class="org-cart-drawer-foot">
+    <p class="org-cart-total">Tạm tính: <strong id="org-cart-total">0 ₫</strong></p>
+    <button type="button" class="org-btn org-btn-block" id="org-checkout-btn">Đặt hàng demo</button>
+  </div>
+</aside>
+<div class="org-cart-backdrop" id="org-cart-backdrop" hidden></div>
+
+<div class="org-modal-backdrop" id="org-blog-backdrop" hidden></div>
+<div class="org-modal org-blog-modal" id="org-blog-modal" role="dialog" aria-modal="true" aria-labelledby="org-blog-title" hidden>
+  <div class="org-modal-head">
+    <h2 id="org-blog-title"></h2>
+    <button type="button" class="org-modal-close" id="org-blog-close" aria-label="Đóng">×</button>
+  </div>
+  <div class="org-blog-modal-body" id="org-blog-body"></div>
+</div>
+
+<div class="org-toast" id="org-toast" hidden role="status" aria-live="polite"></div>

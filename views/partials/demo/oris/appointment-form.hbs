@@ -1,0 +1,42 @@
+<form class="oris-book-form" id="oris-book-form" action="#" method="post" novalidate>
+  <div class="oris-book-form-grid">
+    <label class="oris-field">
+      <span>Họ và tên</span>
+      <input type="text" name="name" autocomplete="name" required aria-required="true" />
+    </label>
+    <label class="oris-field">
+      <span>Số điện thoại</span>
+      <input type="tel" name="phone" autocomplete="tel" required aria-required="true" pattern="[0-9\s.+-]{8,}" />
+    </label>
+    <label class="oris-field">
+      <span>Dịch vụ quan tâm</span>
+      <select name="service" required aria-required="true">
+        <option value="">Chọn dịch vụ</option>
+        <option>Trồng răng Implant</option>
+        <option>Niềng răng thẩm mỹ</option>
+        <option>Răng sứ thẩm mỹ</option>
+        <option>Nha khoa tổng quát</option>
+        <option>Khác</option>
+      </select>
+    </label>
+    <label class="oris-field">
+      <span>Cơ sở nha khoa</span>
+      <select name="clinic" required aria-required="true">
+        <option value="">Chọn cơ sở</option>
+        <option>ORIS Quận 1</option>
+        <option>ORIS Quận 3</option>
+        <option>ORIS Quận 7</option>
+      </select>
+    </label>
+    <label class="oris-field">
+      <span>Ngày mong muốn</span>
+      <input type="date" name="date" required aria-required="true" />
+    </label>
+    <label class="oris-field oris-field--full">
+      <span>Ghi chú</span>
+      <textarea name="note" rows="3" placeholder="Mô tả nhu cầu của bạn (không bắt buộc)"></textarea>
+    </label>
+  </div>
+  <button type="submit" class="oris-btn oris-btn-navy oris-btn-block">Đặt lịch ngay</button>
+  <p class="oris-form-note" role="status" aria-live="polite">* Thông tin của bạn được bảo mật tuyệt đối.</p>
+</form>

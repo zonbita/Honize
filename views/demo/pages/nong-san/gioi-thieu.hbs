@@ -1,0 +1,78 @@
+<div class="org-page">
+  {{> demo/organico/header }}
+
+  <main>
+    <section class="org-page-hero">
+      <div class="org-page-hero-bg" aria-hidden="true">
+        <img src="/images/Demo/NongSan/about-farm.jpg" alt="" width="1600" height="900" />
+      </div>
+      <div class="org-page-hero-overlay" aria-hidden="true"></div>
+      <div class="org-wrap org-page-hero-inner">
+        <nav class="org-breadcrumb" aria-label="Breadcrumb">
+          <a href="{{orgBase}}">Trang chủ</a>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">Giới thiệu</span>
+        </nav>
+        <h1>Về Organico</h1>
+        <p class="org-page-hero-text">
+          Nông trại xanh — bữa ăn lành. Hơn 12 năm đồng hành cùng hơn 120 hộ nông dân hữu cơ tại Việt Nam.
+        </p>
+      </div>
+    </section>
+
+    <section class="org-section">
+      <div class="org-wrap org-about-grid">
+        <div data-aos="fade-up">
+          <p class="org-kicker">Câu chuyện thương hiệu</p>
+          <h2>Từ trang trại nhỏ đến chuỗi thực phẩm sạch</h2>
+          <p class="org-text-muted">
+            Organico ra đời tại Đà Lạt với mong muốn mang thực phẩm an toàn đến gần hơn với mọi gia đình.
+            Chúng tôi kiểm soát toàn bộ chuỗi từ gieo trồng, thu hoạch, đóng gói đến giao hàng tận nhà.
+          </p>
+          <ul class="org-checklist">
+            <li>120+ hộ nông dân đối tác VietGAP</li>
+            <li>Quy trình kiểm định 3 lớp trước xuất kho</li>
+            <li>Truy xuất nguồn gốc bằng mã QR trên bao bì</li>
+          </ul>
+        </div>
+        <div data-aos="fade-up" data-aos-delay="80">
+          <img src="/images/Demo/NongSan/promo-farm.jpg" alt="Nông trại Organico" width="560" height="480" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
+    <section class="org-section org-section-alt">
+      <div class="org-wrap">
+        <div class="org-section-head org-section-head-center">
+          <p class="org-kicker">Giá trị cốt lõi</p>
+          <h2>Cam kết với khách hàng &amp; nông dân</h2>
+        </div>
+        <div class="org-feature-grid">
+          {{#each features}}
+          <article class="org-feature-card">
+            <div class="org-feature-icon">{{{this.icon}}}</div>
+            <h3>{{this.title}}</h3>
+            <p>{{this.text}}</p>
+          </article>
+          {{/each}}
+        </div>
+      </div>
+    </section>
+
+    <section class="org-stats">
+      <div class="org-wrap org-stats-grid">
+        {{#each stats}}
+        <div class="org-stat">
+          <span class="org-stat-value">{{this.value}}</span>
+          <span class="org-stat-label">{{this.label}}</span>
+        </div>
+        {{/each}}
+      </div>
+    </section>
+  </main>
+
+  {{> demo/organico/footer }}
+  {{> demo/organico/overlays }}
+</div>
+
+{{> demo/organico/scripts }}
