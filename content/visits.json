@@ -1,5 +1,13 @@
 [
   {
+    "id": "1784795056376-5oiini",
+    "ip": "127.0.0.1",
+    "country": "Mạng nội bộ",
+    "countryCode": "LOCAL",
+    "path": "/",
+    "visitedAt": "2026-07-23T08:24:16.376Z"
+  },
+  {
     "id": "1784794980874-prw9am",
     "ip": "::1",
     "country": "Mạng nội bộ",

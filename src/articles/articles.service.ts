@@ -107,8 +107,14 @@ export class ArticlesService {
       ...article,
       views: article.views + 1,
     };
-    this.writeJson(updated);
-    return { article: updated, counted: true };
+
+    try {
+      this.writeJson(updated);
+      return { article: updated, counted: true };
+    } catch {
+      // Vercel (and other serverless) filesystems are read-only — still render the article.
+      return { article, counted: false };
+    }
   }
 
   private formatDate(iso: string | null): string {
