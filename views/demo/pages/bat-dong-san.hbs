@@ -1,0 +1,195 @@
+<div class="gb-page">
+  <section class="gb-poster" aria-labelledby="gb-headline">
+    <div class="gb-silk" aria-hidden="true"></div>
+
+    <div class="gb-stage">
+      <header class="gb-brand" data-aos="fade-down" data-aos-duration="700">
+        <a href="/du-an/demo/bat-dong-san" class="gb-logo" aria-label="Green Building">
+          <svg class="gb-logo-mark" viewBox="0 0 48 56" fill="none" aria-hidden="true">
+            <rect x="1.5" y="1.5" width="45" height="53" rx="2" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M12 48V24M19 48V14M24 48V8M29 48V16M36 48V28" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+          </svg>
+          <span class="gb-logo-text">GREEN BUILDING</span>
+        </a>
+      </header>
+
+      <div class="gb-headline" id="gb-headline" data-aos="fade-up" data-aos-duration="800">
+        <p class="gb-headline-kicker">CHUẨN</p>
+        <h1 class="gb-headline-main">BÀN GIAO</h1>
+        <p class="gb-headline-script">Bậc nhất</p>
+      </div>
+
+      <div class="gb-scene" data-aos="fade-up" data-aos-duration="900" data-aos-delay="80">
+        {{!-- SVG defs: organic S-curve masks --}}
+        <svg class="gb-defs" width="0" height="0" aria-hidden="true">
+          <defs>
+            <clipPath id="gb-clip-top" clipPathUnits="objectBoundingBox">
+              <path d="M0.075,0.04
+                C0.028,0.04 0,0.22 0,0.5
+                C0,0.78 0.028,0.96 0.075,0.96
+                L0.86,0.96
+                C0.94,0.96 1,0.74 1,0.5
+                C1,0.26 0.94,0.04 0.86,0.04
+                Z"/>
+            </clipPath>
+            <clipPath id="gb-clip-bottom" clipPathUnits="objectBoundingBox">
+              <path d="M0.04,0.22
+                C0.04,0.08 0.1,0.02 0.2,0.02
+                C0.38,0.02 0.52,0.14 0.62,0.22
+                C0.78,0.34 0.9,0.36 0.96,0.5
+                C1.02,0.64 0.98,0.86 0.86,0.96
+                C0.78,1.02 0.62,1 0.2,1
+                C0.08,1 0.02,0.9 0.02,0.76
+                L0.02,0.42
+                C0.02,0.3 0.04,0.22 0.04,0.22
+                Z"/>
+            </clipPath>
+            <linearGradient id="gb-gold-stroke" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#f5e6a8"/>
+              <stop offset="45%" stop-color="#d4af5a"/>
+              <stop offset="100%" stop-color="#a8842e"/>
+            </linearGradient>
+            <filter id="gb-glow" x="-40%" y="-40%" width="180%" height="180%">
+              <feGaussianBlur stdDeviation="4" result="blur"/>
+              <feMerge>
+                <feMergeNode in="blur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+        </svg>
+
+        {{!-- Top: exterior towers + gold curve stroke --}}
+        <article class="gb-panel gb-panel--top">
+          <div class="gb-panel-media">
+            <img
+              src="/images/Demo/BatDongSan/01-towers-exterior.png"
+              alt="Tổ hợp căn hộ cao cấp Green Building"
+              width="1800"
+              height="1000"
+            />
+            <div class="gb-panel-veil gb-panel-veil--left" aria-hidden="true"></div>
+            <p class="gb-panel-copy gb-panel-copy--left">
+              <span class="gb-panel-line">Nâng tầm</span>
+              <span class="gb-panel-strong">ĐẲNG CẤP CHỦ NHÂN</span>
+            </p>
+          </div>
+
+          <svg class="gb-curve-stroke" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <path
+              class="gb-curve-glow"
+              d="M7.5,4 C2.8,4 0,22 0,50 C0,78 2.8,96 7.5,96 L86,96 C94,96 100,74 100,50 C100,26 94,4 86,4 Z"
+              fill="none"
+              stroke="#f0d78c"
+              stroke-width="1.8"
+              opacity="0.45"
+            />
+            <path
+              d="M7.5,4 C2.8,4 0,22 0,50 C0,78 2.8,96 7.5,96 L86,96 C94,96 100,74 100,50 C100,26 94,4 86,4 Z"
+              fill="none"
+              stroke="url(#gb-gold-stroke)"
+              stroke-width="0.9"
+            />
+          </svg>
+        </article>
+
+        {{!-- Bottom: interior + gold S-curve stroke --}}
+        <article class="gb-panel gb-panel--bottom">
+          <div class="gb-panel-media">
+            <img
+              src="/images/Demo/BatDongSan/02-apartment-interior.png"
+              alt="Nội thất phòng ngủ master với thiết bị nhập khẩu"
+              width="1800"
+              height="1100"
+            />
+            <div class="gb-panel-veil gb-panel-veil--right" aria-hidden="true"></div>
+          </div>
+
+          <svg class="gb-curve-stroke" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <path
+              class="gb-curve-glow"
+              d="M4,22 C4,8 10,2 20,2 C38,2 52,14 62,22 C78,34 90,36 96,50 C102,64 98,86 86,96 C78,102 62,100 20,100 C8,100 2,90 2,76 L2,42 C2,30 4,22 4,22 Z"
+              fill="none"
+              stroke="#f0d78c"
+              stroke-width="1.8"
+              opacity="0.45"
+            />
+            <path
+              d="M4,22 C4,8 10,2 20,2 C38,2 52,14 62,22 C78,34 90,36 96,50 C102,64 98,86 86,96 C78,102 62,100 20,100 C8,100 2,90 2,76 L2,42 C2,30 4,22 4,22 Z"
+              fill="none"
+              stroke="url(#gb-gold-stroke)"
+              stroke-width="0.9"
+            />
+          </svg>
+
+          <p class="gb-panel-copy gb-panel-copy--right">
+            <span class="gb-panel-line">Thiết bị</span>
+            <span class="gb-panel-strong gb-panel-strong--lg">NHẬP KHẨU</span>
+            <span class="gb-panel-sub">DANH TIẾNG TOÀN CẦU</span>
+          </p>
+        </article>
+      </div>
+
+      <div class="gb-poster-cta" data-aos="fade-up" data-aos-delay="160">
+        <a href="#lien-he" class="gb-btn">Nhận tư vấn dự án</a>
+        <a href="#tien-ich" class="gb-btn gb-btn--ghost">Khám phá tiện ích</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="gb-section gb-highlights" id="tien-ich">
+    <div class="gb-section-inner">
+      <p class="gb-eyebrow" data-aos="fade-up">TIỆN ÍCH ĐẲNG CẤP</p>
+      <h2 data-aos="fade-up" data-aos-delay="60">Chuẩn sống xanh giữa lòng đô thị</h2>
+      <p class="gb-lead" data-aos="fade-up" data-aos-delay="100">
+        Không gian sống được kiến tạo với vật liệu chọn lọc, công nghệ thông minh và cảnh quan xanh bao quanh.
+      </p>
+      <ul class="gb-feature-list">
+        <li data-aos="fade-up" data-aos-delay="80">
+          <strong>Mặt dựng kính Low-E</strong>
+          <span>Ánh sáng tự nhiên, cách nhiệt tối ưu, tầm nhìn panorama.</span>
+        </li>
+        <li data-aos="fade-up" data-aos-delay="120">
+          <strong>Nội thất nhập khẩu</strong>
+          <span>Thiết bị vệ sinh, bếp và chiếu sáng từ thương hiệu toàn cầu.</span>
+        </li>
+        <li data-aos="fade-up" data-aos-delay="160">
+          <strong>Cảnh quan đa tầng</strong>
+          <span>Vườn trên cao, lối dạo bộ và không gian cộng đồng xanh.</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="gb-section gb-cta-band" id="lien-he">
+    <div class="gb-section-inner gb-cta-inner" data-aos="fade-up">
+      <div>
+        <p class="gb-eyebrow">ĐĂNG KÝ NHẬN THÔNG TIN</p>
+        <h2>Sở hữu chuẩn bàn giao bậc nhất</h2>
+        <p class="gb-lead">Để lại số điện thoại — chuyên viên Green Building sẽ liên hệ trong 24 giờ.</p>
+      </div>
+      <form class="gb-form" action="#" method="post" onsubmit="return false;">
+        <label class="sr-only" for="gb-phone">Số điện thoại</label>
+        <input id="gb-phone" type="tel" name="phone" placeholder="Số điện thoại của bạn" autocomplete="tel" />
+        <button type="submit" class="gb-btn">Đăng ký ngay</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="gb-footer">
+    <div class="gb-footer-inner">
+      <a href="/du-an/demo/bat-dong-san" class="gb-logo gb-logo--footer" aria-label="Green Building">
+        <svg class="gb-logo-mark" viewBox="0 0 48 56" fill="none" aria-hidden="true">
+          <rect x="1.5" y="1.5" width="45" height="53" rx="2" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M12 48V24M19 48V14M24 48V8M29 48V16M36 48V28" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+        </svg>
+        <span class="gb-logo-text">GREEN BUILDING</span>
+      </a>
+      <p>© {{year}} Green Building · Demo giao diện bởi {{brand}}</p>
+      <nav aria-label="Liên kết demo">
+        <a href="/du-an/demo">Tất cả demo</a>
+        <a href="/lien-he">Liên hệ thiết kế</a>
+      </nav>
+    </div>
+  </footer>
+</div>

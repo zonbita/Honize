@@ -55,14 +55,14 @@ export const designProcessSteps: DesignProcessStep[] = [
     step: 2,
     title: 'Gợi ý các mẫu giao diện theo phong cách Châu Âu',
     paragraphs: [
-      'Khách hàng đều hài lòng với các mẫu website của www.themeforest.net. Các mẫu này đều có bản quyền và được thiết kế đúng chuẩn mực từ màu sắc tới kích thước.',
+      'Khách hàng đều hài lòng với các mẫu website. Các mẫu này đều có bản quyền và được thiết kế đúng chuẩn mực từ màu sắc tới kích thước.',
     ],
   },
   {
     step: 3,
-    title: 'Cài đặt hệ thống WordPress',
+    title: 'Cài đặt hệ thống',
     paragraphs: [
-      'WordPress nổi tiếng với trên 409 triệu người truy cập hơn 14 tỷ trang web mỗi tháng. Tỷ lệ người Việt Nam tham gia là 1.1% đứng thứ 9 toàn cầu.',
+      'Nổi tiếng với trên 409 triệu người truy cập hơn 14 tỷ trang web mỗi tháng. Tỷ lệ người Việt Nam tham gia là 1.1% đứng thứ 9 toàn cầu.',
     ],
   },
   {
@@ -105,7 +105,7 @@ export interface OptimizePageContent {
 }
 
 export const optimizePageContent: OptimizePageContent = {
-  introTitle: 'Dịch vụ tối ưu và tăng tốc website WordPress là gì?',
+  introTitle: 'Dịch vụ tối ưu và tăng tốc là gì?',
   introParagraphs: [
     'Công cụ tìm kiếm (như Google) luôn ưu tiên các website tải nhanh hơn so với các trang tải chậm. Nếu bạn muốn cải thiện vị trí website trên các công cụ tìm kiếm, việc đầu tiên cần làm là cải thiện tốc độ tải trang.',
     'Một số nghiên cứu cho thấy tốc độ tải trang web là một trong những nguyên nhân dẫn đến khoảng 70% khách truy cập thoát trang. Đây chính là lý do chúng tôi ra mắt dịch vụ “Dịch vụ tối ưu Website WordPress” nhằm giúp website của bạn tăng tốc, qua đó lưu giữ khách hàng tốt hơn.',
@@ -117,8 +117,8 @@ export const optimizePageContent: OptimizePageContent = {
       price: '4.990.000đ',
       features: [
         'Cấu hình tùy chỉnh Cache tối ưu cơ bản',
-        'Nâng cao bộ nhớ của WordPress',
-        'Tối ưu WordPress cơ bản',
+        'Nâng cao bộ nhớ',
+        'Tối ưu s cơ bản',
         'Chỉnh cài đặt plugin – tối ưu hóa cài đặt',
         'Chuyển đổi bảng dữ liệu database công nghệ InnoDB',
         'Kích hoạt và thiết lập tối ưu tính năng Adaptive Images',
@@ -207,7 +207,7 @@ export const aboutPageContent: AboutPageContent = {
     'Nắm bắt được nhu cầu thiết kế website ngày càng tăng nhanh của khách hàng, chúng tôi cung cấp giải pháp thiết kế website trọn gói cho doanh nghiệp Việt. Với sự hiểu biết cùng kinh nghiệm lâu năm về lĩnh vực Marketing, đã giúp hàng ngàn khách hàng có được trang web hoạt động hiệu quả, tăng doanh số bán hàng.',
   companyTitle: 'Giới thiệu công ty thiết kế web',
   companyParagraphs: [
-    'Thành lập năm 2014 với đội ngũ nhân lực giàu kinh nghiệm trên 10 năm trong lĩnh vực công nghệ thông tin. Với mong muốn ứng dụng CNTT vào doanh nghiệp nhằm nâng cao quy trình quản lý, tăng hiệu quả kinh doanh, giảm chi phí, tiết kiệm thời gian và bảo vệ môi trường.',
+    'Thành lập năm 2020 với đội ngũ nhân lực giàu kinh nghiệm trên 6 năm trong lĩnh vực công nghệ thông tin. Với mong muốn ứng dụng CNTT vào doanh nghiệp nhằm nâng cao quy trình quản lý, tăng hiệu quả kinh doanh, giảm chi phí, tiết kiệm thời gian và bảo vệ môi trường.',
     'Với kinh nghiệm về lập trình cùng kinh nghiệm quản lý doanh nghiệp, chúng tôi sẵn sàng cùng quý khách xây dựng phần mềm từ các ý tưởng kinh doanh, quản lý, marketing. Chúng tôi là đối tác tin cậy về các giải pháp outsource phần mềm cho doanh nghiệp.',
     'Chúng tôi cung cấp môi trường ổn định, nền tảng cơ sở hạ tầng để hệ thống IT cũng như các dự án công nghệ của quý khách phát huy tác dụng.',
   ],
@@ -215,7 +215,7 @@ export const aboutPageContent: AboutPageContent = {
     {
       title: 'Nhân sự',
       description:
-        'Sở hữu đội ngũ chuyên môn cao với 15 chuyên viên cố định và 20 chuyên viên dự án.',
+        'Sở hữu đội ngũ chuyên môn cao với 5 chuyên viên cố định và 10 chuyên viên dự án.',
       icon: 'people',
     },
     {
@@ -242,12 +242,12 @@ export const aboutPageContent: AboutPageContent = {
     'Sở hữu đội ngũ có chiều sâu, nhiều kinh nghiệm, chuyên môn cao ở mọi vị trí.',
   teamMembers: [
     {
-      name: 'Ngô Hoài Linh',
+      name: 'Lê Bình',
       role: 'Leader',
       bio: 'Kỹ sư CNTT, 4 năm kinh nghiệm xây dựng hệ thống nội dung CMS.',
     },
     {
-      name: 'An Nguyễn',
+      name: 'Khánh Quy',
       role: 'Web Developer',
       bio: 'Nhiều năm kinh nghiệm bảo mật thông tin, cố vấn giải pháp, hạ tầng và chính sách bảo mật. Kiến trúc sư phát triển phần mềm.',
     },
@@ -258,16 +258,16 @@ export const aboutPageContent: AboutPageContent = {
     },
     {
       name: 'Như Tạo',
-      role: 'WordPress Developer',
+      role: 'Web Developer',
       bio: 'Kỹ sư CNTT, 2 năm kinh nghiệm nền tảng CMS WordPress. Nhiệt tình và nỗ lực học hỏi không ngừng.',
     },
     {
-      name: 'Hardy Le',
+      name: 'Hà',
       role: 'UI/UX Designer',
       bio: 'Cử nhân CNTT, 6 năm kinh nghiệm thiết kế & phát triển giao diện website, ứng dụng di động và phần mềm.',
     },
     {
-      name: 'Thảo Dương',
+      name: 'Khánh Dương',
       role: 'Finance Director',
       bio: 'Chuyên gia quản lý tài chính doanh nghiệp và các dự án CNTT.',
     },
@@ -403,6 +403,14 @@ export const defaultProjectsData: Pick<SiteLayoutData, 'projectCategories' | 'pr
       categoryName: 'Bất động sản',
       image: '/images/Demo/House/house%20(1).png',
       url: '/du-an/demo/aurelia-estates',
+    },
+    {
+      title: 'Green Building — Bất động sản',
+      slug: 'bat-dong-san',
+      categorySlug: 'bat-dong-san',
+      categoryName: 'Bất động sản',
+      image: '/images/Demo/BatDongSan/poster-reference.png',
+      url: '/du-an/demo/bat-dong-san',
     },
     {
       title: 'Tour du lịch Đà Nẵng',

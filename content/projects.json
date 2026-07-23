@@ -75,6 +75,14 @@
       "url": "/du-an/demo/aurelia-estates"
     },
     {
+      "title": "Green Building — Bất động sản",
+      "slug": "bat-dong-san",
+      "categorySlug": "bat-dong-san",
+      "categoryName": "Bất động sản",
+      "image": "/images/Demo/BatDongSan/poster-reference.png",
+      "url": "/du-an/demo/bat-dong-san"
+    },
+    {
       "title": "NOVA ENGLISH — Học tiếng Anh",
       "slug": "hoc-tieng-anh",
       "categorySlug": "dao-tao",
