@@ -15,6 +15,11 @@
   --gb-stage: 1360px;
 }
 
+html {
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+}
+
 .gb-page {
   background: var(--gb-bg-deep);
   color: var(--gb-white);
@@ -736,5 +741,1313 @@
   .gb-btn {
     animation: none !important;
     transition: none !important;
+  }
+}
+
+/* ── Green Building page-flip navigation ───────────────── */
+
+.gb-book-content {
+  width: 100%;
+  height: clamp(900px, 78vw, 1080px);
+  overflow: hidden;
+}
+
+.gb-book-turn-target {
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  will-change: transform, opacity, filter;
+}
+
+.gb-book-turn-target.is-turning-next {
+  transform-origin: left center;
+  animation: gb-book-turn-next 430ms cubic-bezier(0.55, 0.06, 0.68, 0.19) forwards;
+}
+
+.gb-book-turn-target.is-turning-prev {
+  transform-origin: right center;
+  animation: gb-book-turn-prev 430ms cubic-bezier(0.55, 0.06, 0.68, 0.19) forwards;
+}
+
+.gb-book-turn-target.is-entering-next {
+  transform-origin: right center;
+  animation: gb-book-enter-next 430ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.gb-book-turn-target.is-entering-prev {
+  transform-origin: left center;
+  animation: gb-book-enter-prev 430ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes gb-book-turn-next {
+  0% {
+    transform: perspective(1800px) rotateY(0);
+    opacity: 1;
+    filter: brightness(1);
+  }
+  100% {
+    transform: perspective(1800px) translateX(-7%) rotateY(-78deg);
+    opacity: 0.08;
+    filter: brightness(0.45);
+  }
+}
+
+@keyframes gb-book-turn-prev {
+  0% {
+    transform: perspective(1800px) rotateY(0);
+    opacity: 1;
+    filter: brightness(1);
+  }
+  100% {
+    transform: perspective(1800px) translateX(7%) rotateY(78deg);
+    opacity: 0.08;
+    filter: brightness(0.45);
+  }
+}
+
+@keyframes gb-book-enter-next {
+  from {
+    transform: perspective(1800px) translateX(7%) rotateY(78deg);
+    opacity: 0.08;
+    filter: brightness(0.45);
+  }
+  to {
+    transform: perspective(1800px) translateX(0) rotateY(0);
+    opacity: 1;
+    filter: brightness(1);
+  }
+}
+
+@keyframes gb-book-enter-prev {
+  from {
+    transform: perspective(1800px) translateX(-7%) rotateY(-78deg);
+    opacity: 0.08;
+    filter: brightness(0.45);
+  }
+  to {
+    transform: perspective(1800px) translateX(0) rotateY(0);
+    opacity: 1;
+    filter: brightness(1);
+  }
+}
+
+.gb-book-nav {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  pointer-events: none;
+}
+
+.gb-book-arrow {
+  position: absolute;
+  top: 50%;
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(240, 215, 140, 0.66);
+  border-radius: 50%;
+  color: #1a1408;
+  background:
+    linear-gradient(135deg, #b8903a 0%, #f0d78c 48%, #c9a24a 100%);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.45) inset,
+    0 10px 34px rgba(0, 0, 0, 0.38),
+    0 0 24px rgba(212, 175, 90, 0.3);
+  pointer-events: auto;
+  transform: translateY(-50%);
+  transition:
+    transform 240ms ease,
+    filter 240ms ease,
+    box-shadow 240ms ease;
+}
+
+.gb-book-arrow--prev {
+  left: clamp(12px, 2.4vw, 38px);
+}
+
+.gb-book-arrow--next {
+  right: clamp(12px, 2.4vw, 38px);
+}
+
+.gb-book-arrow:hover {
+  filter: brightness(1.08);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.55) inset,
+    0 14px 40px rgba(0, 0, 0, 0.45),
+    0 0 34px rgba(240, 215, 140, 0.48);
+}
+
+.gb-book-arrow--prev:hover {
+  transform: translateY(-50%) translateX(-5px);
+}
+
+.gb-book-arrow--next:hover {
+  transform: translateY(-50%) translateX(5px);
+}
+
+.gb-book-arrow svg {
+  width: 27px;
+  height: 27px;
+}
+
+.gb-book-counter {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  min-width: 94px;
+  height: 38px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border: 1px solid rgba(240, 215, 140, 0.3);
+  border-radius: 9999px;
+  color: var(--gb-gold-bright);
+  background: rgba(4, 30, 23, 0.82);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  pointer-events: none;
+  transform: translateX(-50%);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+
+.gb-book-counter strong {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.gb-book-counter i {
+  width: 18px;
+  height: 1px;
+  background: rgba(240, 215, 140, 0.5);
+}
+
+/* Standalone poster pages */
+
+.gb-book-page {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+  background: #031d16;
+  isolation: isolate;
+}
+
+.gb-book-ambient {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(29, 112, 82, 0.35), transparent 42%),
+    linear-gradient(135deg, #02140f, #08372a 48%, #021711);
+}
+
+.gb-book-ambient::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.18;
+  background: repeating-linear-gradient(
+    105deg,
+    transparent 0,
+    transparent 22px,
+    rgba(255, 255, 255, 0.025) 23px
+  );
+}
+
+.gb-book-stage {
+  width: min(1360px, 100%);
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: 20px 90px;
+  display: grid;
+  place-items: center;
+  perspective: 1800px;
+}
+
+.gb-book-perspective {
+  width: min(650px, 100%);
+  perspective: 1800px;
+}
+
+.gb-book-sheet {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 3px 10px 10px 3px;
+  background: #0a3d32;
+  box-shadow:
+    -15px 0 30px rgba(0, 0, 0, 0.24),
+    0 28px 70px rgba(0, 0, 0, 0.52),
+    0 0 0 1px rgba(240, 215, 140, 0.2);
+  animation: gb-book-enter 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes gb-book-enter {
+  from {
+    opacity: 0;
+    transform: perspective(1800px) rotateY(11deg) translateX(28px);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(1800px) rotateY(0) translateX(0);
+  }
+}
+
+.gb-book-sheet img {
+  width: 100%;
+  height: auto;
+  max-height: calc(100vh - 40px);
+  max-height: calc(100dvh - 40px);
+  display: block;
+  object-fit: contain;
+}
+
+.gb-book-spine {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 20px;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.32),
+    rgba(255, 255, 255, 0.08) 55%,
+    transparent
+  );
+  pointer-events: none;
+}
+
+.gb-book-shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 48%,
+    transparent 62%
+  );
+  pointer-events: none;
+}
+
+@media (max-width: 760px) {
+  .gb-book-stage {
+    padding: 14px 58px;
+  }
+
+  .gb-book-arrow {
+    width: 44px;
+    height: 44px;
+  }
+
+  .gb-book-arrow--prev {
+    left: 7px;
+  }
+
+  .gb-book-arrow--next {
+    right: 7px;
+  }
+
+  .gb-book-arrow svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .gb-book-counter {
+    bottom: 10px;
+    height: 34px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gb-book-turn-target,
+  .gb-book-sheet {
+    animation-duration: 1ms !important;
+  }
+}
+
+/* ── Coded Green Building subpages ─────────────────────── */
+
+.gb-coded-page {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.gb-coded-canvas {
+  position: relative;
+  width: min(1360px, 100%);
+  min-height: 0;
+  margin: 0 auto;
+  padding: 0;
+  overflow: visible;
+  color: var(--gb-white);
+  background: transparent;
+  box-shadow: none;
+}
+
+.gb-coded-canvas::before {
+  content: none;
+}
+
+.gb-coded-canvas > * {
+  position: relative;
+  z-index: 1;
+}
+
+.gb-coded-canvas > :not(.gb-brand) {
+  width: 100%;
+}
+
+.gb-coded-logo {
+  width: max-content;
+  margin: 0 auto 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  color: var(--gb-gold-bright);
+  text-decoration: none;
+}
+
+.gb-coded-logo svg {
+  width: 37px;
+  height: 43px;
+  filter: drop-shadow(0 0 10px rgba(240, 215, 140, 0.3));
+}
+
+.gb-coded-logo span {
+  padding-left: 0.24em;
+  font-family: var(--gb-serif);
+  font-size: 9px;
+  letter-spacing: 0.24em;
+}
+
+.gb-coded-canvas h1,
+.gb-coded-canvas h2,
+.gb-coded-canvas p {
+  margin-top: 0;
+}
+
+/* Investment */
+
+.gb-invest-hero {
+  position: relative;
+  height: 510px;
+}
+
+.gb-invest-hero > img {
+  position: absolute;
+  inset: 20px 0 0;
+  width: 100%;
+  height: 390px;
+  object-fit: cover;
+  border-radius: 48% 12px 48% 12px;
+  opacity: 0.88;
+  filter: saturate(0.86) sepia(0.08);
+  mask-image: linear-gradient(to bottom, #000 78%, transparent);
+}
+
+.gb-invest-stats {
+  position: absolute;
+  top: 36px;
+  left: 0;
+  z-index: 2;
+  color: var(--gb-white);
+}
+
+.gb-invest-stats p {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.gb-invest-stats strong {
+  font-family: var(--gb-serif);
+  font-size: clamp(58px, 7vw, 104px);
+  line-height: 0.9;
+  color: var(--gb-gold-bright);
+}
+
+.gb-invest-stats span,
+.gb-invest-stats b {
+  font-family: var(--gb-serif);
+  font-size: clamp(19px, 2vw, 30px);
+  font-weight: 400;
+}
+
+.gb-invest-stats small {
+  display: block;
+  margin: 13px 0 3px;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+}
+
+.gb-invest-title {
+  position: absolute;
+  right: 2%;
+  bottom: 0;
+  max-width: 570px;
+  text-align: right;
+}
+
+.gb-invest-title em {
+  display: block;
+  margin: 0 20px -4px 0;
+  font-family: var(--gb-script);
+  font-size: clamp(44px, 5vw, 72px);
+  line-height: 1;
+}
+
+.gb-invest-title h1 {
+  font-family: var(--gb-serif);
+  font-size: clamp(30px, 4vw, 54px);
+  font-weight: 500;
+  line-height: 1.03;
+  color: var(--gb-gold-bright);
+}
+
+.gb-invest-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.gb-invest-grid article {
+  position: relative;
+  height: 260px;
+  overflow: hidden;
+  border: 1px solid rgba(240, 215, 140, 0.38);
+  border-radius: 24px;
+}
+
+.gb-invest-grid article img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gb-invest-grid article::after {
+  content: '';
+  position: absolute;
+  inset: 45% 0 0;
+  background: linear-gradient(transparent, rgba(3, 40, 29, 0.94));
+}
+
+.gb-invest-grid article h2 {
+  position: absolute;
+  z-index: 2;
+  left: 20px;
+  bottom: 16px;
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.25;
+  letter-spacing: 0.04em;
+}
+
+.gb-rate {
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  top: 50%;
+  width: 190px;
+  height: 190px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid var(--gb-gold);
+  border-radius: 50%;
+  background: radial-gradient(circle at 45% 35%, #14694f, #073b2e 68%);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.42);
+  transform: translate(-50%, -50%);
+}
+
+.gb-rate strong,
+.gb-rate b {
+  font-family: var(--gb-serif);
+  color: var(--gb-gold-bright);
+  line-height: 0.8;
+}
+
+.gb-rate strong {
+  font-size: 54px;
+}
+
+.gb-rate strong sup {
+  font-size: 20px;
+}
+
+.gb-rate b {
+  font-size: 48px;
+}
+
+.gb-rate em {
+  font-family: var(--gb-script);
+  font-size: 23px;
+}
+
+.gb-rate span {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+}
+
+/* Star district */
+
+.gb-coded-page--star-district .gb-coded-canvas {
+  color: var(--gb-white);
+  background: transparent;
+}
+
+.gb-coded-page--star-district .gb-coded-logo {
+  color: #17633b;
+}
+
+.gb-star-hero {
+  position: relative;
+  height: 510px;
+  overflow: hidden;
+  color: #0d4d31;
+  background: linear-gradient(180deg, rgba(255, 248, 218, 0.98), rgba(239, 222, 173, 0.88));
+}
+
+.gb-star-hero > img {
+  position: absolute;
+  right: -4%;
+  bottom: 0;
+  width: 78%;
+  height: 420px;
+  object-fit: cover;
+  object-position: center 35%;
+  mask-image: linear-gradient(90deg, transparent, #000 15%, #000 88%, transparent);
+}
+
+.gb-star-heading {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 2%;
+}
+
+.gb-star-heading p,
+.gb-star-heading h1 {
+  margin: 0;
+  font-family: var(--gb-serif);
+  font-weight: 500;
+  line-height: 0.8;
+}
+
+.gb-star-heading p {
+  font-size: 42px;
+}
+
+.gb-star-heading h1 {
+  font-size: clamp(66px, 9vw, 128px);
+}
+
+.gb-star-heading span {
+  display: block;
+  margin-top: 12px;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+}
+
+.gb-star-heading em {
+  display: block;
+  margin: -10px 0 0 170px;
+  font-family: var(--gb-script);
+  font-size: 60px;
+  color: #a58443;
+}
+
+.gb-star-facts {
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  bottom: 54px;
+  width: 230px;
+  margin: 0;
+  padding: 18px;
+  list-style: none;
+  border-left: 2px solid #c9a24a;
+  background: rgba(255, 249, 222, 0.76);
+}
+
+.gb-star-facts li {
+  margin: 6px 0;
+  font-size: 12px;
+}
+
+.gb-star-facts strong {
+  display: block;
+  font-family: var(--gb-serif);
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.gb-star-metrics {
+  padding: 25px 0 45px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  color: var(--gb-white);
+  border-top: 1px solid rgba(240, 215, 140, 0.4);
+}
+
+.gb-star-metrics p {
+  padding: 0 14px;
+  text-align: center;
+  border-right: 1px solid rgba(240, 215, 140, 0.2);
+}
+
+.gb-star-metrics p:last-child {
+  border-right: 0;
+}
+
+.gb-star-metrics span {
+  display: block;
+  min-height: 32px;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+}
+
+.gb-star-metrics strong {
+  font-family: var(--gb-serif);
+  font-size: clamp(20px, 2.2vw, 32px);
+  font-weight: 500;
+  color: var(--gb-gold-bright);
+}
+
+.gb-star-bottom {
+  display: grid;
+  grid-template-columns: 0.35fr 1fr;
+  gap: 28px;
+  color: var(--gb-white);
+}
+
+.gb-star-specs,
+.gb-star-parks {
+  padding: 20px;
+  border: 1px solid rgba(240, 215, 140, 0.48);
+  border-radius: 18px;
+}
+
+.gb-star-specs h2 {
+  width: max-content;
+  margin: -34px auto 18px;
+  padding: 7px 16px;
+  border-radius: 999px;
+  color: #174932;
+  background: var(--gb-gold-bright);
+  font-size: 13px;
+}
+
+.gb-star-specs p {
+  padding: 7px 0;
+  text-align: center;
+  font-size: 10px;
+  border-bottom: 1px dashed rgba(240, 215, 140, 0.35);
+}
+
+.gb-star-specs strong {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--gb-serif);
+  font-size: 25px;
+  color: var(--gb-gold-bright);
+}
+
+.gb-star-parks {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px 20px;
+  align-items: center;
+}
+
+.gb-star-parks h2 {
+  font-size: 16px;
+}
+
+.gb-star-parks h2 strong {
+  float: left;
+  margin-right: 10px;
+  font-family: var(--gb-serif);
+  font-size: 58px;
+  line-height: 0.8;
+  color: var(--gb-gold-bright);
+}
+
+.gb-star-parks > span {
+  text-align: right;
+  font-size: 9px;
+}
+
+.gb-star-parks > span b {
+  display: block;
+  font-family: var(--gb-serif);
+  font-size: 24px;
+  color: var(--gb-gold-bright);
+}
+
+.gb-star-parks > div {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.gb-star-parks img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+/* Tourism */
+
+.gb-tourism-heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.gb-tourism-heading > strong {
+  font-family: var(--gb-serif);
+  font-size: clamp(110px, 16vw, 220px);
+  line-height: 0.8;
+  color: var(--gb-gold-bright);
+}
+
+.gb-tourism-heading em {
+  display: block;
+  margin-bottom: -15px;
+  font-family: var(--gb-script);
+  font-size: clamp(48px, 6vw, 78px);
+}
+
+.gb-tourism-heading h1 {
+  margin-bottom: 2px;
+  font-size: clamp(25px, 3vw, 42px);
+  font-weight: 400;
+}
+
+.gb-tourism-heading h1 span {
+  color: #74c997;
+}
+
+.gb-tourism-heading h1 b {
+  color: var(--gb-gold-bright);
+}
+
+.gb-tourism-heading p {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+
+.gb-tourism-resort {
+  position: relative;
+  height: 370px;
+  margin: 20px calc(clamp(26px, 4vw, 64px) * -1) 0;
+  overflow: hidden;
+}
+
+.gb-tourism-resort img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 52%;
+  mask-image: linear-gradient(to bottom, transparent 0, #000 15%, #000 78%, transparent);
+}
+
+.gb-tourism-coast {
+  position: absolute;
+  inset: auto 0 0;
+  height: 42%;
+  background: linear-gradient(180deg, transparent, rgba(5, 74, 68, 0.7));
+}
+
+.gb-brochure {
+  position: relative;
+  width: min(820px, 78%);
+  margin: -50px auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  perspective: 1200px;
+  filter: drop-shadow(0 22px 32px rgba(0, 0, 0, 0.4));
+}
+
+.gb-brochure article {
+  min-height: 390px;
+  padding: 28px 14px 0;
+  overflow: hidden;
+  text-align: center;
+  color: #164e3b;
+  background: linear-gradient(#f8f1dd, #d9e8dd);
+  border-right: 1px solid rgba(9, 69, 50, 0.18);
+}
+
+.gb-brochure article:first-child {
+  transform: rotateY(6deg);
+  transform-origin: right;
+}
+
+.gb-brochure article:last-child {
+  transform: rotateY(-6deg);
+  transform-origin: left;
+}
+
+.gb-brochure em {
+  font-family: var(--gb-script);
+  font-size: 34px;
+}
+
+.gb-brochure h2 {
+  margin: 0;
+  font-family: var(--gb-serif);
+  font-size: 14px;
+}
+
+.gb-brochure p {
+  font-size: 10px;
+}
+
+.gb-brochure img {
+  width: calc(100% + 28px);
+  height: 230px;
+  margin: 20px -14px 0;
+  object-fit: cover;
+}
+
+.gb-hand {
+  position: absolute;
+  z-index: 3;
+  bottom: -70px;
+  width: 68px;
+  height: 180px;
+  border-radius: 50% 50% 20px 20px;
+  background: linear-gradient(90deg, #c9896d, #f1b399 55%, #b8755e);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+}
+
+.gb-hand--left {
+  left: 19%;
+  transform: rotate(-8deg);
+}
+
+.gb-hand--right {
+  right: 19%;
+  transform: rotate(8deg);
+}
+
+/* Golf */
+
+.gb-golf-title {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 16px;
+  margin: 10px 0 32px;
+}
+
+.gb-golf-title > span {
+  font-family: var(--gb-serif);
+  font-size: clamp(74px, 9vw, 128px);
+  line-height: 0.8;
+  color: var(--gb-gold-bright);
+}
+
+.gb-golf-title em {
+  margin-right: -70px;
+  font-family: var(--gb-script);
+  font-size: clamp(30px, 4vw, 52px);
+}
+
+.gb-golf-title strong {
+  font-family: var(--gb-serif);
+  font-size: clamp(32px, 5vw, 70px);
+  font-weight: 500;
+  line-height: 1.05;
+  color: var(--gb-gold-bright);
+}
+
+.gb-golf-gallery {
+  height: 440px;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 8px;
+  overflow: hidden;
+  border-top: 2px solid var(--gb-gold);
+  border-radius: 50% 50% 0 0 / 12% 12% 0 0;
+}
+
+.gb-golf-gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gb-golf-club {
+  position: relative;
+  width: min(760px, 75%);
+  height: 370px;
+  margin: -190px auto -10px;
+  border-radius: 50% 50% 35% 35%;
+  background:
+    linear-gradient(155deg, rgba(255, 255, 255, 0.82), rgba(31, 31, 31, 0.2) 23%, transparent 24%),
+    linear-gradient(145deg, #cfd5d1, #3f4745 60%, #dce0dc);
+  border: 4px solid rgba(235, 241, 237, 0.75);
+  box-shadow: 0 35px 55px rgba(0, 0, 0, 0.48);
+  transform: rotate(-7deg);
+}
+
+.gb-golf-green {
+  position: absolute;
+  left: 17%;
+  top: 9%;
+  width: 56%;
+  height: 67%;
+  overflow: hidden;
+  border-radius: 50%;
+  background:
+    repeating-radial-gradient(circle at center, transparent 0 10px, rgba(255, 255, 255, 0.04) 11px),
+    #3e8b46;
+  box-shadow: 0 0 0 10px #1d6533, 0 0 28px rgba(88, 205, 101, 0.5);
+}
+
+.gb-golf-green i {
+  position: absolute;
+  left: 50%;
+  top: 43%;
+  width: 16px;
+  height: 16px;
+  border: 3px solid #ecede5;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.gb-golf-ball {
+  position: absolute;
+  left: 57%;
+  top: 49%;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.35);
+}
+
+.gb-golf-shaft {
+  position: absolute;
+  right: -4%;
+  top: -110%;
+  width: 70px;
+  height: 500px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #111, #a9b1ae 45%, #222);
+  transform: rotate(21deg);
+}
+
+/* Attraction */
+
+.gb-attract-top {
+  position: relative;
+  min-height: 380px;
+}
+
+.gb-attract-number {
+  position: absolute;
+  z-index: 2;
+  left: 41%;
+  top: -30px;
+  font-family: var(--gb-serif);
+  font-size: clamp(160px, 20vw, 280px);
+  line-height: 0.8;
+  color: var(--gb-gold-bright);
+}
+
+.gb-attract-title {
+  position: absolute;
+  z-index: 3;
+  left: 59%;
+  top: 20px;
+}
+
+.gb-attract-title em,
+.gb-attract-feature em {
+  font-family: var(--gb-script);
+  font-size: clamp(38px, 5vw, 68px);
+  line-height: 0.9;
+}
+
+.gb-attract-title h1 {
+  margin: 6px 0 0;
+  font-size: clamp(24px, 3vw, 42px);
+  color: var(--gb-gold-bright);
+}
+
+.gb-attract-top > img {
+  position: absolute;
+  left: -6%;
+  bottom: -20px;
+  width: 62%;
+  height: 300px;
+  object-fit: cover;
+  object-position: center 32%;
+  mask-image: linear-gradient(to bottom, transparent, #000 20%, #000 78%, transparent);
+}
+
+.gb-attract-feature {
+  position: relative;
+  min-height: 210px;
+  margin: 0 -64px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.gb-attract-feature::before {
+  content: '';
+  position: absolute;
+  inset: 22% -10%;
+  border-top: 1px solid rgba(240, 215, 140, 0.35);
+  border-radius: 50%;
+  transform: rotate(-7deg);
+}
+
+.gb-attract-feature > div {
+  z-index: 2;
+  width: 38%;
+  padding: 20px 6%;
+}
+
+.gb-attract-feature h2 {
+  margin: 7px 0 2px;
+  font-size: 19px;
+  color: var(--gb-gold-bright);
+}
+
+.gb-attract-feature p {
+  font-size: 13px;
+}
+
+.gb-attract-feature img {
+  width: 62%;
+  height: 260px;
+  object-fit: contain;
+  mask-image: linear-gradient(90deg, transparent, #000 15%, #000 88%, transparent);
+}
+
+.gb-attract-feature--right > div {
+  order: 2;
+}
+
+.gb-attract-feature--right img {
+  order: 1;
+}
+
+.gb-attract-feature--last {
+  margin-bottom: -40px;
+}
+
+@media (max-width: 900px) {
+  .gb-coded-canvas {
+    width: 100%;
+    margin: 0;
+    padding-inline: 0;
+  }
+
+  .gb-invest-hero {
+    height: 430px;
+  }
+
+  .gb-invest-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .gb-invest-grid article {
+    height: 220px;
+  }
+
+  .gb-star-hero {
+    height: 460px;
+  }
+
+  .gb-star-heading h1 {
+    font-size: 72px;
+  }
+
+  .gb-star-metrics {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .gb-star-bottom {
+    grid-template-columns: 1fr;
+  }
+
+  .gb-golf-club {
+    width: 90%;
+  }
+}
+
+@media (max-width: 640px) {
+  .gb-book-content {
+    height: auto;
+    overflow: visible;
+  }
+
+  .gb-coded-canvas {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .gb-invest-hero {
+    height: 510px;
+  }
+
+  .gb-invest-hero > img {
+    inset: 160px 0 auto;
+    width: 100%;
+    height: 240px;
+  }
+
+  .gb-invest-title {
+    bottom: 0;
+  }
+
+  .gb-invest-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gb-rate {
+    position: relative;
+    left: 50%;
+    top: auto;
+    grid-row: 2;
+    margin: -60px 0 -50px;
+  }
+
+  .gb-star-hero > img {
+    width: 100%;
+    height: 300px;
+  }
+
+  .gb-star-heading p {
+    font-size: 28px;
+  }
+
+  .gb-star-heading h1 {
+    font-size: 54px;
+  }
+
+  .gb-star-heading em {
+    margin-left: 90px;
+    font-size: 42px;
+  }
+
+  .gb-star-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .gb-star-metrics p {
+    border-right: 0;
+    border-bottom: 1px solid rgba(240, 215, 140, 0.2);
+  }
+
+  .gb-star-parks {
+    grid-template-columns: 1fr;
+  }
+
+  .gb-star-parks > div {
+    grid-column: auto;
+  }
+
+  .gb-tourism-heading {
+    gap: 8px;
+  }
+
+  .gb-tourism-heading > strong {
+    font-size: 100px;
+  }
+
+  .gb-brochure {
+    width: 96%;
+  }
+
+  .gb-brochure article {
+    min-height: 300px;
+    padding-inline: 6px;
+  }
+
+  .gb-brochure em {
+    font-size: 23px;
+  }
+
+  .gb-brochure img {
+    width: calc(100% + 12px);
+    height: 170px;
+    margin-left: -6px;
+  }
+
+  .gb-hand {
+    display: none;
+  }
+
+  .gb-golf-title {
+    flex-wrap: wrap;
+  }
+
+  .gb-golf-title em {
+    margin-right: 0;
+  }
+
+  .gb-golf-gallery {
+    height: 300px;
+  }
+
+  .gb-golf-club {
+    height: 230px;
+    margin-top: -100px;
+  }
+
+  .gb-golf-shaft {
+    height: 380px;
+  }
+
+  .gb-attract-number {
+    left: 20%;
+  }
+
+  .gb-attract-title {
+    left: 47%;
+  }
+
+  .gb-attract-top > img {
+    width: 80%;
+  }
+
+  .gb-attract-feature {
+    min-height: 360px;
+    margin-inline: -16px;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .gb-attract-feature > div,
+  .gb-attract-feature img {
+    width: 100%;
+  }
+
+  .gb-attract-feature > div {
+    padding-inline: 28px;
+  }
+
+  .gb-attract-feature--right > div,
+  .gb-attract-feature--right img {
+    order: initial;
   }
 }

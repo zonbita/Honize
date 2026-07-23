@@ -1,0 +1,149 @@
+<nav class="gb-book-nav" aria-label="Điều hướng các trang Green Building">
+  <a
+    class="gb-book-arrow gb-book-arrow--prev"
+    href="{{prevHref}}"
+    data-book-direction="prev"
+    aria-label="Lật sang trang trước"
+  >
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
+
+  <span class="gb-book-counter" aria-label="Trang {{pageNumber}} trên {{pageTotal}}">
+    <strong>{{pageNumber}}</strong><i></i><span>{{pageTotal}}</span>
+  </span>
+
+  <a
+    class="gb-book-arrow gb-book-arrow--next"
+    href="{{nextHref}}"
+    data-book-direction="next"
+    aria-label="Lật sang trang tiếp theo"
+  >
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
+</nav>
+
+<script>
+  (() => {
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+
+    const fallbackScroll = sessionStorage.getItem('green-building-book-scroll-y');
+    if (fallbackScroll !== null) {
+      const root = document.documentElement;
+      root.style.scrollBehavior = 'auto';
+      window.scrollTo(0, Number(fallbackScroll) || 0);
+      sessionStorage.removeItem('green-building-book-scroll-y');
+      root.style.removeProperty('scroll-behavior');
+    }
+
+    const target = document.querySelector('.gb-book-turn-target');
+    if (!target || target.dataset.bookReady === 'true') return;
+    target.dataset.bookReady = 'true';
+    let isTurning = false;
+
+    const keepScrollPosition = (scrollY) => {
+      const root = document.documentElement;
+      const previousBehavior = root.style.scrollBehavior;
+      root.style.scrollBehavior = 'auto';
+      window.scrollTo({ top: scrollY, left: 0, behavior: 'instant' });
+      root.style.scrollBehavior = previousBehavior;
+    };
+
+    const updatePage = async (url, direction, pushState = true) => {
+      if (isTurning) return;
+      isTurning = true;
+      const scrollY = window.scrollY;
+      const turnClass =
+        direction === 'prev' ? 'is-turning-prev' : 'is-turning-next';
+      target.classList.add(turnClass);
+
+      try {
+        const [response] = await Promise.all([
+          fetch(url, { headers: { 'X-Requested-With': 'book-navigation' } }),
+          new Promise((resolve) => window.setTimeout(resolve, 430)),
+        ]);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        const html = await response.text();
+        const nextDocument = new DOMParser().parseFromString(html, 'text/html');
+        const nextTarget = nextDocument.querySelector('.gb-book-turn-target');
+        const nextPage = nextDocument.querySelector('.gb-page');
+        const currentPage = document.querySelector('.gb-page');
+        const nextNav = nextDocument.querySelector('.gb-book-nav');
+        const currentNav = document.querySelector('.gb-book-nav');
+        if (!nextTarget || !nextPage || !currentPage || !nextNav || !currentNav) {
+          throw new Error('Invalid book page');
+        }
+
+        target.className = nextTarget.className;
+        target.innerHTML = nextTarget.innerHTML;
+        target.dataset.bookReady = 'true';
+        currentPage.className = nextPage.className;
+
+        ['prev', 'next'].forEach((navDirection) => {
+          const currentLink = currentNav.querySelector(
+            `[data-book-direction="${navDirection}"]`,
+          );
+          const nextLink = nextNav.querySelector(
+            `[data-book-direction="${navDirection}"]`,
+          );
+          if (currentLink && nextLink) currentLink.href = nextLink.href;
+        });
+
+        const currentCounter = currentNav.querySelector('.gb-book-counter');
+        const nextCounter = nextNav.querySelector('.gb-book-counter');
+        if (currentCounter && nextCounter) {
+          currentCounter.innerHTML = nextCounter.innerHTML;
+          currentCounter.setAttribute(
+            'aria-label',
+            nextCounter.getAttribute('aria-label') || '',
+          );
+        }
+
+        document.title = nextDocument.title;
+        if (pushState) history.pushState({ greenBuildingBook: true }, '', url);
+        keepScrollPosition(scrollY);
+
+        target.classList.add(
+          direction === 'prev' ? 'is-entering-prev' : 'is-entering-next',
+        );
+        window.setTimeout(() => {
+          target.classList.remove('is-entering-prev', 'is-entering-next');
+          isTurning = false;
+        }, 430);
+
+        if (window.AOS && typeof window.AOS.refreshHard === 'function') {
+          window.AOS.refreshHard();
+        }
+      } catch (_error) {
+        sessionStorage.setItem('green-building-book-scroll-y', String(scrollY));
+        window.location.href = url;
+      }
+    };
+
+    document.querySelectorAll('[data-book-direction]').forEach((link) => {
+      link.addEventListener('click', (event) => {
+        if (
+          event.defaultPrevented ||
+          event.button > 0 ||
+          event.metaKey ||
+          event.ctrlKey ||
+          event.shiftKey ||
+          event.altKey
+        ) return;
+
+        event.preventDefault();
+        updatePage(link.href, link.dataset.bookDirection || 'next');
+      });
+    });
+
+    window.addEventListener('popstate', () => {
+      updatePage(window.location.href, 'prev', false);
+    });
+  })();
+</script>

@@ -223,6 +223,38 @@ export class AppService {
     string,
     Record<string, { view: string; nav: string; title: string; heroBg?: string }>
   > = {
+    'bat-dong-san': {
+      'dau-tu': {
+        view: 'demo/pages/bat-dong-san/book-page',
+        nav: 'investment',
+        title: 'Tâm điểm giao thương đầu tư',
+        heroBg: '/images/Demo/BatDongSan/page-02-dau-tu.png',
+      },
+      'khu-anh-sao': {
+        view: 'demo/pages/bat-dong-san/book-page',
+        nav: 'star-district',
+        title: 'Khu Ánh Sao',
+        heroBg: '/images/Demo/BatDongSan/page-03-anh-sao.png',
+      },
+      'du-lich': {
+        view: 'demo/pages/bat-dong-san/book-page',
+        nav: 'tourism',
+        title: 'Ba yếu tố Green Building',
+        heroBg: '/images/Demo/BatDongSan/page-04-du-lich.png',
+      },
+      'san-golf': {
+        view: 'demo/pages/bat-dong-san/book-page',
+        nav: 'golf',
+        title: 'Hai sân golf thượng lưu',
+        heroBg: '/images/Demo/BatDongSan/page-05-golf.png',
+      },
+      'suc-hut': {
+        view: 'demo/pages/bat-dong-san/book-page',
+        nav: 'attraction',
+        title: 'Ba yếu tố tạo sức hút bền bỉ',
+        heroBg: '/images/Demo/BatDongSan/page-06-suc-hut.png',
+      },
+    },
     'tham-my-vien': {
       'gioi-thieu': {
         view: 'demo/pages/tham-my-vien/gioi-thieu',
@@ -440,6 +472,20 @@ export class AppService {
 
     const demoTitle = base.demo?.title ?? slug;
     const path = `/du-an/demo/${slug}/${subpage}`;
+    const greenBuildingPages = [
+      'dau-tu',
+      'khu-anh-sao',
+      'du-lich',
+      'san-golf',
+      'suc-hut',
+    ];
+    const greenBuildingIndex =
+      slug === 'bat-dong-san' ? greenBuildingPages.indexOf(subpage) : -1;
+    const greenBuildingBase = '/du-an/demo/bat-dong-san';
+    const greenBuildingHref = (index: number) =>
+      index < 0
+        ? greenBuildingBase
+        : `${greenBuildingBase}/${greenBuildingPages[index]}`;
 
     return {
       ...base,
@@ -476,6 +522,26 @@ export class AppService {
           : null,
       orgBase: slug === 'nong-san' ? `/du-an/demo/${slug}` : base.orgBase,
       orgActive: slug === 'nong-san' ? config.nav : base.orgActive,
+      gbBookImage:
+        slug === 'bat-dong-san' ? config.heroBg : null,
+      gbBookAlt:
+        slug === 'bat-dong-san' ? config.title : null,
+      gbBookPageKey:
+        slug === 'bat-dong-san' ? config.nav : null,
+      gbBookPageNumber:
+        greenBuildingIndex >= 0 ? greenBuildingIndex + 2 : null,
+      gbBookTotal:
+        slug === 'bat-dong-san' ? greenBuildingPages.length + 1 : null,
+      gbBookPrevHref:
+        greenBuildingIndex >= 0
+          ? greenBuildingHref(greenBuildingIndex - 1)
+          : null,
+      gbBookNextHref:
+        greenBuildingIndex >= 0
+          ? greenBuildingIndex === greenBuildingPages.length - 1
+            ? greenBuildingBase
+            : greenBuildingHref(greenBuildingIndex + 1)
+          : null,
       pageTitle: `${config.title} — ${demoTitle} — ${base.brand}`,
       seo: this.articlesService.buildStaticPageSeo(
         `${config.title} — ${demoTitle}`,
