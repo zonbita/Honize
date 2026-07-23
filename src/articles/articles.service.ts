@@ -4,6 +4,7 @@ import { extname, join } from 'path';
 import { getUploadsDir } from '../shared/content-path';
 import { getArticlesDir } from '../shared/content-path';
 import { bumpDevRevision } from '../shared/dev-reload';
+import { compressUploadImage, toMobileWebp } from '../shared/image-compress';
 import { getSiteUrl, toAbsoluteUrl } from '../shared/site-url';
 import {
   Article,
@@ -745,16 +746,34 @@ export class ArticlesService {
       .replace(/'/g, '&apos;');
   }
 
-  uploadImage(file: Express.Multer.File) {
+  async uploadImage(file: Express.Multer.File) {
     if (!file) throw new BadRequestException('Không có file được gửi lên');
     if (!file.mimetype.startsWith('image/')) {
       throw new BadRequestException('Chỉ chấp nhận file hình ảnh');
     }
 
     const dir = getUploadsDir();
-    const ext = extname(file.originalname) || '.jpg';
+    let buffer = file.buffer;
+    let ext = extname(file.originalname) || '.jpg';
+
+    try {
+      const compressed = await compressUploadImage(file.buffer, file.mimetype);
+      buffer = compressed.buffer;
+      ext = compressed.ext;
+    } catch {
+      // Keep original buffer if sharp fails on an exotic format.
+    }
+
     const filename = `${Date.now()}-${Math.round(Math.random() * 1e9)}${ext}`;
-    writeFileSync(join(dir, filename), file.buffer);
+    writeFileSync(join(dir, filename), buffer);
+
+    try {
+      const mobileName = filename.replace(/\.[^.]+$/, '.m.webp');
+      const mobileBuf = await toMobileWebp(buffer);
+      writeFileSync(join(dir, mobileName), mobileBuf);
+    } catch {
+      // Mobile sibling is optional.
+    }
 
     return { url: `/uploads/${filename}`, name: filename };
   }

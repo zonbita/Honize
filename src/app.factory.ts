@@ -8,6 +8,7 @@ import { AppModule } from './app.module';
 import { authGate } from './auth/auth.middleware';
 import { getDevRevision } from './shared/dev-reload';
 import { loadEnvFile } from './shared/load-env';
+import { mobileImageMiddleware } from './shared/mobile-image.middleware';
 import { projectAssetRoot } from './shared/trace-static-files';
 import { recordVisit } from './shared/visit-tracker';
 
@@ -65,6 +66,7 @@ function configureViewEngine(app: NestExpressApplication, root: string): void {
     res.setHeader('X-Frame-Options', 'SAMEORIGIN');
     res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
     res.setHeader('X-XSS-Protection', '0');
+    res.setHeader('Accept-CH', 'Sec-CH-UA-Mobile');
 
     res.locals.devMode = devMode;
     if (devMode) {
@@ -89,6 +91,9 @@ function configureViewEngine(app: NestExpressApplication, root: string): void {
     recordVisit(req);
     next();
   });
+
+  // Phone clients get *.m.webp (max ~750px) for /images and /uploads when available.
+  app.use(mobileImageMiddleware(publicDir));
 
   app.useStaticAssets(publicDir, {
     etag: true,

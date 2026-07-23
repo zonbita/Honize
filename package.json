@@ -5,6 +5,8 @@
   "scripts": {
     "build": "npm run build:css && nest build",
     "build:css": "npx tailwindcss -i ./public/css/input.css -o ./public/css/styles.css --minify",
+    "optimize:images": "node scripts/optimize-images.mjs",
+    "optimize:images:force": "node scripts/optimize-images.mjs --force",
     "watch:css": "npx tailwindcss -i ./public/css/input.css -o ./public/css/styles.css --watch",
     "dev": "npm run start:dev",
     "prestart": "npm run build:css",
@@ -20,7 +22,8 @@
     "express": "^5.2.1",
     "express-handlebars": "^8.0.1",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "sharp": "^0.34.5"
   },
   "devDependencies": {
     "@nestjs/cli": "^11.0.0",
