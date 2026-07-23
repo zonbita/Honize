@@ -354,19 +354,6 @@
     color: #e5b93c;
   }
 
-  .nav-link.is-active::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 0.1rem;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: #e5b93c;
-    transform: translateX(-50%);
-    box-shadow: 0 0 8px rgba(229, 185, 60, 0.8);
-  }
-
   .nav-link.is-active::after {
     content: '';
     position: absolute;
