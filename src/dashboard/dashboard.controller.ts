@@ -38,11 +38,11 @@ export class DashboardController {
 
   @Get('media')
   @Render('dashboard/media')
-  media(@Query('deleted') deleted?: string) {
+  async media(@Query('deleted') deleted?: string) {
     return {
       layout: 'dashboard',
       pageTitle: 'Media',
-      mediaFiles: this.cmsPagesService.getMediaFiles(),
+      mediaFiles: await this.cmsPagesService.getMediaFiles(),
       deleted: deleted === '1',
       ...this.dashboardService.getSharedLayoutData('media'),
     };
@@ -55,8 +55,8 @@ export class DashboardController {
 
   @Post('media/:name/delete')
   @Redirect('/dashboard/media?deleted=1')
-  deleteMedia(@Param('name') name: string) {
-    this.cmsPagesService.deleteMediaFile(decodeURIComponent(name));
+  async deleteMedia(@Param('name') name: string) {
+    await this.cmsPagesService.deleteMediaFile(decodeURIComponent(name));
     return {};
   }
 

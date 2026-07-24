@@ -10,6 +10,7 @@ import { ensureDbSchema, hasDatabase } from './db/client';
 import { getDevRevision } from './shared/dev-reload';
 import { loadEnvFile } from './shared/load-env';
 import { mobileImageMiddleware } from './shared/mobile-image.middleware';
+import { blobUploadsFallbackMiddleware } from './shared/blob-uploads.middleware';
 import { projectAssetRoot } from './shared/trace-static-files';
 import { recordVisit } from './shared/visit-tracker';
 
@@ -115,6 +116,8 @@ function configureViewEngine(app: NestExpressApplication, root: string): void {
 
   // Phone clients get *.m.webp (max ~750px) for /images and /uploads when available.
   app.use(mobileImageMiddleware(publicDir));
+  // Vercel: /uploads missing on disk → redirect to Blob copy.
+  app.use(blobUploadsFallbackMiddleware(publicDir));
 
   app.useStaticAssets(publicDir, {
     etag: true,

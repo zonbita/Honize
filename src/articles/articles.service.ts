@@ -1,11 +1,11 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { existsSync, mkdirSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from 'fs';
 import { extname, join } from 'path';
-import { getUploadsDir } from '../shared/content-path';
 import { getArticlesDir } from '../shared/content-path';
 import { bumpDevRevision } from '../shared/dev-reload';
 import { compressUploadImage, toMobileWebp } from '../shared/image-compress';
 import { getSiteUrl, toAbsoluteUrl } from '../shared/site-url';
+import { saveUploadFile } from '../shared/upload-storage';
 import {
   Article,
   ArticleStatus,
@@ -758,29 +758,37 @@ export class ArticlesService {
       throw new BadRequestException('Chỉ chấp nhận file hình ảnh JPG, PNG, GIF, WebP');
     }
 
-    const dir = getUploadsDir();
     let buffer = file.buffer;
     let ext = extname(file.originalname) || '.jpg';
+    let mime = file.mimetype;
 
     try {
       const compressed = await compressUploadImage(file.buffer, file.mimetype);
       buffer = compressed.buffer;
       ext = compressed.ext;
+      mime = compressed.mime;
     } catch {
       // Keep original buffer if sharp fails on an exotic format.
     }
 
     const filename = `${Date.now()}-${Math.round(Math.random() * 1e9)}${ext}`;
-    writeFileSync(join(dir, filename), buffer);
 
     try {
-      const mobileName = filename.replace(/\.[^.]+$/, '.m.webp');
-      const mobileBuf = await toMobileWebp(buffer);
-      writeFileSync(join(dir, mobileName), mobileBuf);
-    } catch {
-      // Mobile sibling is optional.
-    }
+      const saved = await saveUploadFile(filename, buffer, mime);
 
-    return { url: `/uploads/${filename}`, name: filename };
+      try {
+        const mobileName = filename.replace(/\.[^.]+$/, '.m.webp');
+        const mobileBuf = await toMobileWebp(buffer);
+        await saveUploadFile(mobileName, mobileBuf, 'image/webp');
+      } catch {
+        // Mobile sibling is optional.
+      }
+
+      return saved;
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : 'Upload thất bại';
+      throw new BadRequestException(message);
+    }
   }
 }

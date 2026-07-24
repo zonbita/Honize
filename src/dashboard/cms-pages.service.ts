@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Dirent, existsSync, readdirSync, statSync, unlinkSync } from 'fs';
+import { Dirent, existsSync, readdirSync, statSync } from 'fs';
 import { basename, extname, join } from 'path';
 import { ArticlesService } from '../articles/articles.service';
 import { Project } from '../data/site.data';
@@ -15,6 +15,7 @@ import {
   getContactSubmissions as loadContactSubmissions,
   markContactRead as markContactRecordRead,
 } from '../shared/contact-submissions';
+import { deleteUploadFile, listBlobUploads } from '../shared/upload-storage';
 import { getUploadsDir, readJsonFile, writeJsonFile } from './cms.storage';
 
 const IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg'];
@@ -81,9 +82,10 @@ export class CmsPagesService {
     return categories;
   }
 
-  /** Media page + picker: public/images/Demo and public/uploads */
-  getMediaFiles() {
-    return this.getPublicImages().map((img) => ({
+  /** Media page + picker: public/images/Demo and public/uploads (+ Vercel Blob). */
+  async getMediaFiles() {
+    const images = await this.getPublicImages();
+    return images.map((img) => ({
       name: img.name,
       folder: img.folder,
       relativePath: img.relativePath,
@@ -93,8 +95,8 @@ export class CmsPagesService {
     }));
   }
 
-  /** List images under public/images/Demo and public/uploads. */
-  getPublicImages(): LibraryImage[] {
+  /** List images under public/images/Demo and public/uploads (+ Blob on Vercel). */
+  async getPublicImages(): Promise<LibraryImage[]> {
     const results: LibraryImage[] = [];
     const root = resolveProjectRoot();
 
@@ -106,6 +108,30 @@ export class CmsPagesService {
     const uploadsDir = getUploadsDir();
     if (existsSync(uploadsDir)) {
       this.collectUploadImages(uploadsDir, results);
+    }
+
+    try {
+      const blobs = await listBlobUploads();
+      const seen = new Set(
+        results
+          .filter((r) => r.folder === 'uploads')
+          .map((r) => r.name),
+      );
+      for (const blob of blobs) {
+        if (seen.has(blob.name)) continue;
+        const ext = extname(blob.name).toLowerCase();
+        if (!IMAGE_EXTENSIONS.includes(ext)) continue;
+        results.push({
+          name: blob.name,
+          folder: 'uploads',
+          relativePath: `uploads/${blob.name}`,
+          url: blob.url,
+          size: blob.size,
+          mtime: blob.mtime,
+        });
+      }
+    } catch (err) {
+      console.error('[media] Blob list failed', err);
     }
 
     return results;
@@ -205,7 +231,7 @@ export class CmsPagesService {
     }
   }
 
-  deleteMediaFile(filename: string): void {
+  async deleteMediaFile(filename: string): Promise<void> {
     const safeName = basename(filename || '');
     if (!safeName || safeName !== filename || safeName.includes('..')) {
       throw new NotFoundException('File không hợp lệ');
@@ -216,12 +242,11 @@ export class CmsPagesService {
     }
 
     // Only allow deleting CMS uploads, not curated Demo assets
-    const filePath = join(getUploadsDir(), safeName);
-    if (!existsSync(filePath)) {
+    const deleted = await deleteUploadFile(safeName);
+    if (!deleted) {
       throw new NotFoundException(`Không tìm thấy file "${safeName}" trong uploads`);
     }
 
-    unlinkSync(filePath);
     bumpDevRevision();
   }
 
