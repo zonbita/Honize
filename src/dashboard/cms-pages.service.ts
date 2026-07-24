@@ -16,7 +16,8 @@ import {
   markContactRead as markContactRecordRead,
 } from '../shared/contact-submissions';
 import { deleteUploadFile, listBlobUploads } from '../shared/upload-storage';
-import { getUploadsDir, readJsonFile, writeJsonFile } from './cms.storage';
+import { getUploadsDir, readJsonFile } from './cms.storage';
+import { writeJsonDurable } from '../shared/cms-documents';
 
 const IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg'];
 
@@ -62,7 +63,7 @@ export class CmsPagesService {
     }));
   }
 
-  addCategory(name: string, description: string) {
+  async addCategory(name: string, description: string) {
     const categories = readJsonFile<Category[]>('categories.json', []);
     const slug = name
       .toLowerCase()
@@ -78,7 +79,7 @@ export class CmsPagesService {
       color: 'bg-slate-100 text-slate-700',
       description,
     });
-    writeJsonFile('categories.json', categories);
+    await writeJsonDurable('categories.json', categories);
     return categories;
   }
 
@@ -286,10 +287,10 @@ export class CmsPagesService {
     return loadSiteSettings();
   }
 
-  saveSettings(data: Partial<SiteSettings>) {
+  async saveSettings(data: Partial<SiteSettings>) {
     const current = this.getSettings();
     const updated = { ...current, ...data };
-    writeJsonFile('settings.json', updated);
+    await writeJsonDurable('settings.json', updated);
     bumpDevRevision();
     return updated;
   }
@@ -318,13 +319,13 @@ export class CmsPagesService {
       .replace(/^-|-$/g, '');
   }
 
-  private persistProjects(data: SiteProjectsData): SiteProjectsData {
-    saveSiteProjects(data);
+  private async persistProjects(data: SiteProjectsData): Promise<SiteProjectsData> {
+    await saveSiteProjects(data);
     bumpDevRevision();
     return data;
   }
 
-  addProjectCategory(name: string) {
+  async addProjectCategory(name: string) {
     const data = this.getProjectsData();
     const slug = this.slugify(name);
     if (data.projectCategories.some((c) => c.slug === slug)) return data;
@@ -332,14 +333,14 @@ export class CmsPagesService {
     return this.persistProjects(data);
   }
 
-  saveProject(input: {
+  async saveProject(input: {
     title: string;
     slug?: string;
     categorySlug: string;
     image: string;
     url: string;
     previousSlug?: string;
-  }): Project {
+  }): Promise<Project> {
     const data = this.getProjectsData();
     const category = data.projectCategories.find((c) => c.slug === input.categorySlug);
     if (!category) throw new NotFoundException(`Category "${input.categorySlug}" not found`);
@@ -370,16 +371,16 @@ export class CmsPagesService {
       data.projects.push(project);
     }
 
-    this.persistProjects(data);
+    await this.persistProjects(data);
     return project;
   }
 
-  deleteProject(slug: string): void {
+  async deleteProject(slug: string): Promise<void> {
     const data = this.getProjectsData();
     const next = data.projects.filter((p) => p.slug !== slug);
     if (next.length === data.projects.length) {
       throw new NotFoundException(`Project "${slug}" not found`);
     }
-    this.persistProjects({ ...data, projects: next });
+    await this.persistProjects({ ...data, projects: next });
   }
 }

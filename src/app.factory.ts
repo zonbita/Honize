@@ -9,10 +9,37 @@ import { authGate } from './auth/auth.middleware';
 import { ensureDbSchema, hasDatabase } from './db/client';
 import { getDevRevision } from './shared/dev-reload';
 import { loadEnvFile } from './shared/load-env';
+import { hydrateCmsDocuments } from './shared/cms-documents';
+import { ensureArticlesStore } from './shared/articles-store';
 import { mobileImageMiddleware } from './shared/mobile-image.middleware';
 import { blobUploadsFallbackMiddleware } from './shared/blob-uploads.middleware';
 import { projectAssetRoot } from './shared/trace-static-files';
 import { recordVisit } from './shared/visit-tracker';
+
+const CMS_DOCUMENTS = [
+  'projects.json',
+  'settings.json',
+  'categories.json',
+  'users.json',
+  'faq.json',
+  'articles-store.json',
+];
+
+async function initDurableStore(): Promise<void> {
+  if (!hasDatabase()) {
+    await ensureArticlesStore().catch((err) => {
+      console.error('[articles] Store seed failed', err);
+    });
+    return;
+  }
+  try {
+    await ensureDbSchema();
+    await hydrateCmsDocuments(CMS_DOCUMENTS);
+    await ensureArticlesStore();
+  } catch (err) {
+    console.error('[db] Schema/CMS hydrate failed', err);
+  }
+}
 
 export function resolveRoot(): string {
   const fromAssets = projectAssetRoot();
@@ -145,11 +172,7 @@ function configureViewEngine(app: NestExpressApplication, root: string): void {
 /** Local / long-running server entry. */
 export async function createNestApp(): Promise<NestExpressApplication> {
   loadEnvFile(resolveRoot());
-  if (hasDatabase()) {
-    await ensureDbSchema().catch((err) => {
-      console.error('[db] Schema init failed', err);
-    });
-  }
+  await initDurableStore();
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   configureViewEngine(app, resolveRoot());
   app.enableShutdownHooks();
@@ -163,11 +186,7 @@ export async function getExpressApp(): Promise<Express> {
   if (cachedServer) return cachedServer;
 
   loadEnvFile(resolveRoot());
-  if (hasDatabase()) {
-    await ensureDbSchema().catch((err) => {
-      console.error('[db] Schema init failed', err);
-    });
-  }
+  await initDurableStore();
   const expressApp = express();
   const app = await NestFactory.create<NestExpressApplication>(
     AppModule,

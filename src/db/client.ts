@@ -71,6 +71,13 @@ export async function ensureDbSchema(): Promise<void> {
           reset_at TIMESTAMPTZ NOT NULL
         )
       `;
+      await db`
+        CREATE TABLE IF NOT EXISTS cms_documents (
+          id TEXT PRIMARY KEY,
+          data JSONB NOT NULL,
+          updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+        )
+      `;
     })().catch((err) => {
       schemaReady = null;
       throw err;

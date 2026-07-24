@@ -1,8 +1,12 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
-import { existsSync, mkdirSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from 'fs';
-import { extname, join } from 'path';
-import { getArticlesDir } from '../shared/content-path';
-import { bumpDevRevision } from '../shared/dev-reload';
+import { extname } from 'path';
+import {
+  deleteArticleFiles,
+  ensureArticlesStore,
+  getArticlesStoreSync,
+  persistArticlesStore,
+  type ArticlesStoreData,
+} from '../shared/articles-store';
 import { compressUploadImage, toMobileWebp } from '../shared/image-compress';
 import { getSiteUrl, toAbsoluteUrl } from '../shared/site-url';
 import { saveUploadFile } from '../shared/upload-storage';
@@ -44,24 +48,12 @@ const INDEX_STATUS_MAP = {
 
 @Injectable()
 export class ArticlesService {
-  private ensureDir() {
-    const dir = getArticlesDir();
-    if (!existsSync(dir)) {
-      try {
-        mkdirSync(dir, { recursive: true });
-      } catch {
-        // Read-only filesystem (Vercel) — read paths still work if files are bundled
-      }
-    }
-    return dir;
+  private store(): ArticlesStoreData {
+    return getArticlesStoreSync();
   }
 
-  private jsonPath(slug: string) {
-    return join(this.ensureDir(), `${slug}.json`);
-  }
-
-  private mdPath(slug: string) {
-    return join(this.ensureDir(), `${slug}.md`);
+  private hasSlug(slug: string): boolean {
+    return this.store().articles.some((a) => a.slug === slug);
   }
 
   private slugify(text: string): string {
@@ -92,7 +84,7 @@ export class ArticlesService {
     );
   }
 
-  recordView(slug: string, cookieHeader?: string): { article: Article; counted: boolean } {
+  async recordView(slug: string, cookieHeader?: string): Promise<{ article: Article; counted: boolean }> {
     const article = this.findBySlug(slug);
     if (article.status !== 'published' && article.status !== 'scheduled') {
       throw new NotFoundException();
@@ -109,10 +101,10 @@ export class ArticlesService {
     };
 
     try {
-      this.writeJson(updated);
+      await this.writeArticle(updated);
       return { article: updated, counted: true };
     } catch {
-      // Vercel (and other serverless) filesystems are read-only — still render the article.
+      // Still render the article if durable write fails.
       return { article, counted: false };
     }
   }
@@ -150,31 +142,30 @@ export class ArticlesService {
   }
 
   private readJson(slug: string): Article {
-    const path = this.jsonPath(slug);
-    if (!existsSync(path)) throw new NotFoundException(`Article "${slug}" not found`);
-    return JSON.parse(readFileSync(path, 'utf-8')) as Article;
+    const article = this.store().articles.find((a) => a.slug === slug);
+    if (!article) throw new NotFoundException(`Article "${slug}" not found`);
+    return { ...article, seo: { ...article.seo } };
   }
 
-  private writeJson(article: Article) {
-    writeFileSync(this.jsonPath(article.slug), JSON.stringify(article, null, 2), 'utf-8');
-    bumpDevRevision();
-  }
+  private async writeArticle(article: Article, content?: string): Promise<void> {
+    const data = this.store();
+    const index = data.articles.findIndex((a) => a.slug === article.slug || a.id === article.id);
+    const articles = [...data.articles];
+    if (index >= 0) articles[index] = article;
+    else articles.push(article);
 
-  private saveContent(slug: string, content: string) {
-    writeFileSync(this.mdPath(slug), content, 'utf-8');
-    bumpDevRevision();
+    const contents = { ...data.contents };
+    if (content !== undefined) contents[article.slug] = content;
+
+    await persistArticlesStore({ articles, contents });
   }
 
   findAll(includeTrash = false): Article[] {
-    const dir = getArticlesDir();
-    if (!existsSync(dir)) return [];
-    const files = readdirSync(dir).filter((f) => f.endsWith('.json'));
-    const articles = files.map((f) =>
-      JSON.parse(readFileSync(join(dir, f), 'utf-8')) as Article,
-    );
-    return articles
-      .filter((a) => includeTrash || a.status !== 'trash')
-      .sort((a, b) => b.id - a.id);
+    return this.store()
+      .articles.filter((a) => includeTrash || a.status !== 'trash')
+      .slice()
+      .sort((a, b) => b.id - a.id)
+      .map((a) => ({ ...a, seo: { ...a.seo } }));
   }
 
   findBySlug(slug: string): Article {
@@ -182,8 +173,7 @@ export class ArticlesService {
   }
 
   getContent(slug: string): string {
-    const path = this.mdPath(slug);
-    return existsSync(path) ? readFileSync(path, 'utf-8') : '';
+    return this.store().contents[slug] ?? '';
   }
 
   isHtmlContent(content: string): boolean {
@@ -407,10 +397,11 @@ export class ArticlesService {
     return articles.length ? Math.max(...articles.map((a) => a.id)) + 1 : 1;
   }
 
-  create(dto: CreateArticleDto): Article {
+  async create(dto: CreateArticleDto): Promise<Article> {
+    await ensureArticlesStore();
     const now = new Date().toISOString();
     const slug = dto.slug ? this.slugify(dto.slug) : this.slugify(dto.title);
-    if (existsSync(this.jsonPath(slug))) {
+    if (this.hasSlug(slug)) {
       throw new Error(`Slug "${slug}" already exists`);
     }
 
@@ -447,20 +438,19 @@ export class ArticlesService {
       updatedAt: now,
     };
 
-    this.writeJson(article);
-    this.saveContent(
-      slug,
-      dto.content ?? `<h2>${dto.title}</h2><p>Nội dung bài viết...</p>`,
-    );
+    const content =
+      dto.content ?? `<h2>${dto.title}</h2><p>Nội dung bài viết...</p>`;
+    await this.writeArticle(article, content);
     return article;
   }
 
-  update(slug: string, dto: UpdateArticleDto): Article {
+  async update(slug: string, dto: UpdateArticleDto): Promise<Article> {
+    await ensureArticlesStore();
     const article = this.readJson(slug);
     const now = new Date().toISOString();
     const newSlug = dto.slug ? this.slugify(dto.slug) : slug;
 
-    if (newSlug !== slug && existsSync(this.jsonPath(newSlug))) {
+    if (newSlug !== slug && this.hasSlug(newSlug)) {
       throw new Error(`Slug "${newSlug}" already exists`);
     }
 
@@ -484,29 +474,38 @@ export class ArticlesService {
       updated.publishedAt = now;
     }
 
-    if (dto.content !== undefined) {
-      this.saveContent(slug, dto.content);
-    }
+    const data = this.store();
+    let content = data.contents[slug] ?? '';
+    if (dto.content !== undefined) content = dto.content;
 
+    const articles = data.articles
+      .filter((a) => a.slug !== slug)
+      .concat([updated]);
+    const contents = { ...data.contents };
     if (newSlug !== slug) {
-      unlinkSync(this.jsonPath(slug));
-      if (existsSync(this.mdPath(slug))) {
-        const content = readFileSync(this.mdPath(slug), 'utf-8');
-        unlinkSync(this.mdPath(slug));
-        this.saveContent(newSlug, content);
-      }
+      delete contents[slug];
+      await deleteArticleFiles(slug);
     }
+    contents[newSlug] = content;
 
-    this.writeJson(updated);
+    await persistArticlesStore({ articles, contents });
     return updated;
   }
 
-  delete(slug: string, permanent = false): void {
+  async delete(slug: string, permanent = false): Promise<void> {
+    await ensureArticlesStore();
     if (permanent) {
-      if (existsSync(this.jsonPath(slug))) unlinkSync(this.jsonPath(slug));
-      if (existsSync(this.mdPath(slug))) unlinkSync(this.mdPath(slug));
+      const data = this.store();
+      if (!data.articles.some((a) => a.slug === slug)) {
+        throw new NotFoundException(`Article "${slug}" not found`);
+      }
+      const articles = data.articles.filter((a) => a.slug !== slug);
+      const contents = { ...data.contents };
+      delete contents[slug];
+      await persistArticlesStore({ articles, contents });
+      await deleteArticleFiles(slug);
     } else {
-      this.update(slug, { status: 'trash' });
+      await this.update(slug, { status: 'trash' });
     }
   }
 

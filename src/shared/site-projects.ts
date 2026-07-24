@@ -1,5 +1,6 @@
 import { Project, ProjectCategory } from '../data/site.data';
-import { readJsonFile, writeJsonFile } from '../dashboard/cms.storage';
+import { readJsonFile } from '../dashboard/cms.storage';
+import { writeJsonDurable } from './cms-documents';
 import { defaultProjectsData } from '../data/site.data';
 
 export interface SiteProjectsData {
@@ -11,6 +12,6 @@ export function loadSiteProjects(): SiteProjectsData {
   return readJsonFile<SiteProjectsData>('projects.json', defaultProjectsData);
 }
 
-export function saveSiteProjects(data: SiteProjectsData): void {
-  writeJsonFile('projects.json', data);
+export async function saveSiteProjects(data: SiteProjectsData): Promise<void> {
+  await writeJsonDurable('projects.json', data);
 }

@@ -117,8 +117,13 @@ export async function deleteUploadFile(filename: string): Promise<boolean> {
 
   const localPath = join(getUploadsDir(), safeName);
   if (existsSync(localPath)) {
-    unlinkSync(localPath);
-    deleted = true;
+    try {
+      unlinkSync(localPath);
+      deleted = true;
+    } catch (err) {
+      const code = (err as NodeJS.ErrnoException)?.code;
+      if (code !== 'EROFS' && code !== 'EACCES') throw err;
+    }
   }
 
   if (hasBlobStorage()) {

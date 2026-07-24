@@ -48,8 +48,8 @@ export class ArticlesController {
   }
 
   @Delete('api/articles/:slug')
-  deleteApi(@Param('slug') slug: string) {
-    this.articlesService.delete(slug, true);
+  async deleteApi(@Param('slug') slug: string) {
+    await this.articlesService.delete(slug, true);
     return { ok: true };
   }
 
@@ -86,12 +86,15 @@ export class ArticlesController {
 
   @Get('blog/:slug')
   @Render('pages/blog-detail')
-  blogDetail(
+  async blogDetail(
     @Param('slug') slug: string,
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const { article, counted } = this.articlesService.recordView(slug, req.headers.cookie);
+    const { article, counted } = await this.articlesService.recordView(
+      slug,
+      req.headers.cookie,
+    );
     if (counted) {
       res.setHeader(
         'Set-Cookie',
@@ -180,15 +183,15 @@ export class ArticlesController {
 
   @Post('dashboard/articles')
   @Redirect('/dashboard')
-  createForm(@Body() body: Record<string, string>) {
-    this.articlesService.create(this.parseForm(body));
+  async createForm(@Body() body: Record<string, string>) {
+    await this.articlesService.create(this.parseForm(body));
     return {};
   }
 
   @Post('dashboard/articles/:slug')
   @Redirect('/dashboard')
-  updateForm(@Param('slug') slug: string, @Body() body: Record<string, string>) {
-    this.articlesService.update(slug, this.parseForm(body, slug));
+  async updateForm(@Param('slug') slug: string, @Body() body: Record<string, string>) {
+    await this.articlesService.update(slug, this.parseForm(body, slug));
     return {};
   }
 

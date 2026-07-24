@@ -31,8 +31,8 @@ export class DashboardController {
 
   @Post('categories')
   @Redirect('/dashboard/categories')
-  addCategory(@Body() body: { name: string; description?: string }) {
-    this.cmsPagesService.addCategory(body.name, body.description ?? '');
+  async addCategory(@Body() body: { name: string; description?: string }) {
+    await this.cmsPagesService.addCategory(body.name, body.description ?? '');
     return {};
   }
 
@@ -161,8 +161,8 @@ export class DashboardController {
 
   @Post('settings')
   @Redirect('/dashboard/settings?saved=1')
-  saveSettings(@Body() body: Record<string, string>) {
-    this.cmsPagesService.saveSettings({
+  async saveSettings(@Body() body: Record<string, string>) {
+    await this.cmsPagesService.saveSettings({
       siteName: body.siteName,
       tagline: body.tagline,
       email: body.email,
@@ -199,9 +199,9 @@ export class DashboardController {
 
   @Post('projects/categories')
   @Redirect('/dashboard/projects')
-  addProjectCategory(@Body() body: { name: string }) {
+  async addProjectCategory(@Body() body: { name: string }) {
     if (body.name?.trim()) {
-      this.cmsPagesService.addProjectCategory(body.name.trim());
+      await this.cmsPagesService.addProjectCategory(body.name.trim());
     }
     return {};
   }
@@ -244,8 +244,8 @@ export class DashboardController {
 
   @Post('projects')
   @Redirect('/dashboard/projects?saved=1')
-  createProject(@Body() body: Record<string, string>) {
-    this.cmsPagesService.saveProject({
+  async createProject(@Body() body: Record<string, string>) {
+    await this.cmsPagesService.saveProject({
       title: body.title,
       slug: body.slug || undefined,
       categorySlug: body.categorySlug,
@@ -257,8 +257,8 @@ export class DashboardController {
 
   @Post('projects/:slug')
   @Redirect('/dashboard/projects?saved=1')
-  updateProject(@Param('slug') slug: string, @Body() body: Record<string, string>) {
-    this.cmsPagesService.saveProject({
+  async updateProject(@Param('slug') slug: string, @Body() body: Record<string, string>) {
+    await this.cmsPagesService.saveProject({
       title: body.title,
       slug: body.slug || undefined,
       categorySlug: body.categorySlug,
@@ -271,8 +271,8 @@ export class DashboardController {
 
   @Post('projects/:slug/delete')
   @Redirect('/dashboard/projects')
-  deleteProject(@Param('slug') slug: string) {
-    this.cmsPagesService.deleteProject(slug);
+  async deleteProject(@Param('slug') slug: string) {
+    await this.cmsPagesService.deleteProject(slug);
     return {};
   }
 

@@ -41,3 +41,9 @@ CREATE TABLE IF NOT EXISTS rate_limits (
   hit_count INT NOT NULL DEFAULT 0,
   reset_at TIMESTAMPTZ NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS cms_documents (
+  id TEXT PRIMARY KEY,
+  data JSONB NOT NULL,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
