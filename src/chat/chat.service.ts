@@ -35,8 +35,8 @@ export class ChatService {
 
     this.assertRateLimit(input.ip || 'unknown');
 
-    // 1) FAQ first — any keyword match wins over AI
-    const faqHit = matchFaq(message, 1);
+    // 1) FAQ first — strong keyword match wins over AI (skip weak noise)
+    const faqHit = matchFaq(message, 8);
     if (faqHit) {
       this.logger.debug(`FAQ priority match: ${faqHit.item.id} (score=${faqHit.score})`);
       return faqHit.answer;
@@ -78,7 +78,8 @@ export class ChatService {
         );
       }
 
-      if (/quá nhiều yêu cầu/i.test(msg)) throw err;
+      // Quota / rate-limit: still answer via FAQ default so chatbox never goes blank
+      this.logger.warn('AI unavailable — using FAQ default answer');
       return getFaqDefaultAnswer();
     }
   }
@@ -110,8 +111,14 @@ export class ChatService {
     system: string,
   ): Promise<string> {
     const apiKey = process.env.GEMINI_API_KEY!.trim();
-    const model = process.env.GEMINI_MODEL?.trim() || 'gemini-2.0-flash';
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(apiKey)}`;
+    const preferred = process.env.GEMINI_MODEL?.trim() || 'gemini-3.1-flash-lite-preview';
+    const models = [
+      preferred,
+      'gemini-3.1-flash-lite-preview',
+      'gemini-3-flash-preview',
+      'gemini-flash-latest',
+      'gemini-2.0-flash',
+    ].filter((m, i, arr) => m && arr.indexOf(m) === i);
 
     const contents = [
       ...history.map((item) => ({
@@ -120,40 +127,59 @@ export class ChatService {
       })),
       { role: 'user', parts: [{ text: message }] },
     ];
-
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        systemInstruction: { parts: [{ text: system }] },
-        contents,
-        generationConfig: {
-          temperature: 0.4,
-          maxOutputTokens: 450,
-        },
-      }),
+    const body = JSON.stringify({
+      systemInstruction: { parts: [{ text: system }] },
+      contents,
+      generationConfig: {
+        temperature: 0.4,
+        maxOutputTokens: 450,
+      },
     });
 
-    if (!res.ok) {
+    let lastStatus = 0;
+    let lastErr = '';
+
+    for (const model of models) {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(apiKey)}`;
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body,
+      });
+
+      if (res.ok) {
+        const data = (await res.json()) as {
+          candidates?: { content?: { parts?: { text?: string }[] } }[];
+        };
+        const reply = data.candidates?.[0]?.content?.parts
+          ?.map((p) => p.text || '')
+          .join('')
+          .trim();
+        if (!reply) {
+          throw new Error('Gemini returned empty reply');
+        }
+        if (model !== preferred) {
+          this.logger.warn(`Gemini fell back to model ${model}`);
+        }
+        return reply;
+      }
+
       const errText = await res.text().catch(() => '');
-      this.logger.error(`Gemini ${res.status}: ${errText.slice(0, 300)}`);
+      lastStatus = res.status;
+      lastErr = errText;
+      this.logger.error(`Gemini ${model} ${res.status}: ${errText.slice(0, 280)}`);
+
       if (res.status === 429) {
         throw new Error('Hệ thống đang nhận quá nhiều yêu cầu. Vui lòng thử lại sau ít phút.');
       }
-      throw new Error(`Gemini error ${res.status}`);
+      // 404 = model unavailable for this key — try next candidate
+      if (res.status !== 404) {
+        throw new Error(`Gemini error ${res.status}`);
+      }
     }
 
-    const data = (await res.json()) as {
-      candidates?: { content?: { parts?: { text?: string }[] } }[];
-    };
-    const reply = data.candidates?.[0]?.content?.parts
-      ?.map((p) => p.text || '')
-      .join('')
-      .trim();
-    if (!reply) {
-      throw new Error('Gemini returned empty reply');
-    }
-    return reply;
+    this.logger.error(`Gemini all models failed. Last ${lastStatus}: ${lastErr.slice(0, 200)}`);
+    throw new Error(`Gemini error ${lastStatus || 404}`);
   }
 
   private async replyWithOpenAI(

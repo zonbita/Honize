@@ -1571,18 +1571,66 @@
   }
 
   .optimize-card {
-    @apply flex items-start gap-5 rounded-[1.75rem] border bg-white p-7 md:p-8;
-    border-color: rgba(212, 175, 55, 0.28);
+    @apply relative flex items-start gap-5 overflow-hidden rounded-[1.75rem] border border-transparent p-7 transition-all duration-300 hover:-translate-y-1 md:p-8;
+    background:
+      radial-gradient(ellipse 90% 70% at 12% 8%, rgba(90, 90, 96, 0.55), transparent 55%),
+      radial-gradient(ellipse 55% 45% at 88% 92%, rgba(0, 0, 0, 0.55), transparent 50%),
+      linear-gradient(155deg, #3a3a40 0%, #2a2a2e 38%, #1c1c20 72%, #141416 100%);
     box-shadow:
-      0 4px 20px rgba(15, 23, 42, 0.04),
-      0 12px 40px rgba(168, 130, 50, 0.08);
+      0 4px 20px rgba(15, 23, 42, 0.12),
+      0 16px 48px rgba(0, 0, 0, 0.22),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  .optimize-card::before {
+    content: '';
+    @apply pointer-events-none absolute inset-0 rounded-[1.75rem];
+    padding: 1px;
+    background:
+      linear-gradient(
+        125deg,
+        transparent 0%,
+        transparent 42%,
+        rgba(212, 175, 55, 0.15) 52%,
+        rgba(240, 215, 140, 0.85) 62%,
+        rgba(212, 175, 55, 0.95) 70%,
+        rgba(168, 130, 40, 0.55) 78%,
+        transparent 88%,
+        transparent 100%
+      ),
+      linear-gradient(
+        200deg,
+        rgba(240, 215, 140, 0.7) 0%,
+        rgba(212, 175, 55, 0.45) 18%,
+        transparent 38%
+      );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.9;
+  }
+
+  .optimize-card > * {
+    @apply relative z-10;
+  }
+
+  .optimize-card:hover {
+    box-shadow:
+      0 8px 28px rgba(15, 23, 42, 0.16),
+      0 20px 56px rgba(0, 0, 0, 0.28),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
   }
 
   .optimize-card-icon {
     @apply flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl;
     color: #d4af37;
-    background: rgba(212, 175, 55, 0.1);
-    border: 1px solid rgba(212, 175, 55, 0.22);
+    background: radial-gradient(circle at 50% 40%, rgba(212, 175, 55, 0.22), transparent 70%);
+    border: 1px solid rgba(212, 175, 55, 0.28);
   }
 
   .optimize-card-icon svg {
@@ -1590,11 +1638,12 @@
   }
 
   .optimize-card-title {
-    @apply text-lg font-bold tracking-tight text-slate-900;
+    @apply text-lg font-bold tracking-tight text-white;
   }
 
   .optimize-card-text {
-    @apply mt-2.5 text-sm leading-relaxed text-slate-600 md:text-[15px] md:leading-7;
+    @apply mt-2.5 text-sm leading-relaxed md:text-[15px] md:leading-7;
+    color: rgba(226, 232, 240, 0.78);
   }
 
   .optimize-page-cards {
@@ -1919,10 +1968,10 @@
     );
   }
 
-  /* Experience — premium champagne / gold abstract */
+  /* Experience — dark / black abstract */
   .experience-section {
     @apply relative overflow-hidden;
-    background-color: #fdfaf3;
+    background-color: #000000;
   }
 
   .experience-bg {
@@ -1931,6 +1980,7 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    opacity: 0.35;
   }
 
   .experience-bg::after {
@@ -1938,9 +1988,9 @@
     @apply absolute inset-0;
     background: radial-gradient(
       ellipse 70% 55% at 42% 38%,
-      rgba(253, 250, 243, 0.55) 0%,
-      rgba(253, 250, 243, 0.18) 45%,
-      transparent 72%
+      rgba(0, 0, 0, 0.35) 0%,
+      rgba(0, 0, 0, 0.55) 45%,
+      rgba(0, 0, 0, 0.82) 72%
     );
   }
 
@@ -1954,7 +2004,7 @@
   }
 
   .experience-title {
-    @apply mt-4 text-3xl font-bold leading-tight tracking-tight text-slate-900 md:text-4xl;
+    @apply mt-4 text-3xl font-bold leading-tight tracking-tight text-white md:text-4xl;
   }
 
   .experience-grid {
@@ -1962,25 +2012,54 @@
   }
 
   .experience-card {
-    @apply flex flex-col rounded-[1.75rem] border bg-white/90 p-8 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1;
-    border-color: rgba(212, 175, 55, 0.32);
+    @apply relative flex flex-col overflow-hidden rounded-[1.75rem] border p-8 transition-all duration-300 hover:-translate-y-1;
+    border-color: rgba(255, 230, 160, 0.45);
+    background:
+      linear-gradient(
+        145deg,
+        #f5e6b8 0%,
+        #d4af37 22%,
+        #c9a227 38%,
+        #f0d78c 52%,
+        #a67c1a 68%,
+        #e8c45a 84%,
+        #b8903a 100%
+      );
     box-shadow:
-      0 4px 20px rgba(15, 23, 42, 0.04),
-      0 14px 44px rgba(168, 130, 50, 0.1);
+      0 1px 0 rgba(255, 245, 210, 0.55) inset,
+      0 -1px 0 rgba(90, 60, 10, 0.25) inset,
+      0 4px 20px rgba(0, 0, 0, 0.35),
+      0 14px 44px rgba(168, 130, 50, 0.28);
+  }
+
+  .experience-card::before {
+    content: '';
+    @apply pointer-events-none absolute inset-0;
+    background: linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0.28) 0%,
+      transparent 32%,
+      transparent 58%,
+      rgba(255, 255, 255, 0.12) 72%,
+      transparent 100%
+    );
   }
 
   .experience-card:hover {
-    border-color: rgba(212, 175, 55, 0.55);
+    border-color: rgba(255, 240, 190, 0.65);
     box-shadow:
-      0 8px 28px rgba(15, 23, 42, 0.06),
-      0 18px 52px rgba(168, 130, 50, 0.14);
+      0 1px 0 rgba(255, 245, 210, 0.65) inset,
+      0 -1px 0 rgba(90, 60, 10, 0.3) inset,
+      0 8px 28px rgba(0, 0, 0, 0.4),
+      0 18px 52px rgba(168, 130, 50, 0.35);
   }
 
   .experience-card-icon {
-    @apply mb-5 flex h-12 w-12 items-center justify-center rounded-2xl;
-    color: #d4af37;
-    background: rgba(212, 175, 55, 0.1);
-    border: 1px solid rgba(212, 175, 55, 0.22);
+    @apply relative z-[1] mb-5 flex h-12 w-12 items-center justify-center rounded-2xl;
+    color: #3d2a0a;
+    background: rgba(255, 248, 220, 0.35);
+    border: 1px solid rgba(61, 42, 10, 0.22);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.35) inset;
   }
 
   .experience-card-icon svg {
@@ -1988,12 +2067,14 @@
   }
 
   .experience-card-title {
-    @apply text-lg font-bold tracking-tight;
-    color: #a88232;
+    @apply relative z-[1] text-lg font-bold tracking-tight;
+    color: #2a1c06;
+    text-shadow: 0 1px 0 rgba(255, 240, 200, 0.35);
   }
 
   .experience-card-text {
-    @apply mt-3 text-sm leading-relaxed text-slate-600 md:text-[15px] md:leading-7;
+    @apply relative z-[1] mt-3 text-sm leading-relaxed md:text-[15px] md:leading-7;
+    color: rgba(42, 28, 6, 0.82);
   }
 
   .project-showcase {
@@ -2867,14 +2948,19 @@
     display: flex;
     width: 2.5rem;
     height: 2.5rem;
+    flex-shrink: 0;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
     border-radius: 9999px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: #141820;
-    background: rgba(255, 255, 255, 0.55);
+    background: rgba(255, 255, 255, 0.72);
     border: 1px solid rgba(255, 255, 255, 0.45);
+  }
+
+  .ai-chat-avatar img {
+    width: 78%;
+    height: 78%;
+    object-fit: contain;
   }
 
   .ai-chat-title {
@@ -2930,6 +3016,18 @@
     line-height: 1.625;
     white-space: pre-wrap;
     word-break: break-word;
+    animation: ai-msg-in 0.28s ease-out;
+  }
+
+  @keyframes ai-msg-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .ai-msg-bot {
@@ -2941,8 +3039,48 @@
   }
 
   .ai-msg-typing {
-    font-style: italic;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-height: 1.25rem;
     color: #94a3b8;
+  }
+
+  .ai-typing-dots {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.28rem;
+  }
+
+  .ai-typing-dots span {
+    display: block;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 9999px;
+    background: #b8903a;
+    opacity: 0.45;
+    animation: ai-typing-bounce 1.05s ease-in-out infinite;
+  }
+
+  .ai-typing-dots span:nth-child(2) {
+    animation-delay: 0.15s;
+  }
+
+  .ai-typing-dots span:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+
+  @keyframes ai-typing-bounce {
+    0%,
+    70%,
+    100% {
+      opacity: 0.35;
+      transform: translateY(0);
+    }
+    35% {
+      opacity: 1;
+      transform: translateY(-3px);
+    }
   }
 
   .ai-chat-form {

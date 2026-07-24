@@ -128,13 +128,18 @@
       closeChat();
     });
 
+    function scrollChatToBottom() {
+      if (!chatMessages) return;
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
     function appendMessage(text, type) {
       if (!chatMessages) return null;
       var el = document.createElement('div');
       el.className = 'ai-msg ai-msg-' + type;
       el.textContent = text;
       chatMessages.appendChild(el);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
+      scrollChatToBottom();
       return el;
     }
 
@@ -145,9 +150,67 @@
       if (!show) return;
       var el = document.createElement('div');
       el.className = 'ai-msg ai-msg-bot ai-msg-typing';
-      el.textContent = 'Đang soạn trả lời…';
+      el.setAttribute('aria-label', 'Đang soạn trả lời');
+      el.innerHTML =
+        '<span class="ai-typing-dots" aria-hidden="true">' +
+        '<span></span><span></span><span></span>' +
+        '</span>';
       chatMessages.appendChild(el);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
+      scrollChatToBottom();
+    }
+
+    function nextTypeChunk(text, index) {
+      if (index >= text.length) return text.length;
+      var ch = text.charAt(index);
+      if (ch === '\n') return index + 1;
+      if (/\s/.test(ch)) {
+        var j = index + 1;
+        while (j < text.length && /\s/.test(text.charAt(j)) && text.charAt(j) !== '\n') j += 1;
+        return j;
+      }
+      var end = Math.min(text.length, index + 2);
+      while (end < text.length && end - index < 4) {
+        var next = text.charAt(end);
+        if (/\s/.test(next) || next === '\n') break;
+        end += 1;
+      }
+      return end;
+    }
+
+    function typeReply(text) {
+      return new Promise(function (resolve) {
+        if (!chatMessages) {
+          resolve();
+          return;
+        }
+        var full = String(text || '');
+        var el = document.createElement('div');
+        el.className = 'ai-msg ai-msg-bot';
+        el.textContent = '';
+        chatMessages.appendChild(el);
+        scrollChatToBottom();
+
+        if (!full) {
+          resolve();
+          return;
+        }
+
+        var i = 0;
+        var delay = full.length > 280 ? 12 : full.length > 120 ? 18 : 22;
+
+        function step() {
+          i = nextTypeChunk(full, i);
+          el.textContent = full.slice(0, i);
+          scrollChatToBottom();
+          if (i >= full.length) {
+            resolve();
+            return;
+          }
+          setTimeout(step, delay);
+        }
+
+        setTimeout(step, delay);
+      });
     }
 
     function askChatApi(message) {
@@ -191,19 +254,19 @@
         askChatApi(text)
           .then(function (reply) {
             setTyping(false);
-            appendMessage(reply, 'bot');
-            chatHistory.push({ role: 'user', content: text });
-            chatHistory.push({ role: 'assistant', content: reply });
-            if (chatHistory.length > 16) {
-              chatHistory = chatHistory.slice(-16);
-            }
+            return typeReply(reply).then(function () {
+              chatHistory.push({ role: 'user', content: text });
+              chatHistory.push({ role: 'assistant', content: reply });
+              if (chatHistory.length > 16) {
+                chatHistory = chatHistory.slice(-16);
+              }
+            });
           })
           .catch(function (err) {
             setTyping(false);
-            appendMessage(
+            return typeReply(
               (err && err.message) ||
                 'Xin lỗi, trợ lý AI tạm thời gián đoạn. Bạn vui lòng thử lại hoặc gửi form tại /lien-he.',
-              'bot',
             );
           })
           .finally(function () {
