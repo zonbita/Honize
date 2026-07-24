@@ -5,6 +5,7 @@
     data-book-direction="prev"
     aria-label="Lật sang trang trước"
   >
+  
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
@@ -50,7 +51,7 @@
       const root = document.documentElement;
       const previousBehavior = root.style.scrollBehavior;
       root.style.scrollBehavior = 'auto';
-      window.scrollTo({ top: scrollY, left: 0, behavior: 'instant' });
+      window.scrollTo(0, scrollY);
       root.style.scrollBehavior = previousBehavior;
     };
 
@@ -80,7 +81,7 @@
           throw new Error('Invalid book page');
         }
 
-        target.className = nextTarget.className;
+        target.className = 'gb-book-content gb-book-turn-target';
         target.innerHTML = nextTarget.innerHTML;
         target.dataset.bookReady = 'true';
         currentPage.className = nextPage.className;
@@ -121,6 +122,8 @@
           window.AOS.refreshHard();
         }
       } catch (_error) {
+        isTurning = false;
+        target.classList.remove('is-turning-prev', 'is-turning-next');
         sessionStorage.setItem('green-building-book-scroll-y', String(scrollY));
         window.location.href = url;
       }
