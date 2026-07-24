@@ -73,8 +73,8 @@ export class DashboardController {
 
   @Get('stats')
   @Render('dashboard/stats')
-  stats() {
-    const visits = this.cmsPagesService.getVisits().map((v) => ({
+  async stats() {
+    const visits = (await this.cmsPagesService.getVisits()).map((v) => ({
       ...v,
       visitedAtFormatted: new Date(v.visitedAt).toLocaleString('vi-VN'),
     }));
@@ -89,15 +89,15 @@ export class DashboardController {
 
   @Post('stats/clear')
   @Redirect('/dashboard/stats')
-  clearStats() {
-    this.cmsPagesService.clearVisits();
+  async clearStats() {
+    await this.cmsPagesService.clearVisits();
     return {};
   }
 
   @Get('emails')
   @Render('dashboard/emails')
-  emails() {
-    const contacts = this.cmsPagesService.getContactSubmissions().map((c) => ({
+  async emails() {
+    const contacts = (await this.cmsPagesService.getContactSubmissions()).map((c) => ({
       ...c,
       createdAtFormatted: new Date(c.createdAt).toLocaleString('vi-VN'),
     }));
@@ -113,22 +113,22 @@ export class DashboardController {
 
   @Post('emails/:id/read')
   @Redirect('/dashboard/emails')
-  markEmailRead(@Param('id') id: string) {
-    this.cmsPagesService.markContactRead(id);
+  async markEmailRead(@Param('id') id: string) {
+    await this.cmsPagesService.markContactRead(id);
     return {};
   }
 
   @Post('emails/:id/delete')
   @Redirect('/dashboard/emails')
-  deleteEmail(@Param('id') id: string) {
-    this.cmsPagesService.deleteContactSubmission(id);
+  async deleteEmail(@Param('id') id: string) {
+    await this.cmsPagesService.deleteContactSubmission(id);
     return {};
   }
 
   @Post('emails/clear')
   @Redirect('/dashboard/emails')
-  clearEmails() {
-    this.cmsPagesService.clearContactSubmissions();
+  async clearEmails() {
+    await this.cmsPagesService.clearContactSubmissions();
     return {};
   }
 

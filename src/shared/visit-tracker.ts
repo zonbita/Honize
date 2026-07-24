@@ -1,4 +1,5 @@
 import { Request } from 'express';
+import { ensureDbSchema, getSql, hasDatabase } from '../db/client';
 import { readJsonFile, writeJsonFile } from '../dashboard/cms.storage';
 
 export interface VisitRecord {
@@ -102,12 +103,60 @@ async function resolveCountry(ip: string): Promise<{ country: string; countryCod
   return { country: 'Không xác định', countryCode: '' };
 }
 
-export function getVisits(): VisitRecord[] {
+async function listVisitsDb(): Promise<VisitRecord[]> {
+  await ensureDbSchema();
+  const db = getSql();
+  if (!db) return [];
+  const rows = await db<{
+    id: string;
+    ip: string;
+    country: string;
+    country_code: string;
+    path: string;
+    visited_at: Date;
+  }[]>`
+    SELECT id, ip, country, country_code, path, visited_at
+    FROM visits
+    ORDER BY visited_at DESC
+    LIMIT ${MAX_VISITS}
+  `;
+  return rows.map((r) => ({
+    id: r.id,
+    ip: r.ip,
+    country: r.country,
+    countryCode: r.country_code,
+    path: r.path,
+    visitedAt: r.visited_at.toISOString(),
+  }));
+}
+
+function listVisitsFile(): VisitRecord[] {
   return readJsonFile<VisitRecord[]>(VISITS_FILE, []);
 }
 
-export function clearVisits(): void {
+export async function getVisits(): Promise<VisitRecord[]> {
+  if (hasDatabase()) {
+    try {
+      return await listVisitsDb();
+    } catch (err) {
+      console.error('[visits] Postgres read failed', err);
+    }
+  }
+  return listVisitsFile();
+}
+
+export async function clearVisits(): Promise<void> {
   lastRecordedAt.clear();
+  if (hasDatabase()) {
+    try {
+      await ensureDbSchema();
+      const db = getSql()!;
+      await db`DELETE FROM visits`;
+      return;
+    } catch (err) {
+      console.error('[visits] Postgres clear failed', err);
+    }
+  }
   writeJsonFile(VISITS_FILE, []);
 }
 
@@ -132,28 +181,59 @@ export function recordVisit(req: Request): void {
 
   void (async () => {
     try {
-      const visits = getVisits();
+      const visits = await getVisits();
       const lastAt = getLastVisitTime(ip, visits);
       if (lastAt > 0 && now - lastAt < RECORD_COOLDOWN_MS) return;
 
       lastRecordedAt.set(ip, now);
 
       const geo = await resolveCountry(ip);
-      const next = getVisits();
-      const stillRecent = next.find((v) => v.ip === ip);
-      if (stillRecent) {
-        const stillTs = Date.parse(stillRecent.visitedAt);
-        if (!Number.isNaN(stillTs) && now - stillTs < RECORD_COOLDOWN_MS) return;
-      }
-
-      next.unshift({
+      const record: VisitRecord = {
         id: `${now}-${Math.random().toString(36).slice(2, 8)}`,
         ip,
         country: geo.country,
         countryCode: geo.countryCode,
         path,
         visitedAt: new Date(now).toISOString(),
-      });
+      };
+
+      if (hasDatabase()) {
+        try {
+          await ensureDbSchema();
+          const db = getSql()!;
+          const recent = await db<{ visited_at: Date }[]>`
+            SELECT visited_at FROM visits WHERE ip = ${ip}
+            ORDER BY visited_at DESC LIMIT 1
+          `;
+          if (recent.length) {
+            const stillTs = recent[0].visited_at.getTime();
+            if (now - stillTs < RECORD_COOLDOWN_MS) return;
+          }
+          await db`
+            INSERT INTO visits (id, ip, country, country_code, path, visited_at)
+            VALUES (
+              ${record.id}, ${record.ip}, ${record.country}, ${record.countryCode},
+              ${record.path}, ${new Date(record.visitedAt)}
+            )
+          `;
+          await db`
+            DELETE FROM visits WHERE id IN (
+              SELECT id FROM visits ORDER BY visited_at DESC OFFSET ${MAX_VISITS}
+            )
+          `;
+          return;
+        } catch (err) {
+          console.error('[visits] Postgres write failed, falling back to file', err);
+        }
+      }
+
+      const next = listVisitsFile();
+      const stillRecent = next.find((v) => v.ip === ip);
+      if (stillRecent) {
+        const stillTs = Date.parse(stillRecent.visitedAt);
+        if (!Number.isNaN(stillTs) && now - stillTs < RECORD_COOLDOWN_MS) return;
+      }
+      next.unshift(record);
       writeJsonFile(VISITS_FILE, next.slice(0, MAX_VISITS));
     } catch {
       /* ignore write/geo failures so requests stay fast */

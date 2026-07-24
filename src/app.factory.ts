@@ -6,6 +6,7 @@ import { existsSync } from 'fs';
 import { join } from 'path';
 import { AppModule } from './app.module';
 import { authGate } from './auth/auth.middleware';
+import { ensureDbSchema, hasDatabase } from './db/client';
 import { getDevRevision } from './shared/dev-reload';
 import { loadEnvFile } from './shared/load-env';
 import { mobileImageMiddleware } from './shared/mobile-image.middleware';
@@ -67,6 +68,26 @@ function configureViewEngine(app: NestExpressApplication, root: string): void {
     res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
     res.setHeader('X-XSS-Protection', '0');
     res.setHeader('Accept-CH', 'Sec-CH-UA-Mobile');
+    res.setHeader(
+      'Content-Security-Policy',
+      [
+        "default-src 'self'",
+        "base-uri 'self'",
+        "frame-ancestors 'self'",
+        "form-action 'self'",
+        "img-src 'self' data: blob: https:",
+        "font-src 'self' https://fonts.gstatic.com data:",
+        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net",
+        "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net",
+        "connect-src 'self' https://cdn.jsdelivr.net",
+        "frame-src 'self' https://www.google.com https://maps.google.com",
+        "child-src 'self' blob:",
+        "object-src 'none'",
+      ].join('; '),
+    );
+    if (!devMode) {
+      res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+    }
 
     res.locals.devMode = devMode;
     if (devMode) {
@@ -121,6 +142,11 @@ function configureViewEngine(app: NestExpressApplication, root: string): void {
 /** Local / long-running server entry. */
 export async function createNestApp(): Promise<NestExpressApplication> {
   loadEnvFile(resolveRoot());
+  if (hasDatabase()) {
+    await ensureDbSchema().catch((err) => {
+      console.error('[db] Schema init failed', err);
+    });
+  }
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   configureViewEngine(app, resolveRoot());
   app.enableShutdownHooks();
@@ -134,6 +160,11 @@ export async function getExpressApp(): Promise<Express> {
   if (cachedServer) return cachedServer;
 
   loadEnvFile(resolveRoot());
+  if (hasDatabase()) {
+    await ensureDbSchema().catch((err) => {
+      console.error('[db] Schema init failed', err);
+    });
+  }
   const expressApp = express();
   const app = await NestFactory.create<NestExpressApplication>(
     AppModule,

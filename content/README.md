@@ -10,7 +10,7 @@ content/articles/
   {slug}.md      → nội dung bài viết (Markdown)
 ```
 
-## API
+## API (yêu cầu đăng nhập dashboard)
 
 | Method | Endpoint | Mô tả |
 |--------|----------|-------|
@@ -19,6 +19,8 @@ content/articles/
 | POST | `/api/articles` | Tạo bài (JSON body) |
 | PUT | `/api/articles/:slug` | Cập nhật |
 | DELETE | `/api/articles/:slug` | Xóa vĩnh viễn |
+
+Public chỉ xem qua HTML: `/blog`, `/blog/:slug` — không mở raw JSON.
 
 ## Dashboard
 

@@ -754,8 +754,8 @@ export class ArticlesService {
 
   async uploadImage(file: Express.Multer.File) {
     if (!file) throw new BadRequestException('Không có file được gửi lên');
-    if (!file.mimetype.startsWith('image/')) {
-      throw new BadRequestException('Chỉ chấp nhận file hình ảnh');
+    if (!file.mimetype.startsWith('image/') || /svg/i.test(file.mimetype)) {
+      throw new BadRequestException('Chỉ chấp nhận file hình ảnh JPG, PNG, GIF, WebP');
     }
 
     const dir = getUploadsDir();

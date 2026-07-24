@@ -233,28 +233,28 @@ export class CmsPagesService {
     return readJsonFile<CmsUser[]>('users.json', []);
   }
 
-  getVisits(): VisitRecord[] {
+  getVisits(): Promise<VisitRecord[]> {
     return getVisits();
   }
 
-  clearVisits(): void {
-    clearVisitRecords();
+  clearVisits(): Promise<void> {
+    return clearVisitRecords();
   }
 
-  getContactSubmissions(): ContactSubmission[] {
+  getContactSubmissions(): Promise<ContactSubmission[]> {
     return loadContactSubmissions();
   }
 
-  markContactRead(id: string): boolean {
+  markContactRead(id: string): Promise<boolean> {
     return markContactRecordRead(id);
   }
 
-  deleteContactSubmission(id: string): boolean {
+  deleteContactSubmission(id: string): Promise<boolean> {
     return deleteContactRecord(id);
   }
 
-  clearContactSubmissions(): void {
-    clearContactRecords();
+  clearContactSubmissions(): Promise<void> {
+    return clearContactRecords();
   }
 
   getSettings(): SiteSettings {

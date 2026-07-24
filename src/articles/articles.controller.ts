@@ -58,8 +58,8 @@ export class ArticlesController {
     FileInterceptor('file', {
       limits: { fileSize: 20 * 1024 * 1024 },
       fileFilter: (_req, file, cb) => {
-        const ok = /^image\/(jpeg|png|gif|webp|svg\+xml)$/i.test(file.mimetype);
-        cb(ok ? null : new Error('Chỉ chấp nhận ảnh JPG, PNG, GIF, WebP, SVG'), ok);
+        const ok = /^image\/(jpeg|png|gif|webp)$/i.test(file.mimetype);
+        cb(ok ? null : new Error('Chỉ chấp nhận ảnh JPG, PNG, GIF, WebP'), ok);
       },
     }),
   )

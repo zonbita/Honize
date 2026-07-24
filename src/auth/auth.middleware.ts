@@ -4,6 +4,8 @@ import { readSessionUser } from './auth.store';
 
 const PUBLIC_EXACT = new Set([
   '/dashboard/login',
+  '/dashboard/login/google',
+  '/dashboard/auth/google/callback',
   '/favicon.ico',
   '/robots.txt',
   '/sitemap.xml',
@@ -24,8 +26,8 @@ function requiresAuth(req: Request): boolean {
 
   if (path.startsWith('/dashboard')) return true;
 
+  // All /api/* is private (CMS/dashboard JSON) except public chatbot.
   if (path.startsWith('/api/')) {
-    if (method === 'GET') return false;
     if (path === '/api/chat' && method === 'POST') return false;
     return true;
   }
@@ -33,7 +35,7 @@ function requiresAuth(req: Request): boolean {
   return false;
 }
 
-/** Express middleware — protect dashboard + write APIs. */
+/** Express middleware — protect dashboard + CMS/API (except public chatbot). */
 export function authGate(req: Request, res: Response, next: NextFunction): void {
   const user = readSessionUser(req);
 

@@ -7,13 +7,16 @@ import {
   Post,
   Query,
   Render,
+  Req,
   Res,
 } from '@nestjs/common';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { AppService } from './app.service';
+import { consumeRateLimit } from './db/rate-limit';
 import { saveContactSubmission } from './shared/contact-submissions';
 import { getDevRevision } from './shared/dev-reload';
 import { SERVER_BOOT_ID } from './shared/server-boot';
+import { getClientIp } from './shared/visit-tracker';
 
 @Controller()
 export class AppController {
@@ -83,12 +86,20 @@ export class AppController {
 
   @Get('lien-he')
   @Render('pages/contact')
-  getContact(@Query('sent') sent?: string) {
-    return this.appService.getContactPageData({ success: sent === '1' });
+  getContact(@Query('sent') sent?: string, @Query('error') error?: string) {
+    return this.appService.getContactPageData({
+      success: sent === '1',
+      error: error === 'rate',
+      fieldErrors:
+        error === 'rate'
+          ? { message: 'Bạn gửi quá nhiều form. Vui lòng thử lại sau 1 giờ.' }
+          : undefined,
+    });
   }
 
   @Post('lien-he')
-  postContact(
+  async postContact(
+    @Req() req: Request,
     @Body()
     body: {
       name?: string;
@@ -99,7 +110,13 @@ export class AppController {
     },
     @Res() res: Response,
   ) {
-    const result = saveContactSubmission(body);
+    const ip = getClientIp(req);
+    const allowed = await consumeRateLimit(`contact:${ip}`, 5, 60 * 60_000);
+    if (!allowed) {
+      return res.redirect(303, '/lien-he?error=rate');
+    }
+
+    const result = await saveContactSubmission(body);
     if (!result.ok) {
       return res.status(400).render(
         'pages/contact',

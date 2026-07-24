@@ -1,3 +1,4 @@
+import { ensureDbSchema, getSql, hasDatabase } from '../db/client';
 import { readJsonFile, writeJsonFile } from '../dashboard/cms.storage';
 
 export interface ContactSubmission {
@@ -34,7 +35,38 @@ function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-export function getContactSubmissions(): ContactSubmission[] {
+async function listContactsDb(): Promise<ContactSubmission[]> {
+  await ensureDbSchema();
+  const db = getSql();
+  if (!db) return [];
+  const rows = await db<{
+    id: string;
+    name: string;
+    email: string;
+    phone: string;
+    subject: string;
+    message: string;
+    created_at: Date;
+    read: boolean;
+  }[]>`
+    SELECT id, name, email, phone, subject, message, created_at, read
+    FROM contacts
+    ORDER BY created_at DESC
+    LIMIT ${MAX_CONTACTS}
+  `;
+  return rows.map((r) => ({
+    id: r.id,
+    name: r.name,
+    email: r.email,
+    phone: r.phone,
+    subject: r.subject,
+    message: r.message,
+    createdAt: r.created_at.toISOString(),
+    read: r.read,
+  }));
+}
+
+function listContactsFile(): ContactSubmission[] {
   const stored = readJsonFile<ContactSubmission[]>(CONTACTS_FILE, []);
   if (!Array.isArray(stored)) return [];
   return stored
@@ -42,8 +74,20 @@ export function getContactSubmissions(): ContactSubmission[] {
     .sort((a, b) => String(b.createdAt).localeCompare(String(a.createdAt)));
 }
 
-export function getUnreadContactCount(): number {
-  return getContactSubmissions().filter((item) => !item.read).length;
+export async function getContactSubmissions(): Promise<ContactSubmission[]> {
+  if (hasDatabase()) {
+    try {
+      return await listContactsDb();
+    } catch (err) {
+      console.error('[contacts] Postgres read failed', err);
+    }
+  }
+  return listContactsFile();
+}
+
+export async function getUnreadContactCount(): Promise<number> {
+  const list = await getContactSubmissions();
+  return list.filter((item) => !item.read).length;
 }
 
 export function validateContactForm(input: ContactFormInput): {
@@ -89,11 +133,11 @@ export function validateContactForm(input: ContactFormInput): {
   };
 }
 
-export function saveContactSubmission(input: ContactFormInput): {
+export async function saveContactSubmission(input: ContactFormInput): Promise<{
   ok: boolean;
   errors: ContactFieldErrors;
   item?: ContactSubmission;
-} {
+}> {
   const validated = validateContactForm(input);
   if (!validated.ok || !validated.data) {
     return { ok: false, errors: validated.errors };
@@ -106,14 +150,46 @@ export function saveContactSubmission(input: ContactFormInput): {
     read: false,
   };
 
-  const list = getContactSubmissions();
+  if (hasDatabase()) {
+    try {
+      await ensureDbSchema();
+      const db = getSql()!;
+      await db`
+        INSERT INTO contacts (id, name, email, phone, subject, message, created_at, read)
+        VALUES (
+          ${item.id}, ${item.name}, ${item.email}, ${item.phone},
+          ${item.subject}, ${item.message}, ${new Date(item.createdAt)}, ${item.read}
+        )
+      `;
+      await db`
+        DELETE FROM contacts WHERE id IN (
+          SELECT id FROM contacts ORDER BY created_at DESC OFFSET ${MAX_CONTACTS}
+        )
+      `;
+      return { ok: true, errors: {}, item };
+    } catch (err) {
+      console.error('[contacts] Postgres write failed, falling back to file', err);
+    }
+  }
+
+  const list = listContactsFile();
   list.unshift(item);
   writeJsonFile(CONTACTS_FILE, list.slice(0, MAX_CONTACTS));
   return { ok: true, errors: {}, item };
 }
 
-export function markContactRead(id: string): boolean {
-  const list = getContactSubmissions();
+export async function markContactRead(id: string): Promise<boolean> {
+  if (hasDatabase()) {
+    try {
+      await ensureDbSchema();
+      const db = getSql()!;
+      const rows = await db`UPDATE contacts SET read = TRUE WHERE id = ${id} RETURNING id`;
+      return rows.length > 0;
+    } catch (err) {
+      console.error('[contacts] Postgres update failed', err);
+    }
+  }
+  const list = listContactsFile();
   const idx = list.findIndex((item) => item.id === id);
   if (idx < 0) return false;
   list[idx] = { ...list[idx], read: true };
@@ -121,14 +197,34 @@ export function markContactRead(id: string): boolean {
   return true;
 }
 
-export function deleteContactSubmission(id: string): boolean {
-  const list = getContactSubmissions();
+export async function deleteContactSubmission(id: string): Promise<boolean> {
+  if (hasDatabase()) {
+    try {
+      await ensureDbSchema();
+      const db = getSql()!;
+      const rows = await db`DELETE FROM contacts WHERE id = ${id} RETURNING id`;
+      return rows.length > 0;
+    } catch (err) {
+      console.error('[contacts] Postgres delete failed', err);
+    }
+  }
+  const list = listContactsFile();
   const next = list.filter((item) => item.id !== id);
   if (next.length === list.length) return false;
   writeJsonFile(CONTACTS_FILE, next);
   return true;
 }
 
-export function clearContactSubmissions(): void {
+export async function clearContactSubmissions(): Promise<void> {
+  if (hasDatabase()) {
+    try {
+      await ensureDbSchema();
+      const db = getSql()!;
+      await db`DELETE FROM contacts`;
+      return;
+    } catch (err) {
+      console.error('[contacts] Postgres clear failed', err);
+    }
+  }
   writeJsonFile(CONTACTS_FILE, []);
 }

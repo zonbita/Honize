@@ -1,4 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
+import { consumeRateLimit } from '../db/rate-limit';
 import {
   buildFaqPromptBlock,
   getFaqDefaultAnswer,
@@ -18,7 +19,6 @@ type AiProvider = 'gemini' | 'openai' | 'fallback';
 @Injectable()
 export class ChatService {
   private readonly logger = new Logger(ChatService.name);
-  private readonly rateLimit = new Map<string, { count: number; resetAt: number }>();
 
   async reply(input: {
     message: string;
@@ -33,7 +33,10 @@ export class ChatService {
       throw new Error('Câu hỏi tối đa 500 ký tự.');
     }
 
-    this.assertRateLimit(input.ip || 'unknown');
+    const allowed = await consumeRateLimit(`chat:${input.ip || 'unknown'}`, 12, 60_000);
+    if (!allowed) {
+      throw new Error('Bạn gửi quá nhiều tin nhắn. Vui lòng đợi khoảng 1 phút rồi thử lại.');
+    }
 
     // 1) FAQ first — strong keyword match wins over AI (skip weak noise)
     const faqHit = matchFaq(message, 8);
@@ -266,22 +269,5 @@ export class ChatService {
         content: String(item.content).trim().slice(0, 500),
       }))
       .slice(-8);
-  }
-
-  private assertRateLimit(ip: string): void {
-    const now = Date.now();
-    const windowMs = 60_000;
-    const max = 12;
-    const entry = this.rateLimit.get(ip);
-
-    if (!entry || entry.resetAt <= now) {
-      this.rateLimit.set(ip, { count: 1, resetAt: now + windowMs });
-      return;
-    }
-
-    entry.count += 1;
-    if (entry.count > max) {
-      throw new Error('Bạn gửi quá nhiều tin nhắn. Vui lòng đợi khoảng 1 phút rồi thử lại.');
-    }
   }
 }
