@@ -1,5 +1,5 @@
 export function getSiteUrl(): string {
-  const url = process.env.SITE_URL ?? 'http://localhost:4000';
+  const url = (process.env.SITE_URL ?? 'http://localhost:4000').trim();
   return url.replace(/\/$/, '');
 }
 

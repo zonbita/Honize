@@ -31,6 +31,7 @@ import {
   isEmailAllowedAdmin,
   isGoogleAuthConfigured,
   parseOAuthState,
+  resolveGoogleCallbackUrl,
 } from './google-oauth';
 
 @Controller('dashboard')
@@ -65,6 +66,7 @@ export class AuthController {
 
     const googleEnabled = isGoogleAuthConfigured();
     const nextPath = this.safeNext(next);
+    const googleCallbackUrl = resolveGoogleCallbackUrl(req);
 
     return {
       layout: false,
@@ -72,9 +74,8 @@ export class AuthController {
       next: nextPath,
       error: errorMsg,
       googleEnabled,
-      googleLoginUrl: googleEnabled
-        ? `/dashboard/login/google?next=${encodeURIComponent(nextPath)}`
-        : null,
+      googleLoginUrl: `/dashboard/login/google?next=${encodeURIComponent(nextPath)}`,
+      googleCallbackUrl,
       passwordEnabled: passwordLoginEnabled(),
       allowedEmail: getAllowedAdminEmail() || null,
       defaultEmail:
@@ -102,8 +103,10 @@ export class AuthController {
     }
 
     try {
-      const state = createOAuthState(this.safeNext(next));
-      return res.redirect(buildGoogleAuthUrl(state));
+      const redirectUri = resolveGoogleCallbackUrl(req);
+      console.log('[auth] Google OAuth redirect_uri=', redirectUri);
+      const state = createOAuthState(this.safeNext(next), redirectUri);
+      return res.redirect(buildGoogleAuthUrl(state, redirectUri));
     } catch {
       return res.redirect('/dashboard/login?error=google');
     }
@@ -133,7 +136,7 @@ export class AuthController {
     }
 
     try {
-      const profile = await exchangeGoogleCode(code);
+      const profile = await exchangeGoogleCode(code, parsed.redirectUri);
       if (!isEmailAllowedAdmin(profile.email)) {
         return res.redirect('/dashboard/login?error=denied');
       }

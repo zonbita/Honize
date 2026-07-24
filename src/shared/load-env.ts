@@ -1,7 +1,9 @@
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 
-/** Load KEY=VALUE pairs from project .env into process.env (does not override existing). */
+/** Load KEY=VALUE pairs from project .env into process.env.
+ *  Does not override non-empty existing env; empty placeholders are filled from .env.
+ */
 export function loadEnvFile(root = process.cwd()): void {
   const envPath = join(root, '.env');
   if (!existsSync(envPath)) return;
@@ -20,7 +22,9 @@ export function loadEnvFile(root = process.cwd()): void {
     ) {
       value = value.slice(1, -1);
     }
-    if (!key || process.env[key] !== undefined) continue;
+    if (!key) continue;
+    const existing = process.env[key];
+    if (existing !== undefined && existing.trim() !== '') continue;
     process.env[key] = value;
   }
 }

@@ -1,4 +1,5 @@
 import { createHmac, randomBytes, timingSafeEqual } from 'crypto';
+import { Request } from 'express';
 import { getSiteUrl } from '../shared/site-url';
 
 const GOOGLE_AUTH = 'https://accounts.google.com/o/oauth2/v2/auth';
@@ -15,7 +16,23 @@ export function getAllowedAdminEmail(): string {
   return (process.env.ADMIN_EMAIL || '').trim().toLowerCase();
 }
 
-export function getGoogleCallbackUrl(): string {
+/** Prefer live request host so local/prod redirect_uri always matches the browser URL. */
+export function resolveGoogleCallbackUrl(req?: Request): string {
+  if (req) {
+    const xfProto = req.headers['x-forwarded-proto'];
+    const proto =
+      (typeof xfProto === 'string' ? xfProto.split(',')[0].trim() : '') ||
+      req.protocol ||
+      'http';
+    const xfHost = req.headers['x-forwarded-host'];
+    const host =
+      (typeof xfHost === 'string' ? xfHost.split(',')[0].trim() : '') ||
+      req.get('host') ||
+      '';
+    if (host) {
+      return `${proto}://${host}/dashboard/auth/google/callback`;
+    }
+  }
   return `${getSiteUrl()}/dashboard/auth/google/callback`;
 }
 
@@ -27,17 +44,24 @@ function stateSecret(): string {
   return secret;
 }
 
-export function createOAuthState(nextPath: string): string {
+export function createOAuthState(nextPath: string, redirectUri: string): string {
   const nonce = randomBytes(16).toString('hex');
   const payload = Buffer.from(
-    JSON.stringify({ next: nextPath, nonce, exp: Date.now() + 10 * 60_000 }),
+    JSON.stringify({
+      next: nextPath,
+      redirectUri,
+      nonce,
+      exp: Date.now() + 10 * 60_000,
+    }),
     'utf-8',
   ).toString('base64url');
   const sig = createHmac('sha256', stateSecret()).update(payload).digest('base64url');
   return `${payload}.${sig}`;
 }
 
-export function parseOAuthState(state: string | undefined): { next: string } | null {
+export function parseOAuthState(
+  state: string | undefined,
+): { next: string; redirectUri: string } | null {
   if (!state) return null;
   const [payload, sig] = state.split('.');
   if (!payload || !sig) return null;
@@ -48,24 +72,26 @@ export function parseOAuthState(state: string | undefined): { next: string } | n
   try {
     const data = JSON.parse(Buffer.from(payload, 'base64url').toString('utf-8')) as {
       next?: string;
+      redirectUri?: string;
       exp?: number;
     };
     if (!data.exp || Date.now() > data.exp) return null;
+    if (!data.redirectUri || !/^https?:\/\//i.test(data.redirectUri)) return null;
     const next =
       data.next && data.next.startsWith('/') && !data.next.startsWith('//')
         ? data.next
         : '/dashboard';
-    return { next };
+    return { next, redirectUri: data.redirectUri };
   } catch {
     return null;
   }
 }
 
-export function buildGoogleAuthUrl(state: string): string {
+export function buildGoogleAuthUrl(state: string, redirectUri: string): string {
   const clientId = process.env.GOOGLE_CLIENT_ID!.trim();
   const params = new URLSearchParams({
     client_id: clientId,
-    redirect_uri: getGoogleCallbackUrl(),
+    redirect_uri: redirectUri,
     response_type: 'code',
     scope: 'openid email profile',
     access_type: 'online',
@@ -75,7 +101,10 @@ export function buildGoogleAuthUrl(state: string): string {
   return `${GOOGLE_AUTH}?${params.toString()}`;
 }
 
-export async function exchangeGoogleCode(code: string): Promise<{
+export async function exchangeGoogleCode(
+  code: string,
+  redirectUri: string,
+): Promise<{
   email: string;
   name: string;
   picture?: string;
@@ -90,7 +119,7 @@ export async function exchangeGoogleCode(code: string): Promise<{
       code,
       client_id: clientId,
       client_secret: clientSecret,
-      redirect_uri: getGoogleCallbackUrl(),
+      redirect_uri: redirectUri,
       grant_type: 'authorization_code',
     }),
   });
